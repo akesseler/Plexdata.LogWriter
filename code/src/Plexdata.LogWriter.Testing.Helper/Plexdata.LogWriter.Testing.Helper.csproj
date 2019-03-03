@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{1685683D-3B89-4CA1-9D1E-ACF0714A16F5}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Plexdata.LogWriter.Testing.Helper</RootNamespace>
+    <AssemblyName>Plexdata.LogWriter.Testing.Helper</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj">
+      <Project>{f3575f5c-dfba-4720-8989-cf3449149b07}</Project>
+      <Name>Plexdata.LogWriter.Abstraction</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plexdata.LogWriter.Console.Standard\Plexdata.LogWriter.Console.Standard.csproj">
+      <Project>{e65e330f-f2a0-4142-a168-32b071e92799}</Project>
+      <Name>Plexdata.LogWriter.Console.Standard</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plexdata.LogWriter.Console.Windows\Plexdata.LogWriter.Console.Windows.csproj">
+      <Project>{9d40c27a-0e26-4db8-ab49-7e45d0def69a}</Project>
+      <Name>Plexdata.LogWriter.Console.Windows</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plexdata.LogWriter.Console\Plexdata.LogWriter.Console.csproj">
+      <Project>{e21853f7-2e58-465a-b235-eab4b762f584}</Project>
+      <Name>Plexdata.LogWriter.Console</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <OutputPath>bin\Release</OutputPath>
+    <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Console.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <DocumentationFile>bin\Debug\netstandard2.0\Plexdata.LogWriter.Console.xml</DocumentationFile>
+    <OutputPath>bin\Debug</OutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />
+  </ItemGroup>
+
+</Project>
