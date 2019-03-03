@@ -20,7 +20,7 @@ using Plexdata.LogWriter.Logging.Console.Standard;
 using Plexdata.LogWriter.Settings.Console;
 using System;
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Examples
 {
     class Program
     {
@@ -76,7 +76,7 @@ using Plexdata.LogWriter.Logging.Console.Windows;
 using Plexdata.LogWriter.Settings.Console;
 using System;
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Examples
 {
     class Program
     {

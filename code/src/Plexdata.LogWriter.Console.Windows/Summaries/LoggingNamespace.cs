@@ -44,7 +44,7 @@ namespace Plexdata.LogWriter.Logging.Console.Windows
     /// using Plexdata.LogWriter.Settings.Console;
     /// using System;
     /// 
-    /// namespace Plexdata.LogWriter.Testing.Helper
+    /// namespace Plexdata.LogWriter.Examples
     /// {
     ///     class Program
     ///     {

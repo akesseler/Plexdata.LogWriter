@@ -50,7 +50,7 @@ namespace Plexdata.LogWriter.Testing.Helper
  * using Plexdata.LogWriter.Settings.Console;
  * using System;
  * 
- * namespace Plexdata.LogWriter.Testing.Helper
+ * namespace Plexdata.LogWriter.Examples
  * {
  *     class Program
  *     {
@@ -103,7 +103,7 @@ namespace Plexdata.LogWriter.Testing.Helper
  * using Plexdata.LogWriter.Settings.Console;
  * using System;
  * 
- * namespace Plexdata.LogWriter.Testing.Helper
+ * namespace Plexdata.LogWriter.Examples
  * {
  *     class Program
  *     {
