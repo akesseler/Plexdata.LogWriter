@@ -27,7 +27,7 @@ namespace Plexdata.LogWriter.Internals.Console.Windows.Native
     /// <summary>
     /// The <see cref="Plexdata.LogWriter.Internals.Console.Windows.Native"/> 
     /// namespace contains all supported implementations of any kind of native 
-    /// access for the <i>Plexdata Console Logging Writers</i>.
+    /// access for the <i>Plexdata Console Logging Writer</i> for Windows platforms.
     /// </summary>
     /// <remarks>
     /// This namespace includes for example the native accessor for the Windows 

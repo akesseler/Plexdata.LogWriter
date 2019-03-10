@@ -49,7 +49,7 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
         /// </summary>
         /// <remarks>
         /// This constructor just calls the extended constructor providing 
-        /// the default console logger facade for .NET Standard as parameter.
+        /// the default console logger facade as parameter.
         /// </remarks>
         /// <param name="settings">
         /// The settings to be used.

@@ -3,6 +3,21 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>plexdata.de</Authors>
+    <Company>plexdata.de</Company>
+    <Copyright>Copyright © 2019 - plexdata.de</Copyright>
+    <PackageLicenseUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
+    <Description>Plexdata.LogWriter.Abstraction defines all basic interfaces as well as other implementations of the Plexdata Logging Writer.
+
+This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
+    <PackageTags>logging logger log trace debug raw structured abstraction</PackageTags>
+    <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -15,6 +30,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Abstraction.xml</DocumentationFile>
     <OutputPath>bin\Release</OutputPath>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
 </Project>

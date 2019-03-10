@@ -27,7 +27,8 @@ namespace Plexdata.LogWriter.Definitions.Console
     /// <summary>
     /// The <see cref="Plexdata.LogWriter.Definitions.Console"/> namespace 
     /// contains all globally used data type definitions to be able to use 
-    /// the <i>Plexdata Console Logging Writers</i>.
+    /// the <i>Plexdata Console Logging Writers</i>, platform dependent as 
+    /// well as platform independent.
     /// </summary>
     /// <remarks>
     /// Such globally used data type definitions are for example the supported 

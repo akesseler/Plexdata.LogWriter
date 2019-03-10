@@ -2,11 +2,26 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>plexdata.de</Authors>
+    <Company>plexdata.de</Company>
+    <Description>Plexdata.LogWriter.Console defines all ILogger derived interfaces for console logging of the Plexdata Logging Writer.
+
+This package includes classes that are shared between all available implementations of any of the console logger interfaces.</Description>
+    <Copyright>Copyright © 2019 - plexdata.de</Copyright>
+    <PackageLicenseUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
+    <PackageTags>logging logger log trace debug raw structured console</PackageTags>
+    <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>bin\Release</OutputPath>
     <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Console.xml</DocumentationFile>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

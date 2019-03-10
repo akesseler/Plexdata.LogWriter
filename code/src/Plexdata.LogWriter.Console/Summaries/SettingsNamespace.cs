@@ -30,7 +30,8 @@ namespace Plexdata.LogWriter.Settings.Console
     /// </summary>
     /// <remarks>
     /// The console logger settings classes provide information that are essential 
-    /// for each of the supported <i>Plexdata Console Logging Writers</i>.
+    /// for each of the supported <i>Plexdata Console Logging Writers</i>, platform 
+    /// dependent as well as platform independent.
     /// </remarks>
     [System.Runtime.CompilerServices.CompilerGenerated]
     class NamespaceDoc { }

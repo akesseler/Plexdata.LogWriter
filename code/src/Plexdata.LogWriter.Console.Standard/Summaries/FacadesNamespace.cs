@@ -26,7 +26,8 @@ namespace Plexdata.LogWriter.Facades.Console.Standard
 {
     /// <summary>
     /// The <see cref="Plexdata.LogWriter.Facades.Console.Standard"/> namespace contains all 
-    /// supported implementations of facades of the <i>Plexdata Console Logging Writers</i>.
+    /// supported implementations of facades of the <i>Plexdata Console Logging Writer</i> 
+    /// for any platform.
     /// </summary>
     /// <remarks>
     /// This namespace includes for example the facade <see cref="ConsoleLoggerFacade"/>.

@@ -26,7 +26,8 @@ namespace Plexdata.LogWriter.Logging.Console.Windows
 {
     /// <summary>
     /// The <see cref="Plexdata.LogWriter.Logging.Console.Windows"/> namespace contains 
-    /// all classes that represent the <i>Plexdata Console Logging Writers</i>.
+    /// all classes that represent the <i>Plexdata Console Logging Writer</i> for Windows 
+    /// platforms.
     /// </summary>
     /// <remarks>
     /// This namespace includes for example the classes <see cref="ConsoleLogger"/> 

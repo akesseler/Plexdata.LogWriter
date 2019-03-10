@@ -31,7 +31,7 @@ namespace Plexdata.LogWriter.Logging.Console.Windows
 {
     /// <summary>
     /// This class represents the standard console logger 
-    /// implementation for .NET Framework.
+    /// implementation for Windows applications.
     /// </summary>
     /// <remarks>
     /// This class writes logging messages onto an assigned 
@@ -46,7 +46,7 @@ namespace Plexdata.LogWriter.Logging.Console.Windows
         /// </summary>
         /// <remarks>
         /// This constructor just calls the extended constructor providing 
-        /// the default console logger facade for .NET Framework as parameter.
+        /// the default console logger facade as parameter.
         /// </remarks>
         /// <param name="settings">
         /// The settings to be used.

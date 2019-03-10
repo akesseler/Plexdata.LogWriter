@@ -26,7 +26,8 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
 {
     /// <summary>
     /// The <see cref="Plexdata.LogWriter.Logging.Console.Standard"/> namespace contains 
-    /// all classes that represent the <i>Plexdata Console Logging Writers</i>.
+    /// all classes that represent the <i>Plexdata Console Logging Writers</i> for any 
+    /// platform.
     /// </summary>
     /// <remarks>
     /// This namespace includes for example the classes <see cref="ConsoleLogger"/> 
