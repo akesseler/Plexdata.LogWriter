@@ -25,6 +25,7 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace Plexdata.LogWriter.Settings
@@ -38,6 +39,23 @@ namespace Plexdata.LogWriter.Settings
     /// </remarks>
     public abstract class LoggerSettings : ILoggerSettings
     {
+        // TODO: Review and/or complete documentation.
+
+        #region Private fields
+
+        private LogLevel logLevel;
+        private LogType logType;
+        private LogTime logTime;
+        private Boolean showTime;
+        private String timeFormat;
+        private Char partSplit;
+        private Boolean fullName;
+        private CultureInfo culture;
+
+        #endregion
+
+        #region Public fields
+
         /// <summary>
         /// The field defines the default time stamp format.
         /// </summary>
@@ -47,6 +65,10 @@ namespace Plexdata.LogWriter.Settings
         /// is recognized as invalid.
         /// </remarks>
         public static readonly String DefaultTimeFormat = "yyyy-MM-dd HH:mm:ss.ffff";
+
+        #endregion
+
+        #region Construction
 
         /// <summary>
         /// The static constructor.
@@ -71,38 +93,177 @@ namespace Plexdata.LogWriter.Settings
         protected LoggerSettings()
             : base()
         {
-            this.LogLevel = LogLevel.Default;
-            this.LogType = LogType.Default;
-            this.LogTime = LogTime.Default;
-            this.ShowTime = true;
-            this.TimeFormat = LoggerSettings.DefaultTimeFormat;
-            this.PartSplit = ';';
-            this.FullName = true;
-            this.Culture = new CultureInfo("en-US");
+            this.logLevel = LogLevel.Default;
+            this.logType = LogType.Default;
+            this.logTime = LogTime.Default;
+            this.showTime = true;
+            this.timeFormat = LoggerSettings.DefaultTimeFormat;
+            this.partSplit = ';';
+            this.fullName = true;
+            this.culture = new CultureInfo("en-US");
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <inheritdoc />
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Public properties
+
+        /// <inheritdoc />
+        public LogLevel LogLevel
+        {
+            get
+            {
+                return this.logLevel;
+            }
+            set
+            {
+                if (this.logLevel != value)
+                {
+                    this.logLevel = value;
+                    this.RaisePropertyChanged(nameof(this.LogLevel));
+                }
+            }
         }
 
         /// <inheritdoc />
-        public LogLevel LogLevel { get; set; }
+        public LogType LogType
+        {
+            get
+            {
+                return this.logType;
+            }
+            set
+            {
+                if (this.logType != value)
+                {
+                    this.logType = value;
+                    this.RaisePropertyChanged(nameof(this.LogType));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public LogType LogType { get; set; }
+        public LogTime LogTime
+        {
+            get
+            {
+                return this.logTime;
+            }
+            set
+            {
+                if (this.logTime != value)
+                {
+                    this.logTime = value;
+                    this.RaisePropertyChanged(nameof(this.LogTime));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public LogTime LogTime { get; set; }
+        public Boolean ShowTime
+        {
+            get
+            {
+                return this.showTime;
+            }
+            set
+            {
+                if (this.showTime != value)
+                {
+                    this.showTime = value;
+                    this.RaisePropertyChanged(nameof(this.ShowTime));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Boolean ShowTime { get; set; }
+        public String TimeFormat
+        {
+            get
+            {
+                return this.timeFormat;
+            }
+            set
+            {
+                if (this.timeFormat != value)
+                {
+                    this.timeFormat = value;
+                    this.RaisePropertyChanged(nameof(this.TimeFormat));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public String TimeFormat { get; set; }
+        public Char PartSplit
+        {
+            get
+            {
+                return this.partSplit;
+            }
+            set
+            {
+                if (this.partSplit != value)
+                {
+                    this.partSplit = value;
+                    this.RaisePropertyChanged(nameof(this.PartSplit));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Char PartSplit { get; set; }
+        public Boolean FullName
+        {
+            get
+            {
+                return this.fullName;
+            }
+            set
+            {
+                if (this.fullName != value)
+                {
+                    this.fullName = value;
+                    this.RaisePropertyChanged(nameof(this.FullName));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Boolean FullName { get; set; }
+        public CultureInfo Culture
+        {
+            get
+            {
+                return this.culture;
+            }
+            set
+            {
+                if (this.culture != value)
+                {
+                    this.culture = value;
+                    this.RaisePropertyChanged(nameof(this.Culture));
+                }
+            }
+        }
 
-        /// <inheritdoc />
-        public CultureInfo Culture { get; set; }
+        #endregion
+
+        #region Protected methods
+
+        protected void RaisePropertyChanged(String property)
+        {
+            if (String.IsNullOrWhiteSpace(property))
+            {
+                throw new ArgumentOutOfRangeException(nameof(property));
+            }
+
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion
     }
 }

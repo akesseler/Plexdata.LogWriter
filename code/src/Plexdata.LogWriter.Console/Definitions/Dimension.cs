@@ -37,6 +37,8 @@ namespace Plexdata.LogWriter.Definitions.Console
     /// </remarks>
     public class Dimension
     {
+        // TODO: Review and/or complete documentation.
+
         #region Construction
 
         /// <summary>
@@ -132,9 +134,59 @@ namespace Plexdata.LogWriter.Definitions.Console
         /// <remarks>
         /// This method has been overwritten by this class.
         /// </remarks>
+        public override Boolean Equals(Object other)
+        {
+            if (Object.ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.GetType() == other.GetType() && this.GetHashCode() == (other as Dimension).GetHashCode();
+        }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// This method has been overwritten by this class.
+        /// </remarks>
+        public override Int32 GetHashCode()
+        {
+            unchecked
+            {
+                return (this.Lines.GetHashCode() * 521) ^ this.Width.GetHashCode();
+            }
+        }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// This method has been overwritten by this class.
+        /// </remarks>
         public override String ToString()
         {
             return $"{nameof(this.IsValid)}={this.IsValid}, {nameof(this.Width)}={this.Width}, {nameof(this.Lines)}={this.Lines}";
+        }
+
+        #endregion
+
+        #region Operator section
+
+        public static Boolean operator ==(Dimension x, Dimension y)
+        {
+            if (x != null && y != null)
+            {
+                return x.GetHashCode() == y.GetHashCode();
+            }
+
+            return x == null && y == null;
+        }
+
+        public static bool operator !=(Dimension x, Dimension y)
+        {
+            return !(x == y);
         }
 
         #endregion

@@ -36,8 +36,10 @@ namespace Plexdata.LogWriter.Logging
     /// This abstract base class provides all functionalities 
     /// to be shared with all other logger classes.
     /// </remarks>
-    public abstract class LoggerBase
+    public abstract class LoggerBase<TSettings> where TSettings : ILoggerSettings
     {
+        // TODO: Review and/or complete documentation.
+
         #region Construction
 
         /// <summary>
@@ -47,9 +49,12 @@ namespace Plexdata.LogWriter.Logging
         /// This constructor initializes the new instance using default logging 
         /// factory.
         /// </remarks>
-        /// <seealso cref="LoggerBase(ILoggerFactory)"/>
-        protected LoggerBase()
-            : this(new LoggerFactory())
+        /// <param name="settings">
+        /// The settings instance to be applied.
+        /// </param>
+        /// <seealso cref="LoggerBase(TSettings, ILoggerFactory)"/>
+        protected LoggerBase(TSettings settings)
+            : this(settings, new LoggerFactory())
         {
         }
 
@@ -60,17 +65,25 @@ namespace Plexdata.LogWriter.Logging
         /// This constructor initializes the new instance using provided logging 
         /// factory.
         /// </remarks>
+        /// <param name="settings">
+        /// The settings instance to be applied.
+        /// </param>
         /// <param name="factory">
         /// The logging factory instance to be used.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// This exception is thrown if parameter <paramref name="factory"/> is 
-        /// <c>null</c>.
+        /// This exception is thrown if parameter <paramref name="settings"/> 
+        /// or if parameter <paramref name="factory"/> is <c>null</c>.
         /// </exception>
-        /// <seealso cref="LoggerBase()"/>
-        protected LoggerBase(ILoggerFactory factory)
+        /// <seealso cref="LoggerBase(TSettings)"/>
+        protected LoggerBase(TSettings settings, ILoggerFactory factory)
             : base()
         {
+            // Operator ?? cannot be used together with "throw"
+            if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
+
+            this.Settings = settings;
+
             this.LoggerFactory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
@@ -85,6 +98,19 @@ namespace Plexdata.LogWriter.Logging
         }
 
         #endregion
+
+        /// <summary>
+        /// The instance of applied logger settings.
+        /// </summary>
+        /// <remarks>
+        /// The applied logger settings are shared between this class 
+        /// and derived classes.
+        /// </remarks>
+        /// <value>
+        /// An instance of type <typeparamref name="TSettings"/> which 
+        /// must be of type <see cref="ILoggerSettings"/>.
+        /// </value>
+        protected TSettings Settings { get; private set; }
 
         #region Protected properties
 

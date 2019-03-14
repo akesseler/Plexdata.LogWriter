@@ -40,6 +40,19 @@ namespace Plexdata.LogWriter.Settings.Console
     /// </remarks>
     public class ConsoleLoggerSettings : LoggerSettings, IConsoleLoggerSettings
     {
+        // TODO: Review and/or complete documentation.
+
+        #region Private fields
+
+        private Boolean useColors;
+        private String windowTitle;
+        private Boolean quickEdit;
+        private Dimension bufferSize;
+
+        #endregion
+
+        #region Construction
+
         /// <summary>
         /// The default class constructor.
         /// </summary>
@@ -50,10 +63,10 @@ namespace Plexdata.LogWriter.Settings.Console
         public ConsoleLoggerSettings()
             : base()
         {
-            this.UseColors = true;
-            this.WindowTitle = String.Empty;
-            this.QuickEdit = false;
-            this.BufferSize = new Dimension();
+            this.useColors = true;
+            this.windowTitle = String.Empty;
+            this.quickEdit = false;
+            this.bufferSize = new Dimension();
             this.Coloring = new Dictionary<LogLevel, Coloring> {
                 { LogLevel.Trace, new Coloring(ConsoleColor.Gray, ConsoleColor.Black) },
                 { LogLevel.Debug, new Coloring(ConsoleColor.Gray, ConsoleColor.Black) },
@@ -66,19 +79,92 @@ namespace Plexdata.LogWriter.Settings.Console
             };
         }
 
-        /// <inheritdoc />
-        public Boolean UseColors { get; set; }
+        #endregion
+
+        #region Public properties
 
         /// <inheritdoc />
-        public String WindowTitle { get; set; }
+        public Boolean UseColors
+        {
+            get
+            {
+                return this.useColors;
+            }
+            set
+            {
+                if (this.useColors != value)
+                {
+                    this.useColors = value;
+                    base.RaisePropertyChanged(nameof(this.UseColors));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Boolean QuickEdit { get; set; }
+        public String WindowTitle
+        {
+            get
+            {
+                return this.windowTitle;
+            }
+            set
+            {
+                if (this.windowTitle != value)
+                {
+                    this.windowTitle = value;
+                    base.RaisePropertyChanged(nameof(this.WindowTitle));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Dimension BufferSize { get; set; }
+        public Boolean QuickEdit
+        {
+            get
+            {
+                return this.quickEdit;
+            }
+            set
+            {
+                if (this.quickEdit != value)
+                {
+                    this.quickEdit = value;
+                    base.RaisePropertyChanged(nameof(this.QuickEdit));
+                }
+            }
+        }
 
         /// <inheritdoc />
+        public Dimension BufferSize
+        {
+            get
+            {
+                return this.bufferSize;
+            }
+            set
+            {
+                if (this.bufferSize != value)
+                {
+                    this.bufferSize = value;
+                    base.RaisePropertyChanged(nameof(this.BufferSize));
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// <para>
+        /// The coloring list is actually a dictionary with the logging level as 
+        /// key. Each logging level is assigned to a particular color setup for 
+        /// the foreground and the background.
+        /// </para>
+        /// <para>
+        /// Be aware, this property does not raise any property change event in 
+        /// case of something has changed!
+        /// </para>
+        /// </remarks>
         public IDictionary<LogLevel, Coloring> Coloring { get; private set; }
+
+        #endregion
     }
 }

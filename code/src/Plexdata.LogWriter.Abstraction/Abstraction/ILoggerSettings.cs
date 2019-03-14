@@ -24,6 +24,7 @@
 
 using Plexdata.LogWriter.Definitions;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace Plexdata.LogWriter.Abstraction
@@ -35,7 +36,7 @@ namespace Plexdata.LogWriter.Abstraction
     /// The logger settings interface provides information that are essential 
     /// for each of the supported <i>Plexdata Logging Writers</i>.
     /// </remarks>
-    public interface ILoggerSettings
+    public interface ILoggerSettings : INotifyPropertyChanged
     {
         /// <summary>
         /// Gets and sets the logging level to be used.

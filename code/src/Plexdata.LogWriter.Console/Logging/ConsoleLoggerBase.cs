@@ -36,18 +36,11 @@ namespace Plexdata.LogWriter.Logging.Console
     /// <remarks>
     /// Task of this base is to share global functionality between derived classes.
     /// </remarks>
-    public abstract class ConsoleLoggerBase : LoggerBase, IDisposable
+    public abstract class ConsoleLoggerBase : LoggerBase<IConsoleLoggerSettings>, IDisposable
     {
-        #region Private fields
+        // TODO: Review and/or complete documentation.
 
-        /// <summary>
-        /// The instance of console logger settings.
-        /// </summary>
-        /// <remarks>
-        /// The console logger settings are shared between this class 
-        /// and derived classes.
-        /// </remarks>
-        private readonly IConsoleLoggerSettings settings = null;
+        #region Private fields
 
         /// <summary>
         /// The instance of console logger facade.
@@ -80,17 +73,16 @@ namespace Plexdata.LogWriter.Logging.Console
         /// or the <paramref name="facade"/> is <c>null</c>.
         /// </exception>
         protected ConsoleLoggerBase(IConsoleLoggerSettings settings, IConsoleLoggerFacade facade)
-            : base()
+            : base(settings)
         {
-            this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
             this.facade = facade ?? throw new ArgumentNullException(nameof(facade));
 
             this.IsDisposed = false;
 
             this.facade.Attach();
-            this.facade.WindowTitle = this.settings.WindowTitle;
-            this.facade.QuickEdit = this.settings.QuickEdit;
-            this.facade.BufferSize = this.settings.BufferSize;
+            this.facade.WindowTitle = base.Settings.WindowTitle;
+            this.facade.QuickEdit = base.Settings.QuickEdit;
+            this.facade.BufferSize = base.Settings.BufferSize;
         }
 
         /// <summary>
@@ -179,7 +171,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </returns>
         protected Boolean CheckDisabled()
         {
-            return this.settings.LogLevel == LogLevel.Disabled;
+            return base.Settings.LogLevel == LogLevel.Disabled;
         }
 
         /// <summary>
@@ -200,7 +192,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </returns>
         protected Boolean CheckEnabled(LogLevel level)
         {
-            return (Int32)level >= (Int32)this.settings.LogLevel;
+            return (Int32)level >= (Int32)base.Settings.LogLevel;
         }
 
         /// <summary>
@@ -208,7 +200,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </summary>
         /// <remarks>
         /// Resolving the message context is done by method 
-        /// <see cref="LoggerBase.ResolveContext{TContext}(ILoggerSettings)"/> 
+        /// <see cref="LoggerBase{TSettings}.ResolveContext{TContext}(ILoggerSettings)"/> 
         /// of the base class.
         /// </remarks>
         /// <typeparam name="TContext">
@@ -219,7 +211,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </returns>
         protected String ResolveContext<TContext>()
         {
-            return base.ResolveContext<TContext>(this.settings);
+            return base.ResolveContext<TContext>(base.Settings);
         }
 
         /// <summary>
@@ -227,7 +219,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </summary>
         /// <remarks>
         /// Resolving the message scope is done by method 
-        /// <see cref="LoggerBase.ResolveScope{TScope}(TScope, ILoggerSettings)"/> 
+        /// <see cref="LoggerBase{TSettings}.ResolveScope{TScope}(TScope, ILoggerSettings)"/> 
         /// of the base class.
         /// </remarks>
         /// <typeparam name="TScope">
@@ -241,7 +233,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </returns>
         protected String ResolveScope<TScope>(TScope scope)
         {
-            return base.ResolveScope<TScope>(scope, this.settings);
+            return base.ResolveScope<TScope>(scope, base.Settings);
         }
 
         /// <summary>
@@ -294,7 +286,7 @@ namespace Plexdata.LogWriter.Logging.Console
 
             Boolean oldUseColors = this.facade.UseColors;
 
-            if (this.settings.UseColors)
+            if (base.Settings.UseColors)
             {
                 this.facade.UseColors = true;
                 this.SetupConsoleColors(level);
@@ -354,7 +346,7 @@ namespace Plexdata.LogWriter.Logging.Console
                 StringBuilder builder = new StringBuilder(512);
 
                 // This might not be optimizable because of the logging type for example may change during runtime.
-                base.LoggerFactory.CreateLogEventFormatter(this.settings).Format(builder, output);
+                base.LoggerFactory.CreateLogEventFormatter(base.Settings).Format(builder, output);
 
                 return builder.ToString();
             }
@@ -374,7 +366,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </param>
         private void SetupConsoleColors(LogLevel level)
         {
-            if (this.settings.Coloring.TryGetValue(level, out Coloring coloring))
+            if (base.Settings.Coloring.TryGetValue(level, out Coloring coloring))
             {
                 this.facade.Foreground = coloring.Foreground;
                 this.facade.Background = coloring.Background;

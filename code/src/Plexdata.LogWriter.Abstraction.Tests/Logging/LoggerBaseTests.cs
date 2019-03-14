@@ -31,9 +31,11 @@ using System.Reflection;
 
 namespace Plexdata.LogWriter.Abstraction.Tests.Logging
 {
+    // TODO: Review and/or apply new tests for made changes.
+
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    [TestOf(nameof(LoggerBase))]
+    [TestOf(nameof(LoggerBase<ILoggerSettings>))]
     public class LoggerBaseTests
     {
         #region Prologue
@@ -45,7 +47,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
         public void Setup()
         {
             this.settings = new Mock<ILoggerSettings>();
-            this.instance = new LoggerBaseDummyClass();
+            this.instance = new LoggerBaseDummyClass(this.settings.Object);
         }
 
         #endregion
@@ -154,10 +156,10 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
             }
         }
 
-        private class LoggerBaseDummyClass : LoggerBase
+        private class LoggerBaseDummyClass : LoggerBase<ILoggerSettings>
         {
-            public LoggerBaseDummyClass()
-                : base()
+            public LoggerBaseDummyClass(ILoggerSettings settings)
+                : base(settings)
             {
             }
 
