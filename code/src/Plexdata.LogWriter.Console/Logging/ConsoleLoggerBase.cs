@@ -26,7 +26,6 @@ using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Definitions.Console;
 using System;
-using System.Text;
 
 namespace Plexdata.LogWriter.Logging.Console
 {
@@ -36,7 +35,7 @@ namespace Plexdata.LogWriter.Logging.Console
     /// <remarks>
     /// Task of this base is to share global functionality between derived classes.
     /// </remarks>
-    public abstract class ConsoleLoggerBase : LoggerBase<IConsoleLoggerSettings>, IDisposable
+    public abstract class ConsoleLoggerBase : LoggerBase<IConsoleLoggerSettings>
     {
         // TODO: Review and/or complete documentation.
 
@@ -104,9 +103,9 @@ namespace Plexdata.LogWriter.Logging.Console
         /// Determines whether this instance has been disposed.
         /// </summary>
         /// <remarks>
-        /// After calling method <see cref="Dispose()"/> the object 
-        /// is no longer functional. This property can be queried to 
-        /// determine if this instance is disposed already.
+        /// After calling method <see cref="IDisposable.Dispose()"/> the 
+        /// object is no longer functional. This property can be queried 
+        /// to determine if this instance is disposed already.
         /// </remarks>
         /// <value>
         /// True if the object has been disposed and false otherwise.
@@ -159,128 +158,16 @@ namespace Plexdata.LogWriter.Logging.Console
             }
         }
 
-        /// <summary>
-        /// This method determines if logging is enabled at all.
-        /// </summary>
-        /// <remarks>
-        /// The method checks if current logging level is equal 
-        /// to <see cref="Definitions.LogLevel.Disabled"/>.
-        /// </remarks>
-        /// <returns>
-        /// True if logging is disabled and false if not.
-        /// </returns>
-        protected Boolean CheckDisabled()
-        {
-            return base.Settings.LogLevel == LogLevel.Disabled;
-        }
-
-        /// <summary>
-        /// This method determines if a particular logging message 
-        /// can be written.
-        /// </summary>
-        /// <remarks>
-        /// The method determines if provided logging level greater 
-        /// than or equal to configured logging level.
-        /// </remarks>
-        /// <param name="level">
-        /// The logging level to be checked against the configured 
-        /// logging level.
-        /// </param>
-        /// <returns>
-        /// True if current logging message can be written and false 
-        /// if provided logging level is below configured logging level.
-        /// </returns>
-        protected Boolean CheckEnabled(LogLevel level)
-        {
-            return (Int32)level >= (Int32)base.Settings.LogLevel;
-        }
-
-        /// <summary>
-        /// This method resolves the logging context.
-        /// </summary>
-        /// <remarks>
-        /// Resolving the message context is done by method 
-        /// <see cref="LoggerBase{TSettings}.ResolveContext{TContext}(ILoggerSettings)"/> 
-        /// of the base class.
-        /// </remarks>
-        /// <typeparam name="TContext">
-        /// The type to get the logging context from.
-        /// </typeparam>
-        /// <returns>
-        /// The logging context or an empty string in case of an error.
-        /// </returns>
-        protected String ResolveContext<TContext>()
-        {
-            return base.ResolveContext<TContext>(base.Settings);
-        }
-
-        /// <summary>
-        /// This method resolves the logging scope.
-        /// </summary>
-        /// <remarks>
-        /// Resolving the message scope is done by method 
-        /// <see cref="LoggerBase{TSettings}.ResolveScope{TScope}(TScope, ILoggerSettings)"/> 
-        /// of the base class.
-        /// </remarks>
-        /// <typeparam name="TScope">
-        /// The type to get the logging scope from.
-        /// </typeparam>
-        /// <param name="scope">
-        /// The type to get the logging scope from.
-        /// </param>
-        /// <returns>
-        /// The logging scope or an empty string in case of an error.
-        /// </returns>
-        protected String ResolveScope<TScope>(TScope scope)
-        {
-            return base.ResolveScope<TScope>(scope, base.Settings);
-        }
-
-        /// <summary>
-        /// This method writes a logging message.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// The logging message to write depends of current logger settings.
-        /// </para>
-        /// <para>
-        /// Nothing is gonna happen if logging is disabled, or if provided 
-        /// logging level is below configured logging level, or if the complete 
-        /// logging message is empty.
-        /// </para>
-        /// </remarks>
-        /// <param name="level">
-        /// The logging level of the message to write.
-        /// </param>
-        /// <param name="context">
-        /// The logging context of the message to write.
-        /// </param>
-        /// <param name="scope">
-        /// The logging scope of the message to write.
-        /// </param>
-        /// <param name="message">
-        /// The real logging message of the message to write.
-        /// </param>
-        /// <param name="exception">
-        /// The exception to be included in the logging message.
-        /// </param>
-        /// <param name="details">
-        /// The list of label-value-pairs to be included in the 
-        /// logging message.
-        /// </param>
-        /// <seealso cref="CheckDisabled()"/>
-        /// <seealso cref="CheckEnabled(LogLevel)"/>
-        /// <seealso cref="CreateOutput(LogLevel, String, String, String, Exception, ValueTuple{String, Object}[])"/>
-        /// <seealso cref="SetupConsoleColors(LogLevel)"/>
-        protected void Write(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
+        /// <inheritdoc />
+        protected override void Write(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
         {
             if (this.IsDisposed) { return; }
 
-            if (this.CheckDisabled()) { return; }
+            if (base.IsDisabled) { return; }
 
-            if (!this.CheckEnabled(level)) { return; }
+            if (!base.IsEnabled(level)) { return; }
 
-            String output = this.CreateOutput(level, context, scope, message, exception, details);
+            String output = base.CreateOutput(level, context, scope, message, exception, details);
 
             if (String.IsNullOrWhiteSpace(output)) { return; }
 
@@ -302,57 +189,6 @@ namespace Plexdata.LogWriter.Logging.Console
         #endregion
 
         #region Private methods
-
-        /// <summary>
-        /// This method creates to message text to be written.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// The message text to be written is generated according to 
-        /// current settings and the result may vary during runtime.
-        /// </para>
-        /// <para>
-        /// The time stamp of the logging message is set in this method.
-        /// </para>
-        /// </remarks>
-        /// <param name="level">
-        /// The logging level of the message to write.
-        /// </param>
-        /// <param name="context">
-        /// The logging context of the message to write.
-        /// </param>
-        /// <param name="scope">
-        /// The logging scope of the message to write.
-        /// </param>
-        /// <param name="message">
-        /// The real logging message of the message to write.
-        /// </param>
-        /// <param name="exception">
-        /// The exception to be included in the logging message.
-        /// </param>
-        /// <param name="details">
-        /// The list of label-value-pairs to be included in the 
-        /// logging message.
-        /// </param>
-        /// <returns>
-        /// The formatted logging message to be written or an empty string.
-        /// </returns>
-        private String CreateOutput(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
-        {
-            ILogEvent output = base.LoggerFactory.CreateLogEvent(level, DateTime.Now, context, scope, message, exception, details);
-
-            if (output.IsValid)
-            {
-                StringBuilder builder = new StringBuilder(512);
-
-                // This might not be optimizable because of the logging type for example may change during runtime.
-                base.LoggerFactory.CreateLogEventFormatter(base.Settings).Format(builder, output);
-
-                return builder.ToString();
-            }
-
-            return String.Empty;
-        }
 
         /// <summary>
         /// This method changes current message coloring.

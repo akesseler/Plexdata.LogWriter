@@ -39,10 +39,7 @@ namespace Plexdata.LogWriter.Logging
         /// <remarks>
         /// This constructor does indeed do nothing.
         /// </remarks>
-        public EmptyLogger()
-            : base()
-        {
-        }
+        public EmptyLogger() : base() { }
 
         #endregion
 
@@ -52,13 +49,7 @@ namespace Plexdata.LogWriter.Logging
         /// <remarks>
         /// This property always returns <c>true</c>.
         /// </remarks>
-        public virtual Boolean IsDisabled
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public virtual Boolean IsDisabled { get { return true; } }
 
         #endregion
 
@@ -68,74 +59,49 @@ namespace Plexdata.LogWriter.Logging
         /// <remarks>
         /// This method always returns <c>false</c>.
         /// </remarks>
-        public virtual Boolean IsEnabled(LogLevel level)
-        {
-            return false;
-        }
+        public virtual Boolean IsEnabled(LogLevel level) { return false; }
 
         #endregion
 
         #region Write methods
 
-        /// <inheritdoc />
-        public void Write(LogLevel level, String message)
-        {
-        }
+        // NOTE: Can't be moved into base class(es) because of otherwise the context can't be resolved anymore.
 
         /// <inheritdoc />
-        public void Write(LogLevel level, String message, params (String Label, Object Value)[] details)
-        {
-        }
+        public void Write(LogLevel level, String message) { }
 
         /// <inheritdoc />
-        public void Write(LogLevel level, Exception exception)
-        {
-        }
+        public void Write(LogLevel level, String message, params (String Label, Object Value)[] details) { }
 
         /// <inheritdoc />
-        public void Write(LogLevel level, Exception exception, params (String Label, Object Value)[] details)
-        {
-        }
+        public void Write(LogLevel level, Exception exception) { }
 
         /// <inheritdoc />
-        public void Write(LogLevel level, String message, Exception exception)
-        {
-        }
+        public void Write(LogLevel level, Exception exception, params (String Label, Object Value)[] details) { }
 
         /// <inheritdoc />
-        public void Write(LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details)
-        {
-        }
+        public void Write(LogLevel level, String message, Exception exception) { }
 
         /// <inheritdoc />
-        public void Write<TScope>(TScope scope, LogLevel level, String message)
-        {
-        }
+        public void Write(LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details) { }
 
         /// <inheritdoc />
-        public void Write<TScope>(TScope scope, LogLevel level, String message, params (String Label, Object Value)[] details)
-        {
-        }
+        public void Write<TScope>(TScope scope, LogLevel level, String message) { }
 
         /// <inheritdoc />
-        public void Write<TScope>(TScope scope, LogLevel level, Exception exception)
-        {
-        }
+        public void Write<TScope>(TScope scope, LogLevel level, String message, params (String Label, Object Value)[] details) { }
 
         /// <inheritdoc />
-        public void Write<TScope>(TScope scope, LogLevel level, Exception exception, params (String Label, Object Value)[] details)
-        {
-        }
+        public void Write<TScope>(TScope scope, LogLevel level, Exception exception) { }
 
         /// <inheritdoc />
-        public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception)
-        {
-        }
+        public void Write<TScope>(TScope scope, LogLevel level, Exception exception, params (String Label, Object Value)[] details) { }
 
         /// <inheritdoc />
-        public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details)
-        {
-        }
+        public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception) { }
+
+        /// <inheritdoc />
+        public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details) { }
 
         #endregion
     }

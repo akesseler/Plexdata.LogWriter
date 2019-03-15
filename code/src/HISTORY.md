@@ -1,4 +1,10 @@
 
+**1.0.0.2**
+
+- Adding of interface INotifyPropertyChanged to logger settings.
+- General code refactoring (moving redundant code into base classes).
+- Update of source code documentation.
+
 **1.0.0.1**
 
 - Configuration of NuGet information in all relevant projects.

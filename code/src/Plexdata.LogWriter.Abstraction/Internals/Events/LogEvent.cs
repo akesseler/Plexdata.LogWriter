@@ -73,7 +73,7 @@ namespace Plexdata.LogWriter.Internals.Events
         /// <param name="details">
         /// An optional list of key-values-pairs to be assigned.
         /// </param>
-        /// <seealso cref="LogEvent(Guid, LogLevel , DateTime , String , String , String , Exception , ValueTuple{String, Object}[])"/>
+        /// <seealso cref="LogEvent(Guid, LogLevel, DateTime, String, String, String, Exception, ValueTuple{String, Object}[])"/>
         public LogEvent(LogLevel level, DateTime time, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
             : this(Guid.NewGuid(), level, time, context, scope, message, exception, details)
         {
@@ -113,7 +113,7 @@ namespace Plexdata.LogWriter.Internals.Events
         /// <param name="details">
         /// An optional list of key-values-pairs to be assigned.
         /// </param>
-        /// <seealso cref="LogEvent(LogLevel , DateTime , String , String , String , Exception , ValueTuple{String, Object}[])"/>
+        /// <seealso cref="LogEvent(LogLevel, DateTime, String, String, String, Exception, ValueTuple{String, Object}[])"/>
         public LogEvent(Guid key, LogLevel level, DateTime time, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
         {
             this.Key = key;

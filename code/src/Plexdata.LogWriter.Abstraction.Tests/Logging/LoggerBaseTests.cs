@@ -24,6 +24,7 @@
 
 using Moq;
 using NUnit.Framework;
+using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Logging;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -171,6 +172,11 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
             public String TestResolveScope<TScope>(TScope scope, ILoggerSettings settings)
             {
                 return base.ResolveScope<TScope>(scope, settings);
+            }
+
+            protected override void Write(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
+            {
+                throw new NotImplementedException();
             }
         }
 

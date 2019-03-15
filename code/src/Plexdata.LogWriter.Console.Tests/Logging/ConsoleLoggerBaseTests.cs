@@ -39,6 +39,8 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
     [TestOf(nameof(ConsoleLoggerBase))]
     public class ConsoleLoggerBaseTests
     {
+        // TODO: Review and/or complete documentation.
+
         #region Prologue
 
         private Mock<IConsoleLoggerSettings> settings = null;
@@ -347,12 +349,12 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
 
             public Boolean TestCheckDisabled()
             {
-                return base.CheckDisabled();
+                return base.IsDisabled;
             }
 
             public Boolean TestCheckEnabled(LogLevel level)
             {
-                return base.CheckEnabled(level);
+                return base.IsEnabled(level);
             }
 
             public void TestWrite(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)

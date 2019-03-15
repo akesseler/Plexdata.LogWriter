@@ -43,13 +43,76 @@ namespace Plexdata.LogWriter.Settings
 
         #region Private fields
 
+        /// <summary>
+        /// This field represents current logging level.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.LogLevel"/>.
+        /// </remarks>
         private LogLevel logLevel;
+
+        /// <summary>
+        /// This field represents current logging type.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.LogType"/>.
+        /// </remarks>
         private LogType logType;
+
+        /// <summary>
+        /// This field represents current logging time.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.LogTime"/>.
+        /// </remarks>
         private LogTime logTime;
+
+        /// <summary>
+        /// This field represents current state of time stamp visibility.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.ShowTime"/>.
+        /// </remarks>
         private Boolean showTime;
+
+        /// <summary>
+        /// This field represents current time stamp format.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.TimeFormat"/>.
+        /// </remarks>
         private String timeFormat;
+
+        /// <summary>
+        /// This field represents current part split character.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.PartSplit"/>.
+        /// </remarks>
         private Char partSplit;
+
+        /// <summary>
+        /// This field represents current state of full name usage.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.FullName"/>.
+        /// </remarks>
         private Boolean fullName;
+
+        /// <summary>
+        /// This field represents currently assigned culture.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.Culture"/>.
+        /// </remarks>
         private CultureInfo culture;
 
         #endregion
@@ -108,6 +171,11 @@ namespace Plexdata.LogWriter.Settings
         #region Events
 
         /// <inheritdoc />
+        /// <remarks>
+        /// This event occurs as soon as one of the properties has changed. 
+        /// But be aware, derived classes may handle this in different ways.
+        /// </remarks>
+        /// <seealso cref="RaisePropertyChanged(String)"/>
         public event PropertyChangedEventHandler PropertyChanged;
 
         #endregion
@@ -254,6 +322,20 @@ namespace Plexdata.LogWriter.Settings
 
         #region Protected methods
 
+        /// <summary>
+        /// Informs listeners about property changes.
+        /// </summary>
+        /// <remarks>
+        /// This method raises the <see cref="PropertyChanged"/> event to inform 
+        /// listeners about changes of a particular property.
+        /// </remarks>
+        /// <param name="property">
+        /// The name of the property that has been changed.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// This exception is thrown as soon as provided <paramref name="property"/> 
+        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// </exception>
         protected void RaisePropertyChanged(String property)
         {
             if (String.IsNullOrWhiteSpace(property))
