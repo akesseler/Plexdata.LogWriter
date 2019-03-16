@@ -45,5 +45,17 @@ namespace Plexdata.LogWriter.Abstraction
     /// </typeparam>
     public interface IConsoleLogger<TContext> : ILogger<TContext>, IDisposable
     {
+        /// <summary>
+        /// Determines whether this instance has been disposed.
+        /// </summary>
+        /// <remarks>
+        /// After calling method <see cref="IDisposable.Dispose()"/> the 
+        /// object is no longer functional. This property can be queried 
+        /// to determine if this instance is disposed already.
+        /// </remarks>
+        /// <value>
+        /// True if the object has been disposed and false otherwise.
+        /// </value>
+        Boolean IsDisposed { get; }
     }
 }

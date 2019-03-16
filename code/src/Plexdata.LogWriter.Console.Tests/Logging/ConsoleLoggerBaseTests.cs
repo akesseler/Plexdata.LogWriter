@@ -129,51 +129,6 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
 
         #endregion
 
-        #region CheckDisabled
-
-        [Test]
-        [TestCase(LogLevel.Disabled, true)]
-        [TestCase(LogLevel.Trace, false)]
-        [TestCase(LogLevel.Debug, false)]
-        [TestCase(LogLevel.Verbose, false)]
-        [TestCase(LogLevel.Message, false)]
-        [TestCase(LogLevel.Warning, false)]
-        [TestCase(LogLevel.Error, false)]
-        [TestCase(LogLevel.Fatal, false)]
-        [TestCase(LogLevel.Critical, false)]
-        public void CheckDisabled_LogLevelAsDefined_ResultAsExpected(LogLevel level, Boolean expected)
-        {
-            this.settings.SetupGet(x => x.LogLevel).Returns(level);
-
-            DummyClass instance = new DummyClass(this.settings.Object, this.facade.Object);
-
-            Assert.That(instance.TestCheckDisabled(), Is.EqualTo(expected));
-        }
-
-        #endregion
-
-        #region CheckEnabled
-
-        [TestCase(LogLevel.Disabled, false)]
-        [TestCase(LogLevel.Trace, false)]
-        [TestCase(LogLevel.Debug, false)]
-        [TestCase(LogLevel.Verbose, false)]
-        [TestCase(LogLevel.Message, true)]
-        [TestCase(LogLevel.Warning, true)]
-        [TestCase(LogLevel.Error, true)]
-        [TestCase(LogLevel.Fatal, true)]
-        [TestCase(LogLevel.Critical, true)]
-        public void CheckEnabled_LogLevelAsDefined_ResultAsExpected(LogLevel actual, Boolean expected)
-        {
-            this.settings.SetupGet(x => x.LogLevel).Returns(LogLevel.Message);
-
-            DummyClass instance = new DummyClass(this.settings.Object, this.facade.Object);
-
-            Assert.That(instance.TestCheckEnabled(actual), Is.EqualTo(expected));
-        }
-
-        #endregion
-
         #region Write
 
         [Test]
@@ -343,16 +298,6 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
             public DummyClass(IConsoleLoggerSettings settings, IConsoleLoggerFacade facade)
                 : base(settings, facade)
             {
-            }
-
-            public Boolean TestCheckDisabled()
-            {
-                return base.CheckDisabled();
-            }
-
-            public Boolean TestCheckEnabled(LogLevel level)
-            {
-                return base.CheckEnabled(level);
             }
 
             public void TestWrite(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)

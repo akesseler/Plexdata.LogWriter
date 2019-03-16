@@ -79,38 +79,11 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
         {
         }
 
-        /// <inheritdoc />
-        ~ConsoleLogger()
-        {
-            this.Dispose(false);
-        }
-
-        #endregion
-
-        #region Public properties
-
-        /// <inheritdoc />
-        public virtual Boolean IsDisabled
-        {
-            get
-            {
-                return base.CheckDisabled();
-            }
-        }
-
-        #endregion
-
-        #region Public methods
-
-        /// <inheritdoc />
-        public virtual Boolean IsEnabled(LogLevel level)
-        {
-            return base.CheckEnabled(level);
-        }
-
         #endregion
 
         #region Write methods
+
+        // NOTE: Can't be moved into base class(es) because of otherwise the context can't be resolved anymore.
 
         /// <inheritdoc />
         public void Write(LogLevel level, String message)
@@ -182,16 +155,6 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
         public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details)
         {
             base.Write(level, base.ResolveContext<TContext>(), base.ResolveScope<TScope>(scope), message, exception, details);
-        }
-
-        #endregion
-
-        #region Protected methods
-
-        /// <inheritdoc />
-        protected override void Dispose(Boolean disposing)
-        {
-            base.Dispose(disposing);
         }
 
         #endregion

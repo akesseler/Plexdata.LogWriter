@@ -62,5 +62,12 @@ namespace Plexdata.LogWriter.Console.Tests.Definitions
         {
             Assert.That(() => new Coloring(foreground, background), Throws.InstanceOf<InvalidEnumArgumentException>());
         }
+
+        [Test]
+        public void ToString_DefaultColoring_StringAsExpected()
+        {
+            Coloring coloring = new Coloring();
+            Assert.That(coloring.ToString(), Is.EqualTo("Foreground=Gray, Background=Black"));
+        }
     }
 }

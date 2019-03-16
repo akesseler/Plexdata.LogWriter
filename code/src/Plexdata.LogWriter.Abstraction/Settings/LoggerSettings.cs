@@ -25,6 +25,7 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
+using System.ComponentModel;
 using System.Globalization;
 
 namespace Plexdata.LogWriter.Settings
@@ -38,6 +39,84 @@ namespace Plexdata.LogWriter.Settings
     /// </remarks>
     public abstract class LoggerSettings : ILoggerSettings
     {
+        #region Private fields
+
+        /// <summary>
+        /// This field represents current logging level.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.LogLevel"/>.
+        /// </remarks>
+        private LogLevel logLevel;
+
+        /// <summary>
+        /// This field represents current logging type.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.LogType"/>.
+        /// </remarks>
+        private LogType logType;
+
+        /// <summary>
+        /// This field represents current logging time.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.LogTime"/>.
+        /// </remarks>
+        private LogTime logTime;
+
+        /// <summary>
+        /// This field represents current state of time stamp visibility.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.ShowTime"/>.
+        /// </remarks>
+        private Boolean showTime;
+
+        /// <summary>
+        /// This field represents current time stamp format.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.TimeFormat"/>.
+        /// </remarks>
+        private String timeFormat;
+
+        /// <summary>
+        /// This field represents current part split character.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.PartSplit"/>.
+        /// </remarks>
+        private Char partSplit;
+
+        /// <summary>
+        /// This field represents current state of full name usage.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.FullName"/>.
+        /// </remarks>
+        private Boolean fullName;
+
+        /// <summary>
+        /// This field represents currently assigned culture.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.Culture"/>.
+        /// </remarks>
+        private CultureInfo culture;
+
+        #endregion
+
+        #region Public fields
+
         /// <summary>
         /// The field defines the default time stamp format.
         /// </summary>
@@ -47,6 +126,10 @@ namespace Plexdata.LogWriter.Settings
         /// is recognized as invalid.
         /// </remarks>
         public static readonly String DefaultTimeFormat = "yyyy-MM-dd HH:mm:ss.ffff";
+
+        #endregion
+
+        #region Construction
 
         /// <summary>
         /// The static constructor.
@@ -71,38 +154,196 @@ namespace Plexdata.LogWriter.Settings
         protected LoggerSettings()
             : base()
         {
-            this.LogLevel = LogLevel.Default;
-            this.LogType = LogType.Default;
-            this.LogTime = LogTime.Default;
-            this.ShowTime = true;
-            this.TimeFormat = LoggerSettings.DefaultTimeFormat;
-            this.PartSplit = ';';
-            this.FullName = true;
-            this.Culture = new CultureInfo("en-US");
+            this.logLevel = LogLevel.Default;
+            this.logType = LogType.Default;
+            this.logTime = LogTime.Default;
+            this.showTime = true;
+            this.timeFormat = LoggerSettings.DefaultTimeFormat;
+            this.partSplit = ';';
+            this.fullName = true;
+            this.culture = new CultureInfo("en-US");
+        }
+
+        #endregion
+
+        #region Events
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// This event occurs as soon as one of the properties has changed. 
+        /// But be aware, derived classes may handle this in different ways.
+        /// </remarks>
+        /// <seealso cref="RaisePropertyChanged(String)"/>
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        #region Public properties
+
+        /// <inheritdoc />
+        public LogLevel LogLevel
+        {
+            get
+            {
+                return this.logLevel;
+            }
+            set
+            {
+                if (this.logLevel != value)
+                {
+                    this.logLevel = value;
+                    this.RaisePropertyChanged(nameof(this.LogLevel));
+                }
+            }
         }
 
         /// <inheritdoc />
-        public LogLevel LogLevel { get; set; }
+        public LogType LogType
+        {
+            get
+            {
+                return this.logType;
+            }
+            set
+            {
+                if (this.logType != value)
+                {
+                    this.logType = value;
+                    this.RaisePropertyChanged(nameof(this.LogType));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public LogType LogType { get; set; }
+        public LogTime LogTime
+        {
+            get
+            {
+                return this.logTime;
+            }
+            set
+            {
+                if (this.logTime != value)
+                {
+                    this.logTime = value;
+                    this.RaisePropertyChanged(nameof(this.LogTime));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public LogTime LogTime { get; set; }
+        public Boolean ShowTime
+        {
+            get
+            {
+                return this.showTime;
+            }
+            set
+            {
+                if (this.showTime != value)
+                {
+                    this.showTime = value;
+                    this.RaisePropertyChanged(nameof(this.ShowTime));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Boolean ShowTime { get; set; }
+        public String TimeFormat
+        {
+            get
+            {
+                return this.timeFormat;
+            }
+            set
+            {
+                if (this.timeFormat != value)
+                {
+                    this.timeFormat = value;
+                    this.RaisePropertyChanged(nameof(this.TimeFormat));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public String TimeFormat { get; set; }
+        public Char PartSplit
+        {
+            get
+            {
+                return this.partSplit;
+            }
+            set
+            {
+                if (this.partSplit != value)
+                {
+                    this.partSplit = value;
+                    this.RaisePropertyChanged(nameof(this.PartSplit));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Char PartSplit { get; set; }
+        public Boolean FullName
+        {
+            get
+            {
+                return this.fullName;
+            }
+            set
+            {
+                if (this.fullName != value)
+                {
+                    this.fullName = value;
+                    this.RaisePropertyChanged(nameof(this.FullName));
+                }
+            }
+        }
 
         /// <inheritdoc />
-        public Boolean FullName { get; set; }
+        public CultureInfo Culture
+        {
+            get
+            {
+                return this.culture;
+            }
+            set
+            {
+                if (this.culture != value)
+                {
+                    this.culture = value;
+                    this.RaisePropertyChanged(nameof(this.Culture));
+                }
+            }
+        }
 
-        /// <inheritdoc />
-        public CultureInfo Culture { get; set; }
+        #endregion
+
+        #region Protected methods
+
+        /// <summary>
+        /// Informs listeners about property changes.
+        /// </summary>
+        /// <remarks>
+        /// This method raises the <see cref="PropertyChanged"/> event to inform 
+        /// listeners about changes of a particular property.
+        /// </remarks>
+        /// <param name="property">
+        /// The name of the property that has been changed.
+        /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// This exception is thrown as soon as provided <paramref name="property"/> 
+        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// </exception>
+        protected void RaisePropertyChanged(String property)
+        {
+            if (String.IsNullOrWhiteSpace(property))
+            {
+                throw new ArgumentOutOfRangeException(nameof(property));
+            }
+
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion
     }
 }

@@ -26,7 +26,6 @@ using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Definitions.Console;
 using System;
-using System.Text;
 
 namespace Plexdata.LogWriter.Logging.Console
 {
@@ -36,18 +35,9 @@ namespace Plexdata.LogWriter.Logging.Console
     /// <remarks>
     /// Task of this base is to share global functionality between derived classes.
     /// </remarks>
-    public abstract class ConsoleLoggerBase : LoggerBase, IDisposable
+    public abstract class ConsoleLoggerBase : LoggerBase<IConsoleLoggerSettings>
     {
         #region Private fields
-
-        /// <summary>
-        /// The instance of console logger settings.
-        /// </summary>
-        /// <remarks>
-        /// The console logger settings are shared between this class 
-        /// and derived classes.
-        /// </remarks>
-        private readonly IConsoleLoggerSettings settings = null;
 
         /// <summary>
         /// The instance of console logger facade.
@@ -80,17 +70,16 @@ namespace Plexdata.LogWriter.Logging.Console
         /// or the <paramref name="facade"/> is <c>null</c>.
         /// </exception>
         protected ConsoleLoggerBase(IConsoleLoggerSettings settings, IConsoleLoggerFacade facade)
-            : base()
+            : base(settings)
         {
-            this.settings = settings ?? throw new ArgumentNullException(nameof(settings));
             this.facade = facade ?? throw new ArgumentNullException(nameof(facade));
 
             this.IsDisposed = false;
 
             this.facade.Attach();
-            this.facade.WindowTitle = this.settings.WindowTitle;
-            this.facade.QuickEdit = this.settings.QuickEdit;
-            this.facade.BufferSize = this.settings.BufferSize;
+            this.facade.WindowTitle = base.Settings.WindowTitle;
+            this.facade.QuickEdit = base.Settings.QuickEdit;
+            this.facade.BufferSize = base.Settings.BufferSize;
         }
 
         /// <summary>
@@ -112,9 +101,9 @@ namespace Plexdata.LogWriter.Logging.Console
         /// Determines whether this instance has been disposed.
         /// </summary>
         /// <remarks>
-        /// After calling method <see cref="Dispose()"/> the object 
-        /// is no longer functional. This property can be queried to 
-        /// determine if this instance is disposed already.
+        /// After calling method <see cref="IDisposable.Dispose()"/> the 
+        /// object is no longer functional. This property can be queried 
+        /// to determine if this instance is disposed already.
         /// </remarks>
         /// <value>
         /// True if the object has been disposed and false otherwise.
@@ -161,140 +150,31 @@ namespace Plexdata.LogWriter.Logging.Console
             {
                 if (disposing) { /* Dispose all managed resources */ }
 
-                this.facade.Detach();
+                if (this.facade != null)
+                {
+                    this.facade.Detach();
+                }
 
                 this.IsDisposed = true;
             }
         }
 
-        /// <summary>
-        /// This method determines if logging is enabled at all.
-        /// </summary>
-        /// <remarks>
-        /// The method checks if current logging level is equal 
-        /// to <see cref="Definitions.LogLevel.Disabled"/>.
-        /// </remarks>
-        /// <returns>
-        /// True if logging is disabled and false if not.
-        /// </returns>
-        protected Boolean CheckDisabled()
-        {
-            return this.settings.LogLevel == LogLevel.Disabled;
-        }
-
-        /// <summary>
-        /// This method determines if a particular logging message 
-        /// can be written.
-        /// </summary>
-        /// <remarks>
-        /// The method determines if provided logging level greater 
-        /// than or equal to configured logging level.
-        /// </remarks>
-        /// <param name="level">
-        /// The logging level to be checked against the configured 
-        /// logging level.
-        /// </param>
-        /// <returns>
-        /// True if current logging message can be written and false 
-        /// if provided logging level is below configured logging level.
-        /// </returns>
-        protected Boolean CheckEnabled(LogLevel level)
-        {
-            return (Int32)level >= (Int32)this.settings.LogLevel;
-        }
-
-        /// <summary>
-        /// This method resolves the logging context.
-        /// </summary>
-        /// <remarks>
-        /// Resolving the message context is done by method 
-        /// <see cref="LoggerBase.ResolveContext{TContext}(ILoggerSettings)"/> 
-        /// of the base class.
-        /// </remarks>
-        /// <typeparam name="TContext">
-        /// The type to get the logging context from.
-        /// </typeparam>
-        /// <returns>
-        /// The logging context or an empty string in case of an error.
-        /// </returns>
-        protected String ResolveContext<TContext>()
-        {
-            return base.ResolveContext<TContext>(this.settings);
-        }
-
-        /// <summary>
-        /// This method resolves the logging scope.
-        /// </summary>
-        /// <remarks>
-        /// Resolving the message scope is done by method 
-        /// <see cref="LoggerBase.ResolveScope{TScope}(TScope, ILoggerSettings)"/> 
-        /// of the base class.
-        /// </remarks>
-        /// <typeparam name="TScope">
-        /// The type to get the logging scope from.
-        /// </typeparam>
-        /// <param name="scope">
-        /// The type to get the logging scope from.
-        /// </param>
-        /// <returns>
-        /// The logging scope or an empty string in case of an error.
-        /// </returns>
-        protected String ResolveScope<TScope>(TScope scope)
-        {
-            return base.ResolveScope<TScope>(scope, this.settings);
-        }
-
-        /// <summary>
-        /// This method writes a logging message.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// The logging message to write depends of current logger settings.
-        /// </para>
-        /// <para>
-        /// Nothing is gonna happen if logging is disabled, or if provided 
-        /// logging level is below configured logging level, or if the complete 
-        /// logging message is empty.
-        /// </para>
-        /// </remarks>
-        /// <param name="level">
-        /// The logging level of the message to write.
-        /// </param>
-        /// <param name="context">
-        /// The logging context of the message to write.
-        /// </param>
-        /// <param name="scope">
-        /// The logging scope of the message to write.
-        /// </param>
-        /// <param name="message">
-        /// The real logging message of the message to write.
-        /// </param>
-        /// <param name="exception">
-        /// The exception to be included in the logging message.
-        /// </param>
-        /// <param name="details">
-        /// The list of label-value-pairs to be included in the 
-        /// logging message.
-        /// </param>
-        /// <seealso cref="CheckDisabled()"/>
-        /// <seealso cref="CheckEnabled(LogLevel)"/>
-        /// <seealso cref="CreateOutput(LogLevel, String, String, String, Exception, ValueTuple{String, Object}[])"/>
-        /// <seealso cref="SetupConsoleColors(LogLevel)"/>
-        protected void Write(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
+        /// <inheritdoc />
+        protected override void Write(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
         {
             if (this.IsDisposed) { return; }
 
-            if (this.CheckDisabled()) { return; }
+            if (base.IsDisabled) { return; }
 
-            if (!this.CheckEnabled(level)) { return; }
+            if (!base.IsEnabled(level)) { return; }
 
-            String output = this.CreateOutput(level, context, scope, message, exception, details);
+            String output = base.CreateOutput(level, context, scope, message, exception, details);
 
             if (String.IsNullOrWhiteSpace(output)) { return; }
 
             Boolean oldUseColors = this.facade.UseColors;
 
-            if (this.settings.UseColors)
+            if (base.Settings.UseColors)
             {
                 this.facade.UseColors = true;
                 this.SetupConsoleColors(level);
@@ -312,57 +192,6 @@ namespace Plexdata.LogWriter.Logging.Console
         #region Private methods
 
         /// <summary>
-        /// This method creates to message text to be written.
-        /// </summary>
-        /// <remarks>
-        /// <para>
-        /// The message text to be written is generated according to 
-        /// current settings and the result may vary during runtime.
-        /// </para>
-        /// <para>
-        /// The time stamp of the logging message is set in this method.
-        /// </para>
-        /// </remarks>
-        /// <param name="level">
-        /// The logging level of the message to write.
-        /// </param>
-        /// <param name="context">
-        /// The logging context of the message to write.
-        /// </param>
-        /// <param name="scope">
-        /// The logging scope of the message to write.
-        /// </param>
-        /// <param name="message">
-        /// The real logging message of the message to write.
-        /// </param>
-        /// <param name="exception">
-        /// The exception to be included in the logging message.
-        /// </param>
-        /// <param name="details">
-        /// The list of label-value-pairs to be included in the 
-        /// logging message.
-        /// </param>
-        /// <returns>
-        /// The formatted logging message to be written or an empty string.
-        /// </returns>
-        private String CreateOutput(LogLevel level, String context, String scope, String message, Exception exception, params (String Label, Object Value)[] details)
-        {
-            ILogEvent output = base.LoggerFactory.CreateLogEvent(level, DateTime.Now, context, scope, message, exception, details);
-
-            if (output.IsValid)
-            {
-                StringBuilder builder = new StringBuilder(512);
-
-                // This might not be optimizable because of the logging type for example may change during runtime.
-                base.LoggerFactory.CreateLogEventFormatter(this.settings).Format(builder, output);
-
-                return builder.ToString();
-            }
-
-            return String.Empty;
-        }
-
-        /// <summary>
         /// This method changes current message coloring.
         /// </summary>
         /// <remarks>
@@ -374,7 +203,7 @@ namespace Plexdata.LogWriter.Logging.Console
         /// </param>
         private void SetupConsoleColors(LogLevel level)
         {
-            if (this.settings.Coloring.TryGetValue(level, out Coloring coloring))
+            if (base.Settings.Coloring.TryGetValue(level, out Coloring coloring))
             {
                 this.facade.Foreground = coloring.Foreground;
                 this.facade.Background = coloring.Background;

@@ -71,6 +71,7 @@ namespace Plexdata.LogWriter.Definitions.Console
         /// The number of lines of the console buffer.
         /// </param>
         public Dimension(Int32 width, Int32 lines)
+            : base()
         {
             this.Width = width;
             this.Lines = lines;
@@ -132,9 +133,94 @@ namespace Plexdata.LogWriter.Definitions.Console
         /// <remarks>
         /// This method has been overwritten by this class.
         /// </remarks>
+        /// <param name="other">
+        /// The object to be compared.
+        /// </param>
+        public override Boolean Equals(Object other)
+        {
+            if (Object.ReferenceEquals(null, other))
+            {
+                return false;
+            }
+
+            if (Object.ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return this.GetType() == other.GetType() && this.GetHashCode() == other.GetHashCode();
+        }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// This method has been overwritten by this class.
+        /// </remarks>
+        public override Int32 GetHashCode()
+        {
+            unchecked
+            {
+                return (this.Lines.GetHashCode() * 521) ^ this.Width.GetHashCode();
+            }
+        }
+
+        /// <inheritdoc />
+        /// <remarks>
+        /// This method has been overwritten by this class.
+        /// </remarks>
         public override String ToString()
         {
             return $"{nameof(this.IsValid)}={this.IsValid}, {nameof(this.Width)}={this.Width}, {nameof(this.Lines)}={this.Lines}";
+        }
+
+        #endregion
+
+        #region Operator section
+
+        /// <summary>
+        /// Compares two instances of type <see cref="Dimension"/> for equality.
+        /// </summary>
+        /// <remarks>
+        /// Both instances are considered as equal either if both are null or 
+        /// if the hash code of both instances is equal.
+        /// </remarks>
+        /// <param name="x">
+        /// The left instance to be compared.
+        /// </param>
+        /// <param name="y">
+        /// The right instance to be compared.
+        /// </param>
+        /// <returns>
+        /// True if both instance are equal, and false otherwise.
+        /// </returns>
+        /// <seealso cref="Dimension.Equals(Object)"/>
+        public static Boolean operator ==(Dimension x, Dimension y)
+        {
+            if (Object.ReferenceEquals(x, null))
+            {
+                return Object.ReferenceEquals(y, null);
+            }
+
+            return x.Equals(y);
+        }
+
+        /// <summary>
+        /// Compares two instances of type <see cref="Dimension"/> for inequality.
+        /// </summary>
+        /// <remarks>
+        /// In fact, this is nothing else but the opposite of the equals operator.
+        /// </remarks>
+        /// <param name="x">
+        /// The left instance to be compared.
+        /// </param>
+        /// <param name="y">
+        /// The right instance to be compared.
+        /// </param>
+        /// <returns>
+        /// True if both instance are not equal, and false otherwise.
+        /// </returns>
+        public static Boolean operator !=(Dimension x, Dimension y)
+        {
+            return !(x == y);
         }
 
         #endregion
