@@ -40,8 +40,6 @@ namespace Plexdata.LogWriter.Settings.Console
     /// </remarks>
     public class ConsoleLoggerSettings : LoggerSettings, IConsoleLoggerSettings
     {
-        // TODO: Review and/or complete documentation.
-
         #region Private fields
 
         private Boolean useColors;

@@ -39,8 +39,6 @@ namespace Plexdata.LogWriter.Settings
     /// </remarks>
     public abstract class LoggerSettings : ILoggerSettings
     {
-        // TODO: Review and/or complete documentation.
-
         #region Private fields
 
         /// <summary>

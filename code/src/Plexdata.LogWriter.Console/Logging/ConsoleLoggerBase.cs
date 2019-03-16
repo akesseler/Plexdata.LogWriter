@@ -37,8 +37,6 @@ namespace Plexdata.LogWriter.Logging.Console
     /// </remarks>
     public abstract class ConsoleLoggerBase : LoggerBase<IConsoleLoggerSettings>
     {
-        // TODO: Review and/or complete documentation.
-
         #region Private fields
 
         /// <summary>
@@ -152,7 +150,10 @@ namespace Plexdata.LogWriter.Logging.Console
             {
                 if (disposing) { /* Dispose all managed resources */ }
 
-                this.facade.Detach();
+                if (this.facade != null)
+                {
+                    this.facade.Detach();
+                }
 
                 this.IsDisposed = true;
             }

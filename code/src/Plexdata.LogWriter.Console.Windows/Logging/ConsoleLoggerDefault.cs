@@ -39,8 +39,6 @@ namespace Plexdata.LogWriter.Logging.Console.Windows
     /// </remarks>
     public class ConsoleLogger : ConsoleLoggerBase, IConsoleLogger
     {
-        // TODO: Review and/or complete documentation.
-
         #region Construction
 
         /// <summary>

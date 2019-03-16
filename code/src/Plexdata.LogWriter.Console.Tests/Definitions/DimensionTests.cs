@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions.Console;
+using System;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Plexdata.LogWriter.Console.Tests.Definitions
@@ -40,7 +41,7 @@ namespace Plexdata.LogWriter.Console.Tests.Definitions
 
             Assert.That(instance.Width, Is.EqualTo(0));
             Assert.That(instance.Lines, Is.EqualTo(0));
-            Assert.That(instance.IsValid, Is.EqualTo(false));
+            Assert.That(instance.IsValid, Is.False);
         }
 
         [Test]
@@ -50,7 +51,127 @@ namespace Plexdata.LogWriter.Console.Tests.Definitions
 
             Assert.That(instance.Width, Is.EqualTo(42));
             Assert.That(instance.Lines, Is.EqualTo(23));
-            Assert.That(instance.IsValid, Is.EqualTo(true));
+            Assert.That(instance.IsValid, Is.True);
+        }
+
+        [Test]
+        public void Equality_XIsNullYIsNull_BothAreEqual()
+        {
+            Dimension x = null;
+            Dimension y = null;
+            Assert.That(x == y, Is.True);
+        }
+
+        [Test]
+        public void Equality_XIsNotNullYIsNotNull_BothAreEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = new Dimension(2, 2);
+            Assert.That(x == y, Is.True);
+        }
+
+        [Test]
+        public void Equality_XIsNotNullYIsNull_BothAreNotEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = null;
+            Assert.That(x == y, Is.False);
+        }
+
+        [Test]
+        public void Equality_XIsNullYIsNotNull_BothAreNotEqual()
+        {
+            Dimension x = null;
+            Dimension y = new Dimension(2, 2);
+            Assert.That(x == y, Is.False);
+        }
+
+        [Test]
+        public void Equality_XIsNotNullYIsNotNull_BothAreNotEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = new Dimension(4, 4);
+            Assert.That(x == y, Is.False);
+        }
+
+        [Test]
+        public void Equality_XIsNotNullYIsNotNull_BothReferencesAreEqual()
+        {
+            Dimension t = new Dimension(2, 2);
+            Dimension x = t;
+            Dimension y = t;
+            Assert.That(x == y, Is.True);
+        }
+
+        [Test]
+        public void Inequality_XIsNotNullYIsNotNull_BothAreEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = new Dimension(2, 2);
+            Assert.That(x != y, Is.False);
+        }
+
+        [Test]
+        public void Inequality_XIsNotNullYIsNotNull_BothAreNotEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = new Dimension(4, 4);
+            Assert.That(x != y, Is.True);
+        }
+
+        [Test]
+        public void Equals_XIsNotNullYIsNotNullButDifferentTypes_BothAreNotEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Object y = new Object();
+            Assert.That(x.Equals(y), Is.False);
+        }
+
+        [Test]
+        public void Equals_XIsNotNullYIsNotNull_BothReferencesAreEqual()
+        {
+            Dimension t = new Dimension(2, 2);
+            Dimension x = t;
+            Dimension y = t;
+            Assert.That(x.Equals(y), Is.True);
+        }
+
+        [Test]
+        public void Equals_XIsNotNullYIsNull_BothAreNotEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = null;
+            Assert.That(x.Equals(y), Is.False);
+        }
+
+        [Test]
+        public void Equals_XIsNotNullYIsNotNull_BothAreNotEqual()
+        {
+            Dimension x = new Dimension(2, 2);
+            Dimension y = new Dimension(4, 4);
+            Assert.That(x.Equals(y), Is.False);
+        }
+
+        [Test]
+        public void GetHashCode_WidthAndLines_HashCodeAsExpected()
+        {
+            Int32 hash = (23 * 521) ^ 42;
+            Dimension dimension = new Dimension(42, 23);
+            Assert.That(dimension.GetHashCode(), Is.EqualTo(hash));
+        }
+
+        [Test]
+        [TestCase(-1, -1, "IsValid=False, Width=-1, Lines=-1")]
+        [TestCase(-1, 0, "IsValid=False, Width=-1, Lines=0")]
+        [TestCase(0, -1, "IsValid=False, Width=0, Lines=-1")]
+        [TestCase(0, 0, "IsValid=False, Width=0, Lines=0")]
+        [TestCase(1, 0, "IsValid=False, Width=1, Lines=0")]
+        [TestCase(0, 1, "IsValid=False, Width=0, Lines=1")]
+        [TestCase(1, 1, "IsValid=True, Width=1, Lines=1")]
+        public void ToString_WidthAndLines_StringAsExpected(Int32 width, Int32 lines, String expected)
+        {
+            Dimension dimension = new Dimension(width, lines);
+            Assert.That(dimension.ToString(), Is.EqualTo(expected));
         }
     }
 }

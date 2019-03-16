@@ -44,8 +44,6 @@ namespace Plexdata.LogWriter.Logging
     /// </typeparam>
     public abstract class LoggerBase<TSettings> where TSettings : ILoggerSettings
     {
-        // TODO: Review and/or complete documentation.
-
         #region Construction
 
         /// <summary>
@@ -151,6 +149,8 @@ namespace Plexdata.LogWriter.Logging
 
         #endregion
 
+        #region Protected properties
+
         /// <summary>
         /// The instance of applied logger settings.
         /// </summary>
@@ -163,8 +163,6 @@ namespace Plexdata.LogWriter.Logging
         /// must be of type <see cref="ILoggerSettings"/>.
         /// </value>
         protected TSettings Settings { get; private set; }
-
-        #region Protected properties
 
         /// <summary>
         /// Gets the assigned logging factory.
@@ -432,7 +430,7 @@ namespace Plexdata.LogWriter.Logging
                 StringBuilder builder = new StringBuilder(512);
 
                 // This might not be optimizable because of the logging type for example may change during runtime.
-                this.LoggerFactory.CreateLogEventFormatter(this.Settings).Format(builder, output);
+                this.LoggerFactory.CreateLogEventFormatter(settings).Format(builder, output);
 
                 return builder.ToString();
             }

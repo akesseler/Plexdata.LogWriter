@@ -42,8 +42,6 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
     /// </typeparam>
     public class ConsoleLogger<TContext> : ConsoleLoggerBase, IConsoleLogger<TContext>
     {
-        // TODO: Review and/or complete documentation.
-
         #region Construction
 
         /// <summary>

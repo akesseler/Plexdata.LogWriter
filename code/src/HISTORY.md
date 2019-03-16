@@ -3,7 +3,9 @@
 
 - Adding of interface INotifyPropertyChanged to logger settings.
 - General code refactoring (moving redundant code into base classes).
+- Bug fixing as well as adding and updating of tests.
 - Update of source code documentation.
+- Version number increased.
 
 **1.0.0.1**
 

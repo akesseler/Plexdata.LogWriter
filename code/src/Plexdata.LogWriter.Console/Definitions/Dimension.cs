@@ -37,8 +37,6 @@ namespace Plexdata.LogWriter.Definitions.Console
     /// </remarks>
     public class Dimension
     {
-        // TODO: Review and/or complete documentation.
-
         #region Construction
 
         /// <summary>
@@ -73,6 +71,7 @@ namespace Plexdata.LogWriter.Definitions.Console
         /// The number of lines of the console buffer.
         /// </param>
         public Dimension(Int32 width, Int32 lines)
+            : base()
         {
             this.Width = width;
             this.Lines = lines;
