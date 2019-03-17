@@ -69,6 +69,7 @@
     <Compile Include="Logging\EmptyLoggerDefaultTests.cs" />
     <Compile Include="Logging\LoggerBaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queuing\ObservableQueueTests.cs" />
     <Compile Include="Settings\LoggerSettingsTests.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -92,7 +92,7 @@ namespace Plexdata.LogWriter.Logging
         }
 
         /// <summary>
-        /// This class destructor.
+        /// The class destructor.
         /// </summary>
         /// <remarks>
         /// The destructor cleans its resources.

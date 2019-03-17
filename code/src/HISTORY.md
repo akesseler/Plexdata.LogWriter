@@ -1,4 +1,11 @@
 
+**1.0.0.3**
+
+- Adding of queuing support and related tests.
+- Update of source code documentation.
+- Wiki and release update on GitHub.
+- Version number increased.
+
 **1.0.0.2**
 
 - Adding of interface INotifyPropertyChanged to logger settings.
