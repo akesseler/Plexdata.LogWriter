@@ -24,10 +24,9 @@
 
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
 using System;
 
-namespace Plexdata.LogWriter.Logging.Console
+namespace Plexdata.LogWriter.Logging
 {
     /// <summary>
     /// This abstract class serves as base class of all other console logger classes.

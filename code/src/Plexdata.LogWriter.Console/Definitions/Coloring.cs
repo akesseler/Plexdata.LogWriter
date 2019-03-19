@@ -25,7 +25,7 @@
 using System;
 using System.ComponentModel;
 
-namespace Plexdata.LogWriter.Definitions.Console
+namespace Plexdata.LogWriter.Definitions
 {
     /// <summary>
     /// This class represents the assignment of foreground and background colors.

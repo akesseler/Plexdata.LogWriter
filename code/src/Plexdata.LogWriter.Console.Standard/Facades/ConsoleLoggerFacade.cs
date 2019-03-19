@@ -23,11 +23,11 @@
  */
 
 using Plexdata.LogWriter.Abstraction;
-using Plexdata.LogWriter.Definitions.Console;
+using Plexdata.LogWriter.Definitions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Plexdata.LogWriter.Facades.Console.Standard
+namespace Plexdata.LogWriter.Facades.Standard
 {
     /// <summary>
     /// This class represents the default implementation of interface 

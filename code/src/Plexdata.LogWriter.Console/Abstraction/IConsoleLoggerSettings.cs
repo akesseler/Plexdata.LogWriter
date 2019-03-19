@@ -23,7 +23,6 @@
  */
 
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
 using System;
 using System.Collections.Generic;
 

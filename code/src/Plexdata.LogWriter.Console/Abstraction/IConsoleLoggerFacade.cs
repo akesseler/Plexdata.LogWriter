@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-using Plexdata.LogWriter.Definitions.Console;
+using Plexdata.LogWriter.Definitions;
 using System;
 
 namespace Plexdata.LogWriter.Abstraction

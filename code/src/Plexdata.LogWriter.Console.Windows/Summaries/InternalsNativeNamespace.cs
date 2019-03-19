@@ -22,15 +22,17 @@
  * SOFTWARE.
  */
 
-namespace Plexdata.LogWriter.Logging.Console
+namespace Plexdata.LogWriter.Internals.Native.Windows
 {
     /// <summary>
-    /// The <see cref="Plexdata.LogWriter.Logging.Console"/> namespace contains all 
-    /// general classes that represent the <i>Plexdata Console Logging Writers</i>, 
-    /// platform dependent as well as platform independent.
+    /// The <see cref="Plexdata.LogWriter.Internals.Native.Windows"/> 
+    /// namespace contains all supported implementations of any kind of native 
+    /// access for the <i>Plexdata Console Logging Writer</i> for Windows platforms.
     /// </summary>
     /// <remarks>
-    /// At the moment this namespace just includes class <see cref="ConsoleLoggerBase"/>.
+    /// This namespace includes for example the native accessor for the Windows 
+    /// console logger. But actually, this namespace does not contain classes 
+    /// that could be interesting for the outside world.
     /// </remarks>
     [System.Runtime.CompilerServices.CompilerGenerated]
     class NamespaceDoc { }

@@ -24,13 +24,13 @@
 
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Facades.Console.Standard;
+using Plexdata.LogWriter.Facades.Standard;
 using System;
 
-namespace Plexdata.LogWriter.Logging.Console.Standard
+namespace Plexdata.LogWriter.Logging.Standard
 {
     /// <summary>
-    /// This class represents the standard console logger 
+    /// This class represents the default console logger 
     /// implementation for platform independent applications.
     /// </summary>
     /// <remarks>
@@ -52,7 +52,7 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
         /// The settings to be used.
         /// </param>
         /// <seealso cref="ConsoleLogger.ConsoleLogger(IConsoleLoggerSettings, IConsoleLoggerFacade)"/>
-        /// <seealso cref="Plexdata.LogWriter.Facades.Console.Standard.ConsoleLoggerFacade"/>
+        /// <seealso cref="Plexdata.LogWriter.Facades.Standard.ConsoleLoggerFacade"/>
         public ConsoleLogger(IConsoleLoggerSettings settings)
             : this(settings, new ConsoleLoggerFacade())
         {
