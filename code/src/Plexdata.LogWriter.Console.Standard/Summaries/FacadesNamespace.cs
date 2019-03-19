@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-namespace Plexdata.LogWriter.Facades.Console.Standard
+namespace Plexdata.LogWriter.Facades.Standard
 {
     /// <summary>
-    /// The <see cref="Plexdata.LogWriter.Facades.Console.Standard"/> namespace contains all 
+    /// The <see cref="Plexdata.LogWriter.Facades.Standard"/> namespace contains all 
     /// supported implementations of facades of the <i>Plexdata Console Logging Writer</i> 
     /// for any platform.
     /// </summary>

@@ -24,7 +24,7 @@
 
 using System;
 
-namespace Plexdata.LogWriter.Definitions.Console
+namespace Plexdata.LogWriter.Definitions
 {
     /// <summary>
     /// This class represents the dimension of a console window.

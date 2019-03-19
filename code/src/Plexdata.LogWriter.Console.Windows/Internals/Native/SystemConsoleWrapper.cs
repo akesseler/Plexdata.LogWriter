@@ -22,23 +22,23 @@
  * SOFTWARE.
  */
 
-using Plexdata.LogWriter.Definitions.Console;
+using Plexdata.LogWriter.Definitions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace Plexdata.LogWriter.Internals.Console.Windows.Native
+namespace Plexdata.LogWriter.Internals.Native.Windows
 {
     /// <summary>
     /// This class provides native access to the console window.
     /// </summary>
     /// <remarks>
-    /// Please be aware, this class cannot be used on platforms other than window!
+    /// Please be aware, this class cannot be used on platforms other than Windows!
     /// This is because of this class uses the Win32-API to accomplish its tasks.
     /// </remarks>
     [ExcludeFromCodeCoverage]
-    internal class NativeConsole
+    internal class SystemConsoleWrapper
     {
         #region Private fields
 
@@ -46,11 +46,11 @@ namespace Plexdata.LogWriter.Internals.Console.Windows.Native
         /// This field holds the singleton instance of this class.
         /// </summary>
         /// <remarks>
-        /// The instance of class <see cref="NativeConsole"/> that represents the used 
+        /// The instance of class <see cref="SystemConsoleWrapper"/> that represents the used 
         /// singleton. This instance is created automatically during the very first call 
         /// to property <see cref="Instance"/>.
         /// </remarks>
-        private static NativeConsole instance = null;
+        private static SystemConsoleWrapper instance = null;
 
         /// <summary>
         /// This field holds the native file handle to the output stream.
@@ -105,7 +105,7 @@ namespace Plexdata.LogWriter.Internals.Console.Windows.Native
         /// This constructor is intentionally made private to  prevent this class from being 
         /// instantiated more than once.
         /// </remarks>
-        private NativeConsole()
+        private SystemConsoleWrapper()
         {
             this.References = 0;
 
@@ -125,7 +125,7 @@ namespace Plexdata.LogWriter.Internals.Console.Windows.Native
         /// <remarks>
         /// This constructor does actually do nothing.
         /// </remarks>
-        static NativeConsole()
+        static SystemConsoleWrapper()
         {
         }
 
@@ -135,7 +135,7 @@ namespace Plexdata.LogWriter.Internals.Console.Windows.Native
         /// <remarks>
         /// The class destructor actually forces a detach from an attached console window.
         /// </remarks>
-        ~NativeConsole()
+        ~SystemConsoleWrapper()
         {
             this.References = 0;
             this.Detach();
@@ -155,16 +155,16 @@ namespace Plexdata.LogWriter.Internals.Console.Windows.Native
         /// <value>
         /// An instance of this class that can be used from everywhere.
         /// </value>
-        public static NativeConsole Instance
+        public static SystemConsoleWrapper Instance
         {
             get
             {
-                if (NativeConsole.instance == null)
+                if (SystemConsoleWrapper.instance == null)
                 {
-                    NativeConsole.instance = new NativeConsole();
+                    SystemConsoleWrapper.instance = new SystemConsoleWrapper();
                 }
 
-                return NativeConsole.instance;
+                return SystemConsoleWrapper.instance;
             }
         }
 

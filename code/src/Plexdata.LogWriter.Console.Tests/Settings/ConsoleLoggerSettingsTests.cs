@@ -24,8 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
-using Plexdata.LogWriter.Settings.Console;
+using Plexdata.LogWriter.Settings;
 using System;
 using System.Diagnostics.CodeAnalysis;
 

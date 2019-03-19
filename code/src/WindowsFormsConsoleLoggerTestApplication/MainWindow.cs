@@ -24,11 +24,10 @@
 
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
 using Plexdata.LogWriter.Extensions;
-using Plexdata.LogWriter.Facades.Console.Windows;
-using Plexdata.LogWriter.Logging.Console.Windows;
-using Plexdata.LogWriter.Settings.Console;
+using Plexdata.LogWriter.Facades.Windows;
+using Plexdata.LogWriter.Logging.Windows;
+using Plexdata.LogWriter.Settings;
 using System;
 using System.Diagnostics;
 using System.Globalization;

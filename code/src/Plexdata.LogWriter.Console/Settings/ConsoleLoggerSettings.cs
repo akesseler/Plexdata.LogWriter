@@ -24,11 +24,10 @@
 
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
 using System;
 using System.Collections.Generic;
 
-namespace Plexdata.LogWriter.Settings.Console
+namespace Plexdata.LogWriter.Settings
 {
     /// <summary>
     /// The class to provide settings for all of the console logging writers.

@@ -13,11 +13,10 @@ An example of how to use standard console logger.
 ```
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
 using Plexdata.LogWriter.Extensions;
-using Plexdata.LogWriter.Facades.Console.Standard;
-using Plexdata.LogWriter.Logging.Console.Standard;
-using Plexdata.LogWriter.Settings.Console;
+using Plexdata.LogWriter.Facades.Standard;
+using Plexdata.LogWriter.Logging.Standard;
+using Plexdata.LogWriter.Settings;
 using System;
 
 namespace Plexdata.LogWriter.Examples
@@ -69,11 +68,10 @@ An example of how to use console logger for Windows.
 ```
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
-using Plexdata.LogWriter.Definitions.Console;
 using Plexdata.LogWriter.Extensions;
-using Plexdata.LogWriter.Facades.Console.Windows;
-using Plexdata.LogWriter.Logging.Console.Windows;
-using Plexdata.LogWriter.Settings.Console;
+using Plexdata.LogWriter.Facades.Windows;
+using Plexdata.LogWriter.Logging.Windows;
+using Plexdata.LogWriter.Settings;
 using System;
 
 namespace Plexdata.LogWriter.Examples
@@ -95,7 +93,7 @@ namespace Plexdata.LogWriter.Examples
 
             settings.Coloring[LogLevel.Critical] = new Coloring(ConsoleColor.Yellow, ConsoleColor.DarkCyan);
 
-            (String, Object)[] details = new (String, Object)[] 
+            (String, Object)[] details = new (String, Object)[]
             {
                 ("Active", true), ("Average", 12345.67M), ("Name", "Details")
             };

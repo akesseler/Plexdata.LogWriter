@@ -1,6 +1,7 @@
 
 **TODOs**
 
+* Change project icon, because it matches the argument parser icon!
 * Implement IFileLogger 
   * Settings: Max File Size, Rolling 
   * Features: support multi-threading

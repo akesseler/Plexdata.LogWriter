@@ -22,10 +22,10 @@
  * SOFTWARE.
  */
 
-namespace Plexdata.LogWriter.Logging.Console.Standard
+namespace Plexdata.LogWriter.Logging.Standard
 {
     /// <summary>
-    /// The <see cref="Plexdata.LogWriter.Logging.Console.Standard"/> namespace contains 
+    /// The <see cref="Plexdata.LogWriter.Logging.Standard"/> namespace contains 
     /// all classes that represent the <i>Plexdata Console Logging Writers</i> for any 
     /// platform.
     /// </summary>
@@ -38,11 +38,10 @@ namespace Plexdata.LogWriter.Logging.Console.Standard
     /// <code language="C#">
     /// using Plexdata.LogWriter.Abstraction;
     /// using Plexdata.LogWriter.Definitions;
-    /// using Plexdata.LogWriter.Definitions.Console;
     /// using Plexdata.LogWriter.Extensions;
-    /// using Plexdata.LogWriter.Facades.Console.Standard;
-    /// using Plexdata.LogWriter.Logging.Console.Standard;
-    /// using Plexdata.LogWriter.Settings.Console;
+    /// using Plexdata.LogWriter.Facades.Standard;
+    /// using Plexdata.LogWriter.Logging.Standard;
+    /// using Plexdata.LogWriter.Settings;
     /// using System;
     /// 
     /// namespace Plexdata.LogWriter.Examples

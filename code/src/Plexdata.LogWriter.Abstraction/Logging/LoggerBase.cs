@@ -88,7 +88,7 @@ namespace Plexdata.LogWriter.Logging
 
             this.Settings = settings;
 
-            this.LoggerFactory = factory ?? throw new ArgumentNullException(nameof(factory));
+            this.Factory = factory ?? throw new ArgumentNullException(nameof(factory));
         }
 
         /// <summary>
@@ -174,7 +174,7 @@ namespace Plexdata.LogWriter.Logging
         /// <value>
         /// An instance of type <see cref="ILoggerFactory"/>.
         /// </value>
-        protected ILoggerFactory LoggerFactory { get; private set; }
+        protected ILoggerFactory Factory { get; private set; }
 
         #endregion
 
@@ -423,14 +423,14 @@ namespace Plexdata.LogWriter.Logging
         {
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
-            ILogEvent output = this.LoggerFactory.CreateLogEvent(level, DateTime.Now, context, scope, message, exception, details);
+            ILogEvent output = this.Factory.CreateLogEvent(level, DateTime.Now, context, scope, message, exception, details);
 
             if (output.IsValid)
             {
                 StringBuilder builder = new StringBuilder(512);
 
                 // This might not be optimizable because of the logging type for example may change during runtime.
-                this.LoggerFactory.CreateLogEventFormatter(settings).Format(builder, output);
+                this.Factory.CreateLogEventFormatter(settings).Format(builder, output);
 
                 return builder.ToString();
             }

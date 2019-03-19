@@ -23,16 +23,16 @@
  */
 
 using Plexdata.LogWriter.Abstraction;
-using Plexdata.LogWriter.Definitions.Console;
-using Plexdata.LogWriter.Internals.Console.Windows.Native;
+using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Internals.Native.Windows;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Plexdata.LogWriter.Facades.Console.Windows
+namespace Plexdata.LogWriter.Facades.Windows
 {
     /// <summary>
     /// This class represents the default implementation of interface 
-    /// <see cref="IConsoleLoggerFacade"/> for Windows applications that 
+    /// <see cref="IConsoleLoggerFacade"/> for Windows applications based on .NET Framework that 
     /// are able to deal with .NET Standard libraries.
     /// </summary>
     /// <remarks>
@@ -52,7 +52,7 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         /// Task of the native console window is to perform all physical 
         /// writing operations.
         /// </remarks>
-        private readonly NativeConsole native = null;
+        private readonly SystemConsoleWrapper instance = null;
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         public ConsoleLoggerFacade()
             : base()
         {
-            this.native = NativeConsole.Instance;
+            this.instance = SystemConsoleWrapper.Instance;
         }
 
         #endregion
@@ -81,7 +81,7 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.References;
+                return this.instance.References;
             }
         }
 
@@ -90,7 +90,7 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.IsAttached;
+                return this.instance.IsAttached;
             }
         }
 
@@ -99,7 +99,7 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.MustDetach;
+                return this.instance.MustDetach;
             }
         }
 
@@ -108,11 +108,11 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.UseColors;
+                return this.instance.UseColors;
             }
             set
             {
-                this.native.UseColors = value;
+                this.instance.UseColors = value;
             }
         }
 
@@ -121,11 +121,11 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.Foreground;
+                return this.instance.Foreground;
             }
             set
             {
-                this.native.Foreground = value;
+                this.instance.Foreground = value;
             }
         }
 
@@ -134,11 +134,11 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.Background;
+                return this.instance.Background;
             }
             set
             {
-                this.native.Background = value;
+                this.instance.Background = value;
             }
         }
 
@@ -147,11 +147,11 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.WindowTitle;
+                return this.instance.WindowTitle;
             }
             set
             {
-                this.native.WindowTitle = value;
+                this.instance.WindowTitle = value;
             }
         }
 
@@ -160,11 +160,11 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.QuickEdit;
+                return this.instance.QuickEdit;
             }
             set
             {
-                this.native.QuickEdit = value;
+                this.instance.QuickEdit = value;
             }
         }
 
@@ -173,11 +173,11 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         {
             get
             {
-                return this.native.BufferSize;
+                return this.instance.BufferSize;
             }
             set
             {
-                this.native.BufferSize = value;
+                this.instance.BufferSize = value;
             }
         }
 
@@ -188,25 +188,25 @@ namespace Plexdata.LogWriter.Facades.Console.Windows
         /// <inheritdoc />
         public void Attach()
         {
-            this.native.Attach();
+            this.instance.Attach();
         }
 
         /// <inheritdoc />
         public void Detach()
         {
-            this.native.Detach();
+            this.instance.Detach();
         }
 
         /// <inheritdoc />
         public void Write(String message)
         {
-            this.native.Write(message);
+            this.instance.Write(message);
         }
 
         /// <inheritdoc />
         public void Flush()
         {
-            this.native.Flush();
+            this.instance.Flush();
         }
 
         #endregion

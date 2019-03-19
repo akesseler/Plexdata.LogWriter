@@ -23,7 +23,7 @@
  */
 
 using NUnit.Framework;
-using Plexdata.LogWriter.Definitions.Console;
+using Plexdata.LogWriter.Definitions;
 using System;
 using System.Diagnostics.CodeAnalysis;
 

@@ -1,4 +1,13 @@
 
+**1.0.1.0**
+
+- Restructuring of all namespaces (breaking changes).
+- Some renamings and minor changes.
+- Removing of unused code.
+- Update of source code documentation.
+- Wiki and release update on GitHub.
+- Version number increased.
+
 **1.0.0.3**
 
 - Adding of queuing support and related tests.
