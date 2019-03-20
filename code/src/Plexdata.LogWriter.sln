@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Abstract
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Console.Tests", "Plexdata.LogWriter.Console.Tests\Plexdata.LogWriter.Console.Tests.csproj", "{1529DFAC-EC55-4591-8356-F9E6F3282E6E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Console.Windows", "Plexdata.LogWriter.Console.Windows\Plexdata.LogWriter.Console.Windows.csproj", "{9D40C27A-0E26-4DB8-AB49-7E45D0DEF69A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Console.Windows", "Plexdata.LogWriter.Console.Windows\Plexdata.LogWriter.Console.Windows.csproj", "{9D40C27A-0E26-4DB8-AB49-7E45D0DEF69A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Console.Standard", "Plexdata.LogWriter.Console.Standard\Plexdata.LogWriter.Console.Standard.csproj", "{E65E330F-F2A0-4142-A168-32B071E92799}"
 EndProject

@@ -1,4 +1,8 @@
 
+**1.0.1.1**
+- Project icon changed.
+- Version number increased.
+
 **1.0.1.0**
 
 - Restructuring of all namespaces (breaking changes).
