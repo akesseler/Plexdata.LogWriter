@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>Plexdata.LogWriter</RootNamespace>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
@@ -10,28 +9,33 @@
     <PackageLicenseUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/LICENSE.md</PackageLicenseUrl>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
-    <Description>Plexdata.LogWriter.Abstraction defines all basic interfaces as well as other implementations of the Plexdata Logging Writer.
-
-This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
-    <PackageTags>logging logger log trace debug raw structured abstraction</PackageTags>
+    <PackageTags>logging logger log trace debug raw structured file persistent</PackageTags>
     <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
+    <Description>Plexdata.LogWriter.Persistent implements the IPersistentLogger interfaces that allows writing of logging messages into files.
+
+Main feature of this package is that it can be used platform independently.</Description>
     <AssemblyVersion>1.0.1.2</AssemblyVersion>
     <FileVersion>1.0.1.2</FileVersion>
     <Version>1.0.1.2</Version>
+    <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\Plexdata.LogWriter.Abstraction.xml</DocumentationFile>
-    <OutputPath>bin\Debug</OutputPath>
     <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <OutputPath>bin\Debug</OutputPath>
+    <DocumentationFile>bin\Debug\netstandard2.0\Plexdata.LogWriter.Persistent.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Abstraction.xml</DocumentationFile>
-    <OutputPath>bin\Release</OutputPath>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
+    <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Persistent.xml</DocumentationFile>
+    <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />
+  </ItemGroup>
 
 </Project>

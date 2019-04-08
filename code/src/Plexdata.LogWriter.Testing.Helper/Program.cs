@@ -142,3 +142,40 @@ namespace Plexdata.LogWriter.Testing.Helper
  *     }
  * }
  */
+
+/* An example of how to use persistent logger.
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             String filename = @"c:\temp\logging\test.log";
+ *     
+ *             IPersistentLoggerSettings settings = new PersistentLoggerSettings(filename)
+ *             {
+ *                 LogLevel = LogLevel.Trace,
+ *                 IsQueuing = false,
+ *                 IsRolling = true,
+ *                 Threshold = 3,
+ *                 Encoding = Encoding.ASCII,
+ *             };
+ * 
+ *             IPersistentLogger logger = new PersistentLogger(settings);
+ * 
+ *             logger.Debug("This is a Debug logging entry.");
+ *             logger.Trace("This is a Trace logging entry.");
+ *             logger.Verbose("This is a Verbose logging entry.");
+ *             logger.Message("This is a Message logging entry.");
+ *             logger.Warning("This is a Warning logging entry.");
+ *             logger.Error("This is a Error logging entry.");
+ *             logger.Fatal("This is a Fatal logging entry.");
+ *             logger.Critical("This is a Critical logging entry.");
+ * 
+ *             Console.Write("Hit any key to finish... ");
+ *             Console.ReadKey();
+ *         }
+ *     }
+ * }
+ */

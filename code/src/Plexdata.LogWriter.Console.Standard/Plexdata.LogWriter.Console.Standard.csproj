@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
-    <Description>Plexdata.LogWriter.Console.Standard implements the IConsoleLogger interfaces an allows printing of logging messages into the console window.
+    <Description>Plexdata.LogWriter.Console.Standard implements the IConsoleLogger interfaces that allows printing of logging messages into the console window.
 
 Main feature of this package is that it can be used platform independently.</Description>
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
@@ -14,9 +14,9 @@ Main feature of this package is that it can be used platform independently.</Des
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured console standard</PackageTags>
     <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
-    <Version>1.0.1.1</Version>
+    <AssemblyVersion>1.0.1.2</AssemblyVersion>
+    <FileVersion>1.0.1.2</FileVersion>
+    <Version>1.0.1.2</Version>
     <RootNamespace>Plexdata.LogWriter.Standard</RootNamespace>
   </PropertyGroup>
 

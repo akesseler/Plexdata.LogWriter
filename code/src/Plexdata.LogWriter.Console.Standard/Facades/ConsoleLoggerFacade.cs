@@ -54,7 +54,7 @@ namespace Plexdata.LogWriter.Facades.Standard
         /// <seealso cref="Attach"/>
         /// <seealso cref="Detach"/>
         /// <seealso cref="Write(String)"/>
-        private readonly Object synchronizer = new Object();
+        private readonly Object interlock = new Object();
 
         #endregion
 
@@ -199,7 +199,7 @@ namespace Plexdata.LogWriter.Facades.Standard
 
             if (String.IsNullOrWhiteSpace(message)) { return; }
 
-            lock (this.synchronizer)
+            lock (this.interlock)
             {
                 if (message.EndsWith(Environment.NewLine))
                 {
@@ -234,7 +234,7 @@ namespace Plexdata.LogWriter.Facades.Standard
         /// <inheritdoc />
         public void Flush()
         {
-            lock (this.synchronizer)
+            lock (this.interlock)
             {
                 System.Console.Out.Flush();
             }
