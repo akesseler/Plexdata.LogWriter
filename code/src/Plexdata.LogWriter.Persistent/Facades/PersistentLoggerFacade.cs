@@ -166,7 +166,6 @@ namespace Plexdata.LogWriter.Facades
             }
 
             return PersistentLoggerFacade.EmptyInternal(filename);
-
         }
 
         #endregion
