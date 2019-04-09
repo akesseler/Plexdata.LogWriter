@@ -4,8 +4,8 @@
 - Introduction of persistent logger.
 - Update of source code documentation.
 - Version number increased.
-- TBD: Wiki and release update on GitHub.
-- TBD: All affected packages released on nuget.org.
+- Wiki and release update on GitHub.
+- All affected packages released on nuget.org.
 
 **1.0.1.1**
 - Project icon changed.
