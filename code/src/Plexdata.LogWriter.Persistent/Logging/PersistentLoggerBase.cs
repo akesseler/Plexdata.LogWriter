@@ -24,35 +24,45 @@
 
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Internals.Extensions;
+using Plexdata.LogWriter.Queuing;
 using System;
 
 namespace Plexdata.LogWriter.Logging
 {
     /// <summary>
-    /// This abstract class serves as base class of all other console logger classes.
+    /// This abstract class serves as base class of all other persistent logger classes.
     /// </summary>
     /// <remarks>
     /// Task of this base class is to share global functionality between derived classes.
     /// </remarks>
-    public abstract class ConsoleLoggerBase : LoggerBase<IConsoleLoggerSettings>
+    public abstract class PersistentLoggerBase : LoggerBase<IPersistentLoggerSettings>
     {
         #region Private fields
 
         /// <summary>
-        /// The instance of console logger facade.
+        /// The instance of persistent logger facade.
         /// </summary>
         /// <remarks>
-        /// The console logger facade allows access to the physical writing 
-        /// functionality.
+        /// The persistent logger facade allows access to the physical 
+        /// writing functionality.
         /// </remarks>
-        private readonly IConsoleLoggerFacade facade = null;
+        private readonly IPersistentLoggerFacade facade = null;
+
+        /// <summary>
+        /// The instance of the used observable queue.
+        /// </summary>
+        /// <remarks>
+        /// The observable queue handles all message queuing requests.
+        /// </remarks>
+        private readonly IObservableQueue<String> scheduler = null;
 
         #endregion
 
         #region Construction
 
         /// <summary>
-        /// The only class constructor.
+        /// The standard class constructor.
         /// </summary>
         /// <remarks>
         /// This constructor performs a parameter validation, attaches 
@@ -68,17 +78,40 @@ namespace Plexdata.LogWriter.Logging
         /// This exception is thrown either if the <paramref name="settings"/> 
         /// or the <paramref name="facade"/> is <c>null</c>.
         /// </exception>
-        protected ConsoleLoggerBase(IConsoleLoggerSettings settings, IConsoleLoggerFacade facade)
+        /// <seealso cref="PersistentLoggerBase(IPersistentLoggerSettings, IPersistentLoggerFacade, IObservableQueue{String})"/>
+        protected PersistentLoggerBase(IPersistentLoggerSettings settings, IPersistentLoggerFacade facade)
+            : this(settings, facade, new ObservableQueue<String>())
+        {
+        }
+
+        /// <summary>
+        /// The extended class constructor.
+        /// </summary>
+        /// <remarks>
+        /// This constructor performs a parameter validation, attaches the 
+        /// facade as well as the scheduler and initializes other properties.
+        /// </remarks>
+        /// <param name="settings">
+        /// The settings to be used.
+        /// </param>
+        /// <param name="facade">
+        /// The facade to be used.
+        /// </param>
+        /// <param name="scheduler"></param>
+        /// <exception cref="ArgumentNullException">
+        /// This exception is thrown either if the <paramref name="settings"/> or the 
+        /// <paramref name="facade"/> or the <paramref name="scheduler"/> is <c>null</c>.
+        /// </exception>
+        /// <seealso cref="PersistentLoggerBase(IPersistentLoggerSettings, IPersistentLoggerFacade)"/>
+        protected PersistentLoggerBase(IPersistentLoggerSettings settings, IPersistentLoggerFacade facade, IObservableQueue<String> scheduler)
             : base(settings)
         {
             this.facade = facade ?? throw new ArgumentNullException(nameof(facade));
+            this.scheduler = scheduler ?? throw new ArgumentNullException(nameof(scheduler));
 
             this.IsDisposed = false;
 
-            this.facade.Attach();
-            this.facade.WindowTitle = base.Settings.WindowTitle;
-            this.facade.QuickEdit = base.Settings.QuickEdit;
-            this.facade.BufferSize = base.Settings.BufferSize;
+            this.scheduler.Enqueued += this.OnMessageEnqueued;
         }
 
         /// <summary>
@@ -87,7 +120,7 @@ namespace Plexdata.LogWriter.Logging
         /// <remarks>
         /// The destructor performs an object disposal.
         /// </remarks>
-        ~ConsoleLoggerBase()
+        ~PersistentLoggerBase()
         {
             this.Dispose(false);
         }
@@ -136,8 +169,8 @@ namespace Plexdata.LogWriter.Logging
         /// This method actually does the object disposal.
         /// </summary>
         /// <remarks>
-        /// This method detaches from console logger facade 
-        /// and marks this object as disposed.
+        /// This method detaches from the event handler and 
+        /// marks this object as disposed.
         /// </remarks>
         /// <param name="disposing">
         /// True to dispose all managed resources and false 
@@ -147,11 +180,11 @@ namespace Plexdata.LogWriter.Logging
         {
             if (!this.IsDisposed)
             {
-                if (disposing) { /* Dispose all managed resources */ }
-
-                if (this.facade != null)
+                if (disposing)
                 {
-                    this.facade.Detach();
+                    // Dispose all managed resources.
+                    this.scheduler.Enqueued -= this.OnMessageEnqueued;
+                    this.scheduler.Clear();
                 }
 
                 this.IsDisposed = true;
@@ -171,19 +204,14 @@ namespace Plexdata.LogWriter.Logging
 
             if (String.IsNullOrWhiteSpace(output)) { return; }
 
-            Boolean oldUseColors = this.facade.UseColors;
-
-            if (base.Settings.UseColors)
+            if (base.Settings.IsQueuing)
             {
-                this.facade.UseColors = true;
-                this.SetupConsoleColors(level);
+                this.scheduler.Enqueue(output);
             }
-
-            this.facade.Write(output);
-
-            this.facade.Flush();
-
-            this.facade.UseColors = oldUseColors;
+            else
+            {
+                this.WriteInternal(output);
+            }
         }
 
         #endregion
@@ -191,26 +219,62 @@ namespace Plexdata.LogWriter.Logging
         #region Private methods
 
         /// <summary>
-        /// This method changes current message coloring.
+        /// Event handler for enqueued messages.
         /// </summary>
         /// <remarks>
-        /// The colors to be used are taken from current 
-        /// settings and are adjusted in the facade.
+        /// This method represents the event handler for all enqueued messages.
         /// </remarks>
-        /// <param name="level">
-        /// The logging level to adjust the coloring for.
+        /// <param name="sender">
+        /// The sender of the enqueue event.
         /// </param>
-        private void SetupConsoleColors(LogLevel level)
+        /// <param name="args">
+        /// The enqueue event arguments.
+        /// </param>
+        /// <seealso cref="WriteInternal(String[])"/>
+        private void OnMessageEnqueued(Object sender, EventArgs args)
         {
-            if (base.Settings.Coloring.TryGetValue(level, out Coloring coloring))
+            String[] messages = this.scheduler.DequeueAll();
+
+            if (messages != null && messages.Length > 0)
             {
-                this.facade.Foreground = coloring.Foreground;
-                this.facade.Background = coloring.Background;
+                System.Diagnostics.Debug.WriteLine($"Got {messages.Length} dequeue.");
+                this.WriteInternal(messages);
             }
-            else
+        }
+
+        /// <summary>
+        /// Internal handler to write outstanding messages.
+        /// </summary>
+        /// <remarks>
+        /// Task of this method is to physically write all provided messages.
+        /// </remarks>
+        /// <param name="messages">
+        /// The list of message to write.
+        /// </param>
+        private void WriteInternal(params String[] messages)
+        {
+            String filename = base.Settings.GetCurrentFilename(out Boolean dispose);
+            Random random = new Random((Int32)DateTime.Now.Ticks);
+
+            if (dispose)
             {
-                this.facade.Foreground = Coloring.DefaultForeground;
-                this.facade.Background = Coloring.DefaultBackground;
+                while (!this.facade.Empty(filename))
+                {
+                    if (this.IsDisposed) { return; }
+
+                    Int32 delay = random.Next(10, 200);
+                    System.Diagnostics.Debug.WriteLine($"Discarding content of file '{filename}' has failed. Next try in {delay} milliseconds.");
+                    System.Threading.Thread.Sleep(delay);
+                }
+            }
+
+            while (!this.facade.Write(filename, base.Settings.Encoding, messages))
+            {
+                if (this.IsDisposed) { return; }
+
+                Int32 delay = random.Next(10, 200);
+                System.Diagnostics.Debug.WriteLine($"Writing to file '{filename}' has failed. Next try in {delay} milliseconds.");
+                System.Threading.Thread.Sleep(delay);
             }
         }
 

@@ -1,4 +1,12 @@
 
+**1.0.1.2**
+- Some minor fixes and changes.
+- Introduction of persistent logger.
+- Update of source code documentation.
+- Version number increased.
+- TBD: Wiki and release update on GitHub.
+- TBD: All affected packages released on nuget.org.
+
 **1.0.1.1**
 - Project icon changed.
 - Version number increased.

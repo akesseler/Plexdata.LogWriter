@@ -27,6 +27,7 @@ using Plexdata.LogWriter.Queuing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Threading;
 
 namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
 {
@@ -216,6 +217,74 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
 
             // This is actually an integration test.
             Assert.That(this.GetPrivateArraySize(), Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase("item1", "item2", "item3", "item4", "item5")]
+        public void Enqueue_RaiseEnqueuedEvent_EventFiredForEachItem(params String[] items)
+        {
+            Int32 fired = 0;
+
+            this.instance.Enqueued += (sender, args) => { fired++; };
+
+            foreach (String item in items)
+            {
+                this.instance.Enqueue(item);
+            }
+
+            Thread.Sleep(100); // Increase waiting time if test fails.
+
+            Assert.That(fired, Is.EqualTo(items.Length));
+        }
+
+        [Test]
+        [TestCase("item1", "item2", "item3", "item4", "item5")]
+        public void Dequeue_RaiseDequeuedEvent_EventFiredForEachItem(params String[] items)
+        {
+            Int32 fired = 0;
+
+            this.instance.Dequeued += (sender, args) => { fired++; };
+
+            foreach (String item in items)
+            {
+                this.instance.Enqueue(item);
+            }
+
+            while (!this.instance.IsEmpty)
+            {
+                this.instance.Dequeue();
+            }
+
+            Thread.Sleep(100); // Increase waiting time if test fails.
+
+            Assert.That(fired, Is.EqualTo(items.Length));
+        }
+
+        [Test]
+        [TestCase("item1")]
+        [TestCase("item1", "item2", "item3")]
+        [TestCase("item1", "item2", "item3", "item4", "item5")]
+        public void DequeueAll_RaiseDequeuedEvent_EventFiredOnce(params String[] items)
+        {
+            Int32 fired = 0;
+            Int32 count = 0;
+
+            this.instance.Dequeued += (sender, args) => { fired++; };
+
+            foreach (String item in items)
+            {
+                this.instance.Enqueue(item);
+            }
+
+            while (!this.instance.IsEmpty)
+            {
+                count += this.instance.DequeueAll().Length;
+            }
+
+            Thread.Sleep(100); // Increase waiting time if test fails.
+
+            Assert.That(fired, Is.EqualTo(1));
+            Assert.That(count, Is.EqualTo(items.Length));
         }
 
         #endregion

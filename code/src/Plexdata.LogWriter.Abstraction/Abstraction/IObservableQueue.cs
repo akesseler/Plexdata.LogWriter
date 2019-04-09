@@ -105,8 +105,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// Thereafter the removed item is returned.
         /// </para>
         /// <para>
-        ///  The <c>default</c> value of type <typeparamref name="TItem"/> is 
-        ///  returned if the queue is empty.
+        /// The <c>default</c> value of type <typeparamref name="TItem"/> is 
+        /// returned if the queue is empty.
         /// </para>
         /// </remarks>
         /// <returns>
@@ -114,7 +114,29 @@ namespace Plexdata.LogWriter.Abstraction
         /// </returns>
         /// <seealso cref="IObservableQueue{TItem}.Peek"/>
         /// <seealso cref="IObservableQueue{TItem}.IsEmpty"/>
+        /// <seealso cref="IObservableQueue{TItem}.DequeueAll()"/>
         TItem Dequeue();
+
+        /// <summary>
+        /// Removes all items from the queue and returns them.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method removes all items from the queue and if successful it 
+        /// raises the event <see cref="IObservableQueue{TItem}.Dequeued"/>. 
+        /// Thereafter the list of removed items is returned.
+        /// </para>
+        /// <para>
+        /// An empty list is returned if the queue is empty.
+        /// </para>
+        /// </remarks>
+        /// <returns>
+        /// The list of items that have been removed from the queue.
+        /// </returns>
+        /// <seealso cref="IObservableQueue{TItem}.Peek"/>
+        /// <seealso cref="IObservableQueue{TItem}.IsEmpty"/>
+        /// <seealso cref="IObservableQueue{TItem}.Dequeue()"/>
+        TItem[] DequeueAll();
 
         /// <summary>
         /// Returns the item at the beginning of the queue but without removing it.

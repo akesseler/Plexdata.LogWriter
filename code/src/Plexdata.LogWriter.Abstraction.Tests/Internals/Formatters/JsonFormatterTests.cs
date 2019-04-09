@@ -222,8 +222,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
             String actual = this.builder.ToString();
 
-            System.Diagnostics.Debug.WriteLine(actual);
-
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 

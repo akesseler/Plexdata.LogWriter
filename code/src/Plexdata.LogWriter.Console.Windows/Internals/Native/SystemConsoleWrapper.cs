@@ -91,7 +91,7 @@ namespace Plexdata.LogWriter.Internals.Native.Windows
         /// <seealso cref="Attach"/>
         /// <seealso cref="Detach"/>
         /// <seealso cref="Write(String)"/>
-        private readonly Object synchronizer = new Object();
+        private readonly Object interlock = new Object();
 
         #endregion
 
@@ -347,7 +347,7 @@ namespace Plexdata.LogWriter.Internals.Native.Windows
         /// <seealso cref="MustDetach"/>
         public void Attach()
         {
-            lock (this.synchronizer)
+            lock (this.interlock)
             {
                 this.Increment();
 
@@ -389,7 +389,7 @@ namespace Plexdata.LogWriter.Internals.Native.Windows
         /// <seealso cref="MustDetach"/>
         public void Detach()
         {
-            lock (this.synchronizer)
+            lock (this.interlock)
             {
                 this.Decrement();
 
@@ -433,7 +433,7 @@ namespace Plexdata.LogWriter.Internals.Native.Windows
 
             if (String.IsNullOrWhiteSpace(message)) { return; }
 
-            lock (this.synchronizer)
+            lock (this.interlock)
             {
                 if (message.EndsWith(Environment.NewLine))
                 {

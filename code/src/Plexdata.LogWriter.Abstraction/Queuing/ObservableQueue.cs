@@ -57,20 +57,21 @@ namespace Plexdata.LogWriter.Queuing
         /// The number of items in the queue.
         /// </summary>
         /// <remarks>
-        /// This field represents the number of items that 
-        /// are currently available in the queue.
+        /// This field represents the number of items that are currently 
+        /// available in the queue.
         /// </remarks>
         /// <seealso cref="ObservableQueue{TItem}.Count"/>
         private volatile Int32 count = 0;
 
         /// <summary>
-        /// The interlock object.
+        /// This field holds the instance of the internal synchronization 
+        /// object.
         /// </summary>
         /// <remarks>
-        /// This field represents the object to be used to lock 
-        /// an access from different threads.
+        /// This field represents the object to be used to lock an access 
+        /// from different threads.
         /// </remarks>
-        private readonly Object block = null;
+        private readonly Object interlock = null;
 
         /// <summary>
         /// The typed queue of items.
@@ -120,7 +121,7 @@ namespace Plexdata.LogWriter.Queuing
             }
 
             this.count = 0;
-            this.block = new Object();
+            this.interlock = new Object();
             this.queue = new Queue<TItem>(capacity);
         }
 
@@ -165,7 +166,7 @@ namespace Plexdata.LogWriter.Queuing
         {
             if (item != null)
             {
-                lock (this.block)
+                lock (this.interlock)
                 {
                     this.queue.Enqueue(item);
                     this.count = this.queue.Count;
@@ -182,7 +183,7 @@ namespace Plexdata.LogWriter.Queuing
 
             if (!this.IsEmpty)
             {
-                lock (this.block)
+                lock (this.interlock)
                 {
                     result = this.queue.Dequeue();
                     this.count = this.queue.Count;
@@ -195,13 +196,36 @@ namespace Plexdata.LogWriter.Queuing
         }
 
         /// <inheritdoc />
+        public TItem[] DequeueAll()
+        {
+            List<TItem> result = new List<TItem>();
+
+            if (!this.IsEmpty)
+            {
+                lock (this.interlock)
+                {
+                    while (this.queue.Count > 0)
+                    {
+                        result.Add(this.queue.Dequeue());
+                    }
+
+                    this.count = this.queue.Count;
+                }
+
+                this.RaiseDequeued();
+            }
+
+            return result.ToArray();
+        }
+
+        /// <inheritdoc />
         public TItem Peek()
         {
             TItem result = default(TItem);
 
             if (!this.IsEmpty)
             {
-                lock (this.block)
+                lock (this.interlock)
                 {
                     result = this.queue.Peek();
                 }
@@ -213,7 +237,7 @@ namespace Plexdata.LogWriter.Queuing
         /// <inheritdoc />
         public void Clear()
         {
-            lock (this.block)
+            lock (this.interlock)
             {
                 this.queue.Clear();
                 this.count = this.queue.Count;
@@ -223,7 +247,7 @@ namespace Plexdata.LogWriter.Queuing
         /// <inheritdoc />
         public void Trim()
         {
-            lock (this.block)
+            lock (this.interlock)
             {
                 this.queue.TrimExcess();
             }
@@ -237,26 +261,26 @@ namespace Plexdata.LogWriter.Queuing
         /// Raises the event <see cref="ObservableQueue{TItem}.Enqueued"/>.
         /// </summary>
         /// <remarks>
-        /// This method fires event <see cref="ObservableQueue{TItem}.Enqueued"/>. But this 
-        /// event may occur in a different thread because of <see cref="Task.Run(Action)"/> 
+        /// This method fires (and forgets) event <see cref="ObservableQueue{TItem}.Enqueued"/>. 
+        /// But this event occurs in a different thread because of <see cref="Task.Run(Action)"/> 
         /// is used.
         /// </remarks>
         protected virtual void RaiseEnqueued()
         {
-            Task.Run(() => { this.Enqueued?.Invoke(this, EventArgs.Empty); });
+            Task.Run(() => { this.Enqueued?.Invoke(this, EventArgs.Empty); }).ConfigureAwait(false);
         }
 
         /// <summary>
         /// Raises the event <see cref="ObservableQueue{TItem}.Dequeued"/>.
         /// </summary>
         /// <remarks>
-        /// This method fires event <see cref="ObservableQueue{TItem}.Dequeued"/>. But this 
-        /// event may occur in a different thread because of <see cref="Task.Run(Action)"/> 
+        /// This method fires (and forgets) event <see cref="ObservableQueue{TItem}.Dequeued"/>. 
+        /// But this event occurs in a different thread because of <see cref="Task.Run(Action)"/> 
         /// is used.
         /// </remarks>
         protected virtual void RaiseDequeued()
         {
-            Task.Run(() => { this.Dequeued?.Invoke(this, EventArgs.Empty); });
+            Task.Run(() => { this.Dequeued?.Invoke(this, EventArgs.Empty); }).ConfigureAwait(false);
         }
 
         #endregion
