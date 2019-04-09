@@ -5,7 +5,7 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
-    <Description>Plexdata.LogWriter.Console.Standard implements the IConsoleLogger interfaces that allows printing of logging messages into the console window.
+    <Description>Plexdata.LogWriter.Console.Standard implements the IConsoleLogger interface that allows printing of logging messages into the console window.
 
 Main feature of this package is that it can be used platform independently.</Description>
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
