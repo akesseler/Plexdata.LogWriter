@@ -1,0 +1,377 @@
+﻿
+<h2 id="console-logger-examples">Console Logger</h2>
+
+<p>
+    In this chapter you may find some interesting information about using the console logging
+    writer. But before continue reading please note, the console logger is split into two different
+    implementations.
+</p>
+
+<p>
+    The first implementation called <i>Console Logger Standard</i> can be used platform independently.
+    In contrast to that, the second implementation called <i>Console Logger Windows</i> can only be used on
+    Windows platforms. The reason behind, the <i>Console Logger Windows</i> uses the Win32&ndash;API directly
+    to be able to support additional Windows features.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#logger-basic-settings">Logger Basic Settings</a></li>
+    <li><a href="#logger-color-settings">Logger Color Settings</a></li>
+    <li>
+        <a href="#console-logger-dependency-injection">Dependency Injection</a>
+        <ul class="page-sub-toc">
+            <li><a href="#console-logger-dependency-injection-std-core">In .NET Core</a></li>
+            <li><a href="#console-logger-dependency-injection-asp-core">In ASP.NET Core</a></li>
+        </ul>
+    </li>
+</ul>
+
+<h4 id="logger-basic-settings">Logger Basic Settings</h4>
+
+<p>
+    Below can be found a fully qualified example of how to use the console logger settings. You may
+    recognize that the time format, the part split, the quick edit mode as well as the window title
+    have been changed.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('logger-basic-settings-example-1');return false;">Copy</a></div>
+<pre id="logger-basic-settings-example-1"><code>using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Extensions;
+using Plexdata.LogWriter.Logging.Windows;
+using Plexdata.LogWriter.Settings;
+using System;
+
+namespace ConsoleLoggerExample
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            IConsoleLoggerSettings settings = new ConsoleLoggerSettings
+            {
+                LogLevel = LogLevel.Trace,
+                ShowTime = true,
+                TimeFormat = "G",
+                PartSplit = '|',
+                QuickEdit = true,
+                WindowTitle = "Console Logger Example",
+            };
+
+            ILogger logger = new ConsoleLogger(settings);
+
+            logger.Trace("Trace...");
+            logger.Debug("Debug...");
+            logger.Verbose("Verbose...");
+            logger.Message("Message...");
+            logger.Warning("Warning...");
+            logger.Error("Error...");
+            logger.Fatal("Fatal...");
+            logger.Critical("Critical...");
+        }
+    }
+}</code></pre>
+
+<p>
+    With the above settings in mind the message output of the console logger would look like as
+    shown as follows.
+</p>
+
+<div class="image center">
+    <img src="../images/logger-basic-settings-example.png" />
+    <label class="label">Example output of above settings</label>
+</div>
+
+<h4 id="logger-color-settings">Logger Color Settings</h4>
+
+<p>
+    Changing the console logger&rsquo;s message coloring can be done by using property <code>Coloring</code>
+    of the console logger settings. How it can be accomplished is shown below.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('logger-color-settings-example-1');return false;">Copy</a></div>
+<pre id="logger-color-settings-example-1"><code>static void Main(String[] args)
+{
+    ...
+    settings.Coloring[LogLevel.Verbose] = new Coloring(ConsoleColor.DarkGreen, ConsoleColor.White);
+    settings.Coloring[LogLevel.Critical] = new Coloring(ConsoleColor.DarkGray, ConsoleColor.Magenta);
+
+    logger.Trace("Trace...");
+    logger.Debug("Debug...");
+    logger.Verbose("Verbose...");
+    logger.Message("Message...");
+    logger.Warning("Warning...");
+    logger.Error("Error...");
+    logger.Fatal("Fatal...");
+    logger.Critical("Critical...");
+    ...            
+}</code></pre>
+
+<p>
+    After changing the coloring for message types <code>Verbose</code> and <code>Critical</code> as
+    shown above the message output of the console logger would look like as shown below.
+</p>
+
+<div class="image center">
+    <img src="../images/logger-color-settings-example.png" />
+    <label class="label">Example output of above coloring</label>
+</div>
+
+<h4 id="console-logger-dependency-injection">Dependency Injection</h4>
+
+<p>
+    Dependency injection is always an important issue. Therefore, this section wants to show how to
+    accomplish this task for the console logger implementation.
+</p>
+
+<h5 id="console-logger-dependency-injection-std-core">Dependency Injection in .NET Core</h5>
+
+<p>
+    Using dependency injection in a simple <i>.NET Core</i> application might be a bit tricky. Here
+    are the steps to get it running or just click on
+    <a href="/examples/code/ConsoleLoggerExample1.zip" download><i class="fa fa-download"></i></a>
+    to download the complete example project.
+</p>
+
+<p><u>Step 1</u></p>
+
+<p>
+    Start with a new <i>.NET Core</i> console application.
+</p>
+
+<p><u>Step 2</u></p>
+
+<p>
+    Install following <i>NuGet</i> packages.
+    <ul>
+        <li><code>Plexdata.LogWriter.Abstraction</code></li>
+        <li><code>Plexdata.LogWriter.Console</code></li>
+        <li><code>Plexdata.LogWriter.Console.Standard</code></li>
+        <li><code>Microsoft.Extensions.Configuration</code></li>
+        <li><code>Microsoft.Extensions.Configuration.Abstractions</code></li>
+        <li><code>Microsoft.Extensions.Configuration.Binder</code></li>
+        <li><code>Microsoft.Extensions.Configuration.Json</code></li>
+        <li><code>Microsoft.Extensions.DependencyInjection</code></li>
+    </ul>
+</p>
+
+<p><u>Step 3</u></p>
+
+<p>
+    Now create a configuration file, such as <code>appsettings.json</code> and make sure this file
+    has its properties set to <code>Content</code>, <code>Copy always</code>
+</p>
+
+<p><u>Step 4</u></p>
+
+<p>
+    Add content below to the new configuration file.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('application-configuration-example-1');return false;">Copy</a></div>
+<pre id="application-configuration-example-1"><code>{ 
+    "ConsoleLoggerSettings": {
+        "LogLevel": "Trace",
+        "LogTime": "Local",
+        "LogType": "Raw",
+        "ShowTime": true,
+        "PartSplit": "|",
+        "WindowTitle": "Hello World" 
+    }
+}</code></pre>
+
+<p><u>Step 5</u></p>
+
+<p>
+    Create a helper class, for example named <code>ConsoleLoggerConfiguration</code>, that is able to
+    process the configuration content. This helper class might look like shown below.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('application-configuration-helper-class-example-1');return false;">Copy</a></div>
+<pre id="application-configuration-helper-class-example-1"><code>public class ConsoleLoggerConfiguration : ConsoleLoggerSettings
+{
+    public ConsoleLoggerConfiguration(IConfigurationRoot config)
+        : base()
+    {
+        if (config == null)
+        {
+            throw new ArgumentNullException(nameof(config));
+        }
+
+        config.GetSection("ConsoleLoggerSettings").Bind(this);
+    }
+}</code></pre>
+
+<p><u>Step 6</u></p>
+
+<p>
+    Implement a class that gets injected with its logger instance like show as follows.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('class-with-logger-injection-example-1');return false;">Copy</a></div>
+<pre id="class-with-logger-injection-example-1"><code>public class ExampleClassWithLoggerInjection
+{
+    private readonly IConsoleLogger logger;
+
+    public ExampleClassWithLoggerInjection(IConsoleLogger logger)
+    {
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    public void MethodToCall()
+    {
+        this.logger.Message("Here I am...");
+    }
+}
+</code></pre>
+
+<p><u>Step 7</u></p>
+
+<p>
+    In the program&rsquo;s <code>Main</code> method implement the required dependency injection part
+    as shown below.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-add-config-example-1');return false;">Copy</a></div>
+<pre id="dependency-injection-add-config-example-1"><code>static void Main(String[] args)
+{
+    IConfigurationBuilder builder = new ConfigurationBuilder();
+    builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", false);
+
+    IServiceCollection service = new ServiceCollection();
+    service.AddSingleton&lt;IConfigurationRoot&gt;(builder.Build());
+    service.AddSingleton&lt;IConsoleLoggerSettings, ConsoleLoggerConfiguration&gt;();
+    service.AddSingleton&lt;IConsoleLogger, ConsoleLogger&gt;();
+    service.AddTransient(typeof(ExampleClassWithLoggerInjection));
+
+    IServiceProvider provider = service.BuildServiceProvider();
+
+    ExampleClassWithLoggerInjection example = provider.GetService&lt;ExampleClassWithLoggerInjection&gt;();
+    example.MethodToCall();
+
+    Console.ReadKey();
+}</code></pre>
+
+<p><u>Step 8</u></p>
+
+<p>
+    Finally, run the program. The console output should look like as shown as here.
+</p>
+
+<div class="image center">
+    <img src="../images/logger-dependency-injection-result-example-1.png" />
+    <label class="label">Example output of above dependency injection</label>
+</div>
+
+<h5 id="console-logger-dependency-injection-asp-core">Dependency Injection in ASP.NET Core</h5>
+
+<p>
+    Using dependency injection in an <i>ASP.NET Core</i> application might be a bit easier. Anyway,
+    here are the steps to get it running or just click on
+    <a href="/examples/code/ConsoleLoggerExample2.zip" download><i class="fa fa-download"></i></a>
+    to download the complete example project.
+</p>
+
+<p><u>Step 1</u></p>
+
+<p>
+    Start with a new <i>ASP.NET Core</i> console application and choose <i>API</i> as type in the dialog
+    box. After project creation, open project settings, choose <i>Debug</i> tab, select the project name,
+    for example <code>ConsoleLoggerExample2</code>, from <i>Profile</i> drop&ndash;list as well as un&ndash;tick
+    the check&ndash;box <i>Launch browser</i>. Finally, in the toolbar select the project name, for example
+    <code>ConsoleLoggerExample2</code>, instead of <i>IIS Express</i>.
+</p>
+
+<p><u>Step 2</u></p>
+
+<p>
+    Install following <i>NuGet</i> packages.
+    <ul>
+        <li><code>Plexdata.LogWriter.Abstraction</code></li>
+        <li><code>Plexdata.LogWriter.Console</code></li>
+        <li><code>Plexdata.LogWriter.Console.Standard</code></li>
+    </ul>
+</p>
+
+<p><u>Step 3</u></p>
+
+<p>
+    Open configuration file <code>appsettings.json</code> for edit and add content below.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('application-configuration-example-2');return false;">Copy</a></div>
+<pre id="application-configuration-example-2"><code>{ 
+    ...
+    "ConsoleLoggerSettings": {
+        "LogLevel": "Trace",
+        "LogTime": "Local",
+        "LogType": "Raw",
+        "ShowTime": true,
+        "PartSplit": "|",
+        "WindowTitle": "Hello World" 
+    }
+    ...
+}</code></pre>
+
+<p><u>Step 4</u></p>
+
+<p>
+    Open file <code>Startup.cs</code> for edit and put following lines into the methods as shown below.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-add-config-example-2');return false;">Copy</a></div>
+<pre id="dependency-injection-add-config-example-2"><code>public void ConfigureServices(IServiceCollection services)
+{
+    ...
+    services.AddSingleton&lt;Plexdata.LogWriter.Abstraction.IConsoleLoggerSettings, Plexdata.LogWriter.Settings.ConsoleLoggerSettings&gt;();
+    services.AddSingleton&lt;Plexdata.LogWriter.Abstraction.IConsoleLogger, Plexdata.LogWriter.Logging.Standard.ConsoleLogger&gt;();
+    ...
+}
+
+public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+{
+    ...
+    this.Configuration.GetSection("ConsoleLoggerSettings").Bind(app.ApplicationServices.GetService&lt;Plexdata.LogWriter.Abstraction.IConsoleLoggerSettings&gt;());
+    ...
+}</code></pre>
+
+<p><u>Step 5</u></p>
+
+<p>
+    As next it would be useful to inject the console logger somewhere, for example in the value controller.
+    For this purpose open file <code>ValuesController.cs</code> and add a constructor and a field as shown as follows.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-values-controller-1');return false;">Copy</a></div>
+<pre id="dependency-injection-values-controller-1"><code>private readonly IConsoleLogger logger;
+
+public ValuesController(IConsoleLogger logger)
+{
+    this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+}</code></pre>
+
+<p>
+    After that, move to method <code>Get()</code> and write a logging message like shown in the next code&ndash;snippet.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-values-controller-2');return false;">Copy</a></div>
+<pre id="dependency-injection-values-controller-2"><code>public ActionResult&lt;IEnumerable&lt;string&gt;&gt; Get()
+{
+    this.logger.Message("Here I am...");
+    return new string[] { "value1", "value2" };
+}</code></pre>
+
+<p><u>Step 6</u></p>
+
+<p>
+    Finally, build and run the program. Then open a browser and call URL <code>https://localhost:5001/api/values</code>.
+    After that, the console output should look like as shown as here.
+</p>
+
+<div class="image center">
+    <img src="../images/logger-dependency-injection-result-example-2.png" />
+    <label class="label">Example output of above dependency injection</label>
+</div>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

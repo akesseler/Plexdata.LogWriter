@@ -1,0 +1,113 @@
+﻿
+<h2 id="persistent-logger-settings">Persistent Settings</h2>
+
+<p>
+    The persistent logger settings are the settings used together with each of the
+    persistent respectively file logger implementations. These settings are defined
+    in interface <code>IPersistentLoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#rules-check">Rules Check</a></li>
+    <li><a href="#filename">Filename</a></li>
+    <li><a href="#rolling">Rolling</a></li>
+    <li><a href="#queuing">Queuing</a></li>
+    <li><a href="#threshold">Threshold</a></li>
+    <li><a href="#encoding">Encoding</a></li>
+</ul>
+
+<h3 id="rules-check">Rules Check</h3>
+
+<p>
+    Before start reading about other details, it seems to be useful to discuss the rules and
+    dependencies of some of the available properties. The following overview provides those
+    information about the rules that are applied to the properties of this logger settings.
+</p>
+
+<ol>
+    <li>
+        If rolling is <b>off</b> and the threshold is equal to or less than zero then only one
+        logging file is written.
+    </li>
+    <li>
+        If rolling is <b>off</b> and the threshold is greater than zero then a set of logging
+        files are written, each of them with an appended time stamp.
+    </li>
+    <li>
+        If rolling is <b>on</b> and the threshold is equal to or less than zero then a default
+        threshold of five megabytes (5&nbsp;MiB) is used and rolling is applied with that default
+        threshold.
+    </li>
+    <li>
+        If rolling is <b>on</b> and the threshold is greater than zero then rolling is applied
+        with that threshold.
+    </li>
+</ol>
+
+<p>
+    In case of rolling, a first logging file with suffix <code>_one</code> is created. If that file
+    reaches the threshold then the first file is closed and a second file with suffix <code>_two</code>
+    is created. If the second file reaches the threshold then the second file is cloesed and the
+    first file is reopened. In that case the content of the fist file is completely discarded. This
+    behaviour is repeated as long as the &ldquo;rolling&rdquo; logging takes place.
+</p>
+
+<h3 id="filename">Filename</h3>
+
+<p>
+    The property <code>Filename</code> returns the fully qualified name of the assigned logging file.
+    The default logging file is located in the current user&rsquo;s temporary folder and is named
+    <code>plexdata.log</code>.
+</p>
+
+<p>
+    But before a file name can be used it is checked if it includes at least one partial path. If
+    this is the case the partial file path is converted into its fully qualified path representation.
+    Thereafter it is check if the physical file can be opened for write. Be aware, the file name is
+    only considered as valid if all of these rules are fulfilled. Otherwise various exceptions are
+    thrown.
+</p>
+
+<h3 id="rolling">Rolling</h3>
+
+<p>
+    The property <code>IsRolling</code> allows enabling or disabling the rolling of logging files.
+    Rolling means that the real logging file changes if a particular condition is satisfied. The
+    default value is <code>OFF</code> but might be changes by derived classes.
+</p>
+
+<h3 id="queuing">Queuing</h3>
+
+<p>
+    The property <code>IsQueuing</code> allows enabling or disabling of message queuing. This means
+    messages are written directly into the logging file if message queuing is disabled. The other way
+    round, message to write are cached before they will be written. The default value is <code>OFF</code>
+    but might be changes by derived classes.
+</p>
+
+<p>
+    But no matter if queuing is enabled or disabled, there is no guaranteed that all written logging
+    message are in chronological order. The reason behind is that the persistent logging can be used in
+    a multi&ndash;threading environment respectively multiple processes try writing logging messages at
+    the same time.
+</p>
+
+<h3 id="threshold">Threshold</h3>
+
+<p>
+    The property <code>Threshold</code> represents the size in kilobyte at when a logging file should
+    be switched and is actually just a approximate value. This in turn means that the file size is
+    determined after a logging message has been written. On the other hand, a threshold of less than
+    or equal to zero means no limitation. The default value is <code>-1</code> but might be changes
+    by derived classes.
+</p>
+
+<h3 id="encoding">Encoding</h3>
+
+<p>
+    The property <code>Encoding</code> allows to change the file encoding to be used. The default value
+    is <code>UTF&ndash;8</code> but might be changes by derived classes.
+</p>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

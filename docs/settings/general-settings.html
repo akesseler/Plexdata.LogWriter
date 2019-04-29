@@ -1,0 +1,281 @@
+﻿
+<h2 id="general-logger-settings">General Settings</h2>
+
+<p>
+    The general logger settings are the settings to be shared between all other logger settings. These
+    settings are defined in interface <code>ILoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#logging-level">Logging Level</a></li>
+    <li><a href="#logging-type">Logging Type</a></li>
+    <li><a href="#logging-time">Logging Time</a></li>
+    <li><a href="#show-time">Show Time</a></li>
+    <li><a href="#time-format">Time Format</a></li>
+    <li><a href="#part-split">Part Split</a></li>
+    <li><a href="#full-name">Full Name</a></li>
+    <li><a href="#culture">Culture</a></li>
+</ul>
+
+<h3 id="logging-level">Logging Level</h3>
+
+<p>
+    The logging level can be modified using property <code>LogLevel</code> and is used to tag messages with a
+    specific severity. This makes it easier to distinguish for example tracing information from real problems.
+</p>
+
+<p>
+    Generally spoken, the logging level represents the granularity of information that are put into a logging
+    sink. This in turn means, the higher the logging level the less are the messages written into the log.
+</p>
+
+<p>
+    The logging level rises from <code>Trace</code> up to <code>Critical</code>. For example, if the logging
+    level is set to <code>Warning</code>, every message with a logging level below <code>Warning</code> is
+    suppressed and every message with a logging level equal to or higher than <code>Warning</code> is written
+    to logging target. Below you can find the list of all supported logging levels.
+</p>
+
+<table>
+    <tr>
+        <th>Level</th>
+        <th>Value</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>Disabled</code></td>
+        <td class="center"><code>0</code></td>
+        <td>
+            This logging level indicates that logging is disabled at all.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Trace</code></td>
+        <td class="center"><code>1</code></td>
+        <td>
+            This is the lowest possible logging level and can be used for example to track method calls.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Debug</code></td>
+        <td class="center"><code>2</code></td>
+        <td>
+            The debug logging level might be used for any debug purpose.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Verbose</code></td>
+        <td class="center"><code>3</code></td>
+        <td>
+            The verbose logging level could be used for example to inform about a program&rsquo;s version,
+            start&ndash;up time or something similar.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Message</code></td>
+        <td class="center"><code>4</code></td>
+        <td>
+            The message logging level could be used for example to track the current state of a program.
+            This logging level also represents the default logging level.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Warning</code></td>
+        <td class="center"><code>5</code></td>
+        <td>
+            The warning logging level could be used to inform the outside world about possible problem
+            that could cause a crash later on.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Error</code></td>
+        <td class="center"><code>6</code></td>
+        <td>
+            The error logging level could be used to indicate for example problems with other components.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Fatal</code></td>
+        <td class="center"><code>7</code></td>
+        <td>
+            The fatal logging level could be used to indicate for example real problems. Such problems may
+            result in a state in which a program cannot longer function as expected.
+        </td>
+    </tr>
+    <tr>
+        <td><code>Critical</code></td>
+        <td class="center"><code>8</code></td>
+        <td>
+            The critical logging level could be used to indicate for example a really bad program state.
+            Such a critical program state may cause the program to give up and to terminate unexpectedly.
+        </td>
+    </tr>
+</table>
+
+<p>
+    Finally note, an extension is available allowing to change each of the logging level labels.
+</p>
+
+<h3 id="logging-type">Logging Type</h3>
+
+<p>
+    The logging type actually decides which message formatting type is used. For the moment, possible
+    formats are RAW, CSV and JSON.
+</p>
+
+<h4>Raw Format</h4>
+
+<p>
+    Raw format typically means that such a logging message consists of a leading time stamp and is followed
+    by a particular logging level as well as a meaningful message. Additionally, such a raw logging message
+    may include a message context and/or a message scope. Other additional information might be included as
+    well. This format is also defined as default format. Here are some examples of raw messages.
+</p>
+
+<pre><code>2019-05-23 17:23:05.1234;TRACE;message text
+2019-05-23 17:23:05.1234;DEBUG;message text
+2019-05-23 17:23:05.1234;VERBOSE;message text
+2019-05-23 17:23:05.1234;MESSAGE;message text
+2019-05-23 17:23:05.1234;WARNING;message text
+2019-05-23 17:23:05.1234;ERROR;message text
+2019-05-23 17:23:05.1234;FATAL;message text
+2019-05-23 17:23:05.1234;CRITICAL;message text</code></pre>
+
+<p>
+    In that order, any of these messages consists of:
+    <ul style="list-style-type:circle;">
+        <li><code>Timestamp</code>, but only if enabled;</li>
+        <li><code>Level</code>;</li>
+        <li><code>Context</code>, but only if used;</li>
+        <li><code>Scope</code>, but only if used;</li>
+        <li><code>Message</code>;</li>
+        <li><code>Details</code>, but only if used;</li>
+        <li><code>Exception</code>, but only if used, and is put into a new line.</li>
+    </ul>
+    A key value is never used in this context.
+</p>
+
+<h4>CSV Format</h4>
+
+<p>
+    This format allows writing of massages in the so&ndash;called CSV format (Character Separated Values).
+    Logging messages transformed by this format are compatible to <a href="https://www.ietf.org/rfc/rfc4180.txt" target="_blank">RFC 4180</a>.
+    Here are some examples of CSV messages.
+</p>
+
+<pre><code>190B66E6-99F8-46F0-805B-F3EDB7760A6C;2019-05-23 17:23:05.1234;TRACE;;;"message text; testing";;
+46CEFA61-D1AD-4154-A909-0AE7932BE712;2019-05-23 17:23:05.1234;DEBUG;;;"message text; testing";;
+217287EE-04E4-437B-89E7-C7E5F1352AC1;2019-05-23 17:23:05.1234;VERBOSE;;;"message text; testing";;
+2A0BCCB1-7646-4366-B4A9-AE4D11EB32EF;2019-05-23 17:23:05.1234;MESSAGE;;;"message text; testing";;
+4B7CA54B-0A4E-46D6-A634-A66E8DFEDC0D;2019-05-23 17:23:05.1234;WARNING;;;"message text; testing";;
+B5BCB835-1272-48A2-83D1-824267298716;2019-05-23 17:23:05.1234;ERROR;;;"message text; testing";;
+8F21E75D-502E-4F49-BA3B-CFAC3CFB3238;2019-05-23 17:23:05.1234;FATAL;;;"message text; testing";;
+0501358F-5FE2-4203-860A-F3A76CF22554;2019-05-23 17:23:05.1234;CRITICAL;;;"message text; testing";;</code></pre>
+
+<p>
+    In that order, any of these messages consists of:
+    <ul style="list-style-type:circle;">
+        <li><code>Key</code>;</li>
+        <li><code>Timestamp</code>;</li>
+        <li><code>Level</code>;</li>
+        <li><code>Context</code>, or empty string;</li>
+        <li><code>Scope</code>, or empty string;</li>
+        <li><code>Message</code>, or empty string;</li>
+        <li><code>Details</code>, or empty string;</li>
+        <li><code>Exception</code>, or empty string.</li>
+    </ul>
+    Each of these message parts can be surrounded by double quotes in case of the content includes at least
+    one double quote or one carriage return or one line feed or at least one of the split character.
+</p>
+
+<h4>JSON Format</h4>
+
+<p>
+    JSON (JavaScript Object Notation) is a format that allows to share objects between different programs. Thus,
+    the JSON format can be used to transform logging messages in this special data format. More information about
+    JSON can be found on <a href="https://www.json.org" target="_blank">https://www.json.org</a>.
+</p>
+<p>
+    For the moment, all values in the output (except <code>null</code> values) are treated as string. This means
+    in detail they are surrounded by double quotes. Here are some examples of JSON messages.
+</p>
+
+<pre><code>{"Key":"7E098995-D1AA-431E-91CE-04FDF3DA09CF","Time":"2019-05-23 17:23:05.1234567Z","Level":"TRACE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"2A42295D-1253-4317-8B81-65DE1512D60A","Time":"2019-05-23 17:23:05.1234567Z","Level":"DEBUG","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"F727504C-73D6-4042-BC3A-96D107E478A9","Time":"2019-05-23 17:23:05.1234567Z","Level":"VERBOSE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"E56F77B7-EE59-43BD-90C3-6CEEE272333A","Time":"2019-05-23 17:23:05.1234567Z","Level":"MESSAGE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"C3F51AF2-BA0A-43E5-A1EB-32E2210A9C16","Time":"2019-05-23 17:23:05.1234567Z","Level":"WARNING","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"EDA354AC-C651-4972-90D8-71EA02F8CB24","Time":"2019-05-23 17:23:05.1234567Z","Level":"ERROR","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"2A6CA48D-ECF4-446B-B6C1-BAC7E52FB237","Time":"2019-05-23 17:23:05.1234567Z","Level":"FATAL","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"6C094A18-87CF-451F-A39D-793A68758A0E","Time":"2019-05-23 17:23:05.1234567Z","Level":"CRITICAL","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}</code></pre>
+
+<p>
+    In that order, any of these messages consists of:
+    <ul style="list-style-type:circle;">
+        <li><code>Key</code>;</li>
+        <li><code>Timestamp</code>;</li>
+        <li><code>Level</code>;</li>
+        <li><code>Context</code>, or null value;</li>
+        <li><code>Scope</code>, or null value;</li>
+        <li><code>Message</code>, or null value;</li>
+        <li><code>Details</code>, or null value;</li>
+        <li><code>Exception</code>, or null value.</li>
+    </ul>
+    Each label and each value (except null) is surrounded by double quotes. Any user&ndash;defined date/time
+    format is replaced by UTC format with time&ndash;zone information.
+</p>
+
+<h3 id="logging-time">Logging Time</h3>
+
+<p>
+    The logging time property allows to declare the time type to be used. At the moment either UTC or Local
+    time can be chosen. Local time is used as default value. Each logging format type takes care about the
+    logging time type.
+</p>
+
+<h3 id="show-time">Show Time</h3>
+
+<p>
+    This property allows to enable or disable the usage of the message time stamps. Showing the time stamp of a
+    particular message is very useful. But sometimes it is more useful to hide the time stamp. For this purpose
+    this property can be used. Please note, this property only affects messages in raw format. The default value
+    is <code>ON</code> but might be changes by derived classes.
+</p>
+
+<h3 id="time-format">Time Format</h3>
+
+<p>
+    The time format string is used to define how a time stamp has to look. An adaptation of the standard ISO format
+    is used as default value. Additionally, this property supports any date and time format that is valid for method
+    <a href="http://msdn2.microsoft.com/en-us/library/zdtaw1bw" target="_blank">DateTime.ToString(String)</a>. The
+    value of this property is ignored in case of using JSON format.
+</p>
+
+<h3 id="part-split">Part Split</h3>
+
+<p>
+    The message part separator is used to be able to distinguish each part of a logging message from other logging
+    message parts. The value of this property might be changed to use a separator different from the default separator.
+    The default part split value is the semicolon. The value of this property is ignored in case of using JSON format.
+</p>
+
+<h3 id="full-name">Full Name</h3>
+
+<p>
+    The usage of full name property especially applies to types used for the context. With this property it becomes
+    possible to show the full name (including fully qualified namespace) respectively to show the short name in all
+    messages. But keep in mind, a distinction between full name and short name is only possible as long as the provided
+    type does support it. The default value is <code>ON</code> but might be changes by derived classes. Each logging
+    format type takes care about the value of this property.
+</p>
+
+<h3 id="culture">Culture</h3>
+
+<p>
+    This property allows to set&ndash;up the culture to be used. This culture information is used for example to
+    convert values into their string representation. The default value is <code>en-US</code> but might be changes
+    by derived classes. Each logging format type takes care about the value of this property.
+</p>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

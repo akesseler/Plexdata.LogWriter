@@ -1,0 +1,272 @@
+body {
+    font-family: "Calibri", sans-serif;
+    font-size: 1.2em;
+    background-color: #FFFFFF;
+}
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 180pt;
+    height: calc(100vh - 20pt);
+    z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-top: 20pt;
+    background-color: #262626;
+}
+
+.navbar a {
+    padding: 2pt 8pt 2pt 15pt;
+    text-decoration: none;
+    font-size: 1.25em;
+    color: #C4C4C4;
+    display: block;
+}
+
+.navbar a:hover {
+    color: #262626;
+    background-color: #FFFFFF;
+    text-decoration: none;
+}
+
+.navbar .navsub {
+    font-size: 1.0em;
+    padding: 2pt 8pt 2pt 30pt;
+}
+
+.navbar .selected {
+    cursor: default;
+    color: #FFFFFF;
+    background-color: #424242;
+}
+
+.header {
+    display: -webkit-flex;
+    display: flex;
+    position: fixed;
+    padding: 5pt;
+    top: 0pt;
+    left: 180pt;
+    width: calc(100vw - 190pt);
+    height: 50pt;
+    align-items: center;
+    justify-content: center;
+    background-color: #FCFCFC;
+    border-bottom: 1pt solid #C4C4C4;
+}
+
+.footer {
+    display: -webkit-flex;
+    display: flex;
+    position: fixed;
+    padding: 4pt 5pt 6pt 5pt;
+    top: calc(100vh - 25pt);
+    left: 180pt;
+    width: calc(100vw - 190pt);
+    height: 15pt;
+    align-items: center;
+    font-size: 0.75em;
+    background-color: #FCFCFC;
+    border-top: 1pt solid #C4C4C4;
+}
+
+.footer a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}
+
+.content {
+    position: fixed;
+    padding: 0pt 20pt 20pt 20pt;
+    margin-top: 1pt;
+    margin-bottom: 1pt;
+    top: 60pt;
+    left: 180pt;
+    width: calc(100vw - 220pt);
+    height: calc(100vh - 105pt);
+    display: block;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.copyright a {
+    color: inherit;
+}
+
+h1 {
+    font-size: 2.25em;
+    font-weight: bold;
+    font-style: inherit;
+}
+
+h2 {
+    font-size: 1.5em;
+    font-weight: bold;
+    font-style: inherit;
+}
+
+h3 {
+    font-size: 1.25em;
+    font-weight: bold;
+    font-style: inherit;
+}
+
+h4 {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: inherit;
+    margin-bottom: -0.5em;
+}
+
+h5 {
+    font-size: 1em;
+    font-weight: bold;
+    font-style: initial;
+    margin-bottom: -0.5em;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+code {
+    font-family: "Consolas", monospace;
+}
+
+pre {
+    padding: 10pt;
+    margin: 0pt;
+    margin-top: 2em;
+    font-size: 0.7em;
+    background-color: #FCFCFC;
+    border: 1pt solid #C4C4C4;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    background-color: #EDEDED;
+    color: #636363;
+}
+
+table, th, td {
+    border-top: 1pt solid #C4C4C4;
+    border-bottom: 1pt solid #C4C4C4;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10pt;
+    text-align: left;
+    vertical-align: top;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #FCFCFC;
+}
+
+ul.step-toc {
+    padding: 0pt;
+    margin-left: 0pt;
+    list-style: none;
+}
+
+ul.step-toc:before {
+    color: #262626;
+    content: "Chapters";
+    display: block;
+    text-decoration: underline;
+}
+
+ul.page-toc {
+    padding: 0pt;
+    margin-left: 0pt;
+    list-style: none;
+}
+
+ul.page-toc:before {
+    color: #262626;
+    content: "Sections";
+    display: block;
+    text-decoration: underline;
+}
+
+ul.page-sub-toc {
+    padding: 0pt;
+    margin-left: 1em;
+    list-style: none;
+}
+
+.jump-top-button {
+    display: none;
+    position: fixed;
+    bottom: 35pt;
+    right: 25pt;
+    z-index: 99999;
+    border: none;
+    outline: none;
+    opacity: 0.2;
+    color: #F1F1F1;
+    background-color: #262626;
+    cursor: pointer;
+    font-size: 1.5em;
+    border-radius: 4pt;
+    height: 35pt;
+    width: 35pt;
+}
+
+.jump-top-button:hover {
+    opacity: 1;
+}
+
+.copy-code-snippet-text {
+    top: -0.5em;
+    width: auto;
+    height: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    vertical-align: top;
+    float: right;
+    position: relative;
+}
+
+.copy-code-snippet-text a {
+    padding: 0pt 3pt;
+    font-size: 0.9em;
+    font-style: normal !important;
+    text-decoration: none;
+    margin-right: 10pt;
+    background-color: #FFFFFF;
+}
+
+.copy-code-snippet-text a:hover {
+    text-decoration: underline;
+}
+
+.center {
+    text-align: center;
+}
+
+.image {
+    padding: 0pt;
+    overflow: auto;
+}
+
+.label {
+    display: block;
+    font-size: 0.8em;
+}
+

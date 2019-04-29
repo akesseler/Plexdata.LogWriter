@@ -1,0 +1,73 @@
+﻿
+<h2 id="console-logger-settings">Console Settings</h2>
+
+<p>
+    The console logger settings are the settings used together with each of the console logger
+    implementations. These settings are defined in interface <code>IConsoleLoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#use-colors">Use Colors</a></li>
+    <li><a href="#window-title">Window Title</a></li>
+    <li><a href="#quick-edit">Quick Edit</a></li>
+    <li><a href="#dimension">Dimension</a></li>
+    <li><a href="#coloring">Coloring</a></li>
+</ul>
+
+<h3 id="use-colors">Use Colors</h3>
+
+<p>
+    This property enables or disables the coloring of messages. Text coloring is a special
+    feature of a console window and may help to distinguish different message type from each
+    other. The default value is <code>ON</code> but might be changes by derived classes.
+</p>
+
+<h3 id="window-title">Window Title</h3>
+
+<p>
+    This property gets and sets the title of the console window. Modifying the title of the
+    console window might be useful to distinguish a console logging window from other console
+    windows. The default value is <code>empty</code> but might be changes by derived classes.
+</p>
+
+<h3 id="quick-edit">Quick Edit</h3>
+
+<p>
+    This property enables or disables the quick&ndash;edit mode of a console window. The
+    quick&ndash;edit mode represents a special feature of the Windows console and allows to
+    mark and copy text. The default value is <code>OFF</code> but might be changes by derived
+    classes. Be aware, this feature is only available on Windows platforms!
+</p>
+
+<h3 id="dimension">Dimension</h3>
+
+<p>
+    This property gets and sets the dimension of the console window. The dimension (number of
+    rows and columns) represents another special feature of a console window and defines the
+    size of underlying output buffer. The default value is <code>Dimension(0,0)</code> but
+    might be changes by derived classes.
+</p>
+
+<h3 id="coloring">Coloring</h3>
+
+<p>
+    This property allows changing the list of colors to be used for different message types.
+    The coloring list is actually a dictionary with the logging level as access key. Each
+    logging level is assigned to a particular color setup for the foreground and the background.
+    The default coloring is shown below but might be changes by derived classes.
+</p>
+
+<table>
+    <tr><th>Level</th><th>Foreground</th><th>Background</th></tr>
+    <tr><td>Trace</td><td>Gray</td><td>Black</td></tr>
+    <tr><td>Debug</td><td>Gray</td><td>Black</td></tr>
+    <tr><td>Verbose</td><td>White</td><td>Black</td></tr>
+    <tr><td>Message</td><td>White</td><td>Black</td></tr>
+    <tr><td>Warning</td><td>Yellow</td><td>Black</td></tr>
+    <tr><td>Error</td><td>Red</td><td>Black</td></tr>
+    <tr><td>Fatal</td><td>Gray</td><td>Dark Red</td></tr>
+    <tr><td>Critical</td><td>Black</td><td>Red</td></tr>
+</table>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>
