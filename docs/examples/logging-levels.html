@@ -1,0 +1,79 @@
+﻿
+<h2 id="logging-levels-examples">Logging Levels</h2>
+
+<p>
+    As already mentioned in section <i>Logging Level</i> of chapter <i>General Settings</i>,
+    an extension is available that allows to change the display text of each logging level.
+    This chapter wants to show how to change these values. But be aware, changing the display
+    text of a particular logging level does have global impact!
+</p>
+
+<ul class="page-toc">
+    <li><a href="#display-text-registration">Display Text Registration</a></li>
+    <li><a href="#restore-display-defaults">Restore Display Defaults</a></li>
+</ul>
+
+<h4 id="display-text-registration">Display Text Registration</h4>
+
+<p>
+    Modifying the display text of any of the logging levels is pretty easy. The only thing to
+    do is to include namespace <code>Plexdata.LogWriter.Extensions</code> and to call method
+    <code>RegisterDisplayText()</code> with the new display text. See code snippet below how
+    to change the display text values of all logging levels into three&ndash;letter&ndash;abbreviations.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('display-text-registration-example-1');return false;">Copy</a></div>
+<pre id="display-text-registration-example-1"><code>LogLevel.Trace.RegisterDisplayText("TRC");
+LogLevel.Debug.RegisterDisplayText("DBG");
+LogLevel.Verbose.RegisterDisplayText("INF");
+LogLevel.Message.RegisterDisplayText("MSG");
+LogLevel.Warning.RegisterDisplayText("WRN");
+LogLevel.Error.RegisterDisplayText("ERR");
+LogLevel.Fatal.RegisterDisplayText("FTL");
+LogLevel.Critical.RegisterDisplayText("CRT");</code></pre>
+
+<p>
+    With the above changes in mind, from now all written logging message would look like as shown below.
+</p>
+
+<pre><code>2019-05-23 17:23:05.1234;TRC;Trace...
+2019-05-23 17:23:05.1234;DBG;Debug...
+2019-05-23 17:23:05.1234;INF;Verbose...
+2019-05-23 17:23:05.1234;MSG;Message...
+2019-05-23 17:23:05.1234;WRN;Warning...
+2019-05-23 17:23:05.1234;ERR;Error...
+2019-05-23 17:23:05.1234;FTL;Fatal...
+2019-05-23 17:23:05.1234;CRT;Critical...</code></pre>
+
+<h4 id="restore-display-defaults">Restore Display Defaults</h4>
+
+<p>
+    Restoring the default values of the display text of each logging level is as easy as to change them.
+    See following code snippet how to restore the display text of each of the logging levels.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('restore-display-defaults-example-1');return false;">Copy</a></div>
+<pre id="restore-display-defaults-example-1"><code>LogLevel.Trace.RestoreDisplayText();
+LogLevel.Debug.RestoreDisplayText();
+LogLevel.Verbose.RestoreDisplayText();
+LogLevel.Message.RestoreDisplayText();
+LogLevel.Warning.RestoreDisplayText();
+LogLevel.Error.RestoreDisplayText();
+LogLevel.Fatal.RestoreDisplayText();
+LogLevel.Critical.RestoreDisplayText();</code></pre>
+
+<p>
+    Back at defaults, from now all written logging message would look like as shown below.
+</p>
+
+<pre><code>2019-05-23 17:23:05.1234;TRACE;Trace...
+2019-05-23 17:23:05.1234;DEBUG;Debug...
+2019-05-23 17:23:05.1234;VERBOSE;Verbose...
+2019-05-23 17:23:05.1234;MESSAGE;Message...
+2019-05-23 17:23:05.1234;WARNING;Warning...
+2019-05-23 17:23:05.1234;ERROR;Error...
+2019-05-23 17:23:05.1234;FATAL;Fatal...
+2019-05-23 17:23:05.1234;CRITICAL;Critical...</code></pre>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

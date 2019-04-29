@@ -1,0 +1,248 @@
+﻿
+<h2 id="empty-logger-examples">Empty Logger</h2>
+
+<p>
+    To be able to use the empty logger it is only required to install the package
+    <code>Plexdata.LogWriter.Abstraction</code>. Someone might ask  &ldquo;Why do
+    I need this section?&rdquo;. Well, this section shows some basic concepts and
+    general usages. Therefore, the code&ndash;snippets in this section demonstrate,
+    how to generally instantiate and use any of the supported logging writers.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#standard-logger-creation">Standard Logger Creation</a></li>
+    <li><a href="#context-logger-creation">Context Logger Creation</a></li>
+    <li><a href="#logger-status-checks">Logger Status Checks</a></li>
+    <li><a href="#native-message-writing">Native Message Writing</a></li>
+    <li><a href="#scoped-message-logging">Scoped Message Logging</a></li>
+    <li><a href="#using-dependency-injection">Using Dependency Injection</a></li>
+</ul>
+
+<h4 id="standard-logger-creation">Standard Logger Creation</h4>
+
+<p>
+    The example below shows how to use any type of standard logger.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('standard-logger-creation-example-1');return false;">Copy</a></div>
+<pre id="standard-logger-creation-example-1"><code>using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Extensions;
+using Plexdata.LogWriter.Logging;
+using System;
+
+namespace EmptyLoggerExample
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            ILogger logger = new EmptyLogger();
+
+            logger.Debug("Never show in any logging sink");
+            logger.Error("Never show in any logging sink");
+            logger.Fatal("Never show in any logging sink");
+        }
+    }
+}</code></pre>
+
+<h4 id="context-logger-creation">Context Logger Creation</h4>
+
+<p>
+    The example below shows how to use any type of context logger.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('context-logger-creation-example-1');return false;">Copy</a></div>
+<pre id="context-logger-creation-example-1"><code>using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Extensions;
+using Plexdata.LogWriter.Logging;
+using System;
+
+namespace EmptyLoggerExample
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            ILogger&lt;Program&gt; logger = new EmptyLogger&lt;Program&gt;();
+
+            logger.Debug("Never show in any logging sink");
+            logger.Error("Never show in any logging sink");
+            logger.Fatal("Never show in any logging sink");
+        }
+    }
+}</code></pre>
+
+<h4 id="logger-status-checks">Logger Status Checks</h4>
+
+<p>
+    Well, once a logger instance is available, users can check the logger&rsquo;s current status. 
+    For this purpose the basic logger interface provides one property and on method. The property 
+    named <code>IsDisabled</code> allows to check whether logging is enabled at all. In contrast 
+    to that the method <code>IsEnabled()</code> allows to test whether a particular logging level 
+    is enabled or not. With these both basic functionalities it would become possible to generally 
+    check if logging a message could work.
+</p>
+
+<h4 id="native-message-writing">Native Message Writing</h4>
+
+<p>
+    For sure, it is actually recommended to use the provided extension methods to write logging 
+    messages of a particular type. But on the other hand, it is possible as well to take the native 
+    method <code>Write()</code> to perform message logging. How to use these native logging methods 
+    is shown in code&ndash;snippets below.
+</p>
+
+<p>
+    This first and fully qualified example shows how to write logging message using native functionality.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('native-message-writing-example-1');return false;">Copy</a></div>
+<pre id="native-message-writing-example-1"><code>using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Logging;
+using System;
+
+namespace EmptyLoggerExample
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            ILogger logger = new EmptyLogger();
+
+            logger.Write(LogLevel.Trace, "Simple trace message");
+        }
+    }
+}</code></pre>
+
+<p>
+    This second example demonstrates how to deal with exception logging. But keep in mind, using an 
+    individual message in combination with an exception is possible as well.
+
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('native-message-writing-example-2');return false;">Copy</a></div>
+<pre id="native-message-writing-example-2"><code>ILogger logger = new EmptyLogger();
+try
+{
+    // Executing dangerous code...
+}
+catch (Exception exception)
+{
+    // The exception's message is taken as logging message. 
+    // But the whole exception is written as well.
+    logger.Write(LogLevel.Error, exception);
+}</code></pre>
+
+<p>
+    This next example points out how the feature of additional parameters can be used. These parameters 
+    are appended at the end of the written message.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('native-message-writing-example-3');return false;">Copy</a></div>
+<pre id="native-message-writing-example-3"><code>Double price = 451.75;
+String user = "Tobi Connor";
+Int32 bonus = 23;
+...
+logger.Write(LogLevel.Warning, "User has reached limit",
+    new (String Label, Object Value)[] {
+            ( Label: "Price", Value: price ),
+            ( Label: "User",  Value: user  ),
+            ( Label: "Bonus", Value: bonus ),
+    });</code></pre>
+
+<h4 id="scoped-message-logging">Scoped Message Logging</h4>
+
+<p>
+    Writing logging message with a particular scope might be useful under various circumstances.
+    Therefore, the next code-snippet shows the supported ways of using the scope feature when 
+    writing logging messages.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('scoped-message-logging-example-1');return false;">Copy</a></div>
+<pre id="scoped-message-logging-example-1"><code>public class UsefulClass
+{
+    private readonly ILogger logger;
+
+    public UsefulClass(ILogger logger)
+    {
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+
+    public void UsefulMethod()
+    {
+        // Example of using class name as scope.
+        this.logger.Write(this, LogLevel.Verbose, "Scope is class name");
+
+        // Example of using current method name as scope.
+        this.logger.Write(MethodBase.GetCurrentMethod(), LogLevel.Verbose, "Scope is method name");
+
+        // Example of using some user defined string as scope.
+        this.logger.Write("Works Too", LogLevel.Verbose, "Scope is user defined string");
+    }
+}</code></pre>
+
+<h4 id="using-dependency-injection">Using Dependency Injection</h4>
+
+<p>
+    In, for example, ASP.NET Core applications it is possible to use the so&ndash;called
+    feature of <i>Dependency Injection</i>. In short, this feature allows to just use
+    interfaces without any knowledge about the implementation. How this feature can be
+    used is part of this section.
+</p>
+
+<p>
+    After a ASP.NET Core has been created, open file <code>Startup.cs</code> and move
+    to method <code>ConfigureServices()</code>. There in, add a singleton instance of
+    the logging writer like shown in the code&ndash;snippet below. But don&rsquo;t forget
+    to install required NuGet packages beforehand.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('using-dependency-injection-example-1');return false;">Copy</a></div>
+<pre id="using-dependency-injection-example-1"><code>// Add required references.
+using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Logging;
+...
+public class Startup
+{
+    ...
+    public void ConfigureServices(IServiceCollection services)
+    {
+        ...
+        // Add wanted logging writer instance.
+        services.AddSingleton&lt;ILogger, EmptyLogger&gt;();
+    }
+}</code></pre>
+
+<p>
+    As next, open the file where you want to inject the logging writer. Class <code>ValuesController</code>
+    is used for the following code&ndash;snippet. Now add a constructor, if none exists yet.
+    Extend the parameter list of the constructor by the logging writer interface. Add a field
+    and assign the logging writer instance in the constructor. See example code below for some
+    more details.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('using-dependency-injection-example-2');return false;">Copy</a></div>
+<pre id="using-dependency-injection-example-2"><code>// Add required references.
+using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Extensions;
+...
+public class ValuesController : ControllerBase
+{
+    private readonly ILogger logger;
+
+    public ValuesController(ILogger logger)
+    {
+        this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
+    ...
+    [HttpGet]
+    public ActionResult&lt;IEnumerable&lt;String&gt;&gt; Get()
+    {
+        this.logger.Trace("Values controller get called");
+        return new String[] { "value1", "value2" };
+    }
+    ...
+}</code></pre>
+
+<p style="margin-bottom: 2em;">&nbsp;</p>
