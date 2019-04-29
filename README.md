@@ -11,4 +11,4 @@ The software has been published under the terms of _MIT License_.
 
 ### Documentation
 
-A documentation with an overview as well as examples is not yet available at the moment. Therefore, please refer to the project's Wiki for a detailed documentation of all classes and their methods.
+The documentation with an overview, an introduction as well as examples is available under [https://akesseler.github.io/Plexdata.LogWriter/](https://akesseler.github.io/Plexdata.LogWriter/).
