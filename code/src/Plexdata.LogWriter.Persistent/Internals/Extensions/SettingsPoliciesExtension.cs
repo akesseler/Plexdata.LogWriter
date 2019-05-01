@@ -125,9 +125,7 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// <remarks>
         /// This constructor just initializes all static fields.
         /// </remarks>
-        static SettingsPoliciesExtension()
-        {
-        }
+        static SettingsPoliciesExtension() { }
 
         #endregion
 

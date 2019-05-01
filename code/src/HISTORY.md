@@ -1,4 +1,11 @@
 
+**1.0.2.1 (BREAKING CHANGES)**
+- The constructor with filename of class ``PersistentLoggerSettings`` has been removed at all.
+- The property ``Filename`` of interface ``IPersistentLoggerSettings`` gots a public setter.
+- Tests for class ``PersistentLoggerSettings`` have been adjusted.
+- Private constant fields with appropriated default values have been added to each of the settings classes.
+- Version number increased.
+
 **1.0.1.2**
 - Some minor fixes and changes.
 - Introduction of persistent logger.

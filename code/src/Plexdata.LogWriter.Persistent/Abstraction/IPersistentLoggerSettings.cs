@@ -71,16 +71,16 @@ namespace Plexdata.LogWriter.Abstraction
     public interface IPersistentLoggerSettings : ILoggerSettings
     {
         /// <summary>
-        /// Gets the fully qualified filename.
+        /// Gets or sets the fully qualified filename.
         /// </summary>
         /// <remarks>
-        /// This property returns the fully qualified name of the assigned logging 
-        /// file.
+        /// This property allows to change the fully qualified name of the 
+        /// assigned logging file.
         /// </remarks>
         /// <value>
         /// The fully qualified name of the logging file.
         /// </value>
-        String Filename { get; }
+        String Filename { get; set; }
 
         /// <summary>
         /// Enables or disabled message rolling.
@@ -119,7 +119,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// been written. 
         /// </para>
         /// <para>
-        /// The threshold of less than or equal to zero means not limitation.
+        /// The threshold of less than or equal to zero means no limitation.
         /// </para>
         /// </remarks>
         /// <value>
