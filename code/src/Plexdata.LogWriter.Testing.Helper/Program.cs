@@ -151,10 +151,9 @@ namespace Plexdata.LogWriter.Testing.Helper
  *     {
  *         static void Main(String[] args)
  *         {
- *             String filename = @"c:\temp\logging\test.log";
- *     
- *             IPersistentLoggerSettings settings = new PersistentLoggerSettings(filename)
+ *             IPersistentLoggerSettings settings = new PersistentLoggerSettings()
  *             {
+ *                 Filename = @"c:\temp\logging\test.log",
  *                 LogLevel = LogLevel.Trace,
  *                 IsQueuing = false,
  *                 IsRolling = true,

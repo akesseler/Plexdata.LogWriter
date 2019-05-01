@@ -125,9 +125,7 @@ namespace Plexdata.LogWriter.Internals.Native.Windows
         /// <remarks>
         /// This constructor does actually do nothing.
         /// </remarks>
-        static SystemConsoleWrapper()
-        {
-        }
+        static SystemConsoleWrapper() { }
 
         /// <summary>
         /// The class destructor.

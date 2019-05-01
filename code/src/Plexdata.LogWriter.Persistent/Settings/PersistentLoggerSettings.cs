@@ -38,96 +38,186 @@ namespace Plexdata.LogWriter.Settings
     /// interfaces. But keep in mind, the availability of particular setting items 
     /// depends of which of the available persistent loggers is actually used.
     /// </remarks>
+    /// <example>
+    /// See below for a fully qualified and executable example of how to use persistent 
+    /// logger.
+    /// <code language="C#">
+    /// using Plexdata.LogWriter.Abstraction;
+    /// using Plexdata.LogWriter.Definitions;
+    /// using Plexdata.LogWriter.Extensions;
+    /// using Plexdata.LogWriter.Logging;
+    /// using Plexdata.LogWriter.Settings;
+    /// using System;
+    /// using System.Text;
+    /// 
+    /// namespace Plexdata.LogWriter.Examples
+    /// {
+    ///     class Program
+    ///     {
+    ///         static void Main(String[] args)
+    ///         {
+    ///             IPersistentLoggerSettings settings = new PersistentLoggerSettings()
+    ///             {
+    ///                 Filename = @"c:\temp\logging\test.log",
+    ///                 LogLevel = LogLevel.Trace,
+    ///                 IsQueuing = false,
+    ///                 IsRolling = true,
+    ///                 Threshold = 3,
+    ///                 Encoding = Encoding.ASCII,
+    ///             };
+    /// 
+    ///             IPersistentLogger logger = new PersistentLogger(settings);
+    /// 
+    ///             logger.Debug("This is a Debug logging entry.");
+    ///             logger.Trace("This is a Trace logging entry.");
+    ///             logger.Verbose("This is a Verbose logging entry.");
+    ///             logger.Message("This is a Message logging entry.");
+    ///             logger.Warning("This is a Warning logging entry.");
+    ///             logger.Error("This is a Error logging entry.");
+    ///             logger.Fatal("This is a Fatal logging entry.");
+    ///             logger.Critical("This is a Critical logging entry.");
+    /// 
+    ///             Console.Write("Hit any key to finish... ");
+    ///             Console.ReadKey();
+    ///         }
+    ///     }
+    /// }
+    /// </code>
+    /// </example>
     public class PersistentLoggerSettings : LoggerSettings, IPersistentLoggerSettings
     {
         #region Private fields
 
         /// <summary>
-        /// The filename to be used.
+        /// This field holds the filename to be used.
         /// </summary>
         /// <remarks>
-        /// This field holds the fully qualified filename 
-        /// assigned to this settings instance.
+        /// The value of <see cref="PersistentLoggerSettings.DefaultFilename"/> 
+        /// is used as initial value.
         /// </remarks>
         private String filename;
 
         /// <summary>
-        /// The chosen rolling mode.
+        /// This field holds the chosen rolling mode.
         /// </summary>
         /// <remarks>
-        /// The default value is <c>false</c>.
+        /// The value of <see cref="PersistentLoggerSettings.DefaultRolling"/> 
+        /// is used as initial value.
         /// </remarks>
         private Boolean rolling;
 
         /// <summary>
-        /// The chosen queuing mode.
+        /// This field holds the chosen queuing mode.
         /// </summary>
         /// <remarks>
-        /// The default value is <c>false</c>.
+        /// The value of <see cref="PersistentLoggerSettings.DefaultQueuing"/> 
+        /// is used as initial value.
         /// </remarks>
         private Boolean queuing;
 
         /// <summary>
-        /// The chosen threshold.
+        /// This field holds the chosen threshold.
         /// </summary>
         /// <remarks>
-        /// The default value is <c>-1</c>.
+        /// The value of <see cref="PersistentLoggerSettings.DefaultThreshold"/> 
+        /// is used as initial value.
         /// </remarks>
         private Int32 threshold;
 
         /// <summary>
-        /// The chosen encoding.
+        /// This field holds the chosen encoding.
         /// </summary>
         /// <remarks>
-        /// The default value is <c>UTF-8</c>.
+        /// The value of <see cref="PersistentLoggerSettings.DefaultEncoding"/> 
+        /// is used as initial value.
         /// </remarks>
         private Encoding encoding;
+
+        #endregion
+
+        #region Private constants
+
+        /// <summary>
+        /// The fully qualified default logging filename.
+        /// </summary>
+        /// <remarks>
+        /// The name of default logging file is set to <c>plexdata.log</c> and the 
+        /// path points to the current user's temporary folder.
+        /// </remarks>
+        private static readonly String DefaultFilename = Path.Combine(Path.GetTempPath(), "plexdata.log");
+
+        /// <summary>
+        /// The default rolling value.
+        /// </summary>
+        /// <remarks>
+        /// The default rolling value is set to <c>false</c>, which means rolling 
+        /// is initially disabled.
+        /// </remarks>
+        private static readonly Boolean DefaultRolling = false;
+
+        /// <summary>
+        /// The default queuing value.
+        /// </summary>
+        /// <remarks>
+        /// The default queuing value is set to <c>false</c>, which means queuing 
+        /// is initially disabled.
+        /// </remarks>
+        private static readonly Boolean DefaultQueuing = false;
+
+        /// <summary>
+        /// The default threshold value.
+        /// </summary>
+        /// <remarks>
+        /// The default threshold value is set to <c>-1</c>, which means the threshold 
+        /// is initially not used.
+        /// </remarks>
+        private static readonly Int32 DefaultThreshold = -1;
+
+        /// <summary>
+        /// The default encoding value.
+        /// </summary>
+        /// <remarks>
+        /// The default encoding value is set to <c>UTF-8</c>.
+        /// </remarks>
+        private static readonly Encoding DefaultEncoding = Encoding.UTF8;
 
         #endregion
 
         #region Construction
 
         /// <summary>
+        /// The static class constructor.
+        /// </summary>
+        /// <remarks>
+        /// This constructor does actually nothing.
+        /// </remarks>
+        static PersistentLoggerSettings() { }
+
+        /// <summary>
         /// The standard class constructor.
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This constructor calls the extended constructor and uses 
-        /// the default logging filename.
+        /// This constructor just initializes all properties with its default values.
         /// </para>
         /// <para>
-        /// The name of default logging file is set to <c>plexdata.log</c> 
-        /// and the path points to the current user's temporary folder.
+        /// The name of default logging file is set to <c>plexdata.log</c> and the path 
+        /// points to the current user's temporary folder.
         /// </para>
         /// </remarks>
-        public PersistentLoggerSettings()
-            : this(Path.Combine(Path.GetTempPath(), "plexdata.log"))
-        {
-        }
-
-        /// <summary>
-        /// The extended class constructor.
-        /// </summary>
-        /// <remarks>
-        /// This constructor just initializes all properties with 
-        /// its default values.
-        /// </remarks>
-        /// <param name="filename">
-        /// The fully qualified filename assigned to this settings instance.
-        /// </param>
         /// <exception cref="Exception">
         /// This constructor may throw several exceptions. For more information about these exceptions 
         /// please see <see cref="SettingsValidationExtension.EnsureFullPathAndWriteAccessOrThrow(String)"/>.
         /// </exception>
         /// <seealso cref="SettingsValidationExtension.EnsureFullPathAndWriteAccessOrThrow(String)"/>
-        public PersistentLoggerSettings(String filename)
+        public PersistentLoggerSettings()
             : base()
         {
-            this.Filename = filename;
-            this.rolling = false;
-            this.queuing = false;
-            this.threshold = -1;
-            this.encoding = Encoding.UTF8;
+            this.Filename = PersistentLoggerSettings.DefaultFilename;
+            this.IsRolling = PersistentLoggerSettings.DefaultRolling;
+            this.IsQueuing = PersistentLoggerSettings.DefaultQueuing;
+            this.Threshold = PersistentLoggerSettings.DefaultThreshold;
+            this.Encoding = PersistentLoggerSettings.DefaultEncoding;
         }
 
         #endregion
@@ -146,7 +236,7 @@ namespace Plexdata.LogWriter.Settings
             {
                 return this.filename;
             }
-            private set // TODO: Make property setter publicly accessible.
+            set
             {
                 if (this.filename != value)
                 {

@@ -115,6 +115,46 @@ namespace Plexdata.LogWriter.Settings
 
         #endregion
 
+        #region Private constants
+
+        /// <summary>
+        /// The default value of showing timestamps.
+        /// </summary>
+        /// <remarks>
+        /// The default value of showing timestamps is set to <c>true</c>, 
+        /// which means showing timestamps is initially enabled.
+        /// </remarks>
+        private static readonly Boolean DefaultShowTime = true;
+
+        /// <summary>
+        /// The default part split value.
+        /// </summary>
+        /// <remarks>
+        /// The default part split value is set to <c>semicolon</c>, which 
+        /// means each part is initially delimited by <c>;</c>.
+        /// </remarks>
+        private static readonly Char DefaultPartSplit = ';';
+
+        /// <summary>
+        /// The default full name usage value.
+        /// </summary>
+        /// <remarks>
+        /// The default full name usage value is set to <c>true</c>, which 
+        /// means full name usage is initially enabled.
+        /// </remarks>
+        private static readonly Boolean DefaultFullName = true;
+
+        /// <summary>
+        /// The default culture name.
+        /// </summary>
+        /// <remarks>
+        /// The default culture name value is set to <c>en-US</c>, which means 
+        /// US culture is initially used.
+        /// </remarks>
+        private static readonly String DefaultCulture = "en-US";
+
+        #endregion
+
         #region Public fields
 
         /// <summary>
@@ -154,14 +194,14 @@ namespace Plexdata.LogWriter.Settings
         protected LoggerSettings()
             : base()
         {
-            this.logLevel = LogLevel.Default;
-            this.logType = LogType.Default;
-            this.logTime = LogTime.Default;
-            this.showTime = true;
-            this.timeFormat = LoggerSettings.DefaultTimeFormat;
-            this.partSplit = ';';
-            this.fullName = true;
-            this.culture = new CultureInfo("en-US");
+            this.LogLevel = LogLevel.Default;
+            this.LogType = LogType.Default;
+            this.LogTime = LogTime.Default;
+            this.ShowTime = LoggerSettings.DefaultShowTime;
+            this.TimeFormat = LoggerSettings.DefaultTimeFormat;
+            this.PartSplit = LoggerSettings.DefaultPartSplit;
+            this.FullName = LoggerSettings.DefaultFullName;
+            this.Culture = new CultureInfo(LoggerSettings.DefaultCulture);
         }
 
         #endregion

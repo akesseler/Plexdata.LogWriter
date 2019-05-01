@@ -41,14 +41,93 @@ namespace Plexdata.LogWriter.Settings
     {
         #region Private fields
 
+        /// <summary>
+        /// This field holds the value of color usage.
+        /// </summary>
+        /// <remarks>
+        /// The value of <see cref="ConsoleLoggerSettings.DefaultUseColors"/> 
+        /// is used as initial value.
+        /// </remarks>
         private Boolean useColors;
+
+        /// <summary>
+        /// This field holds the value of used window title.
+        /// </summary>
+        /// <remarks>
+        /// The value of <see cref="ConsoleLoggerSettings.DefaultWindowTitle"/> 
+        /// is used as initial value.
+        /// </remarks>
         private String windowTitle;
+
+        /// <summary>
+        /// This field holds the value of quick edit usage.
+        /// </summary>
+        /// <remarks>
+        /// The value of <see cref="ConsoleLoggerSettings.DefaultQuickEdit"/> 
+        /// is used as initial value.
+        /// </remarks>
         private Boolean quickEdit;
+
+        /// <summary>
+        /// This field holds the value of used buffer size.
+        /// </summary>
+        /// <remarks>
+        /// The value of <see cref="ConsoleLoggerSettings.DefaultBufferSize"/> 
+        /// is used as initial value.
+        /// </remarks>
         private Dimension bufferSize;
 
         #endregion
 
+        #region Private constants
+
+        /// <summary>
+        /// The default color usage value.
+        /// </summary>
+        /// <remarks>
+        /// The default color usage value is set to <c>true</c>, which means 
+        /// coloring is initially enabled.
+        /// </remarks>
+        private static readonly Boolean DefaultUseColors = true;
+
+        /// <summary>
+        /// The default window title.
+        /// </summary>
+        /// <remarks>
+        /// The default window title is <c>empty</c>, which means the original 
+        /// window title remains unchanged.
+        /// </remarks>
+        private static readonly String DefaultWindowTitle = String.Empty;
+
+        /// <summary>
+        /// The default quick edit value.
+        /// </summary>
+        /// <remarks>
+        /// The default quick edit value is set to <c>false</c>, which means the 
+        /// quick edit mode is initially disabled.
+        /// </remarks>
+        private static readonly Boolean DefaultQuickEdit = false;
+
+        /// <summary>
+        /// The default buffer size value.
+        /// </summary>
+        /// <remarks>
+        /// The default buffer size is set to <c>zero</c>, which means the original 
+        /// buffer size remains unchanged.
+        /// </remarks>
+        private static readonly Dimension DefaultBufferSize = new Dimension();
+
+        #endregion
+
         #region Construction
+
+        /// <summary>
+        /// The static class constructor.
+        /// </summary>
+        /// <remarks>
+        /// This constructor does actually nothing.
+        /// </remarks>
+        static ConsoleLoggerSettings() { }
 
         /// <summary>
         /// The default class constructor.
@@ -60,10 +139,10 @@ namespace Plexdata.LogWriter.Settings
         public ConsoleLoggerSettings()
             : base()
         {
-            this.useColors = true;
-            this.windowTitle = String.Empty;
-            this.quickEdit = false;
-            this.bufferSize = new Dimension();
+            this.UseColors = ConsoleLoggerSettings.DefaultUseColors;
+            this.WindowTitle = ConsoleLoggerSettings.DefaultWindowTitle;
+            this.QuickEdit = ConsoleLoggerSettings.DefaultQuickEdit;
+            this.BufferSize = ConsoleLoggerSettings.DefaultBufferSize;
             this.Coloring = new Dictionary<LogLevel, Coloring> {
                 { LogLevel.Trace, new Coloring(ConsoleColor.Gray, ConsoleColor.Black) },
                 { LogLevel.Debug, new Coloring(ConsoleColor.Gray, ConsoleColor.Black) },
