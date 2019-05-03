@@ -1,4 +1,8 @@
 
+**1.0.2.2**
+- Bugfix in class ``SettingsPoliciesExtension`` for toggling file names when rolling-mode is on.
+- Version number increased.
+
 **1.0.2.1 (BREAKING CHANGES)**
 - The constructor with filename of class ``PersistentLoggerSettings`` has been removed at all.
 - The property ``Filename`` of interface ``IPersistentLoggerSettings`` gots a public setter.
