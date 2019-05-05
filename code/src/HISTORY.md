@@ -10,7 +10,7 @@
 - Update of source code documentation.
 - Version number increased.
 - Wiki and release update on GitHub.
-- All affected packages released on nuget.org.
+- All affected packages released on nuget.org (release notes update).
 
 **1.0.2.2**
 - Bugfix in class ``SettingsPoliciesExtension`` for toggling file names when rolling-mode is on.

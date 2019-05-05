@@ -10,7 +10,11 @@
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured file persistent</PackageTags>
-    <PackageReleaseNotes>Bugfix in Settings Policies for toggling file names when rolling is on.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Support of 'IConfiguration' in the settings class construction.
+- Bugfix in class 'SettingsPoliciesExtension' for toggling file names when rolling is on.
+- Constructor with 'filename' in class 'PersistentLoggerSettings' removed (BREAKING CHANGES).
+- Property 'Filename' of interface 'IPersistentLoggerSettings' provided with public setter.
+</PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Persistent implements the IPersistentLogger interface that allows writing of logging messages into files.
 
 Main feature of this package is that it can be used platform independently.</Description>

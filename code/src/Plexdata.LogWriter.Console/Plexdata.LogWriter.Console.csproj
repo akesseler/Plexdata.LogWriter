@@ -13,7 +13,8 @@ This package includes classes that are shared between all available implementati
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured console</PackageTags>
-    <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Support of 'IConfiguration' in the settings class construction.
+</PackageReleaseNotes>
     <AssemblyVersion>1.0.2.3</AssemblyVersion>
     <FileVersion>1.0.2.3</FileVersion>
     <Version>1.0.2.3</Version>
