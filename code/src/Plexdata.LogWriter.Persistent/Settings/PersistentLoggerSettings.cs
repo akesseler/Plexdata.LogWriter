@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+using Microsoft.Extensions.Configuration;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Internals.Extensions;
 using System;
@@ -220,6 +221,31 @@ namespace Plexdata.LogWriter.Settings
             this.Encoding = PersistentLoggerSettings.DefaultEncoding;
         }
 
+        /// <summary>
+        /// The extended constructor that initializes all properties from provided 
+        /// <paramref name="configuration"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Usually, it is no necessary to call this constructor manually. This is 
+        /// because of, this constructor is actually reserved for the mechanism of 
+        /// dependency injection.
+        /// </para>
+        /// <para>
+        /// Please note, the default values are taken if one or more properties are 
+        /// not included in the configuration.
+        /// </para>
+        /// </remarks>
+        /// <param name="configuration">
+        /// The configuration to read all property values from.
+        /// </param>
+        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
+        public PersistentLoggerSettings(IConfiguration configuration)
+            : this()
+        {
+            this.LoadSettings(configuration);
+        }
+
         #endregion
 
         #region Public properties
@@ -312,6 +338,38 @@ namespace Plexdata.LogWriter.Settings
                     base.RaisePropertyChanged(nameof(this.Encoding));
                 }
             }
+        }
+
+        #endregion
+
+        #region Protected methods
+
+        /// <summary>
+        /// The method loads all settings from provided <paramref name="configuration"/> 
+        /// and initializes all properties accordingly.
+        /// </summary>
+        /// <remarks>
+        /// This method has been overwritten and calls the inherited base class method 
+        /// to ensure all settings are loaded accordingly.
+        /// </remarks>
+        /// <param name="configuration">
+        /// An instance of <see cref="Microsoft.Extensions.Configuration.IConfiguration"/> 
+        /// that represents the settings to be applied.
+        /// </param>
+        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
+        protected override void LoadSettings(IConfiguration configuration)
+        {
+            if (configuration == null) { return; }
+
+            base.LoadSettings(configuration);
+
+            IConfigurationSection section = configuration.GetSection(LoggerSettings.SettingsPath);
+
+            this.Filename = base.GetValue(section[nameof(this.Filename)], PersistentLoggerSettings.DefaultFilename);
+            this.IsRolling = base.GetValue(section[nameof(this.IsRolling)], PersistentLoggerSettings.DefaultRolling);
+            this.IsQueuing = base.GetValue(section[nameof(this.IsQueuing)], PersistentLoggerSettings.DefaultQueuing);
+            this.Threshold = base.GetValue(section[nameof(this.Threshold)], PersistentLoggerSettings.DefaultThreshold);
+            this.Encoding = base.GetValue(section[nameof(this.Encoding)], PersistentLoggerSettings.DefaultEncoding);
         }
 
         #endregion

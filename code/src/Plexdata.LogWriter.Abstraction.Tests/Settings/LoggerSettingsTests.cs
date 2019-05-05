@@ -22,6 +22,8 @@
  * SOFTWARE.
  */
 
+using Microsoft.Extensions.Configuration;
+using Moq;
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Settings;
@@ -36,6 +38,24 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
     [TestOf(nameof(LoggerSettings))]
     public class LoggerSettingsTests
     {
+        #region Prologue
+
+        private Mock<IConfigurationSection> section;
+        private Mock<IConfiguration> configuration;
+
+        [SetUp]
+        public void Setup()
+        {
+            this.section = new Mock<IConfigurationSection>();
+            this.configuration = new Mock<IConfiguration>();
+
+            this.configuration
+                .Setup(x => x.GetSection(It.IsAny<String>()))
+                .Returns(this.section.Object);
+        }
+
+        #endregion
+
         #region LoggerSettings
 
         [Test]
@@ -316,6 +336,220 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 
         #endregion
 
+        #region LoadSettings
+
+        [Test]
+        public void LoadSettings_ConfigurationIsNull_NothingChanges()
+        {
+            Int32 fired = 0;
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            instance.PropertyChanged += (sender, args) => { fired++; };
+
+            instance.LoadSettingsTest(null);
+
+            Assert.That(fired, Is.Zero);
+        }
+
+        [Test]
+        public void LoadSettings_ConfigurationValid_GetSectionCalledOnceWithSettingsPath()
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            this.configuration.Verify(x => x.GetSection("Plexdata:LogWriter:Settings"), Times.Once);
+        }
+
+        [Test]
+
+        [TestCase(null, LogLevel.Default)]
+        [TestCase("", LogLevel.Default)]
+        [TestCase(" ", LogLevel.Default)]
+        [TestCase("invalid", LogLevel.Default)]
+        [TestCase("trace", LogLevel.Trace)]
+        [TestCase("TRACE", LogLevel.Trace)]
+        [TestCase("Trace", LogLevel.Trace)]
+        [TestCase("debug", LogLevel.Debug)]
+        [TestCase("DEBUG", LogLevel.Debug)]
+        [TestCase("Debug", LogLevel.Debug)]
+        [TestCase("verbose", LogLevel.Verbose)]
+        [TestCase("VERBOSE", LogLevel.Verbose)]
+        [TestCase("Verbose", LogLevel.Verbose)]
+        [TestCase("message", LogLevel.Message)]
+        [TestCase("MESSAGE", LogLevel.Message)]
+        [TestCase("Message", LogLevel.Message)]
+        [TestCase("warning", LogLevel.Warning)]
+        [TestCase("WARNING", LogLevel.Warning)]
+        [TestCase("Warning", LogLevel.Warning)]
+        [TestCase("error", LogLevel.Error)]
+        [TestCase("ERROR", LogLevel.Error)]
+        [TestCase("Error", LogLevel.Error)]
+        [TestCase("fatal", LogLevel.Fatal)]
+        [TestCase("FATAL", LogLevel.Fatal)]
+        [TestCase("Fatal", LogLevel.Fatal)]
+        [TestCase("critical", LogLevel.Critical)]
+        [TestCase("CRITICAL", LogLevel.Critical)]
+        [TestCase("Critical", LogLevel.Critical)]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForLogLevelAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["LogLevel"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.LogLevel, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, LogType.Default)]
+        [TestCase("", LogType.Default)]
+        [TestCase(" ", LogType.Default)]
+        [TestCase("invalid", LogType.Default)]
+        [TestCase("csv", LogType.Csv)]
+        [TestCase("CSV", LogType.Csv)]
+        [TestCase("Csv", LogType.Csv)]
+        [TestCase("raw", LogType.Raw)]
+        [TestCase("RAW", LogType.Raw)]
+        [TestCase("Raw", LogType.Raw)]
+        [TestCase("json", LogType.Json)]
+        [TestCase("JSON", LogType.Json)]
+        [TestCase("Json", LogType.Json)]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForLogTypeAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["LogType"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.LogType, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, LogTime.Default)]
+        [TestCase("", LogTime.Default)]
+        [TestCase(" ", LogTime.Default)]
+        [TestCase("invalid", LogTime.Default)]
+        [TestCase("utc", LogTime.Utc)]
+        [TestCase("UTC", LogTime.Utc)]
+        [TestCase("Utc", LogTime.Utc)]
+        [TestCase("local", LogTime.Local)]
+        [TestCase("LOCAL", LogTime.Local)]
+        [TestCase("Local", LogTime.Local)]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForLogTimeAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["LogTime"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.LogTime, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, true)]
+        [TestCase("", true)]
+        [TestCase(" ", true)]
+        [TestCase("invalid", true)]
+        [TestCase("true", true)]
+        [TestCase("TRUE", true)]
+        [TestCase("True", true)]
+        [TestCase("false", false)]
+        [TestCase("FALSE", false)]
+        [TestCase("False", false)]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForShowTimeAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["ShowTime"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.ShowTime, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, "yyyy-MM-dd HH:mm:ss.ffff")]
+        [TestCase("", "yyyy-MM-dd HH:mm:ss.ffff")]
+        [TestCase(" ", "yyyy-MM-dd HH:mm:ss.ffff")]
+        [TestCase("time-format", "time-format")]
+        [TestCase("TIME-FORMAT", "TIME-FORMAT")]
+        [TestCase("Time-Format", "Time-Format")]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForTimeFormatAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["TimeFormat"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.TimeFormat, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, ';')]
+        [TestCase("", ';')]
+        [TestCase(" ", ';')]
+        [TestCase("abc", 'a')]
+        [TestCase("ABC", 'A')]
+        [TestCase("Abc", 'A')]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForPartSplitAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["PartSplit"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.PartSplit, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, true)]
+        [TestCase("", true)]
+        [TestCase(" ", true)]
+        [TestCase("invalid", true)]
+        [TestCase("true", true)]
+        [TestCase("TRUE", true)]
+        [TestCase("True", true)]
+        [TestCase("false", false)]
+        [TestCase("FALSE", false)]
+        [TestCase("False", false)]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForFullNameAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["FullName"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.FullName, Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase(null, "en-US")]
+        [TestCase("", "en-US")]
+        [TestCase(" ", "en-US")]
+        [TestCase("invalid", "en-US")]
+        [TestCase("de", "de")]
+        [TestCase("de-de", "de-DE")]
+        [TestCase("DE-DE", "de-DE")]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForCultureAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["Culture"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.Culture.Name, Is.EqualTo(expected));
+        }
+
+        #endregion
+
         #region Private test class implementations
 
         private class LoggerSettingsDummyClass : LoggerSettings
@@ -325,6 +559,11 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             public void TestRaisePropertyChanged(String property)
             {
                 base.RaisePropertyChanged(property);
+            }
+
+            public void LoadSettingsTest(IConfiguration configuration)
+            {
+                base.LoadSettings(configuration);
             }
         }
 

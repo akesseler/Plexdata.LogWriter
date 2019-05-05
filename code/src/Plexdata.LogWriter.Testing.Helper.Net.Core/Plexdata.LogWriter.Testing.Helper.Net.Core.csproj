@@ -1,0 +1,53 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>plexdata.de</Authors>
+    <Company>plexdata.de</Company>
+    <Copyright>Copyright © 2019 - plexdata.de</Copyright>
+    <AssemblyVersion>1.0.2.3</AssemblyVersion>
+    <FileVersion>1.0.2.3</FileVersion>
+    <Version>1.0.2.3</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="console-logger-settings.json" />
+    <None Remove="console-logger-settings.xml" />
+    <None Remove="persistent-logger-settings.json" />
+    <None Remove="persistent-logger-settings.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="console-logger-settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="persistent-logger-settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="persistent-logger-settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="console-logger-settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.2.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Xml" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />
+    <ProjectReference Include="..\Plexdata.LogWriter.Console.Standard\Plexdata.LogWriter.Console.Standard.csproj" />
+    <ProjectReference Include="..\Plexdata.LogWriter.Console\Plexdata.LogWriter.Console.csproj" />
+    <ProjectReference Include="..\Plexdata.LogWriter.Persistent\Plexdata.LogWriter.Persistent.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -22,11 +22,13 @@
  * SOFTWARE.
  */
 
+using Microsoft.Extensions.Configuration;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Text;
 
 namespace Plexdata.LogWriter.Settings
 {
@@ -145,13 +147,13 @@ namespace Plexdata.LogWriter.Settings
         private static readonly Boolean DefaultFullName = true;
 
         /// <summary>
-        /// The default culture name.
+        /// The default culture.
         /// </summary>
         /// <remarks>
-        /// The default culture name value is set to <c>en-US</c>, which means 
-        /// US culture is initially used.
+        /// The default culture value is set to <c>en-US</c>, which means US 
+        /// culture is initially used.
         /// </remarks>
-        private static readonly String DefaultCulture = "en-US";
+        private static readonly CultureInfo DefaultCulture = new CultureInfo("en-US");
 
         #endregion
 
@@ -201,7 +203,7 @@ namespace Plexdata.LogWriter.Settings
             this.TimeFormat = LoggerSettings.DefaultTimeFormat;
             this.PartSplit = LoggerSettings.DefaultPartSplit;
             this.FullName = LoggerSettings.DefaultFullName;
-            this.Culture = new CultureInfo(LoggerSettings.DefaultCulture);
+            this.Culture = LoggerSettings.DefaultCulture;
         }
 
         #endregion
@@ -358,7 +360,167 @@ namespace Plexdata.LogWriter.Settings
 
         #endregion
 
+        #region Protected properties
+
+        /// <summary>
+        /// Gets the path of the settings section within a configuration file.
+        /// </summary>
+        /// <remarks>
+        /// This property returns the namespace as path of the settings section 
+        /// within a configuration file. Each part of this namespace is separated 
+        /// by a colon instead of a dot. This in turn makes the settings path 
+        /// looking like <c>plexdata:logwriter:settings</c>.
+        /// </remarks>
+        /// <value>
+        /// The settings path to be used inside a configuration file.
+        /// </value>
+        protected static String SettingsPath
+        {
+            get
+            {
+                return typeof(LoggerSettings).Namespace.Replace(".", ":");
+            }
+        }
+
+        #endregion
+
         #region Protected methods
+
+        /// <summary>
+        /// The method loads all settings from provided <paramref name="configuration"/> 
+        /// and initializes all properties accordingly.
+        /// </summary>
+        /// <remarks>
+        /// This method should be overwritten but called by derived classes to ensure 
+        /// that all settings of sub-classes are loaded as well.
+        /// </remarks>
+        /// <param name="configuration">
+        /// An instance of <see cref="Microsoft.Extensions.Configuration.IConfiguration"/> 
+        /// that represents the settings to be applied.
+        /// </param>
+        /// <seealso cref="LoggerSettings.GetValue{TType}(String, TType)"/>
+        protected virtual void LoadSettings(IConfiguration configuration)
+        {
+            if (configuration == null) { return; }
+
+            IConfigurationSection section = configuration.GetSection(LoggerSettings.SettingsPath);
+
+            this.LogLevel = this.GetValue(section[nameof(this.LogLevel)], LogLevel.Default);
+            this.LogType = this.GetValue(section[nameof(this.LogType)], LogType.Default);
+            this.LogTime = this.GetValue(section[nameof(this.LogTime)], LogTime.Default);
+            this.ShowTime = this.GetValue(section[nameof(this.ShowTime)], LoggerSettings.DefaultShowTime);
+            this.TimeFormat = this.GetValue(section[nameof(this.TimeFormat)], LoggerSettings.DefaultTimeFormat);
+            this.PartSplit = this.GetValue(section[nameof(this.PartSplit)], LoggerSettings.DefaultPartSplit);
+            this.FullName = this.GetValue(section[nameof(this.FullName)], LoggerSettings.DefaultFullName);
+            this.Culture = this.GetValue(section[nameof(this.Culture)], LoggerSettings.DefaultCulture);
+        }
+
+        /// <summary>
+        /// Gets the type-safe value of provided <paramref name="value"/>.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method returns the type-safe value of provided <paramref name="value"/> 
+        /// or its <paramref name="standard"/> value in case of conversion has failed.
+        /// </para>
+        /// <para>
+        /// Please note, white spaces are not supported for character types at the moment.
+        /// </para>
+        /// </remarks>
+        /// <typeparam name="TType">
+        /// The type to convert the value into.
+        /// </typeparam>
+        /// <param name="value">
+        /// The value to be converted.
+        /// </param>
+        /// <param name="standard">
+        /// The fallback value if conversion fails.
+        /// </param>
+        /// <returns>
+        /// The type-safe conversion result.
+        /// </returns>
+        protected TType GetValue<TType>(String value, TType standard)
+        {
+            // BUG: White spaces cannot be applied to character types!
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                return standard;
+            }
+
+            if (typeof(TType).IsEnum)
+            {
+                foreach (Object current in Enum.GetValues(typeof(TType)))
+                {
+                    if (String.Compare(value, current.ToString(), StringComparison.OrdinalIgnoreCase) == 0)
+                    {
+                        return (TType)current;
+                    }
+                }
+
+                return standard;
+            }
+
+            if (typeof(TType) == typeof(Boolean))
+            {
+                if (String.Compare(value, Boolean.TrueString, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    return (TType)(Object)true;
+                }
+
+                if (String.Compare(value, Boolean.FalseString, StringComparison.OrdinalIgnoreCase) == 0)
+                {
+                    return (TType)(Object)false;
+                }
+
+                return standard;
+            }
+
+            if (typeof(TType) == typeof(String))
+            {
+                return (TType)(Object)value;
+            }
+
+            if (typeof(TType) == typeof(Char))
+            {
+                return (TType)(Object)value[0];
+            }
+
+            if (typeof(TType) == typeof(Int32))
+            {
+                if (Int32.TryParse(value, out Int32 helper))
+                {
+                    return (TType)(Object)helper;
+                }
+
+                return standard;
+            }
+
+            if (typeof(TType) == typeof(CultureInfo))
+            {
+                try
+                {
+                    return (TType)(Object)CultureInfo.GetCultureInfo(value);
+                }
+                catch
+                {
+                    return standard;
+                }
+            }
+
+            if (typeof(TType) == typeof(Encoding))
+            {
+                try
+                {
+                    return (TType)(Object)Encoding.GetEncoding(value);
+                }
+                catch
+                {
+                    return standard;
+                }
+            }
+
+            return standard;
+        }
 
         /// <summary>
         /// Informs listeners about property changes.

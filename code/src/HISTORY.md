@@ -1,4 +1,17 @@
 
+**1.0.2.3**
+- Adding of project ``Plexdata.LogWriter.Testing.Helper.Net.Core``.
+- Adding of NuGet reference ``Microsoft.Extensions.Configuration.Abstractions`` to
+  - ``Plexdata.LogWriter.Abstraction``,
+  - ``Plexdata.LogWriter.Console`` and
+  - ``Plexdata.LogWriter.Persistent``.
+- Support of settings construction by interface ``IConfiguration``.
+- Extending the tests for ``IConfiguration`` usage.
+- Update of source code documentation.
+- Version number increased.
+- Wiki and release update on GitHub.
+- All affected packages released on nuget.org.
+
 **1.0.2.2**
 - Bugfix in class ``SettingsPoliciesExtension`` for toggling file names when rolling-mode is on.
 - Version number increased.
