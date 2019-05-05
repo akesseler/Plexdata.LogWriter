@@ -1,0 +1,21 @@
+{
+  "Plexdata": {
+    "LogWriter": {
+      "Settings": {
+        "LogLevel": "Trace",
+        "LogTime": "utc",
+        "LogType": "csv",
+        "ShowTime": true,
+        "PartSplit": "|",
+        "TimeFormat": "o",
+        "FullName": false,
+        "Culture": "de-DE",
+        "Filename": "C:\\temp\\logging\\test.log",
+        "IsRolling": true,
+        "IsQueuing": true,
+        "Threshold": 1024,
+        "Encoding": "utf-16be"
+      }
+    }
+  }
+}

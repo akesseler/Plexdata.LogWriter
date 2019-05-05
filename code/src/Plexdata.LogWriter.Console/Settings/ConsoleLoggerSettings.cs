@@ -22,6 +22,7 @@
  * SOFTWARE.
  */
 
+using Microsoft.Extensions.Configuration;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
@@ -155,6 +156,32 @@ namespace Plexdata.LogWriter.Settings
             };
         }
 
+        /// <summary>
+        /// The extended constructor that initializes all properties from provided 
+        /// <paramref name="configuration"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Usually, it is no necessary to call this constructor manually. This is 
+        /// because of, this constructor is actually reserved for the mechanism of 
+        /// dependency injection.
+        /// </para>
+        /// <para>
+        /// Please note, the default values are taken if one or more properties are 
+        /// not included in the configuration.
+        /// </para>
+        /// </remarks>
+        /// <param name="configuration">
+        /// The configuration to read all property values from.
+        /// </param>
+        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
+        /// <seealso cref="ConsoleLoggerSettings.LoadSettings(IConfiguration)"/>
+        public ConsoleLoggerSettings(IConfiguration configuration)
+            : this()
+        {
+            this.LoadSettings(configuration);
+        }
+
         #endregion
 
         #region Public properties
@@ -240,6 +267,118 @@ namespace Plexdata.LogWriter.Settings
         /// </para>
         /// </remarks>
         public IDictionary<LogLevel, Coloring> Coloring { get; private set; }
+
+        #endregion
+
+        #region Protected methods
+
+        /// <summary>
+        /// The method loads all settings from provided <paramref name="configuration"/> 
+        /// and initializes all properties accordingly.
+        /// </summary>
+        /// <remarks>
+        /// This method has been overwritten and calls the inherited base class method 
+        /// to ensure all settings are loaded accordingly.
+        /// </remarks>
+        /// <param name="configuration">
+        /// An instance of <see cref="Microsoft.Extensions.Configuration.IConfiguration"/> 
+        /// that represents the settings to be applied.
+        /// </param>
+        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
+        /// <seealso cref="ConsoleLoggerSettings.GetBufferSize(IConfigurationSection)"/>
+        /// <seealso cref="ConsoleLoggerSettings.GetColoring(IConfigurationSection, IDictionary{LogLevel, Coloring})"/>
+        protected override void LoadSettings(IConfiguration configuration)
+        {
+            if (configuration == null) { return; }
+
+            base.LoadSettings(configuration);
+
+            IConfigurationSection section = configuration.GetSection(LoggerSettings.SettingsPath);
+
+            this.UseColors = base.GetValue(section[nameof(this.UseColors)], ConsoleLoggerSettings.DefaultUseColors);
+            this.WindowTitle = base.GetValue(section[nameof(this.WindowTitle)], ConsoleLoggerSettings.DefaultWindowTitle);
+            this.QuickEdit = base.GetValue(section[nameof(this.QuickEdit)], ConsoleLoggerSettings.DefaultQuickEdit);
+            this.BufferSize = this.GetBufferSize(section.GetSection(nameof(this.BufferSize)));
+            this.Coloring = this.GetColoring(section.GetSection(nameof(this.Coloring)), this.Coloring);
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Reads the width and the lines from provided configuration.
+        /// </summary>
+        /// <remarks>
+        /// This method tries to read the width and the lines of a <see cref="Dimension"/> 
+        /// instance from provided configuration.
+        /// </remarks>
+        /// <param name="section">
+        /// The configuration section to read data from.
+        /// </param>
+        /// <returns>
+        /// A new instance of class <see cref="Dimension"/> with the width in characters 
+        /// and the number of lines.
+        /// </returns>
+        private Dimension GetBufferSize(IConfigurationSection section)
+        {
+            Dimension result = new Dimension(
+                base.GetValue(section[nameof(Dimension.Width)], ConsoleLoggerSettings.DefaultBufferSize.Width),
+                base.GetValue(section[nameof(Dimension.Lines)], ConsoleLoggerSettings.DefaultBufferSize.Lines)
+            );
+
+            if (result.IsValid)
+            {
+                return result;
+            }
+
+            return ConsoleLoggerSettings.DefaultBufferSize;
+        }
+
+        /// <summary>
+        /// Reads the list of coloring assignments from provided configuration.
+        /// </summary>
+        /// <remarks>
+        /// This method tries to read the list of coloring assignments from provided 
+        /// configuration.
+        /// </remarks>
+        /// <param name="parent">
+        /// The parent <see cref="Coloring"/> section to obtain the list items from.
+        /// </param>
+        /// <param name="source">
+        /// The Coloring source that serves as initial items as well.
+        /// </param>
+        /// <returns>
+        /// The fully initialized Coloring assignment list to be used. It contains the 
+        /// default assignments for all coloring settings that were not specified within 
+        /// provided configuration section.
+        /// </returns>
+        private IDictionary<LogLevel, Coloring> GetColoring(IConfigurationSection parent, IDictionary<LogLevel, Coloring> source)
+        {
+            try
+            {
+                Dictionary<LogLevel, Coloring> result = new Dictionary<LogLevel, Coloring>();
+
+                foreach (LogLevel level in source.Keys)
+                {
+                    Coloring value = source[level];
+
+                    // NOTE: The interface implementation just returns the first item of any duplicate key-value combination.
+                    IConfiguration section = parent.GetSection(level.ToString());
+
+                    result.Add(level, new Coloring(
+                        base.GetValue(section[nameof(value.Foreground)], value.Foreground),
+                        base.GetValue(section[nameof(value.Background)], value.Background)
+                    ));
+                }
+
+                return result;
+            }
+            catch
+            {
+                return source;
+            }
+        }
 
         #endregion
     }

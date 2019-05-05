@@ -38,7 +38,7 @@
     <IndentHtml>False</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpTitle>Plexdata Logging Writer</HelpTitle>
-    <HelpFileVersion>1.0.2.2</HelpFileVersion>
+    <HelpFileVersion>1.0.2.3</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceContainer>True</RootNamespaceContainer>

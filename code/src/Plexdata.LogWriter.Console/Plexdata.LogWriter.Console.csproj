@@ -14,9 +14,9 @@ This package includes classes that are shared between all available implementati
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured console</PackageTags>
     <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.2.2</AssemblyVersion>
-    <FileVersion>1.0.2.2</FileVersion>
-    <Version>1.0.2.2</Version>
+    <AssemblyVersion>1.0.2.3</AssemblyVersion>
+    <FileVersion>1.0.2.3</FileVersion>
+    <Version>1.0.2.3</Version>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 
@@ -33,6 +33,10 @@ This package includes classes that are shared between all available implementati
     <DocumentationFile>bin\Debug\netstandard2.0\Plexdata.LogWriter.Console.xml</DocumentationFile>
     <OutputPath>bin\Debug</OutputPath>
   </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />

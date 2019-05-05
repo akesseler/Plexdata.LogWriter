@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<appSettings>
+  <Plexdata>
+    <LogWriter>
+      <Settings>
+        <LogLevel>Trace</LogLevel>
+        <LogTime>utc</LogTime>
+        <LogType>json</LogType>
+        <ShowTime>true</ShowTime>
+        <PartSplit>|</PartSplit>
+        <TimeFormat>s</TimeFormat>
+        <FullName>false</FullName>
+        <Culture>de-DE</Culture>
+        <Filename>C:\temp\logging\test.log</Filename>
+        <IsRolling>true</IsRolling>
+        <IsQueuing>true</IsQueuing>
+        <Threshold>1024</Threshold>
+        <Encoding>utf-16be</Encoding>
+      </Settings>
+    </LogWriter>
+  </Plexdata>
+</appSettings>
