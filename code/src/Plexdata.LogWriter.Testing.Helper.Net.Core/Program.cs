@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Extensions;
@@ -107,16 +106,13 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
 
             try
             {
-                IConfigurationBuilder builder = new ConfigurationBuilder();
+                ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+                builder.SetFilename("console-logger-settings.json");
 
-                builder
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("console-logger-settings.json", false);
-
-                IConfigurationRoot config = builder.Build();
+                ILoggerSettingsSection config = builder.Build();
                 IServiceCollection services = new ServiceCollection();
 
-                services.AddSingleton<IConfiguration>(config);
+                services.AddSingleton<ILoggerSettingsSection>(config);
                 services.AddSingleton<IConsoleLogger, ConsoleLogger>();
                 services.AddSingleton<IConsoleLoggerSettings, ConsoleLoggerSettings>();
 
@@ -150,16 +146,13 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
 
             try
             {
-                IConfigurationBuilder builder = new ConfigurationBuilder();
+                ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+                builder.SetFilename("console-logger-settings.xml");
 
-                builder
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddXmlFile("console-logger-settings.xml", false);
-
-                IConfigurationRoot config = builder.Build();
+                ILoggerSettingsSection config = builder.Build();
                 IServiceCollection services = new ServiceCollection();
 
-                services.AddSingleton<IConfiguration>(config);
+                services.AddSingleton<ILoggerSettingsSection>(config);
                 services.AddSingleton<IConsoleLogger, ConsoleLogger>();
                 services.AddSingleton<IConsoleLoggerSettings, ConsoleLoggerSettings>();
 
@@ -193,16 +186,13 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
 
             try
             {
-                IConfigurationBuilder builder = new ConfigurationBuilder();
+                ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+                builder.SetFilename("persistent-logger-settings.json");
 
-                builder
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddJsonFile("persistent-logger-settings.json", false);
-
-                IConfigurationRoot config = builder.Build();
+                ILoggerSettingsSection config = builder.Build();
                 IServiceCollection services = new ServiceCollection();
 
-                services.AddSingleton<IConfiguration>(config);
+                services.AddSingleton<ILoggerSettingsSection>(config);
                 services.AddSingleton<IPersistentLogger, PersistentLogger>();
                 services.AddSingleton<IPersistentLoggerSettings, PersistentLoggerSettings>();
 
@@ -236,16 +226,13 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
 
             try
             {
-                IConfigurationBuilder builder = new ConfigurationBuilder();
+                ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+                builder.SetFilename("persistent-logger-settings.xml");
 
-                builder
-                    .SetBasePath(Directory.GetCurrentDirectory())
-                    .AddXmlFile("persistent-logger-settings.xml", false);
-
-                IConfigurationRoot config = builder.Build();
+                ILoggerSettingsSection config = builder.Build();
                 IServiceCollection services = new ServiceCollection();
 
-                services.AddSingleton<IConfiguration>(config);
+                services.AddSingleton<ILoggerSettingsSection>(config);
                 services.AddSingleton<IPersistentLogger, PersistentLogger>();
                 services.AddSingleton<IPersistentLoggerSettings, PersistentLoggerSettings>();
 

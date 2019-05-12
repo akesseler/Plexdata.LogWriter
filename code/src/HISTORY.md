@@ -1,12 +1,9 @@
 
 **1.0.2.3**
+- Support of settings construction by using interface ``ILoggerSettingsSection``.
+- Extending the tests for ``ILoggerSettingsSection`` usage and related implementations.
 - Adding of project ``Plexdata.LogWriter.Testing.Helper.Net.Core``.
-- Adding of NuGet reference ``Microsoft.Extensions.Configuration.Abstractions`` to
-  - ``Plexdata.LogWriter.Abstraction``,
-  - ``Plexdata.LogWriter.Console`` and
-  - ``Plexdata.LogWriter.Persistent``.
-- Support of settings construction by interface ``IConfiguration``.
-- Extending the tests for ``IConfiguration`` usage.
+- Adding of project ``Plexdata.LogWriter.Testing.Helper.Asp.Core``.
 - Update of source code documentation.
 - Version number increased.
 - Wiki and release update on GitHub.

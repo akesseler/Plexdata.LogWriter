@@ -41,7 +41,7 @@ namespace Plexdata.LogWriter.Extensions
     /// <example>
     /// Below find an example of how to register user-defined logging level display 
     /// text labels. But be aware, changing them will have a global effect!
-    /// <code>
+    /// <code language="C#">
     /// LogLevel.Trace.RegisterDisplayText("TRC");
     /// LogLevel.Debug.RegisterDisplayText("DBG");
     /// LogLevel.Verbose.RegisterDisplayText("VBS");

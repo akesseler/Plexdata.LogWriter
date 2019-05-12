@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Internals.Extensions;
 using System;
@@ -239,8 +238,8 @@ namespace Plexdata.LogWriter.Settings
         /// <param name="configuration">
         /// The configuration to read all property values from.
         /// </param>
-        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
-        public PersistentLoggerSettings(IConfiguration configuration)
+        /// <seealso cref="LoggerSettings.LoadSettings(ILoggerSettingsSection)"/>
+        public PersistentLoggerSettings(ILoggerSettingsSection configuration)
             : this()
         {
             this.LoadSettings(configuration);
@@ -353,17 +352,17 @@ namespace Plexdata.LogWriter.Settings
         /// to ensure all settings are loaded accordingly.
         /// </remarks>
         /// <param name="configuration">
-        /// An instance of <see cref="Microsoft.Extensions.Configuration.IConfiguration"/> 
+        /// An instance of <see cref="Plexdata.LogWriter.Abstraction.ILoggerSettingsSection"/> 
         /// that represents the settings to be applied.
         /// </param>
-        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
-        protected override void LoadSettings(IConfiguration configuration)
+        /// <seealso cref="LoggerSettings.LoadSettings(ILoggerSettingsSection)"/>
+        protected override void LoadSettings(ILoggerSettingsSection configuration)
         {
             if (configuration == null) { return; }
 
             base.LoadSettings(configuration);
 
-            IConfigurationSection section = configuration.GetSection(LoggerSettings.SettingsPath);
+            ILoggerSettingsSection section = configuration.GetSection(LoggerSettings.SettingsPath);
 
             this.Filename = base.GetValue(section[nameof(this.Filename)], PersistentLoggerSettings.DefaultFilename);
             this.IsRolling = base.GetValue(section[nameof(this.IsRolling)], PersistentLoggerSettings.DefaultRolling);

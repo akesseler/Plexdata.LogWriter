@@ -1,7 +1,6 @@
 
 **TODOs**
 
-- Provide settings constructors using interface ``IConfiguration`` of ``Microsoft.Extensions.Configuration.Abstractions``.
 - Implement IEventLogger
   - A logger that writes into the event log (a distinction between windows and others is possibly necessary).
 - Implement IHttpLogger

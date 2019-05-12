@@ -3,7 +3,7 @@
 
 This special project represents a testing environment to be able 
 to test the behaviour of dependency injection especially for the 
-usage of interface ``IConfiguration``.
+usage of interface ``ILoggerSettingsSection``.
 
 Furthermore, this project includes a bunch of application settings 
 file that show how to configure the logging writer with an external 
@@ -20,7 +20,6 @@ Below an example of how to inject an external configuration into the
 console logger in a .NET Core environment.
 
 ```
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Extensions;
@@ -35,16 +34,13 @@ namespace Plexdata.LogWriter.Examples
     {
         static void Main(String[] args)
         {
-            IConfigurationBuilder builder = new ConfigurationBuilder();
+            ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+            builderbuilder.SetFilename("console-logger-settings.json");
 
-            builder
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("console-logger-settings.json", false);
-
-            IConfigurationRoot config = builder.Build();
+            ILoggerSettingsSection config = builder.Build();
             IServiceCollection services = new ServiceCollection();
 
-            services.AddSingleton<IConfiguration>(config);
+            services.AddSingleton<ILoggerSettingsSection>(config);
             services.AddSingleton<IConsoleLogger, ConsoleLogger>();
             services.AddSingleton<IConsoleLoggerSettings, ConsoleLoggerSettings>();
 

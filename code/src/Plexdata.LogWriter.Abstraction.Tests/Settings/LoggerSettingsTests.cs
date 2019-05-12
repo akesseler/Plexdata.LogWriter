@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
@@ -40,14 +39,14 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
     {
         #region Prologue
 
-        private Mock<IConfigurationSection> section;
-        private Mock<IConfiguration> configuration;
+        private Mock<ILoggerSettingsSection> section;
+        private Mock<ILoggerSettingsSection> configuration;
 
         [SetUp]
         public void Setup()
         {
-            this.section = new Mock<IConfigurationSection>();
-            this.configuration = new Mock<IConfiguration>();
+            this.section = new Mock<ILoggerSettingsSection>();
+            this.configuration = new Mock<ILoggerSettingsSection>();
 
             this.configuration
                 .Setup(x => x.GetSection(It.IsAny<String>()))
@@ -561,7 +560,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
                 base.RaisePropertyChanged(property);
             }
 
-            public void LoadSettingsTest(IConfiguration configuration)
+            public void LoadSettingsTest(ILoggerSettingsSection configuration)
             {
                 base.LoadSettings(configuration);
             }

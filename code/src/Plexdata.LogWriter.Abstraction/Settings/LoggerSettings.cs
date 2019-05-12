@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
@@ -395,15 +394,15 @@ namespace Plexdata.LogWriter.Settings
         /// that all settings of sub-classes are loaded as well.
         /// </remarks>
         /// <param name="configuration">
-        /// An instance of <see cref="Microsoft.Extensions.Configuration.IConfiguration"/> 
+        /// An instance of <see cref="Plexdata.LogWriter.Abstraction.ILoggerSettingsSection"/> 
         /// that represents the settings to be applied.
         /// </param>
         /// <seealso cref="LoggerSettings.GetValue{TType}(String, TType)"/>
-        protected virtual void LoadSettings(IConfiguration configuration)
+        protected virtual void LoadSettings(ILoggerSettingsSection configuration)
         {
             if (configuration == null) { return; }
 
-            IConfigurationSection section = configuration.GetSection(LoggerSettings.SettingsPath);
+            ILoggerSettingsSection section = configuration.GetSection(LoggerSettings.SettingsPath);
 
             this.LogLevel = this.GetValue(section[nameof(this.LogLevel)], LogLevel.Default);
             this.LogType = this.GetValue(section[nameof(this.LogType)], LogType.Default);
