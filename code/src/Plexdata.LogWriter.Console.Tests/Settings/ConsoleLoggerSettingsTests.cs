@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
+using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Settings;
 using System;
@@ -39,14 +39,14 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
     {
         #region Prologue
 
-        private Mock<IConfigurationSection> section;
-        private Mock<IConfiguration> configuration;
+        private Mock<ILoggerSettingsSection> section;
+        private Mock<ILoggerSettingsSection> configuration;
 
         [SetUp]
         public void Setup()
         {
-            this.section = new Mock<IConfigurationSection>();
-            this.configuration = new Mock<IConfiguration>();
+            this.section = new Mock<ILoggerSettingsSection>();
+            this.configuration = new Mock<ILoggerSettingsSection>();
 
             this.configuration
                 .Setup(x => x.GetSection(It.IsAny<String>()))
@@ -206,7 +206,7 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
         [TestCase("42.0", "23.5", 0, 0)]
         public void ConsoleLoggerSettings_ConfigurationValid_GetSectionValueForBufferSizeAsExpected(String sWidth, String sLines, Int32 nWidth, Int32 nLines)
         {
-            Mock<IConfigurationSection> dimension = new Mock<IConfigurationSection>();
+            Mock<ILoggerSettingsSection> dimension = new Mock<ILoggerSettingsSection>();
 
             this.section.Setup(x => x.GetSection("BufferSize")).Returns(dimension.Object);
 
@@ -270,9 +270,9 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
         [TestCase(LogLevel.Warning, "Red", "Green", ConsoleColor.Red, ConsoleColor.Green)]
         public void ConsoleLoggerSettings_ConfigurationValid_GetSectionValueForColoringAsExpected(LogLevel level, String sForeground, String sBackground, ConsoleColor nForeground, ConsoleColor nBackground)
         {
-            Mock<IConfigurationSection> parent = new Mock<IConfigurationSection>();
-            Mock<IConfigurationSection> coloring = new Mock<IConfigurationSection>();
-            Mock<IConfigurationSection> others = new Mock<IConfigurationSection>();
+            Mock<ILoggerSettingsSection> parent = new Mock<ILoggerSettingsSection>();
+            Mock<ILoggerSettingsSection> coloring = new Mock<ILoggerSettingsSection>();
+            Mock<ILoggerSettingsSection> others = new Mock<ILoggerSettingsSection>();
 
             this.section.Setup(x => x.GetSection("Coloring")).Returns(parent.Object);
             parent.Setup(x => x.GetSection(It.IsAny<String>())).Returns((String current) => { return (current == level.ToString()) ? coloring.Object : others.Object; });

@@ -164,14 +164,27 @@ namespace Plexdata.LogWriter.Facades.Standard
         {
             get
             {
-                return new Dimension(System.Console.BufferWidth, System.Console.BufferHeight);
+                try
+                {
+                    // NOTE: A console window might be inaccessible and for that reason just catch any occurring exception.
+                    return new Dimension(System.Console.BufferWidth, System.Console.BufferHeight);
+                }
+                catch
+                {
+                    return new Dimension();
+                }
             }
             set
             {
                 if (value != null && value.IsValid)
                 {
-                    System.Console.BufferWidth = value.Width;
-                    System.Console.BufferHeight = value.Lines;
+                    try
+                    {
+                        // NOTE: A console window might be inaccessible and for that reason just catch any occurring exception.
+                        System.Console.BufferWidth = value.Width;
+                        System.Console.BufferHeight = value.Lines;
+                    }
+                    catch { }
                 }
             }
         }

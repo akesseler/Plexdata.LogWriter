@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Moq;
 using NUnit.Framework;
+using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Settings;
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -41,8 +41,8 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
     {
         #region Prologue
 
-        private Mock<IConfigurationSection> section;
-        private Mock<IConfiguration> configuration;
+        private Mock<ILoggerSettingsSection> section;
+        private Mock<ILoggerSettingsSection> configuration;
         private String testingFilename = null;
         private String defaultFilename = null;
 
@@ -52,8 +52,8 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
             this.testingFilename = Path.GetTempFileName();
             this.defaultFilename = Path.Combine(Path.GetTempPath(), "plexdata.log");
 
-            this.section = new Mock<IConfigurationSection>();
-            this.configuration = new Mock<IConfiguration>();
+            this.section = new Mock<ILoggerSettingsSection>();
+            this.configuration = new Mock<ILoggerSettingsSection>();
 
             this.configuration
                 .Setup(x => x.GetSection(It.IsAny<String>()))

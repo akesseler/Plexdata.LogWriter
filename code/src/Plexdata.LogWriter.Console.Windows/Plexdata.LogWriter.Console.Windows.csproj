@@ -10,7 +10,7 @@
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured console windows</PackageTags>
-    <PackageReleaseNotes>- Support of 'IConfiguration'.
+    <PackageReleaseNotes>Support of 'ILoggerSettingsSection'.
 </PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Console.Windows implements the IConsoleLogger interface that allows printing of logging messages into the console window.
 

@@ -22,7 +22,6 @@
  * SOFTWARE.
  */
 
-using Microsoft.Extensions.Configuration;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
@@ -174,9 +173,9 @@ namespace Plexdata.LogWriter.Settings
         /// <param name="configuration">
         /// The configuration to read all property values from.
         /// </param>
-        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
-        /// <seealso cref="ConsoleLoggerSettings.LoadSettings(IConfiguration)"/>
-        public ConsoleLoggerSettings(IConfiguration configuration)
+        /// <seealso cref="LoggerSettings.LoadSettings(ILoggerSettingsSection)"/>
+        /// <seealso cref="ConsoleLoggerSettings.LoadSettings(ILoggerSettingsSection)"/>
+        public ConsoleLoggerSettings(ILoggerSettingsSection configuration)
             : this()
         {
             this.LoadSettings(configuration);
@@ -281,19 +280,19 @@ namespace Plexdata.LogWriter.Settings
         /// to ensure all settings are loaded accordingly.
         /// </remarks>
         /// <param name="configuration">
-        /// An instance of <see cref="Microsoft.Extensions.Configuration.IConfiguration"/> 
+        /// An instance of <see cref="Plexdata.LogWriter.Abstraction.ILoggerSettingsSection"/> 
         /// that represents the settings to be applied.
         /// </param>
-        /// <seealso cref="LoggerSettings.LoadSettings(IConfiguration)"/>
-        /// <seealso cref="ConsoleLoggerSettings.GetBufferSize(IConfigurationSection)"/>
-        /// <seealso cref="ConsoleLoggerSettings.GetColoring(IConfigurationSection, IDictionary{LogLevel, Coloring})"/>
-        protected override void LoadSettings(IConfiguration configuration)
+        /// <seealso cref="LoggerSettings.LoadSettings(ILoggerSettingsSection)"/>
+        /// <seealso cref="ConsoleLoggerSettings.GetBufferSize(ILoggerSettingsSection)"/>
+        /// <seealso cref="ConsoleLoggerSettings.GetColoring(ILoggerSettingsSection, IDictionary{LogLevel, Coloring})"/>
+        protected override void LoadSettings(ILoggerSettingsSection configuration)
         {
             if (configuration == null) { return; }
 
             base.LoadSettings(configuration);
 
-            IConfigurationSection section = configuration.GetSection(LoggerSettings.SettingsPath);
+            ILoggerSettingsSection section = configuration.GetSection(LoggerSettings.SettingsPath);
 
             this.UseColors = base.GetValue(section[nameof(this.UseColors)], ConsoleLoggerSettings.DefaultUseColors);
             this.WindowTitle = base.GetValue(section[nameof(this.WindowTitle)], ConsoleLoggerSettings.DefaultWindowTitle);
@@ -320,7 +319,7 @@ namespace Plexdata.LogWriter.Settings
         /// A new instance of class <see cref="Dimension"/> with the width in characters 
         /// and the number of lines.
         /// </returns>
-        private Dimension GetBufferSize(IConfigurationSection section)
+        private Dimension GetBufferSize(ILoggerSettingsSection section)
         {
             Dimension result = new Dimension(
                 base.GetValue(section[nameof(Dimension.Width)], ConsoleLoggerSettings.DefaultBufferSize.Width),
@@ -353,7 +352,7 @@ namespace Plexdata.LogWriter.Settings
         /// default assignments for all coloring settings that were not specified within 
         /// provided configuration section.
         /// </returns>
-        private IDictionary<LogLevel, Coloring> GetColoring(IConfigurationSection parent, IDictionary<LogLevel, Coloring> source)
+        private IDictionary<LogLevel, Coloring> GetColoring(ILoggerSettingsSection parent, IDictionary<LogLevel, Coloring> source)
         {
             try
             {
@@ -364,7 +363,7 @@ namespace Plexdata.LogWriter.Settings
                     Coloring value = source[level];
 
                     // NOTE: The interface implementation just returns the first item of any duplicate key-value combination.
-                    IConfiguration section = parent.GetSection(level.ToString());
+                    ILoggerSettingsSection section = parent.GetSection(level.ToString());
 
                     result.Add(level, new Coloring(
                         base.GetValue(section[nameof(value.Foreground)], value.Foreground),

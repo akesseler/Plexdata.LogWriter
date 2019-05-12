@@ -10,11 +10,10 @@
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured file persistent</PackageTags>
-    <PackageReleaseNotes>- Support of 'IConfiguration' in the settings class construction.
+    <PackageReleaseNotes>- Support of 'ILoggerSettingsSection' in the settings class construction.
 - Bugfix in class 'SettingsPoliciesExtension' for toggling file names when rolling is on.
 - Constructor with 'filename' in class 'PersistentLoggerSettings' removed (BREAKING CHANGES).
-- Property 'Filename' of interface 'IPersistentLoggerSettings' provided with public setter.
-</PackageReleaseNotes>
+- Property 'Filename' of interface 'IPersistentLoggerSettings' provided with public setter.</PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Persistent implements the IPersistentLogger interface that allows writing of logging messages into files.
 
 Main feature of this package is that it can be used platform independently.</Description>
@@ -37,10 +36,6 @@ Main feature of this package is that it can be used platform independently.</Des
     <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Persistent.xml</DocumentationFile>
     <OutputPath>bin\Release</OutputPath>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="2.2.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />
