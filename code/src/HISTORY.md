@@ -2,6 +2,7 @@
 **1.0.2.3**
 - Support of settings construction by using interface ``ILoggerSettingsSection``.
 - Extending the tests for ``ILoggerSettingsSection`` usage and related implementations.
+- Bugfix in class ``ConsoleLoggerFacade`` catching any exception in property ``BufferSize``.
 - Adding of project ``Plexdata.LogWriter.Testing.Helper.Net.Core``.
 - Adding of project ``Plexdata.LogWriter.Testing.Helper.Asp.Core``.
 - Update of source code documentation.
