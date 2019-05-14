@@ -14,10 +14,10 @@
 
 This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
     <PackageTags>logging logger log trace debug raw structured abstraction</PackageTags>
-    <PackageReleaseNotes>Support of loading data from 'ILoggerSettingsSection' in the settings class.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.2.3</AssemblyVersion>
-    <FileVersion>1.0.2.3</FileVersion>
-    <Version>1.0.2.3</Version>
+    <PackageReleaseNotes>- Support of loading data from 'ILoggerSettingsSection' in the settings class (BREAKING CHANGES).</PackageReleaseNotes>
+    <AssemblyVersion>1.0.2.4</AssemblyVersion>
+    <FileVersion>1.0.2.4</FileVersion>
+    <Version>1.0.2.4</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

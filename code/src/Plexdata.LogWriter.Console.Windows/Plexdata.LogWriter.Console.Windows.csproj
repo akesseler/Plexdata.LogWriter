@@ -10,16 +10,16 @@
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured console windows</PackageTags>
-    <PackageReleaseNotes>Support of 'ILoggerSettingsSection'.
+    <PackageReleaseNotes>- Support of 'ILoggerSettingsSection' (BREAKING CHANGES).
 </PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Console.Windows implements the IConsoleLogger interface that allows printing of logging messages into the console window.
 
 Main feature of this package is that NOT only pure console applications are able to write logging messages into the console window. For example when using an old-fashioned Windows Forms application an extra window is opened that shows all logging messages.
 
 Attention: This package can only be used on Windows platforms because of it uses native Win32 API functions!</Description>
-    <AssemblyVersion>1.0.2.3</AssemblyVersion>
-    <FileVersion>1.0.2.3</FileVersion>
-    <Version>1.0.2.3</Version>
+    <AssemblyVersion>1.0.2.4</AssemblyVersion>
+    <FileVersion>1.0.2.4</FileVersion>
+    <Version>1.0.2.4</Version>
     <RootNamespace>Plexdata.LogWriter.Windows</RootNamespace>
   </PropertyGroup>
 

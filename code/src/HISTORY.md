@@ -1,4 +1,10 @@
 
+**1.0.2.4**
+- Setting up a new release for nuget.org because of being unable to update the previous verion.
+- Version number increased.
+- Wiki and release update on GitHub.
+- All affected packages released on nuget.org (release notes update).
+
 **1.0.2.3**
 - Support of settings construction by using interface ``ILoggerSettingsSection``.
 - Extending the tests for ``ILoggerSettingsSection`` usage and related implementations.
