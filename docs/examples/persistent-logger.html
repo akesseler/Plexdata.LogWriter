@@ -2,10 +2,125 @@
 <h2 id="persistent-logger-examples">Persistent Logger</h2>
 
 <p>
-    Sorry, but coming soon...
+    In this chapter you may find some interesting information about using the persistent logging writer.
 </p>
+
+<ul class="page-toc">
+    <li><a href="#logger-settings">Logger Settings</a></li>
+    <li><a href="#persistent-logger-dependency-injection">Dependency Injection</a></li>
+    <li><a href="#persistent-logger-configuration-example">Configuration Example</a></li>
+</ul>
+
+<h4 id="logger-settings">Logger Settings</h4>
+
+<p>
+    Below can be found a fully qualified example of how to use the persistent logger settings. You may recognize
+    that the logging type, the time format, the part split as well as the filename have been changed.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('logger-settings-example-1');return false;">Copy</a></div>
+<pre id="logger-settings-example-1"><code>using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Extensions;
+using Plexdata.LogWriter.Logging;
+using Plexdata.LogWriter.Settings;
+using System;
+
+namespace PersistentLoggerExample
+{
+    class Program
+    {
+        static void Main(String[] args)
+        {
+            IPersistentLoggerSettings settings = new PersistentLoggerSettings
+            {
+                LogLevel = LogLevel.Trace,
+                LogType = LogType.Csv,
+                LogTime = LogTime.Utc,
+                TimeFormat = "G",
+                PartSplit = '|',
+                Filename = @"C:\temp\logging\test.log"
+            };
+
+            ILogger logger = new PersistentLogger(settings);
+
+            logger.Trace("Trace...");
+            logger.Debug("Debug...");
+            logger.Verbose("Verbose...");
+            logger.Message("Message...");
+            logger.Warning("Warning...");
+            logger.Error("Error...");
+            logger.Fatal("Fatal...");
+            logger.Critical("Critical...");
+
+            Console.ReadKey();
+        }
+    }
+}</code></pre>
+
+<p>
+    With the above settings in mind the message output of the persistent logger would look like as shown as follows.
+</p>
+
+<pre id="logger-settings-output-1"><code>358412C7-9791-4D9A-8217-4FC7EA5B9DED|16.05.2019 01:25:05|TRACE|||Trace...||
+38D72C1A-0DC7-4A37-ABF3-7FCED3124557|23.05.2019 17:23:05|DEBUG|||Debug...||
+6DD7E64F-32B6-4103-AF7F-4CC7F75FFE9D|23.05.2019 17:23:05|VERBOSE|||Verbose...||
+4347EE19-2447-46E8-8E27-C0E1662CD552|23.05.2019 17:23:05|MESSAGE|||Message...||
+71E6821D-69B9-499B-9D3A-ED9C97FE34BF|23.05.2019 17:23:05|WARNING|||Warning...||
+FD76FDC9-93A1-4EF4-917B-556401FD290B|23.05.2019 17:23:05|ERROR|||Error...||
+782F6979-BEE9-4ADD-9DFE-F3E1FAB35BDA|23.05.2019 17:23:05|FATAL|||Fatal...||
+B2DEB532-159A-4F29-BFFE-FA2D44D219E8|23.05.2019 17:23:05|CRITICAL|||Critical...||</code></pre>
+
+<p>
+    <b>Attention</b>: Please be aware, property <code>Filename</code> of the persistent logger settings is actually
+    the most important value. This is because of two reasons. The first and obvious reason, no logging file no logging
+    message output. The second and much more important reason, the path of the filename must exist and the executing
+    process must have write access to that directory. Otherwise exceptions are thrown and the process will not execute.
+</p>
+
+<h4 id="persistent-logger-dependency-injection">Dependency Injection</h4>
+
+<p>
+    The dependency injection of the persistent logger works pretty much the same way as it works for the
+    <a id="persistent-logger-examples" href="#" onclick="showContent('console-logger-examples', '../examples/console-logger.html', 'console-logger-dependency-injection');return false;">console logger</a>.
+    Therefore, an explicit explanation does not really be useful right here.
+</p>
+
+<p>
+    But here <a href="./examples/code/PersistentLoggerExample1.zip" download><i class="fa fa-download"></i></a> you can
+    download the complete <i>.NET Core</i> example project.
+    And here <a href="./examples/code/PersistentLoggerExample2.zip" download><i class="fa fa-download"></i></a> you can
+    download the complete <i>ASP.NET Core</i> example project.
+</p>
+
+<h4 id="persistent-logger-configuration-example">Configuration Example</h4>
+
+<p>
+    Last but not least, a fully qualified configuration example as JSON can be seen here.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('full-configuration-example');return false;">Copy</a></div>
+<pre id="full-configuration-example"><code>{
+  "Plexdata": {
+    "LogWriter": {
+      "Settings": {
+        "LogLevel": "Trace",
+        "LogTime": "Utc",
+        "LogType": "Csv",
+        "ShowTime": true,
+        "PartSplit": "|",
+        "TimeFormat": "s",
+        "FullName": false,
+        "Culture": "en-US",
+        "Filename": "C:\\temp\\logging\\test.log",
+        "IsRolling": false,
+        "IsQueuing": true,
+        "Threshold": 1024,
+        "Encoding": "utf-8"
+      }
+    }
+  }
+}</code></pre>
 
 
 <p style="margin-bottom: 2em;">&nbsp;</p>
-
-

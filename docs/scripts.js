@@ -70,14 +70,34 @@ function showContent(caller, chapter, section) {
 
             $(target).ready(function () {
 
-                // As first bring current target into view.
-                $(target).scrollTop(0);
+                try {
 
-                if (section) {
+                    // As first bring current target into view.
+                    $(target).scrollTop(0);
 
-                    let offset = $(makeSelector(section)).offset().top - $(target).offset().top;
+                    let selector = makeSelector(section);
 
-                    $(target).scrollTop(offset);
+                    if (selector) {
+
+                        // Prevent execution in the hope that 500 ms is enough wait time to delay scrolling.
+                        let waittime = $(selector).offset() !== undefined ? 0 : 500;
+
+                        setTimeout(function () {
+
+                            try {
+
+                                let offset = $(selector).offset().top - $(target).offset().top;
+
+                                $(target).scrollTop(offset);
+                            }
+                            catch (error) {
+                                console.log(error);
+                            }
+                        }, waittime);
+                    }
+                }
+                catch (error) {
+                    console.log(error);
                 }
             });
         }

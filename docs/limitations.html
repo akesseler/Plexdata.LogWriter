@@ -5,21 +5,19 @@
     At the moment there are some known limitations that will be pointed out in this chapter.
 </p>
 
-<h4>Logger Settings</h4>
-
-<p>
-    Unfortunately, not all of the <i>Logger Settings</i> can be used in a configuration file
-    when dependency injection is used. For example, this applies to the <code>Coloring</code>
-    property. The reason behind, some of the properties have a property getter only and such
-    properties cannot be modified by any external code.
-</p>
-
 <h4>Console Logger for Windows</h4>
 
 <p>
     As already mentioned, the <i>Console Logger for Windows</i> cannot be used on platforms other
     than Windows. The reason behind, this logging writer uses functions of the Win32&ndash;API
     directly. These functions are not available on other platforms.
+</p>
+
+<h4>Persistent Logger Settings</h4>
+
+<p>
+    The path of the provided filename must exist and a process must have write access to that 
+    directory. But this limitation might change in later versions.
 </p>
 
 

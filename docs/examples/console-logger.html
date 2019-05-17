@@ -24,6 +24,7 @@
             <li><a href="#console-logger-dependency-injection-asp-core">In ASP.NET Core</a></li>
         </ul>
     </li>
+    <li><a href="#console-logger-configuration-example">Configuration Example</a></li>
 </ul>
 
 <h4 id="logger-basic-settings">Logger Basic Settings</h4>
@@ -121,14 +122,14 @@ namespace ConsoleLoggerExample
 
 <p>
     Dependency injection is always an important issue. Therefore, this section wants to show how to
-    accomplish this task for the console logger implementation.
+    accomplish this task together with the console logger classes.
 </p>
 
 <h5 id="console-logger-dependency-injection-std-core">Dependency Injection in .NET Core</h5>
 
 <p>
     Using dependency injection in a simple <i>.NET Core</i> application might be a bit tricky. Here
-    are the steps to get it running or just click on
+    are the steps to get it running or just click here
     <a href="./examples/code/ConsoleLoggerExample1.zip" download><i class="fa fa-download"></i></a>
     to download the complete example project.
 </p>
@@ -147,10 +148,6 @@ namespace ConsoleLoggerExample
         <li><code>Plexdata.LogWriter.Abstraction</code></li>
         <li><code>Plexdata.LogWriter.Console</code></li>
         <li><code>Plexdata.LogWriter.Console.Standard</code></li>
-        <li><code>Microsoft.Extensions.Configuration</code></li>
-        <li><code>Microsoft.Extensions.Configuration.Abstractions</code></li>
-        <li><code>Microsoft.Extensions.Configuration.Binder</code></li>
-        <li><code>Microsoft.Extensions.Configuration.Json</code></li>
         <li><code>Microsoft.Extensions.DependencyInjection</code></li>
     </ul>
 </p>
@@ -158,54 +155,31 @@ namespace ConsoleLoggerExample
 <p><u>Step 3</u></p>
 
 <p>
-    Now create a configuration file, such as <code>appsettings.json</code> and make sure this file
-    has its properties set to <code>Content</code>, <code>Copy always</code>
-</p>
-
-<p><u>Step 4</u></p>
-
-<p>
-    Add content below to the new configuration file.
+    Now create a configuration file, such as <code>appsettings.json</code>, and make sure this file
+    has its properties set to <code>Content</code> and to <code>Copy always</code>. Then add content
+    below to the new configuration file.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('application-configuration-example-1');return false;">Copy</a></div>
-<pre id="application-configuration-example-1"><code>{ 
-    "ConsoleLoggerSettings": {
+<pre id="application-configuration-example-1"><code>{
+  "Plexdata": {
+    "LogWriter": {
+      "Settings": {
         "LogLevel": "Trace",
         "LogTime": "Local",
         "LogType": "Raw",
         "ShowTime": true,
         "PartSplit": "|",
         "WindowTitle": "Hello World" 
+      }
     }
+  }
 }</code></pre>
 
-<p><u>Step 5</u></p>
+<p><u>Step 4</u></p>
 
 <p>
-    Create a helper class, for example named <code>ConsoleLoggerConfiguration</code>, that is able to
-    process the configuration content. This helper class might look like shown below.
-</p>
-
-<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('application-configuration-helper-class-example-1');return false;">Copy</a></div>
-<pre id="application-configuration-helper-class-example-1"><code>public class ConsoleLoggerConfiguration : ConsoleLoggerSettings
-{
-    public ConsoleLoggerConfiguration(IConfigurationRoot config)
-        : base()
-    {
-        if (config == null)
-        {
-            throw new ArgumentNullException(nameof(config));
-        }
-
-        config.GetSection("ConsoleLoggerSettings").Bind(this);
-    }
-}</code></pre>
-
-<p><u>Step 6</u></p>
-
-<p>
-    Implement a class that gets injected with its logger instance like show as follows.
+    Implement a class that gets injected with its logger instance like shown as follows.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('class-with-logger-injection-example-1');return false;">Copy</a></div>
@@ -225,22 +199,22 @@ namespace ConsoleLoggerExample
 }
 </code></pre>
 
-<p><u>Step 7</u></p>
+<p><u>Step 5</u></p>
 
 <p>
-    In the program&rsquo;s <code>Main</code> method implement the required dependency injection part
-    as shown below.
+    In the program&rsquo;s <code>Main()</code> method implement the required dependency injection part
+    as shown here.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-add-config-example-1');return false;">Copy</a></div>
 <pre id="dependency-injection-add-config-example-1"><code>static void Main(String[] args)
 {
-    IConfigurationBuilder builder = new ConfigurationBuilder();
-    builder.SetBasePath(Directory.GetCurrentDirectory()).AddJsonFile("appsettings.json", false);
+    ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+    builder.SetFilename(Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json"));
 
     IServiceCollection service = new ServiceCollection();
-    service.AddSingleton&lt;IConfigurationRoot&gt;(builder.Build());
-    service.AddSingleton&lt;IConsoleLoggerSettings, ConsoleLoggerConfiguration&gt;();
+    service.AddSingleton&lt;ILoggerSettingsSection&gt;(builder.Build());
+    service.AddSingleton&lt;IConsoleLoggerSettings, ConsoleLoggerSettings&gt;();
     service.AddSingleton&lt;IConsoleLogger, ConsoleLogger&gt;();
     service.AddTransient(typeof(ExampleClassWithLoggerInjection));
 
@@ -252,7 +226,7 @@ namespace ConsoleLoggerExample
     Console.ReadKey();
 }</code></pre>
 
-<p><u>Step 8</u></p>
+<p><u>Step 6</u></p>
 
 <p>
     Finally, run the program. The console output should look like as shown as here.
@@ -267,7 +241,7 @@ namespace ConsoleLoggerExample
 
 <p>
     Using dependency injection in an <i>ASP.NET Core</i> application might be a bit easier. Anyway,
-    here are the steps to get it running or just click on
+    here are the steps to get it running or just click here
     <a href="./examples/code/ConsoleLoggerExample2.zip" download><i class="fa fa-download"></i></a>
     to download the complete example project.
 </p>
@@ -301,37 +275,39 @@ namespace ConsoleLoggerExample
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('application-configuration-example-2');return false;">Copy</a></div>
 <pre id="application-configuration-example-2"><code>{ 
-    ...
-    "ConsoleLoggerSettings": {
+  ...
+  "Plexdata": {
+    "LogWriter": {
+      "Settings": {
         "LogLevel": "Trace",
         "LogTime": "Local",
         "LogType": "Raw",
         "ShowTime": true,
         "PartSplit": "|",
-        "WindowTitle": "Hello World" 
+        "WindowTitle": "Hello World"
+      }
     }
-    ...
+  }
+  ...
 }</code></pre>
 
 <p><u>Step 4</u></p>
 
 <p>
-    Open file <code>Startup.cs</code> for edit and put following lines into the methods as shown below.
+    Open file <code>Startup.cs</code> for edit and put following lines into method <code>ConfigureServices()</code>
+    as shown below.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-add-config-example-2');return false;">Copy</a></div>
 <pre id="dependency-injection-add-config-example-2"><code>public void ConfigureServices(IServiceCollection services)
 {
     ...
-    services.AddSingleton&lt;Plexdata.LogWriter.Abstraction.IConsoleLoggerSettings, Plexdata.LogWriter.Settings.ConsoleLoggerSettings&gt;();
-    services.AddSingleton&lt;Plexdata.LogWriter.Abstraction.IConsoleLogger, Plexdata.LogWriter.Logging.Standard.ConsoleLogger&gt;();
-    ...
-}
+    ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+    builder.SetFilename("appsettings.json");
 
-public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-{
-    ...
-    this.Configuration.GetSection("ConsoleLoggerSettings").Bind(app.ApplicationServices.GetService&lt;Plexdata.LogWriter.Abstraction.IConsoleLoggerSettings&gt;());
+    services.AddSingleton&lt;ILoggerSettingsSection&gt;(builder.Build());
+    services.AddSingleton&lt;IConsoleLogger, ConsoleLogger&gt;();
+    services.AddSingleton&lt;IConsoleLoggerSettings, ConsoleLoggerSettings&gt;();
     ...
 }</code></pre>
 
@@ -339,7 +315,8 @@ public void Configure(IApplicationBuilder app, IHostingEnvironment env)
 
 <p>
     As next it would be useful to inject the console logger somewhere, for example in the value controller.
-    For this purpose open file <code>ValuesController.cs</code> and add a constructor and a field as shown as follows.
+    For this purpose open file <code>ValuesController.cs</code> and add a constructor as well as field like
+    shown below.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-values-controller-1');return false;">Copy</a></div>
@@ -351,7 +328,7 @@ public ValuesController(IConsoleLogger logger)
 }</code></pre>
 
 <p>
-    After that, move to method <code>Get()</code> and write a logging message like shown in the next code&ndash;snippet.
+    After that, move to method <code>Get()</code> and write a logging message as shown in the next code&ndash;snippet.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('dependency-injection-values-controller-2');return false;">Copy</a></div>
@@ -372,6 +349,71 @@ public ValuesController(IConsoleLogger logger)
     <img src="./images/logger-dependency-injection-result-example-2.png" />
     <label class="label">Example output of above dependency injection</label>
 </div>
+
+<h4 id="console-logger-configuration-example">Configuration Example</h4>
+
+<p>
+    Last but not least, a fully qualified configuration example as JSON can be seen here.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('full-configuration-example');return false;">Copy</a></div>
+<pre id="full-configuration-example"><code>{
+  "Plexdata": {
+    "LogWriter": {
+      "Settings": {
+        "LogLevel": "Trace",
+        "LogTime": "Utc",
+        "LogType": "Csv",
+        "ShowTime": true,
+        "PartSplit": "|",
+        "TimeFormat": "s",
+        "FullName": false,
+        "Culture": "en-US",
+        "UseColors": true,
+        "QuickEdit": true,
+        "WindowTitle": "Hello World",
+        "BufferSize": {
+          "Width": 250,
+          "Lines": 500
+        },
+        "Coloring": {
+          "Trace": {
+            "Background": "Gray",
+            "Foreground": "Black"
+          },
+          "Debug": {
+            "Foreground": "Gray",
+            "Background": "Black"
+          },
+          "Verbose": {
+            "Foreground": "White",
+            "Background": "Black"
+          },
+          "Message": {
+            "Foreground": "White",
+            "Background": "Black"
+          },
+          "Warning": {
+            "Foreground": "Yellow",
+            "Background": "Black"
+          },
+          "Error": {
+            "Foreground": "Red",
+            "Background": "Black"
+          },
+          "Fatal": {
+            "Foreground": "Gray",
+            "Background": "DarkRed"
+          },
+          "Critical": {
+            "Foreground": "Black",
+            "Background": "Red"
+          }
+        }
+      }
+    }
+  }
+}</code></pre>
 
 
 <p style="margin-bottom: 2em;">&nbsp;</p>

@@ -195,7 +195,7 @@ logger.Write(LogLevel.Warning, "User has reached limit",
     After a ASP.NET Core has been created, open file <code>Startup.cs</code> and move
     to method <code>ConfigureServices()</code>. There in, add a singleton instance of
     the logging writer like shown in the code&ndash;snippet below. But don&rsquo;t forget
-    to install required NuGet packages beforehand.
+    to install required <i>NuGet</i> packages beforehand.
 </p>
 
 <div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('using-dependency-injection-example-1');return false;">Copy</a></div>
@@ -239,10 +239,11 @@ public class ValuesController : ControllerBase
     [HttpGet]
     public ActionResult&lt;IEnumerable&lt;String&gt;&gt; Get()
     {
-        this.logger.Trace("Values controller get called");
+        this.logger.Trace("Method Get of the values controller called");
         return new String[] { "value1", "value2" };
     }
     ...
 }</code></pre>
+
 
 <p style="margin-bottom: 2em;">&nbsp;</p>
