@@ -105,10 +105,28 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// Validates filename and path.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This method just checks if provided <paramref name="filename"/> is valid 
         /// and contains at least a partial path. As result the returned filename is 
         /// converted into a fully qualified path.
+        /// </para>
+        /// <para>
+        /// Additionally, be aware the provided parameter <paramref name="filename"/> 
+        /// can contain environment variables, such as <c>%TMP%</c> for example. But note, 
+        /// no matter which platform is used, each of the environment variables must be 
+        /// surrounded by a percentage character (%). Otherwise, resolving environment 
+        /// variables may fail and ends up in an exception.
+        /// </para>
         /// </remarks>
+        /// <example>
+        /// Below find some examples of how to use environment variables in filenames.
+        /// <code language="C#">
+        /// settings.Filename = "%TMP%\\output.log";
+        /// settings.Filename = "%TEMP%\\output.log";
+        /// settings.Filename = "%LOCALAPPDATA%\\Temp\\output.log";
+        /// settings.Filename = "%HOMEDRIVE%%HOMEPATH%\\AppData\\Local\\Temp\\output.log";
+        /// </code>
+        /// </example>
         /// <param name="filename">
         /// The filename to be checked.
         /// </param>
@@ -154,8 +172,10 @@ namespace Plexdata.LogWriter.Internals.Extensions
 
             if (String.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentOutOfRangeException(nameof(filename), $"The path \"{path}\" of provided filename is invalid.");
+                throw new ArgumentOutOfRangeException(nameof(filename), $"The path of provided filename is invalid.");
             }
+
+            path = Environment.ExpandEnvironmentVariables(path);
 
             if (path.IndexOfAny(SettingsValidationExtension.InvalidPathNameCharacters) >= 0)
             {
@@ -177,7 +197,7 @@ namespace Plexdata.LogWriter.Internals.Extensions
                 throw new DirectoryNotFoundException($"Directory \"{path}\" not found.");
             }
 
-            FileInfo info = new FileInfo(filename);
+            FileInfo info = new FileInfo(Path.Combine(path, file));
             if (info.Attributes > 0 && (info.Attributes & FileAttributes.Directory) == FileAttributes.Directory)
             {
                 throw new ArgumentException($"The filename \"{filename}\" is a directory.", nameof(filename));

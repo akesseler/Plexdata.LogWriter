@@ -169,6 +169,25 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(filename.EnsureFullFilePathOrThrow(), Is.EqualTo(filename.Trim()));
         }
 
+        [Test]
+        [TestCase("%tmp%")]
+        [TestCase("%TMP%")]
+        [TestCase("%temp%")]
+        [TestCase("%TEMP%")]
+        [TestCase("%localappdata%\\temp")]
+        [TestCase("%LOCALAPPDATA%\\Temp")]
+        [TestCase("%homedrive%%homepath%\\appdata\\local\\temp")]
+        [TestCase("%HOMEDRIVE%%HOMEPATH%\\AppData\\Local\\Temp")]
+        [TestCase("%homedrive%\\%homepath%\\appdata\\local\\temp")]
+        [TestCase("%HOMEDRIVE%\\%HOMEPATH%\\AppData\\Local\\Temp")]
+        public void EnsureFullFilePathOrThrow_FilePathWithEnvironmentVariable_ResultFullFilePath(String path)
+        {
+            String filename = Path.Combine(path, "test-file-name.xyz");
+            String expected = Path.Combine(Path.GetTempPath(), "test-file-name.xyz").ToLower();
+
+            Assert.That(filename.EnsureFullFilePathOrThrow().ToLower(), Is.EqualTo(expected));
+        }
+
         #endregion
 
         #region EnsureFullPathAndWriteAccessOrThrow

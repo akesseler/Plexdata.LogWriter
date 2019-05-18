@@ -74,9 +74,27 @@ namespace Plexdata.LogWriter.Abstraction
         /// Gets or sets the fully qualified filename.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// This property allows to change the fully qualified name of the 
         /// assigned logging file.
+        /// </para>
+        /// <para>
+        /// The value assigned to this property can also contain environment variables, 
+        /// such as <c>%TMP%</c> for example. But note, no matter which platform is used, 
+        /// each of the environment variables must be surrounded by a percentage character 
+        /// (%). Otherwise, resolving environment variables may fail and ends up in an 
+        /// exception.
+        /// </para>
         /// </remarks>
+        /// <example>
+        /// Below find some examples of how to use environment variables in filenames.
+        /// <code language="C#">
+        /// settings.Filename = "%TMP%\\output.log";
+        /// settings.Filename = "%TEMP%\\output.log";
+        /// settings.Filename = "%LOCALAPPDATA%\\Temp\\output.log";
+        /// settings.Filename = "%HOMEDRIVE%%HOMEPATH%\\AppData\\Local\\Temp\\output.log";
+        /// </code>
+        /// </example>
         /// <value>
         /// The fully qualified name of the logging file.
         /// </value>

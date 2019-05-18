@@ -68,6 +68,16 @@
     thrown.
 </p>
 
+<p>
+    Property <code>Filename</code> can also process paths that come from environment variables. Below
+    some examples of standard Windows environment variables and how to use them.
+</p>
+
+<pre id="logger-settings-output-1"><code>settings.Filename = "%TMP%\\output.log";
+settings.Filename = "%TEMP%\\output.log";
+settings.Filename = "%LOCALAPPDATA%\\Temp\\output.log";
+settings.Filename = "%HOMEDRIVE%%HOMEPATH%\\AppData\\Local\\Temp\\output.log";</code></pre>
+
 <h3 id="rolling">Rolling</h3>
 
 <p>
