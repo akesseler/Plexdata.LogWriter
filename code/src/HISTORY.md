@@ -1,4 +1,13 @@
 
+**1.0.2.5**
+- Filename of persistent logger settings supports environment variables.
+- Tests for expanding environment variables in filenames added.
+- Tests for invalid conversion formats added.
+- Update of general and source code documentation.
+- Package release notes updated.
+- Version number increased.
+- Wiki and ``docs`` update on GitHub.
+
 **1.0.2.4**
 - Setting up a new release for nuget.org because of being unable to update the previous verion.
 - Version number increased.

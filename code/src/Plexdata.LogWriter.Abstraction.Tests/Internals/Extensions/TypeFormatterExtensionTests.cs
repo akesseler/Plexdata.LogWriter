@@ -583,7 +583,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
         }
 
         [Test]
-        public void TryFormat_CultureIsNull_ResultIsFalse()
+        public void TryFormat_ProviderIsNull_ResultIsFalse()
         {
             Object actual = new Object();
             IFormatProvider provider = null;
@@ -592,15 +592,41 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
         }
 
         [Test]
-        [Ignore("Un-testable until finding a wrong format or some other way that causes an exception.")]
-        public void TryFormat_FormatIsInvalid_ResultIsFalse()
+        [TestCaseSource(nameof(InvalidFormatTestItems))]
+        public void TryFormat_FormatIsInvalid_ResultIsFalse(Object current)
         {
-            Assert.That(false);
+            InvalidFormatTestItem value = (InvalidFormatTestItem)current;
+
+            Assert.That(value.Value.TryFormat(value.Format, this.GetProvider(null), out String result), Is.False);
         }
 
         #endregion
 
-        #region Private methods
+        #region Private stuff
+
+        private static readonly Object[] InvalidFormatTestItems = new Object[] {
+            new InvalidFormatTestItem() { Name = "Type: SByte",    Value = (SByte)(-42),    Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Byte",     Value = (Byte)42,        Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Int16",    Value = (Int16)(-42),    Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: UInt16",   Value = (UInt16)42,      Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Int32",    Value = (Int32)(-42),    Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: UInt32",   Value = (UInt32)42,      Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Int64",    Value = (Int64)(-42),    Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: UInt64",   Value = (UInt64)42,      Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Single",   Value = (Single)(-42),   Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Double",   Value = (Double)(-42),   Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: Decimal",  Value = (Decimal)(-42m), Format = "s5"         },
+            new InvalidFormatTestItem() { Name = "Type: DateTime", Value = DateTime.Now,    Format = "FFFFFFFFFF" },
+            new InvalidFormatTestItem() { Name = "Type: Guid",     Value = Guid.NewGuid(),  Format = "xyz"        },
+        };
+
+        private class InvalidFormatTestItem
+        {
+            public String Name { get; set; }
+            public Object Value { get; set; }
+            public String Format { get; set; }
+            public override String ToString() { return this.Name; }
+        }
 
         private IFormatProvider GetProvider(String language)
         {
