@@ -25,6 +25,7 @@
 using NUnit.Framework;
 using Plexdata.LogWriter.Internals.Extensions;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
@@ -36,36 +37,75 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
     [TestOf(nameof(SettingsValidationExtension))]
     public class SettingsValidationExtensionTests
     {
+        #region Prologue
+
+        private String defaultDirectory = null;
+        private List<String> cleanupFolders = null;
+
+        [SetUp]
+        public void Setup()
+        {
+            this.defaultDirectory = Path.Combine(Path.GetTempPath(), "logging");
+            this.cleanupFolders = new List<String>();
+            this.cleanupFolders.Add(this.defaultDirectory);
+        }
+
+        [TearDown]
+        public void Cleanup()
+        {
+            foreach (String cleanupFolder in this.cleanupFolders)
+            {
+                try
+                {
+                    if (Directory.Exists(cleanupFolder))
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Remove folder {cleanupFolder}.");
+                        Directory.Delete(cleanupFolder, true);
+                    }
+                }
+                catch (Exception exception)
+                {
+                    System.Diagnostics.Debug.WriteLine($"Delete folder {cleanupFolder} crashed with exception {exception.Message}");
+                    System.Diagnostics.Debug.WriteLine(exception);
+                }
+            }
+
+            this.cleanupFolders.Clear();
+        }
+
+        #endregion
+
         #region EnsureFullFilePathOrThrow
 
         [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void EnsureFullFilePathOrThrow_NameIsInvalid_ThrowsArgumentOutOfRangeException(String filename)
+        [TestCase("/")]
+        [TestCase("\\")]
+        [TestCase("/\\")]
+        [TestCase("\\/")]
+        [TestCase("/path-should-not-exist/")]
+        [TestCase("c:/path-should-not-exist/")]
+        [TestCase("\\path-should-not-exist\\")]
+        [TestCase("c:\\path-should-not-exist\\")]
+        public void EnsureFullFilePathOrThrow_FileNameIsInvalid_ThrowsArgumentOutOfRangeException(String filename)
         {
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
         [Test]
         [TestCase("test-file-name.xyz")]
-        public void EnsureFullFilePathOrThrow_PathIsEmpty_ThrowsArgumentOutOfRangeException(String filename)
-        {
-            Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentOutOfRangeException>());
-        }
-
-        [Test]
-        [TestCase("/")]
-        [TestCase("\\")]
-        [TestCase("/\\")]
-        [TestCase("\\/")]
         [TestCase("/test-file-name.xyz")]
         [TestCase("\\test-file-name.xyz")]
         [TestCase("/\\test-file-name.xyz")]
         [TestCase("\\/test-file-name.xyz")]
-        public void EnsureFullFilePathOrThrow_PathIsInvalid_ThrowsArgumentOutOfRangeException(String filename)
+        public void EnsureFullFilePathOrThrow_PathIsEmpty_PathIsDefaultDirectory(String filename)
         {
-            Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentOutOfRangeException>());
+            String expected = Path.Combine(this.defaultDirectory, filename.Replace("\\", "").Replace("/", ""));
+            String actual = filename.EnsureFullFilePathOrThrow();
+
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -102,16 +142,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
         }
 
         [Test]
-        [TestCase("/path-should-not-exist/")]
-        [TestCase("c:/path-should-not-exist/")]
-        [TestCase("\\path-should-not-exist\\")]
-        [TestCase("c:\\path-should-not-exist\\")]
-        public void EnsureFullFilePathOrThrow_FileNameIsInvalid_ThrowsArgumentOutOfRangeException(String filename)
-        {
-            Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentOutOfRangeException>());
-        }
-
-        [Test]
         [TestCase("/path-should-not-exist/test*file-name.xyz")]
         [TestCase("/path-should-not-exist/test?file-name.xyz")]
         [TestCase("/path-should-not-exist/test|file-name.xyz")]
@@ -130,13 +160,17 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
         }
 
         [Test]
-        [TestCase("/path-should-not-exist/file-may-not-exist")]
-        [TestCase("c:/path-should-not-exist/file-may-not-exist")]
-        [TestCase("\\path-should-not-exist\\file-may-not-exist")]
-        [TestCase("c:\\path-should-not-exist\\file-may-not-exist")]
-        public void EnsureFullFilePathOrThrow_PathDoesNotExist_ThrowsDirectoryNotFoundException(String filename)
+        [TestCase("/path-should-not-exist/file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
+        [TestCase("c:/path-should-not-exist/file-may-not-exist", "c:\\path-should-not-exist\\file-may-not-exist")]
+        [TestCase("\\path-should-not-exist\\file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
+        [TestCase("c:\\path-should-not-exist\\file-may-not-exist", "c:\\path-should-not-exist\\file-may-not-exist")]
+        public void EnsureFullFilePathOrThrow_PathDoesNotExist_PathIsCreatedAsExpected(String filename, String expected)
         {
-            Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<DirectoryNotFoundException>());
+            this.cleanupFolders.Add(Path.GetDirectoryName(expected));
+            String actual = filename.EnsureFullFilePathOrThrow();
+
+            Assert.That(actual, Is.EqualTo(expected));
+            Assert.That(Directory.Exists(Path.GetDirectoryName(expected)), Is.True);
         }
 
         [Test]

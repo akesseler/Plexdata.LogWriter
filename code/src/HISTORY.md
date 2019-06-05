@@ -1,4 +1,10 @@
 
+**1.0.2.6-preview**
+- Persistent logger changes:
+  - Support of auto-creation for non-existing folders.
+  - Support of fallback folder if no directory is part of the filename.
+  - Adjustment of related tests.
+
 **1.0.2.5**
 - Filename of persistent logger settings supports environment variables.
 - Tests for expanding environment variables in filenames added.
