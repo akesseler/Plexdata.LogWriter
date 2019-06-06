@@ -61,16 +61,28 @@
 </p>
 
 <p>
-    But before a file name can be used it is checked if it includes at least one partial path. If
-    this is the case the partial file path is converted into its fully qualified path representation.
-    Thereafter it is check if the physical file can be opened for write. Be aware, the file name is
-    only considered as valid if all of these rules are fulfilled. Otherwise various exceptions are
-    thrown.
+    But before a file name can be used, it is checked if it includes a directory. If this is <i>not</i>
+    the case then the default directory is used instead. This default directory points to the current
+    user&rsquo;s temporary folder and is named <code>logging</code>. Take a look at example below.
+</p>
+
+<pre id="logger-settings-filename-1"><code>settings.Filename = "output.log";
+String filename = settings.Filename; // C:\Users\&lt;user-name&gt;\AppData\Local\Temp\logging\output.log</code></pre>
+
+<p>
+    Additionally, it is tried to create any missing directory part. This applies to the default directory
+    as well.
+</p>
+
+<p>
+    With this new feature in mind, it is not required anymore that an output folder must exist
+    beforehand. But be aware, any process using the persistent logger must have write permission to the
+    provided output directory!
 </p>
 
 <p>
     Property <code>Filename</code> can also process paths that come from environment variables. Below
-    some examples of standard Windows environment variables and how to use them.
+    find some examples of standard Windows environment variables and how to use them.
 </p>
 
 <pre id="logger-settings-output-1"><code>settings.Filename = "%TMP%\\output.log";

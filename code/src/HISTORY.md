@@ -4,6 +4,7 @@
   - Support of auto-creation for non-existing folders.
   - Support of fallback folder if no directory is part of the filename.
   - Adjustment of related tests.
+- Update of general and source code documentation.
 
 **1.0.2.5**
 - Filename of persistent logger settings supports environment variables.
