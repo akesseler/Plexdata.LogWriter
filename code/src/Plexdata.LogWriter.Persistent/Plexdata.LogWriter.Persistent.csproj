@@ -6,17 +6,17 @@
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
-    <PackageLicenseUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/LICENSE.md</PackageLicenseUrl>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured file persistent</PackageTags>
-    <PackageReleaseNotes>Property 'Filename' of persistent logger settings supports environment variables.</PackageReleaseNotes>
+    <PackageReleaseNotes>Persistent logger supports auto-creation of non-existing folders and a fallback folder if no directory is part of the filename. Property 'Filename' of persistent logger settings allows usage of environment variables.</PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Persistent implements the IPersistentLogger interface that allows writing of logging messages into files.
 
 Main feature of this package is that it can be used platform independently.</Description>
-    <AssemblyVersion>1.0.2.5</AssemblyVersion>
-    <FileVersion>1.0.2.5</FileVersion>
-    <Version>1.0.2.5</Version>
+    <AssemblyVersion>1.0.2.6</AssemblyVersion>
+    <FileVersion>1.0.2.6</FileVersion>
+    <Version>1.0.2.6</Version>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 
@@ -36,6 +36,10 @@ Main feature of this package is that it can be used platform independently.</Des
 
   <ItemGroup>
     <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
   </ItemGroup>
 
 </Project>

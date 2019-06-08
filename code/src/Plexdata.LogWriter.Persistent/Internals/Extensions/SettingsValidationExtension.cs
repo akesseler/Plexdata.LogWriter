@@ -51,7 +51,7 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// </remarks>
         /// <seealso cref="Path.DirectorySeparatorChar"/>
         /// <seealso cref="Path.AltDirectorySeparatorChar"/>
-        private static Char[] PathSeparatorCharacters = null;
+        private static readonly Char[] PathSeparatorCharacters = null;
 
         /// <summary>
         /// The list of invalid path name characters.
@@ -63,7 +63,7 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// mark character (<c>?</c>).
         /// </remarks>
         /// <seealso cref="Path.GetInvalidPathChars()"/>
-        private static Char[] InvalidPathNameCharacters = null;
+        private static readonly Char[] InvalidPathNameCharacters = null;
 
         /// <summary>
         /// The list of invalid filename characters.
@@ -73,7 +73,17 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// considered as invalid.
         /// </remarks>
         /// <seealso cref="Path.GetInvalidFileNameChars()"/>
-        private static Char[] InvalidFileNameCharacters = null;
+        private static readonly Char[] InvalidFileNameCharacters = null;
+
+        /// <summary>
+        /// The default directory to be used as fallback if the filename does not 
+        /// include a folder path.
+        /// </summary>
+        /// <remarks>
+        /// This field just holds the default directory, which is set to subdirectory 
+        /// <c>logging</c> of current user's temporary directory. 
+        /// </remarks>
+        private static readonly String DefaultDirectory = null;
 
         #endregion
 
@@ -95,6 +105,8 @@ namespace Plexdata.LogWriter.Internals.Extensions
             SettingsValidationExtension.InvalidPathNameCharacters = temp.ToArray();
 
             SettingsValidationExtension.InvalidFileNameCharacters = Path.GetInvalidFileNameChars();
+
+            SettingsValidationExtension.DefaultDirectory = Path.Combine(Path.GetTempPath(), "logging");
         }
 
         #endregion
@@ -106,9 +118,12 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// </summary>
         /// <remarks>
         /// <para>
-        /// This method just checks if provided <paramref name="filename"/> is valid 
-        /// and contains at least a partial path. As result the returned filename is 
-        /// converted into a fully qualified path.
+        /// This method just checks if provided <paramref name="filename"/> is valid. 
+        /// As result the returned filename is converted into a fully qualified path.
+        /// </para>
+        /// <para>
+        /// Keep in mind, value of <see cref="SettingsValidationExtension.DefaultDirectory"/> 
+        /// is used as fallback in case of the path part of provided filename is not set.
         /// </para>
         /// <para>
         /// Additionally, be aware the provided parameter <paramref name="filename"/> 
@@ -134,16 +149,17 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// The fully qualified and trimmed filename.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// This exception is thrown in case of the full name, the path name or the name 
-        /// of the file is <c>null</c>, <c>empty</c> or consists only of whitespaces.
+        /// This exception is thrown in case of parameter <paramref name="filename"/> is 
+        /// <c>null</c>, <c>empty</c> or consists only of whitespaces or if this parameter 
+        /// only includes a folder path.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// This exception is thrown in case of the <paramref name="filename"/> contains 
         /// invalid characters or the filename references a directory.
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// This exception is thrown in case of the directory path of the file 
-        /// does not exist.
+        /// <exception cref="InvalidOperationException">
+        /// This exception is thrown in case of the directory path of the file could not 
+        /// be created. In such a case the inner exception contains detailed information.
         /// </exception>
         /// <seealso cref="SettingsValidationExtension.EnsureFullPathAndWriteAccessOrThrow(String)"/>
         public static String EnsureFullFilePathOrThrow(this String filename)
@@ -172,7 +188,7 @@ namespace Plexdata.LogWriter.Internals.Extensions
 
             if (String.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentOutOfRangeException(nameof(filename), $"The path of provided filename is invalid.");
+                path = SettingsValidationExtension.DefaultDirectory;
             }
 
             path = Environment.ExpandEnvironmentVariables(path);
@@ -194,7 +210,14 @@ namespace Plexdata.LogWriter.Internals.Extensions
 
             if (!Directory.Exists(path))
             {
-                throw new DirectoryNotFoundException($"Directory \"{path}\" not found.");
+                try
+                {
+                    Directory.CreateDirectory(path);
+                }
+                catch (Exception exception)
+                {
+                    throw new InvalidOperationException($"Directory \"{path}\" could not be created.", exception);
+                }
             }
 
             FileInfo info = new FileInfo(Path.Combine(path, file));
@@ -218,7 +241,7 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// The fully qualified filename to be checked.
         /// </param>
         /// <returns>
-        /// The trimmed filename.
+        /// The fully qualified and trimmed filename.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown in case of the full name, the path name or the name 
@@ -228,9 +251,9 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// This exception is thrown in case of the <paramref name="filename"/> contains 
         /// invalid characters.
         /// </exception>
-        /// <exception cref="DirectoryNotFoundException">
-        /// This exception is thrown in case of the directory path of the file does not 
-        /// exist.
+        /// <exception cref="InvalidOperationException">
+        /// This exception is thrown in case of the directory path of the file could not be 
+        /// created. In such a case the inner exception contains detailed information.
         /// </exception>
         /// <exception cref="UnauthorizedAccessException">
         /// This exception is thrown in case of the file could not be created or opened for 

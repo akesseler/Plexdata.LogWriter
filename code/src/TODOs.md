@@ -1,9 +1,6 @@
 
 **TODOs**
 
-- For the persistent logger:
-  - Support and expand environment variables within the filename, and
-  - Try creating non-existing directories in the filename.
 - Implement IEventLogger
   - A logger that writes into the event log (a distinction between windows and others is possibly necessary).
 - Implement IHttpLogger

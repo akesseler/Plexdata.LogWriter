@@ -1,3 +1,20 @@
+<p align="center">
+  <a href="https://github.com/akesseler/Plexdata.LogWriter/blob/master/LICENSE.md" alt="license">
+    <img src="https://img.shields.io/github/license/akesseler/Plexdata.LogWriter.svg" />
+  </a>
+  <a href="https://github.com/akesseler/Plexdata.LogWriter/releases/latest" alt="latest">
+    <img src="https://img.shields.io/github/release/akesseler/Plexdata.LogWriter.svg" />
+  </a>
+  <a href="https://github.com/akesseler/Plexdata.LogWriter/archive/master.zip" alt="master">
+    <img src="https://img.shields.io/github/languages/code-size/akesseler/Plexdata.LogWriter.svg" />
+  </a>
+  <a href="https://akesseler.github.io/Plexdata.LogWriter" alt="docs">
+    <img src="https://img.shields.io/badge/docs-guide-orange.svg" />
+  </a>
+  <a href="https://github.com/akesseler/Plexdata.LogWriter/wiki" alt="wiki">
+    <img src="https://img.shields.io/badge/wiki-API-orange.svg" />
+  </a>
+</p>
 
 ## Plexdata Logging Writer
 
@@ -9,6 +26,15 @@ One of those features is a more detailed logging level support. For example, it 
 
 The software has been published under the terms of _MIT License_.
 
+### Downloads
+
+The latest release can be obtained from [https://github.com/akesseler/plexdata.logwriter/releases/latest](https://github.com/akesseler/Plexdata.LogWriter/releases/latest).
+
+The master branch can be downloaded as ZIP from [https://github.com/akesseler/plexdata.logwriter/archive/master](https://github.com/akesseler/Plexdata.LogWriter/archive/master.zip).
+
 ### Documentation
 
-The documentation with an overview, an introduction as well as examples is available under [https://akesseler.github.io/Plexdata.LogWriter/](https://akesseler.github.io/Plexdata.LogWriter/).
+The documentation with an overview, an introduction as well as examples is available under [https://akesseler.github.io/plexdata.logwriter](https://akesseler.github.io/Plexdata.LogWriter/).
+
+The full API documentation is available as Wiki and can be read under [https://github.com/akesseler/plexdata.logwriter/wiki](https://github.com/akesseler/Plexdata.LogWriter/wiki).
+

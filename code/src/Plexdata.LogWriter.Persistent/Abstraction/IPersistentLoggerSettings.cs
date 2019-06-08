@@ -101,7 +101,7 @@ namespace Plexdata.LogWriter.Abstraction
         String Filename { get; set; }
 
         /// <summary>
-        /// Enables or disabled message rolling.
+        /// Enables or disables message rolling.
         /// </summary>
         /// <remarks>
         /// This property allows enabling or disabling of rolling of the logging 
@@ -114,7 +114,7 @@ namespace Plexdata.LogWriter.Abstraction
         Boolean IsRolling { get; set; }
 
         /// <summary>
-        /// Enables or disabled message queuing.
+        /// Enables or disables message queuing.
         /// </summary>
         /// <remarks>
         /// This property allows enabling or disabling of message queuing. This 
