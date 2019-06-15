@@ -93,11 +93,11 @@ namespace Plexdata.LogWriter.Facades
 
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">
-        /// This exception is thrown if provided <paramref name="filename"/> 
+        /// This exception is thrown if provided parameter <paramref name="filename"/> 
         /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// This exception is thrown if provided <paramref name="encoding"/> 
+        /// This exception is thrown if provided parameter <paramref name="encoding"/> 
         /// is <c>null</c>. 
         /// </exception>
         /// <seealso cref="IPersistentLoggerFacade.Write(String, Encoding, IEnumerable{String})"/>
@@ -109,12 +109,12 @@ namespace Plexdata.LogWriter.Facades
 
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">
-        /// This exception is thrown if provided <paramref name="filename"/> 
+        /// This exception is thrown if provided parameter <paramref name="filename"/> 
         /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
         /// </exception>
         /// <exception cref="ArgumentNullException">
-        /// This exception is thrown if provided <paramref name="encoding"/> is 
-        /// <c>null</c> or if provided <paramref name="messages"/> is <c>null</c>. 
+        /// This exception is thrown if provided parameter <paramref name="encoding"/> is 
+        /// <c>null</c> or if provided parameter <paramref name="messages"/> is <c>null</c>. 
         /// </exception>
         /// <exception cref="Exception">
         /// Other exceptions, such as <see cref="DirectoryNotFoundException"/>, 
@@ -147,7 +147,7 @@ namespace Plexdata.LogWriter.Facades
 
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">
-        /// This exception is thrown if provided <paramref name="filename"/> 
+        /// This exception is thrown if provided parameter <paramref name="filename"/> 
         /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
         /// </exception>
         /// <exception cref="Exception">
