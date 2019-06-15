@@ -14,10 +14,10 @@
 
 This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
     <PackageTags>logging logger log trace debug raw structured abstraction</PackageTags>
-    <PackageReleaseNotes>No changes since last version.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.2.6</AssemblyVersion>
-    <FileVersion>1.0.2.6</FileVersion>
-    <Version>1.0.2.6</Version>
+    <PackageReleaseNotes>Bugfix in 'JsonFormatter', re-escaping backslashes in any character escaping within double-quoted string value results.</PackageReleaseNotes>
+    <AssemblyVersion>1.0.2.7</AssemblyVersion>
+    <FileVersion>1.0.2.7</FileVersion>
+    <Version>1.0.2.7</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

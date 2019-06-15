@@ -1,5 +1,12 @@
 
 
+**1.0.2.7**
+- Bugfix in `JsonFormatter`, re-escaping backslashes in any character escaping within double-quoted string value results.
+- Minor changes in exception handling in class `PersistentLoggerFacade`.
+- Correction of typos and documentation text adaptations.
+- Missing tests added and existing tests adjusted.
+- Version number increased.
+
 **1.0.2.6**
 - Persistent logger changes:
   - Support of auto-creation for non-existing folders.

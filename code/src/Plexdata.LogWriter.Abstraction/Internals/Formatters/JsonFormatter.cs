@@ -184,6 +184,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
                 return $"\"{String.Empty}\"";
             }
 
+            // BUG: There is still a bug somewhere. The position of a backspace affects, but it shouldn't.
             value = value
                 .Replace("\\", "\\\\") // Replace backslash by escaped backslash.
                 .Replace("\"", "\\\"") // Replace double quote by escaped double quote.
@@ -191,7 +192,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
                 .Replace("\n", "\\n")  // Replace line feed by escaped line feed.
                 .Replace("\f", "\\f")  // Replace form feed by escaped form feed.
                 .Replace("\b", "\\b")  // Replace backspace by escaped backspace.
-                .Replace("\t", "\\t"); // Replace tab by escaped tab.
+                .Replace("\t", "\\t")  // Replace tab by escaped tab.
+                .Replace("\\", "\\\\");// Re-escape any of already escaped backslashes (bugfix).
 
             return $"\"{value}\"";
         }

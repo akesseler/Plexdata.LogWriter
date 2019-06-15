@@ -119,10 +119,6 @@
       <Project>{e21853f7-2e58-465a-b235-eab4b762f584}</Project>
       <Name>Plexdata.LogWriter.Console</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Plexdata.LogWriter.Persistent\Plexdata.LogWriter.Persistent.csproj">
-      <Project>{b38da898-a77e-4988-bea0-5e69839d1499}</Project>
-      <Name>Plexdata.LogWriter.Persistent</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="main.ico" />
