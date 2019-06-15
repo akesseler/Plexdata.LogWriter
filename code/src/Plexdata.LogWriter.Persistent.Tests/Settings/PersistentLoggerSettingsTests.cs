@@ -189,7 +189,7 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
 
         [Test]
         [TestCaseSource(nameof(EncodingTestItemList))]
-        public void PersistentLoggerSettings_ConfigurationValid_GetSectionValueForEncodingAsExpected(Object current   /*String value, Object expected*/)
+        public void PersistentLoggerSettings_ConfigurationValid_GetSectionValueForEncodingAsExpected(Object current)
         {
             EncodingTestItem nominee = (EncodingTestItem)current;
 

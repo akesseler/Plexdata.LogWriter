@@ -97,7 +97,9 @@ namespace Plexdata.LogWriter.Logging
         /// <param name="facade">
         /// The facade to be used.
         /// </param>
-        /// <param name="scheduler"></param>
+        /// <param name="scheduler">
+        /// The scheduler to be used.
+        /// </param>
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown either if the <paramref name="settings"/> or the 
         /// <paramref name="facade"/> or the <paramref name="scheduler"/> is <c>null</c>.

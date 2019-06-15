@@ -292,6 +292,21 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
+        [Test]
+        public void Format_CheckCharacterEscaping_ResultIsExpectedCharacterEscaping()
+        {
+            String message = "\\ \" \r \n \f \t \b";
+            String expected = "{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"\\\\\\\\ \\\\\" \\\\r \\\\n \\\\f \\\\t \\\\b\",\"Details\":null,\"Exception\":null}";
+
+            this.value.SetupGet(x => x.Message).Returns(message);
+
+            this.instance.Format(this.builder, this.value.Object);
+
+            String actual = this.builder.ToString();
+
+            Assert.That(actual, Is.EqualTo(expected));
+        }
+
         #endregion
 
         #region Private helper methods

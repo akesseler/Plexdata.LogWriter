@@ -82,11 +82,10 @@ namespace Plexdata.LogWriter.Persistent.Tests.Facades
             Assert.That(() => this.instance.Write(this.filename, Encoding.ASCII, (String[])null), Throws.ArgumentNullException);
         }
 
-
         [Test]
         public void Write_AllMessagesAreInvalid_NothingIsWritten()
         {
-            List<String> messages = new List<String> { null, "", "   " };
+            List<String> messages = new List<String> { null, "", "   ", "\r\n" };
 
             Int64 expected = (new FileInfo(this.filename)).Length;
 

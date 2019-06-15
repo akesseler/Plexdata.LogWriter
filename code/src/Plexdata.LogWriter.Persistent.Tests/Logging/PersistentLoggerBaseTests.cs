@@ -51,7 +51,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Logging
         [SetUp]
         public void Setup()
         {
-
             this.settings = new Mock<IPersistentLoggerSettings>();
             this.facade = new Mock<IPersistentLoggerFacade>();
             this.scheduler = new Mock<IObservableQueue<String>>();
