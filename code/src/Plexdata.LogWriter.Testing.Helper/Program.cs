@@ -145,6 +145,13 @@ namespace Plexdata.LogWriter.Testing.Helper
 
 /* An example of how to use persistent logger.
  * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Definitions;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ *
  * namespace Plexdata.LogWriter.Examples
  * {
  *     class Program
@@ -162,6 +169,80 @@ namespace Plexdata.LogWriter.Testing.Helper
  *             };
  * 
  *             IPersistentLogger logger = new PersistentLogger(settings);
+ * 
+ *             logger.Debug("This is a Debug logging entry.");
+ *             logger.Trace("This is a Trace logging entry.");
+ *             logger.Verbose("This is a Verbose logging entry.");
+ *             logger.Message("This is a Message logging entry.");
+ *             logger.Warning("This is a Warning logging entry.");
+ *             logger.Error("This is a Error logging entry.");
+ *             logger.Fatal("This is a Fatal logging entry.");
+ *             logger.Critical("This is a Critical logging entry.");
+ * 
+ *             Console.Write("Hit any key to finish... ");
+ *             Console.ReadKey();
+ *         }
+ *     }
+ * }
+ */
+
+/* An example of how to use stream logger.
+ * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Definitions;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ * using System.IO;
+ * using System.Text;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         private class CustomStream : Stream
+ *         {
+ *             private readonly Encoding encoding = Encoding.Default;
+ * 
+ *             public CustomStream(Encoding encoding) { this.encoding = encoding; }
+ * 
+ *             public override Boolean CanRead { get { return false; } }
+ * 
+ *             public override Boolean CanSeek { get { return false; } }
+ * 
+ *             public override Boolean CanWrite { get { return true; } }
+ * 
+ *             public override Int64 Length { get { return 0; } }
+ * 
+ *             public override Int64 Position { get { return 0; } set { } }
+ * 
+ *             public override void Flush() { }
+ * 
+ *             public override Int32 Read(Byte[] buffer, Int32 offset, Int32 count) { return 0; }
+ * 
+ *             public override Int64 Seek(Int64 offset, SeekOrigin origin) { return 0; }
+ * 
+ *             public override void SetLength(Int64 value) { }
+ * 
+ *             public override void Write(Byte[] buffer, Int32 offset, Int32 count)
+ *             {
+ *                 // The real magic happens here...
+ *                 Console.Write(this.encoding.GetChars(buffer), offset, count);
+ *             }
+ *         }
+ * 
+ *         static void Main(String[] args)
+ *         {
+ *             IStreamLoggerSettings settings = new StreamLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Trace,
+ *                 LogType = LogType.Raw,
+ *                 Stream = new CustomStream(Encoding.ASCII),
+ *                 Encoding = Encoding.ASCII
+ *             };
+ * 
+ *             IStreamLogger logger = new StreamLogger(settings);
  * 
  *             logger.Debug("This is a Debug logging entry.");
  *             logger.Trace("This is a Trace logging entry.");

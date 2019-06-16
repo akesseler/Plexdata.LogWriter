@@ -1,0 +1,41 @@
+﻿
+<h2 id="stream-logger-settings">Stream Settings</h2>
+
+<p>
+    The stream logger settings are the settings used together with each of the stream logger 
+    implementations. These settings are defined in interface <code>IStreamLoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#logging-type">Logging Type</a></li>
+    <li><a href="#stream">Stream</a></li>
+    <li><a href="#encoding">Encoding</a></li>
+</ul>
+
+<h3 id="logging-type">Logging Type</h3>
+
+<p>
+    The stream logger uses JSON message formatting as its default logging type. In other words, 
+    the constructor of the default implementation of interface <code>IStreamLoggerSettings</code> 
+    resets the logging type of its base class constructor.
+</p>
+
+<h3 id="stream">Stream</h3>
+
+<p>
+    The property <code>Stream</code> allows getting and setting the instance of a <code>Stream</code> 
+    derived class. Be aware, this property is indeed part of the setting interface, but it can never 
+    be initialized by an external configuration using <code>ILoggerSettingsSection</code>. Finally note, 
+    nothing happens as long as property <code>Stream</code> is set to <code>null</code>, neither an 
+    Exception nor writing of logging message.
+</p>
+
+<h3 id="encoding">Encoding</h3>
+
+<p>
+    The property <code>Encoding</code> allows to change the file encoding to be used. The default value
+    is <code>UTF&ndash;8</code> but might be changes by derived classes.
+</p>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

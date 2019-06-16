@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <Authors>plexdata.de</Authors>
+    <Company>plexdata.de</Company>
+    <Copyright>Copyright © 2019 - plexdata.de</Copyright>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
+    <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
+    <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
+    <PackageTags>logging logger log trace debug raw structured stream</PackageTags>
+    <PackageReleaseNotes>Initial draft.</PackageReleaseNotes>
+    <Description>Plexdata.LogWriter.Stream implements the IStreamLogger interface that allows writing of logging messages into any type of stream sink.
+
+Main feature of this package is that it can be used platform independently.</Description>
+    <AssemblyVersion>1.0.2.7</AssemblyVersion>
+    <FileVersion>1.0.2.7</FileVersion>
+    <Version>1.0.2.7</Version>
+    <RootNamespace>Plexdata.LogWriter</RootNamespace>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <OutputPath>bin\Debug</OutputPath>
+    <DocumentationFile>bin\Debug\netstandard2.0\Plexdata.LogWriter.Stream.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningsAsErrors />
+    <OutputPath>bin\Release</OutputPath>
+    <DocumentationFile>bin\Release\netstandard2.0\Plexdata.LogWriter.Stream.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+  </ItemGroup>
+
+</Project>

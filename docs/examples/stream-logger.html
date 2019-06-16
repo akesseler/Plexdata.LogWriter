@@ -1,0 +1,145 @@
+﻿
+<h2 id="stream-logger-examples">Stream Logger</h2>
+
+<p>
+    In this chapter you may find some interesting information about using the stream logging writer.
+    But before continue reading please note, the stream logging writer is intended to be used in any 
+    situation that requires a custom handling of logging messages. A pretty good example of such a 
+    use case is a desktop application which uses its own logging message widget.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#logger-settings">Logger Settings</a></li>
+    <li><a href="#stream-logger-dependency-injection">Dependency Injection</a></li>
+    <li><a href="#stream-logger-configuration-example">Configuration Example</a></li>
+</ul>
+
+<h4 id="logger-settings">Logger Settings</h4>
+
+<p>
+    Below can be found a fully qualified example of how to use the stream logger settings. You may 
+    recognize that a custom stream class is used. And for sure, this is actually the recommended way 
+    of how to use the stream logger.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('logger-settings-example-1');return false;">Copy</a></div>
+<pre id="logger-settings-example-1"><code>using Plexdata.LogWriter.Abstraction;
+using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Extensions;
+using Plexdata.LogWriter.Logging;
+using Plexdata.LogWriter.Settings;
+using System;
+using System.IO;
+using System.Text;
+
+namespace StreamLoggerExample
+{
+    class Program
+    {
+        private class CustomStream : Stream
+        {
+            private readonly Encoding encoding = Encoding.Default;
+
+            public CustomStream(Encoding encoding) { this.encoding = encoding; }
+
+            public override Boolean CanRead { get { return false; } }
+
+            public override Boolean CanSeek { get { return false; } }
+
+            public override Boolean CanWrite { get { return true; } }
+
+            public override Int64 Length { get { return 0; } }
+
+            public override Int64 Position { get { return 0; } set { } }
+
+            public override void Flush() { }
+
+            public override Int32 Read(Byte[] buffer, Int32 offset, Int32 count) { return 0; }
+
+            public override Int64 Seek(Int64 offset, SeekOrigin origin) { return 0; }
+
+            public override void SetLength(Int64 value) { }
+
+            public override void Write(Byte[] buffer, Int32 offset, Int32 count)
+            {
+                // The real magic happens here...
+                Console.Write(this.encoding.GetChars(buffer), offset, count);
+            }
+        }
+
+        static void Main(String[] args)
+        {
+            IStreamLoggerSettings settings = new StreamLoggerSettings
+            {
+                LogLevel = LogLevel.Trace,
+                LogType = LogType.Raw,
+                Stream = new CustomStream(Encoding.ASCII),
+                Encoding = Encoding.ASCII
+            };
+
+            IStreamLogger logger = new StreamLogger(settings);
+            
+            logger.Debug("This is a Debug logging entry.");
+            logger.Trace("This is a Trace logging entry.");
+            logger.Verbose("This is a Verbose logging entry.");
+            logger.Message("This is a Message logging entry.");
+            logger.Warning("This is a Warning logging entry.");
+            logger.Error("This is a Error logging entry.");
+            logger.Fatal("This is a Fatal logging entry.");
+            logger.Critical("This is a Critical logging entry.");
+            
+            Console.Write("Hit any key to finish... ");
+            Console.ReadKey();
+        }
+    }
+}</code></pre>
+
+<p>
+    With the above settings in mind the message output of the stream logger would look like as shown as follows.
+</p>
+
+<pre id="logger-settings-output-1"><code>2019-05-23 17:05:42.1234;DEBUG;This is a Debug logging entry.
+2019-05-23 17:05:42.1234;TRACE;This is a Trace logging entry.
+2019-05-23 17:05:42.1234;VERBOSE;This is a Verbose logging entry.
+2019-05-23 17:05:42.1234;MESSAGE;This is a Message logging entry.
+2019-05-23 17:05:42.1234;WARNING;This is a Warning logging entry.
+2019-05-23 17:05:42.1234;ERROR;This is a Error logging entry.
+2019-05-23 17:05:42.1234;FATAL;This is a Fatal logging entry.
+2019-05-23 17:05:42.1234;CRITICAL;This is a Critical logging entry.</code></pre>
+
+<h4 id="stream-logger-dependency-injection">Dependency Injection</h4>
+
+<p>
+    The dependency injection of the stream logger works pretty much the same way as it works for the
+    <a id="stream-logger-examples" href="#" onclick="showContent('console-logger-examples', '../examples/console-logger.html', 'console-logger-dependency-injection');return false;">console logger</a>.
+    Thus, an explicit explanation does not really be useful right here. The only exception in contrast 
+    to the above mentioned example is that the used stream has to be set in some way.
+</p>
+
+<h4 id="stream-logger-configuration-example">Configuration Example</h4>
+
+<p>
+    Last but not least, a fully qualified configuration example as JSON can be seen here.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('full-configuration-example');return false;">Copy</a></div>
+<pre id="full-configuration-example"><code>{
+  "Plexdata": {
+    "LogWriter": {
+      "Settings": {
+        "LogLevel": "Trace",
+        "LogTime": "Utc",
+        "LogType": "Json",
+        "ShowTime": true,
+        "PartSplit": ";",
+        "TimeFormat": "s",
+        "FullName": false,
+        "Culture": "en-US",
+        "Encoding": "utf-8"
+      }
+    }
+  }
+}</code></pre>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

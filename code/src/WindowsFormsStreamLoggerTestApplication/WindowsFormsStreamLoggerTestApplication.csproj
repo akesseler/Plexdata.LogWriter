@@ -4,14 +4,29 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5141EEFB-63E1-492D-9C66-72FCBD7FBB93}</ProjectGuid>
+    <ProjectGuid>{47D5BE92-97FD-48AF-99A0-F9B866BECB88}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>Plexdata.LogWriter.Testing.Helper</RootNamespace>
-    <AssemblyName>wfclta</AssemblyName>
+    <AssemblyName>wfslta</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -37,43 +52,40 @@
     <ApplicationIcon>main.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Numerics" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\ColorComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="LogLevelDisplayColorsDialog.cs">
+    <Compile Include="Helper\StreamEventArgs.cs" />
+    <Compile Include="Helper\StreamEventHandler.cs" />
+    <Compile Include="Helper\EventDrivenStream.cs" />
+    <Compile Include="LoggerDataDetailDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogLevelDisplayColorsDialog.Designer.cs">
-      <DependentUpon>LogLevelDisplayColorsDialog.cs</DependentUpon>
+    <Compile Include="LoggerDataDetailDialog.Designer.cs">
+      <DependentUpon>LoggerDataDetailDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logging\LoggerData.cs" />
+    <Compile Include="Logging\LoggerDataDetail.cs" />
+    <Compile Include="Logging\LoggerDataDetailConverter.cs" />
     <Compile Include="MainWindow.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogLevelDisplayTextDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="LogLevelDisplayTextDialog.Designer.cs">
-      <DependentUpon>LogLevelDisplayTextDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LogLevelDisplayColorsDialog.resx">
-      <DependentUpon>LogLevelDisplayColorsDialog.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="LogLevelDisplayTextDialog.resx">
-      <DependentUpon>LogLevelDisplayTextDialog.cs</DependentUpon>
+    <EmbeddedResource Include="LoggerDataDetailDialog.resx">
+      <DependentUpon>LoggerDataDetailDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
       <DependentUpon>MainWindow.cs</DependentUpon>
@@ -88,6 +100,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -97,31 +110,34 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="main.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj">
       <Project>{f3575f5c-dfba-4720-8989-cf3449149b07}</Project>
       <Name>Plexdata.LogWriter.Abstraction</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Plexdata.LogWriter.Console.Standard\Plexdata.LogWriter.Console.Standard.csproj">
-      <Project>{e65e330f-f2a0-4142-a168-32b071e92799}</Project>
-      <Name>Plexdata.LogWriter.Console.Standard</Name>
+    <ProjectReference Include="..\Plexdata.LogWriter.Stream\Plexdata.LogWriter.Stream.csproj">
+      <Project>{98cb93df-c747-486d-a3d8-0a724eadeb7f}</Project>
+      <Name>Plexdata.LogWriter.Stream</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Plexdata.LogWriter.Console.Windows\Plexdata.LogWriter.Console.Windows.csproj">
-      <Project>{9d40c27a-0e26-4db8-ab49-7e45d0def69a}</Project>
-      <Name>Plexdata.LogWriter.Console.Windows</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plexdata.LogWriter.Console\Plexdata.LogWriter.Console.csproj">
-      <Project>{e21853f7-2e58-465a-b235-eab4b762f584}</Project>
-      <Name>Plexdata.LogWriter.Console</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="main.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
