@@ -1,5 +1,15 @@
 
 
+**1.0.3.1**
+- Introduction of stream logger.
+  - Stream logger project added.
+  - Stream logger testing project added.
+  - Stream logger example project added.
+- Source code and online documentation updated.
+- Version number increased.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
+
 **1.0.2.7**
 - Bugfix in `JsonFormatter`, re-escaping backslashes in any character escaping within double-quoted string value results.
 - Minor changes in exception handling in class `PersistentLoggerFacade`.

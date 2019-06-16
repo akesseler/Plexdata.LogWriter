@@ -49,7 +49,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Persiste
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Testing.Helper.Net.Core", "Plexdata.LogWriter.Testing.Helper.Net.Core\Plexdata.LogWriter.Testing.Helper.Net.Core.csproj", "{0CEF919D-A9B9-468C-82AB-A85CEBB437A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Testing.Helper.Asp.Core", "Plexdata.LogWriter.Testing.Helper.Asp.Core\Plexdata.LogWriter.Testing.Helper.Asp.Core.csproj", "{529B9291-49E7-4329-8B6B-3A84B1A13CDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Testing.Helper.Asp.Core", "Plexdata.LogWriter.Testing.Helper.Asp.Core\Plexdata.LogWriter.Testing.Helper.Asp.Core.csproj", "{529B9291-49E7-4329-8B6B-3A84B1A13CDE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Stream", "Plexdata.LogWriter.Stream\Plexdata.LogWriter.Stream.csproj", "{9320F326-51F2-481B-96F8-E67B9E029419}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Stream.Tests", "Plexdata.LogWriter.Stream.Tests\Plexdata.LogWriter.Stream.Tests.csproj", "{20C0EA9B-1963-4FF5-B066-992CED298A33}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsStreamLoggerTestApplication", "WindowsFormsStreamLoggerTestApplication\WindowsFormsStreamLoggerTestApplication.csproj", "{47D5BE92-97FD-48AF-99A0-F9B866BECB88}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -109,6 +115,18 @@ Global
 		{529B9291-49E7-4329-8B6B-3A84B1A13CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{529B9291-49E7-4329-8B6B-3A84B1A13CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{529B9291-49E7-4329-8B6B-3A84B1A13CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9320F326-51F2-481B-96F8-E67B9E029419}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9320F326-51F2-481B-96F8-E67B9E029419}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9320F326-51F2-481B-96F8-E67B9E029419}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9320F326-51F2-481B-96F8-E67B9E029419}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20C0EA9B-1963-4FF5-B066-992CED298A33}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20C0EA9B-1963-4FF5-B066-992CED298A33}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20C0EA9B-1963-4FF5-B066-992CED298A33}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20C0EA9B-1963-4FF5-B066-992CED298A33}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -44,7 +44,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +67,10 @@
     <ProjectReference Include="..\Plexdata.LogWriter.Persistent\Plexdata.LogWriter.Persistent.csproj">
       <Project>{B38DA898-A77E-4988-BEA0-5E69839D1499}</Project>
       <Name>Plexdata.LogWriter.Persistent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Plexdata.LogWriter.Stream\Plexdata.LogWriter.Stream.csproj">
+      <Project>{9320f326-51f2-481b-96f8-e67b9e029419}</Project>
+      <Name>Plexdata.LogWriter.Stream</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
