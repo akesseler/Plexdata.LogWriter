@@ -14,7 +14,7 @@
 
 This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
     <PackageTags>logging logger log trace debug raw structured abstraction</PackageTags>
-    <PackageReleaseNotes>Bugfix in 'JsonFormatter', re-escaping backslashes in any character escaping within double-quoted string value results.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Bugfix in 'JsonFormatter', re-escaping backslashes in any character escaping within double-quoted string value results.</PackageReleaseNotes>
     <AssemblyVersion>1.0.3.1</AssemblyVersion>
     <FileVersion>1.0.3.1</FileVersion>
     <Version>1.0.3.1</Version>
