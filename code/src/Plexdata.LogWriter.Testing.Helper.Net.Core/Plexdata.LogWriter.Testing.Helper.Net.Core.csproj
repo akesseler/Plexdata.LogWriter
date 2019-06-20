@@ -7,9 +7,9 @@
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
-    <AssemblyVersion>1.0.3.1</AssemblyVersion>
-    <FileVersion>1.0.3.1</FileVersion>
-    <Version>1.0.3.1</Version>
+    <AssemblyVersion>1.0.3.2</AssemblyVersion>
+    <FileVersion>1.0.3.2</FileVersion>
+    <Version>1.0.3.2</Version>
   </PropertyGroup>
 
   <ItemGroup>
