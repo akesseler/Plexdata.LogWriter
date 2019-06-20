@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured stream</PackageTags>
-    <PackageReleaseNotes>Initial draft and first release.</PackageReleaseNotes>
+    <PackageReleaseNotes>- Class 'LoggerStream' and others added as feature.
+- Settings class construction extended by 'Stream' parameter.</PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Stream implements the IStreamLogger interface that allows writing of logging messages into any type of stream sink.
 
 Main feature of this package is that it can be used platform independently.</Description>

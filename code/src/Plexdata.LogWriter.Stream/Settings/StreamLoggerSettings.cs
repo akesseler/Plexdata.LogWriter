@@ -91,7 +91,8 @@ namespace Plexdata.LogWriter.Settings
         /// The standard class constructor.
         /// </summary>
         /// <remarks>
-        /// This constructor just initializes all properties with its default values.
+        /// This constructor just initializes all properties with its default 
+        /// values.
         /// </remarks>
         public StreamLoggerSettings()
             : base()
@@ -100,6 +101,25 @@ namespace Plexdata.LogWriter.Settings
 
             this.Stream = null;
             this.Encoding = StreamLoggerSettings.DefaultEncoding;
+        }
+
+        /// <summary>
+        /// The extended constructor that initializes all properties with its 
+        /// default values, but takes the <paramref name="stream"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// This constructor initializes all properties with its default values, 
+        /// except property <see cref="StreamLoggerSettings.Stream"/>. The provided 
+        /// <paramref name="stream"/> instance is used to initialize this property 
+        /// instead.
+        /// </remarks>
+        /// <param name="stream">
+        /// The <see cref="System.IO.Stream"/> derived instance to be used.
+        /// </param>
+        public StreamLoggerSettings(Stream stream)
+            : this()
+        {
+            this.Stream = stream;
         }
 
         /// <summary>
@@ -129,6 +149,29 @@ namespace Plexdata.LogWriter.Settings
             : this()
         {
             this.LoadSettings(configuration);
+        }
+
+        /// <summary>
+        /// The extended constructor that initializes all properties from provided 
+        /// <paramref name="configuration"/> instance. Property <see cref="StreamLoggerSettings.Stream"/> 
+        /// is initialized from parameter <paramref name="stream"/>.
+        /// </summary>
+        /// <remarks>
+        /// This constructor works pretty much the same way as constructor 
+        /// <see cref="StreamLoggerSettings.StreamLoggerSettings(ILoggerSettingsSection)"/> 
+        /// does, except property <see cref="StreamLoggerSettings.Stream"/> 
+        /// is initialized from parameter <paramref name="stream"/>.
+        /// </remarks>
+        /// <param name="configuration">
+        /// The configuration to read all property values from.
+        /// </param>
+        /// <param name="stream">
+        /// The <see cref="System.IO.Stream"/> derived instance to be used.
+        /// </param>
+        public StreamLoggerSettings(ILoggerSettingsSection configuration, Stream stream)
+            : this(configuration)
+        {
+            this.Stream = stream;
         }
 
         #endregion

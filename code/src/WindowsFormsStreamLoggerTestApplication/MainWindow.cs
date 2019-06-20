@@ -26,9 +26,9 @@ using Newtonsoft.Json;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Extensions;
+using Plexdata.LogWriter.Features;
 using Plexdata.LogWriter.Logging;
 using Plexdata.LogWriter.Settings;
-using Plexdata.LogWriter.Testing.Helper.Helper;
 using Plexdata.LogWriter.Testing.Helper.Logging;
 using System;
 using System.Drawing;
@@ -38,7 +38,7 @@ namespace Plexdata.LogWriter.Testing.Helper
 {
     public partial class MainWindow : Form
     {
-        private EventDrivenStream source;
+        private LoggerStream source;
         private IStreamLogger logger;
         private IStreamLoggerSettings settings;
 
@@ -72,9 +72,8 @@ namespace Plexdata.LogWriter.Testing.Helper
                 this.exception = exception;
             }
 
-
-            this.source = new EventDrivenStream();
-            this.source.StreamDataWritten += this.OnSourceStreamDataWritten;
+            this.source = new LoggerStream();
+            this.source.ProcessStreamData += this.OnSourceProcessStreamData;
 
             this.settings = new StreamLoggerSettings()
             {
@@ -90,7 +89,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.lblTest.MouseClick += this.OnTestLabelMouseClick;
         }
 
-        private void OnSourceStreamDataWritten(Object sender, StreamEventArgs args)
+        private void OnSourceProcessStreamData(Object sender, LoggerStreamEventArgs args)
         {
             foreach (String current in args.Messages)
             {

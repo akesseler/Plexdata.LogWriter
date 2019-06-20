@@ -58,6 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Facades\StreamLoggerFacadeTests.cs" />
+    <Compile Include="Features\LoggerStreamEventArgsTests.cs" />
+    <Compile Include="Features\LoggerStreamTests.cs" />
     <Compile Include="Logging\StreamLoggerBaseTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Settings\StreamLoggerSettingsTests.cs" />

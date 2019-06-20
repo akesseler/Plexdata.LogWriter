@@ -1,5 +1,12 @@
 
 
+**1.0.3.2**
+- Constructors of class `StreamLoggerSettings` extended by `Stream` parameter.
+- Tests for class `StreamLoggerSettings` have been adjusted.
+- Support of additional features, such as `LoggerStream` (and its event related implementations).
+- Tests for class `LoggerStream` and related implementations created.
+- Source code documentation updated.
+
 **1.0.3.1**
 - Introduction of stream logger.
   - Stream logger project added.
