@@ -22,43 +22,16 @@
  * SOFTWARE.
  */
 
-using System.IO;
-using System.Text;
-
-namespace Plexdata.LogWriter.Abstraction
+namespace Plexdata.LogWriter.Features
 {
     /// <summary>
-    /// This interface represents the scope of settings used together with 
-    /// the stream logger.
+    /// The <see cref="Plexdata.LogWriter.Features"/> namespace contains all 
+    /// supported implementations of features of the <i>Plexdata Logging Writer</i>.
     /// </summary>
     /// <remarks>
-    /// The stream logger settings extend the basic logger settings by 
-    /// additional information that are only used in conjunction with the 
-    /// stream logger.
+    /// This namespace includes for example additional features for the stream 
+    /// logger, such as an event driven stream implementation.
     /// </remarks>
-    public interface IStreamLoggerSettings : ILoggerSettings
-    {
-        /// <summary>
-        /// Gets and sets the stream to be used as message sink.
-        /// </summary>
-        /// <remarks>
-        /// This property allows to change the underlying stream. Please note, 
-        /// nothing is going to be logged as long as this property is <c>null</c>.
-        /// </remarks>
-        /// <value>
-        /// The stream to be used as message sink.
-        /// </value>
-        Stream Stream { get; set; }
-
-        /// <summary>
-        /// Gets or sets the used file encoding.
-        /// </summary>
-        /// <remarks>
-        /// This property allows to change the stream encoding to be used.
-        /// </remarks>
-        /// <value>
-        /// The stream encoding to be used.
-        /// </value>
-        Encoding Encoding { get; set; }
-    }
+    [System.Runtime.CompilerServices.CompilerGenerated]
+    class NamespaceDoc { }
 }

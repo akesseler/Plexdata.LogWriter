@@ -10,14 +10,13 @@
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured file persistent</PackageTags>
-    <PackageReleaseNotes>- Minor changes in exception handling in class 'PersistentLoggerFacade'.
-- Correction of typos and documentation text adaptations.</PackageReleaseNotes>
+    <PackageReleaseNotes>No changes since last version.</PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Persistent implements the IPersistentLogger interface that allows writing of logging messages into files.
 
 Main feature of this package is that it can be used platform independently.</Description>
-    <AssemblyVersion>1.0.3.1</AssemblyVersion>
-    <FileVersion>1.0.3.1</FileVersion>
-    <Version>1.0.3.1</Version>
+    <AssemblyVersion>1.0.3.2</AssemblyVersion>
+    <FileVersion>1.0.3.2</FileVersion>
+    <Version>1.0.3.2</Version>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 

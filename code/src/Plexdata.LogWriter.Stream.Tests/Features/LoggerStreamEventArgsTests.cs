@@ -22,26 +22,38 @@
  * SOFTWARE.
  */
 
+using NUnit.Framework;
+using Plexdata.LogWriter.Features;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 
-namespace Plexdata.LogWriter.Testing.Helper.Helper
+namespace Plexdata.LogWriter.Stream.Tests.Features
 {
-    public class StreamEventArgs : EventArgs
+    [TestFixture]
+    [ExcludeFromCodeCoverage]
+    [TestOf(nameof(LoggerStreamEventArgs))]
+    public class LoggerStreamEventArgsTests
     {
-        public StreamEventArgs(IEnumerable<String> messages)
+        [Test]
+        public void LoggerStreamEventArgs_MessageListIsNull_ThrowsArgumentNullException()
         {
-            if (messages != null && messages.Any())
-            {
-                this.Messages = new List<String>(messages);
-            }
-            else
-            {
-                this.Messages = new List<String>();
-            }
+            Assert.That(() => new LoggerStreamEventArgs(null), Throws.ArgumentNullException);
         }
 
-        public IEnumerable<String> Messages { get; private set; }
+        [Test]
+        public void LoggerStreamEventArgs_MessageListIsEmpty_ThrowsArgumentOutOfRangeException()
+        {
+            Assert.That(() => new LoggerStreamEventArgs(new String[0]), Throws.InstanceOf<ArgumentOutOfRangeException>());
+        }
+
+        [Test]
+        public void LoggerStreamEventArgs_MessageListIsValid_MessagesAppliedAsExpected()
+        {
+            String[] messages = new String[] { "message-1", "message-2", "message-3", "message-4" };
+
+            LoggerStreamEventArgs instance = new LoggerStreamEventArgs(messages);
+
+            Assert.That(String.Join(String.Empty, instance.Messages), Is.EqualTo(String.Join(String.Empty, messages)));
+        }
     }
 }

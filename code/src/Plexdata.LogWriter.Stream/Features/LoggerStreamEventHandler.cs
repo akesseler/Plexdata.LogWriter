@@ -24,7 +24,22 @@
 
 using System;
 
-namespace Plexdata.LogWriter.Testing.Helper.Helper
+namespace Plexdata.LogWriter.Features
 {
-    public delegate void StreamEventHandler(Object sender, StreamEventArgs args);
+    /// <summary>
+    /// Represents an event that is fired by feature class 
+    /// <see cref="LoggerStream"/>.
+    /// </summary>
+    /// <remarks>
+    /// At the moment, this event delegate is only used together 
+    /// with event <see cref="LoggerStream.ProcessStreamData"/>.
+    /// </remarks>
+    /// <param name="sender">
+    /// The source of the event.
+    /// </param>
+    /// <param name="args">
+    /// An instance of <see cref="LoggerStreamEventArgs"/> that 
+    /// contains the event data.
+    /// </param>
+    public delegate void LoggerStreamEventHandler(Object sender, LoggerStreamEventArgs args);
 }

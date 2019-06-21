@@ -85,12 +85,32 @@ namespace Plexdata.LogWriter.Stream.Tests.Settings
         }
 
         [Test]
+        public void StreamLoggerSettings_ValidateDefaultSettingsWithStream_DefaultSettingsAsExpected()
+        {
+            StreamLoggerSettings instance = new StreamLoggerSettings(this.stream1);
+
+            Assert.That(instance.LogType, Is.EqualTo(LogType.Json));
+            Assert.That(instance.Stream, Is.EqualTo(this.stream1));
+            Assert.That(instance.Encoding, Is.EqualTo(Encoding.UTF8));
+        }
+
+        [Test]
         public void StreamLoggerSettings_ValidateDefaultSettingsForInvalidConfiguration_DefaultSettingsAsExpected()
         {
-            StreamLoggerSettings instance = new StreamLoggerSettings(null);
+            StreamLoggerSettings instance = new StreamLoggerSettings((ILoggerSettingsSection)null);
 
             Assert.That(instance.LogType, Is.EqualTo(LogType.Json));
             Assert.That(instance.Stream, Is.Null);
+            Assert.That(instance.Encoding, Is.EqualTo(Encoding.UTF8));
+        }
+
+        [Test]
+        public void StreamLoggerSettings_ValidateDefaultSettingsForInvalidConfigurationWithStream_DefaultSettingsAsExpected()
+        {
+            StreamLoggerSettings instance = new StreamLoggerSettings((ILoggerSettingsSection)null, this.stream1);
+
+            Assert.That(instance.LogType, Is.EqualTo(LogType.Json));
+            Assert.That(instance.Stream, Is.EqualTo(this.stream1));
             Assert.That(instance.Encoding, Is.EqualTo(Encoding.UTF8));
         }
 
