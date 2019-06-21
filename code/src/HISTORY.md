@@ -1,11 +1,15 @@
 
 
 **1.0.3.2**
-- Constructors of class `StreamLoggerSettings` extended by `Stream` parameter.
+- Constructors of class `StreamLoggerSettings` extended by a `Stream` parameter.
 - Tests for class `StreamLoggerSettings` have been adjusted.
 - Support of additional features, such as `LoggerStream` (and its event related implementations).
 - Tests for class `LoggerStream` and related implementations created.
 - Source code documentation updated.
+- Upgrade of _NUnit_ packages.
+- Version number increased.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
 
 **1.0.3.1**
 - Introduction of stream logger.
