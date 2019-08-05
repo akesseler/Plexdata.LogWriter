@@ -57,6 +57,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Stream.T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsStreamLoggerTestApplication", "WindowsFormsStreamLoggerTestApplication\WindowsFormsStreamLoggerTestApplication.csproj", "{47D5BE92-97FD-48AF-99A0-F9B866BECB88}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Composite", "Plexdata.LogWriter.Composite\Plexdata.LogWriter.Composite.csproj", "{B0BFB2FF-289C-4054-84D5-CD674E7EA04E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Composite.Tests", "Plexdata.LogWriter.Composite.Tests\Plexdata.LogWriter.Composite.Tests.csproj", "{C6FE87CC-BDD2-4B24-AE01-497269F8D167}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -127,6 +131,14 @@ Global
 		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{47D5BE92-97FD-48AF-99A0-F9B866BECB88}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0BFB2FF-289C-4054-84D5-CD674E7EA04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0BFB2FF-289C-4054-84D5-CD674E7EA04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0BFB2FF-289C-4054-84D5-CD674E7EA04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0BFB2FF-289C-4054-84D5-CD674E7EA04E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

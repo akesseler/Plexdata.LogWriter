@@ -259,3 +259,188 @@ namespace Plexdata.LogWriter.Testing.Helper
  *     }
  * }
  */
+
+/* Example (1) of how to use composite logger.
+ * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using System;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             ICompositeLogger logger = new CompositeLogger();
+ * 
+ *             // Assign one console logger and two persistent loggers with different files.
+ *             logger.AddConsoleLogger()
+ *                 .AddPersistentLogger(@"c:\log-files\log-file-1.log")
+ *                 .AddPersistentLogger(@"c:\log-files\log-file-2.log");
+ * 
+ *             logger.Trace("Trace...");
+ *             logger.Debug("Debug...");
+ *             logger.Verbose("Verbose...");
+ *             logger.Message("Message...");
+ *             logger.Warning("Warning...");
+ *             logger.Error("Error...");
+ *             logger.Fatal("Fatal...");
+ *             logger.Critical("Critical...");
+ *         }
+ *     }
+ * }
+ */
+
+/* Example (2) of how to use composite logger.
+ * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ * using System.IO;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             ICompositeLogger logger = new CompositeLogger();
+ * 
+ *             ILoggerSettingsBuilder builder = new LoggerSettingsBuilder();
+ *             builder.SetFilename(Path.Combine(Directory.GetCurrentDirectory(), "appsettings.json"));
+ *             ILoggerSettingsSection loggerSettingsSection = builder.Build();
+ * 
+ *             // Assign one console logger and two persistent loggers with different files
+ *             // but share values of same settings file between all loggers.
+ *             logger.AddConsoleLogger(loggerSettingsSection)
+ *                 .AddPersistentLogger(loggerSettingsSection, @"c:\log-files\log-file-1.log")
+ *                 .AddPersistentLogger(loggerSettingsSection, @"c:\log-files\log-file-2.log");
+ * 
+ *             logger.Trace("Trace...");
+ *             logger.Debug("Debug...");
+ *             logger.Verbose("Verbose...");
+ *             logger.Message("Message...");
+ *             logger.Warning("Warning...");
+ *             logger.Error("Error...");
+ *             logger.Fatal("Fatal...");
+ *             logger.Critical("Critical...");
+ *         }
+ *     }
+ * }
+ */
+
+/* Example (3) of how to use composite logger.
+ * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Definitions;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             ICompositeLogger logger = new CompositeLogger();
+ * 
+ *             IConsoleLoggerSettings consoleLoggerSettings = new ConsoleLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Trace,
+ *                 WindowTitle = "Composite Console Logger Example"
+ *             };
+ * 
+ *             IPersistentLoggerSettings persistentLoggerSettings1 = new PersistentLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Debug,
+ *                 Filename = @"c:\log-files\log-file-1.log"
+ *             };
+ * 
+ *             IPersistentLoggerSettings persistentLoggerSettings2 = new PersistentLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Verbose,
+ *                 Filename = @"c:\log-files\log-file-2.log"
+ *             };
+ * 
+ *             // Assign one console logger and two persistent loggers with different settings.
+ *             logger.AddConsoleLogger(consoleLoggerSettings)
+ *                 .AddPersistentLogger(persistentLoggerSettings1)
+ *                 .AddPersistentLogger(persistentLoggerSettings2);
+ * 
+ *             logger.Trace("Trace...");
+ *             logger.Debug("Debug...");
+ *             logger.Verbose("Verbose...");
+ *             logger.Message("Message...");
+ *             logger.Warning("Warning...");
+ *             logger.Error("Error...");
+ *             logger.Fatal("Fatal...");
+ *             logger.Critical("Critical...");
+ *         }
+ *     }
+ * }
+ */
+
+/* Example (4) of how to use composite logger.
+ * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Definitions;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Logging.Standard;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             ICompositeLogger<Program> logger = new CompositeLogger<Program>();
+ * 
+ *             IConsoleLoggerSettings consoleLoggerSettings = new ConsoleLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Trace,
+ *                 WindowTitle = "Composite Console Logger Example"
+ *             };
+ * 
+ *             IPersistentLoggerSettings persistentLoggerSettings1 = new PersistentLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Debug,
+ *                 Filename = @"c:\log-files\log-file-1.log"
+ *             };
+ * 
+ *             IPersistentLoggerSettings persistentLoggerSettings2 = new PersistentLoggerSettings
+ *             {
+ *                 LogLevel = LogLevel.Verbose,
+ *                 Filename = @"c:\log-files\log-file-2.log"
+ *             };
+ * 
+ *             IConsoleLogger<Program> consoleLogger = new ConsoleLogger<Program>(consoleLoggerSettings);
+ *             IPersistentLogger<Program> persistentLogger1 = new PersistentLogger<Program>(persistentLoggerSettings1);
+ *             IPersistentLogger<Program> persistentLogger2 = new PersistentLogger<Program>(persistentLoggerSettings2);
+ * 
+ *             // Assign one console logger and two persistent 
+ *             // loggers, all of them with context relation.
+ *             logger.AddConsoleLogger(consoleLogger)
+ *                 .AddPersistentLogger(persistentLogger1)
+ *                 .AddPersistentLogger(persistentLogger2);
+ * 
+ *             logger.Trace("Trace...");
+ *             logger.Debug("Debug...");
+ *             logger.Verbose("Verbose...");
+ *             logger.Message("Message...");
+ *             logger.Warning("Warning...");
+ *             logger.Error("Error...");
+ *             logger.Fatal("Fatal...");
+ *             logger.Critical("Critical...");
+ *         }
+ *     }
+ * }
+ */

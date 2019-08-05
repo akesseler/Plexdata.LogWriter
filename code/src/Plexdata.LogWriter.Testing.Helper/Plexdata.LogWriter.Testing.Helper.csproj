@@ -52,6 +52,10 @@
       <Project>{f3575f5c-dfba-4720-8989-cf3449149b07}</Project>
       <Name>Plexdata.LogWriter.Abstraction</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plexdata.LogWriter.Composite\Plexdata.LogWriter.Composite.csproj">
+      <Project>{b0bfb2ff-289c-4054-84d5-cd674e7ea04e}</Project>
+      <Name>Plexdata.LogWriter.Composite</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plexdata.LogWriter.Console.Standard\Plexdata.LogWriter.Console.Standard.csproj">
       <Project>{e65e330f-f2a0-4142-a168-32b071e92799}</Project>
       <Name>Plexdata.LogWriter.Console.Standard</Name>
