@@ -30,6 +30,8 @@
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Persistent\bin\Release\netstandard2.0\Plexdata.LogWriter.Persistent.xml" />
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Stream\bin\Release\netstandard2.0\Plexdata.LogWriter.Stream.dll" />
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Stream\bin\Release\netstandard2.0\Plexdata.LogWriter.Stream.xml" />
+      <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Composite\bin\Release\netstandard2.0\Plexdata.LogWriter.Composite.dll" />
+      <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Composite\bin\Release\netstandard2.0\Plexdata.LogWriter.Composite.xml" />
     </DocumentationSources>
     <HelpFileFormat>Markdown</HelpFileFormat>
     <SyntaxFilters>C#</SyntaxFilters>
@@ -40,7 +42,7 @@
     <IndentHtml>False</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpTitle>Plexdata Logging Writer</HelpTitle>
-    <HelpFileVersion>1.0.3.2</HelpFileVersion>
+    <HelpFileVersion>1.0.4.1</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceContainer>True</RootNamespaceContainer>
@@ -97,7 +99,8 @@
 &amp;lt%3btable&amp;gt%3b
 &amp;lt%3btr&amp;gt%3b&amp;lt%3bth&amp;gt%3bLibrary&amp;lt%3b/th&amp;gt%3b&amp;lt%3bth&amp;gt%3bDescription&amp;lt%3b/th&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
 &amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Abstraction.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library serves as the base of all other logging writer implementations and defines all interfaces and base implementations that are globally shared between other projects. Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
-&amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Console.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library contains all ILogger derived interfaces which especially supports console logging. Other implementations, such as the settings, which refer to console logging are also part of this library. Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
+&amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Composite.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library represents an ILogger derived implementation which supports persistent file logging. This logger version is available on any platform. Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
+&amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Console.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library contains all ILogger derived interfaces which especially support console logging. Other implementations, such as the settings, which refer to console logging are also part of this library. Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
 &amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Console.Standard.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library represents an ILogger derived implementation which supports standard console logging. This logger version is available on any platform. Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
 &amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Console.Windows.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library represents an ILogger derived implementation which especially supports console logging for Windows applications. But keep in mind, this logger version is only available on Windows platforms! Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b
 &amp;lt%3btr&amp;gt%3b&amp;lt%3btd&amp;gt%3b&amp;lt%3bpre&amp;gt%3bPlexdata.LogWriter.Persistent.dll&amp;lt%3b/pre&amp;gt%3b&amp;lt%3b/td&amp;gt%3b&amp;lt%3btd&amp;gt%3bThis library represents an ILogger derived implementation which supports persistent file logging. This logger version is available on any platform. Current target framework of this library is the &amp;lt%3bi&amp;gt%3b.NET Standard 2.0&amp;lt%3b/i&amp;gt%3b.&amp;lt%3b/td&amp;gt%3b&amp;lt%3b/tr&amp;gt%3b

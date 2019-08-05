@@ -1,4 +1,12 @@
 
+**1.0.4.1**
+- Introduction of composite logger.
+  - Composite logger project added.
+  - Composite logger testing project added.
+- Source code and online documentation updated.
+- Version number increased.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
 
 **1.0.3.2**
 - Constructors of class `StreamLoggerSettings` extended by a `Stream` parameter.
