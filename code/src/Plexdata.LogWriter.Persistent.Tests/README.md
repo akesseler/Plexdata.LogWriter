@@ -1,4 +1,4 @@
 ﻿
 ## Plexdata.LogWriter.Persistent.Tests
 
-This library just contains all tests for library ``Plexdata.LogWriter.Persistent``.
+This library just contains all tests for library `Plexdata.LogWriter.Persistent`.

@@ -1,7 +1,7 @@
 ﻿
 ## Plexdata.LogWriter.Console
 
-This library defines all ``ILogger`` derived interfaces that especially 
+This library defines all `ILogger` derived interfaces that especially 
 provide console logging.
 
 Furthermore, this library includes classes that are shared between all 

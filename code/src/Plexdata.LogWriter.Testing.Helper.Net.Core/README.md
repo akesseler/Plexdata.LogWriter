@@ -3,7 +3,7 @@
 
 This special project represents a testing environment to be able 
 to test the behaviour of dependency injection especially for the 
-usage of interface ``ILoggerSettingsSection``.
+usage of interface `ILoggerSettingsSection`.
 
 Furthermore, this project includes a bunch of application settings 
 file that show how to configure the logging writer with an external 
