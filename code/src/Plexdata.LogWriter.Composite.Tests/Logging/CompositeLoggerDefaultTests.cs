@@ -63,6 +63,14 @@ namespace Plexdata.LogWriter.Composite.Tests.Logging
         }
 
         [Test]
+        public void CompositeLogger_DefaultConstruction_DefaultSettingsAsExpected()
+        {
+            CompositeLogger instance = new CompositeLogger();
+
+            Assert.That(this.GetPropertyValueOf<ICompositeLoggerSettings>(instance, "Settings").LogLevel, Is.EqualTo(LogLevel.Trace));
+        }
+
+        [Test]
         public void CompositeLogger_DefaultConstruction_NoLoggersAssigned()
         {
             Assert.That(this.GetFieldValueOf<IList<ILogger>>(new CompositeLogger(), "loggers"), Is.Empty);
@@ -620,6 +628,18 @@ namespace Plexdata.LogWriter.Composite.Tests.Logging
 
         #region Private stuff
 
+        private TType GetPropertyValueOf<TType>(CompositeLogger instance, String name)
+        {
+            PropertyInfo info = instance.GetType().GetProperty(name, BindingFlags.Instance | BindingFlags.NonPublic);
+
+            if (info != null)
+            {
+                return (TType)info.GetValue(instance);
+            }
+
+            return default(TType);
+        }
+
         private TType GetFieldValueOf<TType>(CompositeLogger instance, String name)
         {
             FieldInfo info = instance.GetType().GetField(name, BindingFlags.Instance | BindingFlags.NonPublic);
@@ -631,7 +651,6 @@ namespace Plexdata.LogWriter.Composite.Tests.Logging
 
             return default(TType);
         }
-
 
         private interface IDummy1 : IEmptyLogger { }
         private interface IDummy2 : IEmptyLogger { }
