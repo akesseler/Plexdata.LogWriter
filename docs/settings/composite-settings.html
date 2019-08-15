@@ -1,0 +1,71 @@
+﻿
+<h2 id="composite-logger-settings">Composite Settings</h2>
+
+<p>
+    The composite logger settings are the settings used together with each of the composite logger implementations.
+    These settings are defined in interface <code>ICompositeLoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#general-remarks">General Remarks</a></li>
+    <li><a href="#standard-settings">Standard Settings</a></li>
+
+</ul>
+
+<h3 id="general-remarks">General Remarks</h3>
+
+<p>
+    In contrast to other logger settings, the composite logger settings implementation does not provide a set of
+    own properties. The underlying implementation is more or less a placeholder for the settings values of interface
+    <code>ILoggerSettings</code>.
+</p>
+
+<p>
+    At the moment, the only really important property is property <code>LogLevel</code>, because this property is
+    actively used by the composite logger implementation. For example, method <code>IsEnabled()</code> uses this
+    property to determine if logging is enabled for a particular logging level. And that&rsquo;s exactly what the
+    composite logger does. Against this background there are some consequences.
+</p>
+
+<p>
+    Changing the logging level of one of the assigned loggers and asking then the composite logger if a particular
+    logging level is enabled, the composite logger will always compare its own logging level, no matter if one of
+    underlying loggers uses a higher or lower logging level.
+</p>
+
+<p>
+    This behavior affects the writing of logging messages as well. In other word, the logging level of the composite
+    logger decides which of the message types is forwarded to the underlying loggers. Nevertheless, such a logging
+    message might be suppressed by one of the assigned sub&#8209;loggers. Here an example of what is meant in detail.
+</p>
+
+<p>
+    Assuming the composite logger has assigned two loggers, one console logger and one stream logger. The composite
+    logger uses logging level <code>Verbose</code>, the console logger uses logging level <code>Debug</code>, and the
+    stream logger uses logging level <code>Warning</code>. Furthermore, a set of logging message should to be written.
+    And which of these messages is written under these conditions is shown in table below.
+</p>
+
+<table>
+    <tr><th>Message</th><th>Composite</th><th>Console</th><th>Stream</th></tr>
+    <tr><td>Trace</td><td>suppressed</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>Debug</td><td>suppressed</td><td>&mdash;</td><td>&mdash;</td></tr>
+    <tr><td>Verbose</td><td>forwarded</td><td>written</td><td>suppressed</td></tr>
+    <tr><td>Message</td><td>forwarded</td><td>written</td><td>suppressed</td></tr>
+    <tr><td>Warning</td><td>forwarded</td><td>written</td><td>written</td></tr>
+    <tr><td>Error</td><td>forwarded</td><td>written</td><td>written</td></tr>
+    <tr><td>Fatal</td><td>forwarded</td><td>written</td><td>written</td></tr>
+    <tr><td>Critical</td><td>forwarded</td><td>written</td><td>written</td></tr>
+</table>
+
+<h3 id="standard-settings">Standard Settings</h3>
+
+<p>
+    The default constructor of each composite logger creates its own settings instance and initializes it with its
+    default values. The only exception is the logging level. The composite logger uses <code>Trace</code> as default
+    logging level instead of logging level <code>Message</code>. This ensures that none of the messages is suppressed
+    by default.
+</p>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

@@ -7,8 +7,8 @@
   - Dependencies for project `Plexdata.LogWriter.Help.Producer` adjusted.
 - Bugfix in composite logger.
   - Using settings to allow logger basic setup.
-TODOs
 - Source code and online documentation updated.
+TODOs
 - Version number increased.
 - Wiki and release update on _GitHub_.
 - All affected packages released on `nuget.org`.
