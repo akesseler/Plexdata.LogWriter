@@ -24,6 +24,7 @@
 
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Settings;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -59,11 +60,30 @@ namespace Plexdata.LogWriter.Logging
         /// The default constructor.
         /// </summary>
         /// <remarks>
-        /// This constructor just calls its base class constructor 
-        /// and initializes its own fields and properties.
+        /// This constructor just calls its extended constructor by using a blank 
+        /// instance of <see cref="ICompositeLoggerSettings"/>.  Additionally, the 
+        /// default logging level is set to <see cref="LogLevel.Trace"/>.
         /// </remarks>
+        /// <seealso cref="CompositeLogger.CompositeLogger(ICompositeLoggerSettings)"/>
         public CompositeLogger()
-            : base()
+            : this(new CompositeLoggerSettings())
+        {
+            base.Settings.LogLevel = LogLevel.Trace;
+        }
+
+        /// <summary>
+        /// The extended constructor.
+        /// </summary>
+        /// <remarks>
+        /// This constructor calls its base class constructor and hands over the 
+        /// provided instances of of <paramref name="settings"/>. Additionally, 
+        /// this constructor initializes its internal list of assigned loggers.
+        /// </remarks>
+        /// <param name="settings">
+        /// The settings to be used.
+        /// </param>
+        public CompositeLogger(ICompositeLoggerSettings settings)
+            : base(settings)
         {
             this.loggers = new List<ILogger>();
         }
@@ -103,7 +123,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write(LogLevel level, String message)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -118,7 +138,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write(LogLevel level, String message, params (String Label, Object Value)[] details)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -133,7 +153,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write(LogLevel level, Exception exception)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -148,7 +168,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write(LogLevel level, Exception exception, params (String Label, Object Value)[] details)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -163,7 +183,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write(LogLevel level, String message, Exception exception)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -178,7 +198,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write(LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -193,7 +213,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write<TScope>(TScope scope, LogLevel level, String message)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -208,7 +228,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write<TScope>(TScope scope, LogLevel level, String message, params (String Label, Object Value)[] details)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -223,7 +243,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write<TScope>(TScope scope, LogLevel level, Exception exception)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -238,7 +258,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write<TScope>(TScope scope, LogLevel level, Exception exception, params (String Label, Object Value)[] details)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -253,7 +273,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 
@@ -268,7 +288,7 @@ namespace Plexdata.LogWriter.Logging
         /// <inheritdoc />
         public void Write<TScope>(TScope scope, LogLevel level, String message, Exception exception, params (String Label, Object Value)[] details)
         {
-            if (this.IsDisposed) { return; }
+            if (!base.IsPermitted(level)) { return; }
 
             List<Task> tasks = new List<Task>();
 

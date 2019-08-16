@@ -1,10 +1,16 @@
 
 
-**1.0.?.?**
+**1.0.4.2**
 - Minor changes.
   - In-text code block quotation in various readme files adjusted.
   - Readme file for project `WindowsFormsStreamLoggerTestApplication` added.
   - Dependencies for project `Plexdata.LogWriter.Help.Producer` adjusted.
+- Bugfix in composite logger.
+  - Using settings to allow logger basic setup.
+- Source code and online documentation updated.
+- Version number increased.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
 
 **1.0.4.1**
 - Introduction of composite logger.

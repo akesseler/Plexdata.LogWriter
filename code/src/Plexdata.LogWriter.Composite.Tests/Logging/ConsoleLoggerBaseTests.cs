@@ -23,6 +23,7 @@
  */
 
 using NUnit.Framework;
+using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Logging;
 using System;
@@ -38,9 +39,9 @@ namespace Plexdata.LogWriter.Composite.Tests.Logging
         #region Construction
 
         [Test]
-        public void CompositeLoggerBase_DefaultConstruction_ThrowsNothing()
+        public void CompositeLoggerBase_SettingsNull_ThrowsArgumentNullException()
         {
-            Assert.That(() => new DummyClass(), Throws.Nothing);
+            Assert.That(() => new DummyClass(null), Throws.ArgumentNullException);
         }
 
         #endregion
@@ -49,8 +50,8 @@ namespace Plexdata.LogWriter.Composite.Tests.Logging
 
         private class DummyClass : CompositeLoggerBase
         {
-            public DummyClass()
-                : base()
+            public DummyClass(ICompositeLoggerSettings settings)
+                : base(settings)
             {
             }
 

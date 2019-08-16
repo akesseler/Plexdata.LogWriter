@@ -23,7 +23,7 @@
  */
 
 using Plexdata.LogWriter.Abstraction;
-using Plexdata.LogWriter.Settings;
+using Plexdata.LogWriter.Definitions;
 using System;
 
 namespace Plexdata.LogWriter.Logging
@@ -34,31 +34,8 @@ namespace Plexdata.LogWriter.Logging
     /// <remarks>
     /// Task of this base class is to share global functionality between derived classes.
     /// </remarks>
-    public abstract class CompositeLoggerBase : LoggerBase<ILoggerSettings>
+    public abstract class CompositeLoggerBase : LoggerBase<ICompositeLoggerSettings>
     {
-        #region Private classes
-
-        /// <summary>
-        /// Just a dummy settings implementation.
-        /// </summary>
-        /// <remarks>
-        /// The composite logger does not have any settings but has to 
-        /// provide an instance of settings to its base class constructor. 
-        /// For that reason this dummy class is used.
-        /// </remarks>
-        private class CompositeLoggerSettings : LoggerSettings
-        {
-            /// <summary>
-            /// Default class constructor.
-            /// </summary>
-            /// <remarks>
-            /// The default class constructor does actually nothing.
-            /// </remarks>
-            public CompositeLoggerSettings() { }
-        }
-
-        #endregion
-
         #region Construction
 
         /// <summary>
@@ -67,8 +44,15 @@ namespace Plexdata.LogWriter.Logging
         /// <remarks>
         /// This constructor performs the initialization of fields and properties.
         /// </remarks>
-        protected CompositeLoggerBase()
-            : base(new CompositeLoggerSettings())
+        /// <param name="settings">
+        /// The settings to be used.
+        /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// This exception is thrown if the parameter <paramref name="settings"/> 
+        /// is <c>null</c>.
+        /// </exception>
+        protected CompositeLoggerBase(ICompositeLoggerSettings settings)
+            : base(settings)
         {
             this.IsDisposed = false;
         }
@@ -143,6 +127,50 @@ namespace Plexdata.LogWriter.Logging
 
                 this.IsDisposed = true;
             }
+        }
+
+        /// <summary>
+        /// Checks if message writing is permitted.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method checks if message writing is permitted under 
+        /// current conditions.
+        /// </para>
+        /// <para>
+        /// Current conditions means in this context:
+        /// <list type="number">  
+        /// <item><description>
+        /// The logger has not been disposed yet.
+        /// </description></item>  
+        /// <item><description>
+        /// Logging is not disabled by current logger settings.
+        /// </description></item>  
+        /// <item><description>
+        /// Logging is actually enabled for provided logging level.
+        /// </description></item>  
+        /// </list>          
+        /// </para>
+        /// </remarks>
+        /// <param name="level">
+        /// The logging level to be checked.
+        /// </param>
+        /// <returns>
+        /// False is returned if the logger has been disposed or if logging 
+        /// is currently disabled or if provided logging level is less than 
+        /// current logging level. Otherwise true is returned.
+        /// </returns>
+        /// <seealso cref="ILoggerSettings"/>
+        /// <seealso cref="ICompositeLoggerSettings"/>
+        protected Boolean IsPermitted(LogLevel level)
+        {
+            if (this.IsDisposed) { return false; }
+
+            if (base.IsDisabled) { return false; }
+
+            if (!base.IsEnabled(level)) { return false; }
+
+            return true;
         }
 
         #endregion
