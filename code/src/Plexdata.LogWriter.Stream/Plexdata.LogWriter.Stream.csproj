@@ -14,9 +14,9 @@
     <Description>Plexdata.LogWriter.Stream implements the IStreamLogger interface that allows writing of logging messages into any type of stream sink.
 
 Main feature of this package is that it can be used platform independently.</Description>
-    <AssemblyVersion>1.0.4.1</AssemblyVersion>
-    <FileVersion>1.0.4.1</FileVersion>
-    <Version>1.0.4.1</Version>
+    <AssemblyVersion>1.0.4.2</AssemblyVersion>
+    <FileVersion>1.0.4.2</FileVersion>
+    <Version>1.0.4.2</Version>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 
