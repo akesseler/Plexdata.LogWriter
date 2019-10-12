@@ -96,6 +96,56 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #endregion
 
+        #region GetValues
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("does:not:exist")]
+        [TestCase("level1:level2:level3:wrong")]
+        public void GetValues_VariousSectionKeys_ResultIsEmpty(String key)
+        {
+            using (Stream stream = this.CreateValidStream())
+            {
+                LoggerSettingsJsonUnderTest instance = new LoggerSettingsJsonUnderTest(stream);
+
+                var actual = instance.GetValues(key);
+
+                Assert.That(actual, Is.Empty);
+            }
+        }
+
+        [Test]
+        [TestCase("level1:level2:level3", "value1,value2,value3,valueZ1")]
+        [TestCase("level1:level2:level3:itemZ", "valueZ1")]
+        public void GetValues_VariousSectionKeys_ResultAsExpected(String key, String result)
+        {
+            using (Stream stream = this.CreateValidStream())
+            {
+                LoggerSettingsJsonUnderTest instance = new LoggerSettingsJsonUnderTest(stream);
+
+                var actual = String.Join(",", instance.GetValues(key));
+
+                Assert.That(actual, Is.EqualTo(result));
+            }
+        }
+
+        [Test]
+        public void GetValues_ValuesSectionKey_ResultAsExpected()
+        {
+            using (Stream stream = this.CreateValidValuesStream())
+            {
+                LoggerSettingsJsonUnderTest instance = new LoggerSettingsJsonUnderTest(stream);
+
+                var actual = String.Join(",", instance.GetValues("level1:level2:level3:values"));
+
+                Assert.That(actual, Is.EqualTo("value1,value2,value3"));
+            }
+        }
+
+        #endregion
+
         #region GetValue
 
         [Test]
@@ -134,6 +184,18 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
                 "\"itemZ\": {" +
                 "\"subitem1\": \"valueZ1\"" +
                 "}}}}}";
+
+            return new MemoryStream(Encoding.UTF8.GetBytes(content));
+        }
+
+        private Stream CreateValidValuesStream()
+        {
+            const String content =
+                "{ \"level1\": {" +
+                "\"level2\": {" +
+                "\"level3\": {" +
+                "\"values\": [ \"value1\", \"value2\", \"value3\" ]" +
+                "}}}}";
 
             return new MemoryStream(Encoding.UTF8.GetBytes(content));
         }

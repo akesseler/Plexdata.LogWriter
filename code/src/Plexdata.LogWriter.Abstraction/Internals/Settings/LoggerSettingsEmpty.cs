@@ -24,7 +24,9 @@
 
 using Plexdata.LogWriter.Abstraction;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Plexdata.LogWriter.Internals.Settings
@@ -95,6 +97,23 @@ namespace Plexdata.LogWriter.Internals.Settings
         public ILoggerSettingsSection GetSection(String key)
         {
             return this;
+        }
+
+        /// <summary>
+        /// Gets the values of provided section key.
+        /// </summary>
+        /// <remarks>
+        /// This method does nothing and always returns an empty string list.
+        /// </remarks>
+        /// <param name="key">
+        /// The key to get a list of section values for.
+        /// </param>
+        /// <returns>
+        /// An empty string list is always returned.
+        /// </returns>
+        public IEnumerable<String> GetValues(String key)
+        {
+            return Enumerable.Empty<String>();
         }
 
         #endregion

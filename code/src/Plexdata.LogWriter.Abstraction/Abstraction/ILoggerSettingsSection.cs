@@ -23,6 +23,7 @@
  */
 
 using System;
+using System.Collections.Generic;
 
 namespace Plexdata.LogWriter.Abstraction
 {
@@ -90,5 +91,20 @@ namespace Plexdata.LogWriter.Abstraction
         /// subsection. This method never returns <c>null</c>.
         /// </returns>
         ILoggerSettingsSection GetSection(String key);
+
+        /// <summary>
+        /// Gets the values of provided section key.
+        /// </summary>
+        /// <remarks>
+        /// This method tries to find all values for a particular section key. The section 
+        /// key may contain multiple section parts. But each part must be separated by a colon.
+        /// </remarks>
+        /// <param name="key">
+        /// The key to get a list of section values for.
+        /// </param>
+        /// <returns>
+        /// The list of section values. This method never returns <c>null</c>.
+        /// </returns>
+        IEnumerable<String> GetValues(String key);
     }
 }
