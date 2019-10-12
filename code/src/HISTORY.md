@@ -1,5 +1,10 @@
 
 
+**1.0.4.3**
+- Interface `ILoggerSettingsSection` extended by method `GetValues()`.
+- Tests for `ILoggerSettingsSection` derived classes have been adjusted.
+- Version number increased.
+
 **1.0.4.2**
 - Minor changes.
   - In-text code block quotation in various readme files adjusted.

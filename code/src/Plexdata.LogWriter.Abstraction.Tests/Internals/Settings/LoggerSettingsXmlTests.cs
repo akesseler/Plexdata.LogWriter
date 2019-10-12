@@ -96,6 +96,56 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #endregion
 
+        #region GetValues
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("does:not:exist")]
+        [TestCase("level1:level2:level3:wrong")]
+        public void GetValues_VariousSectionKeys_ResultIsEmpty(String key)
+        {
+            using (Stream stream = this.CreateValidStream())
+            {
+                LoggerSettingsXmlUnderTest instance = new LoggerSettingsXmlUnderTest(stream);
+
+                var actual = instance.GetValues(key);
+
+                Assert.That(actual, Is.Empty);
+            }
+        }
+
+        [Test]
+        [TestCase("level1:level2:level3", "value1,value2,value3,valueZ1")]
+        [TestCase("level1:level2:level3:itemZ", "valueZ1")]
+        public void GetValues_VariousSectionKeys_ResultAsExpected(String key, String result)
+        {
+            using (Stream stream = this.CreateValidStream())
+            {
+                LoggerSettingsXmlUnderTest instance = new LoggerSettingsXmlUnderTest(stream);
+
+                var actual = String.Join(",", instance.GetValues(key));
+
+                Assert.That(actual, Is.EqualTo(result));
+            }
+        }
+
+        [Test]
+        public void GetValues_ValuesSectionKey_ResultAsExpected()
+        {
+            using (Stream stream = this.CreateValidValuesStream())
+            {
+                LoggerSettingsXmlUnderTest instance = new LoggerSettingsXmlUnderTest(stream);
+
+                var actual = String.Join(",", instance.GetValues("level1:level2:level3:values"));
+
+                Assert.That(actual, Is.EqualTo("value1,value2,value3"));
+            }
+        }
+
+        #endregion
+
         #region GetValue
 
         [Test]
@@ -134,6 +184,27 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
                 "<item2>value2</item2>" +
                 "<item3>value3</item3>" +
                 "<itemZ><subitem1>valueZ1</subitem1></itemZ>" +
+                "</level3>" +
+                "</level2>" +
+                "</level1>" +
+                "</root>";
+
+            return new MemoryStream(Encoding.UTF8.GetBytes(content));
+        }
+
+        private Stream CreateValidValuesStream()
+        {
+            const String content =
+                "<?xml version=\"1.0\" encoding=\"utf-8\" ?>" +
+                "<root>" +
+                "<level1>" +
+                "<level2>" +
+                "<level3>" +
+                "<values>" +
+                "<item>value1</item>" +
+                "<item>value2</item>" +
+                "<item>value3</item>" +
+                "</values>" +
                 "</level3>" +
                 "</level2>" +
                 "</level1>" +

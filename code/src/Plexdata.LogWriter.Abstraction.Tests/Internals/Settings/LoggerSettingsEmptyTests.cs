@@ -76,6 +76,23 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #endregion
 
+        #region GetValues
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        [TestCase("item1")]
+        [TestCase("item2")]
+        public void GetValues_ValueKeyDontCare_ResultIsEmpty(String key)
+        {
+            LoggerSettingsEmptyUnderTest instance = new LoggerSettingsEmptyUnderTest();
+
+            Assert.That(instance.GetValues(key), Is.Empty);
+        }
+
+        #endregion
+
         #region GetValue
 
         [Test]

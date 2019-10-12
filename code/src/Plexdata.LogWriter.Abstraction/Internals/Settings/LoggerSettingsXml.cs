@@ -24,7 +24,9 @@
 
 using Plexdata.LogWriter.Abstraction;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml;
 using System.Xml.Linq;
 
@@ -122,6 +124,48 @@ namespace Plexdata.LogWriter.Internals.Settings
         public ILoggerSettingsSection GetSection(String key)
         {
             return new LoggerSettingsXml(base.FindSection(key));
+        }
+
+        /// <summary>
+        /// Gets the values of provided section key.
+        /// </summary>
+        /// <remarks>
+        /// This method tries to find all values for a particular section key. The section 
+        /// key may contain multiple section parts. But each part must be separated by a colon.
+        /// </remarks>
+        /// <param name="key">
+        /// The key to get a list of section values for.
+        /// </param>
+        /// <returns>
+        /// The list of section values. This method never returns <c>null</c>.
+        /// </returns>
+        /// <seealso cref="LoggerSettingsBase.FindSection(String)"/>
+        public IEnumerable<String> GetValues(String key)
+        {
+            try
+            {
+                XElement section = base.FindSection(key);
+
+                if (section == null)
+                {
+                    return Enumerable.Empty<String>();
+                }
+
+                // NOTE: This piece of code might never throw any exception.
+                IEnumerable<String> result = section.Elements().Select(x => x.Value);
+
+                // NOTE: This piece of code might never be hit.
+                if (result == null)
+                {
+                    return Enumerable.Empty<String>();
+                }
+
+                return result;
+            }
+            catch
+            {
+                return Enumerable.Empty<String>();
+            }
         }
 
         #endregion

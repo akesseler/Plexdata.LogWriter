@@ -237,7 +237,7 @@ namespace Plexdata.LogWriter.Settings
 
             ILoggerSettingsSection section = configuration.GetSection(LoggerSettings.SettingsPath);
 
-            base.LogType = this.GetValue(section[nameof(this.LogType)], LogType.Json);
+            base.LogType = base.GetValue(section[nameof(this.LogType)], LogType.Json);
 
             this.Stream = null;
             this.Encoding = base.GetValue(section[nameof(this.Encoding)], StreamLoggerSettings.DefaultEncoding);
