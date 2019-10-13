@@ -27,11 +27,24 @@ using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Settings;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
+using System.Linq;
+using System.Text;
 
 namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 {
+    #region Public test enum
+
+    public enum TestEnum
+    {
+        TestEnumValue1 = 0,
+        TestEnumValue2 = 1
+    }
+
+    #endregion
+
     [TestFixture]
     [ExcludeFromCodeCoverage]
     [TestOf(nameof(LoggerSettings))]
@@ -549,6 +562,170 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 
         #endregion
 
+        #region GetValue
+
+        [Test]
+        [TestCase(null, "standard")]
+        [TestCase("", "standard")]
+        [TestCase(" ", "standard")]
+        public void GetValue_ValueIsInvalid_ResultIsStandard(String value, String standard)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<String>(value, standard), Is.EqualTo(standard));
+        }
+
+        [Test]
+        [TestCase("TestEnumValue1", TestEnum.TestEnumValue1, TestEnum.TestEnumValue1)]
+        [TestCase("testenumvalue1", TestEnum.TestEnumValue1, TestEnum.TestEnumValue1)]
+        [TestCase("TestEnumValue2", TestEnum.TestEnumValue1, TestEnum.TestEnumValue2)]
+        [TestCase("testenumvalue2", TestEnum.TestEnumValue1, TestEnum.TestEnumValue2)]
+        [TestCase("TestEnumInvalid", TestEnum.TestEnumValue1, TestEnum.TestEnumValue1)]
+        [TestCase("testenuminvalid", TestEnum.TestEnumValue1, TestEnum.TestEnumValue1)]
+        public void GetValue_ValueIsEnum_ResultAsExpected(String value, TestEnum standard, TestEnum expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<TestEnum>(value, standard), Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase("False", true, false)]
+        [TestCase("FALSE", true, false)]
+        [TestCase("false", true, false)]
+        [TestCase("True", false, true)]
+        [TestCase("TRUE", false, true)]
+        [TestCase("true", false, true)]
+        [TestCase("Invalid", false, false)]
+        [TestCase("INVALID", false, false)]
+        [TestCase("invalid", false, false)]
+        public void GetValue_ValueIsBoolean_ResultAsExpected(String value, Boolean standard, Boolean expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<Boolean>(value, standard), Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase("string", "other", "string")]
+        public void GetValue_ValueIsString_ResultAsExpected(String value, String standard, String expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<String>(value, standard), Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase("string", 'o', 's')]
+        public void GetValue_ValueIsChar_ResultAsExpected(String value, Char standard, Char expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<Char>(value, standard), Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase("42", -1, 42)]
+        [TestCase("xx", -1, -1)]
+        public void GetValue_ValueIsInt32_ResultAsExpected(String value, Int32 standard, Int32 expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<Int32>(value, standard), Is.EqualTo(expected));
+        }
+
+        [Test]
+        [TestCase("en-US", "de-DE", "en-US")]
+        [TestCase("de-DE", "en-US", "de-DE")]
+        [TestCase("xx-YY", "en-US", "en-US")]
+        public void GetValue_ValueIsCultureInfo_ResultAsExpected(String value, String standard, String expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<CultureInfo>(value, CultureInfo.GetCultureInfo(standard)), Is.EqualTo(CultureInfo.GetCultureInfo(expected)));
+        }
+
+        [Test]
+        [TestCase("invalid", "utf-8", "utf-8")]
+        [TestCase("utf-7", "utf-8", "utf-7")]
+        [TestCase("utf-8", "utf-8", "utf-8")]
+        public void GetValue_ValueIsEncoding_ResultAsExpected(String value, String standard, String expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetValue<Encoding>(value, Encoding.GetEncoding(standard)), Is.EqualTo(Encoding.GetEncoding(expected)));
+        }
+
+        [Test]
+        public void GetValue_ValueIsOther_ResultIsStandard()
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            String value = "4711";
+            Int64 standard = 42;
+            Int64 expected = 42;
+
+            Assert.That(instance.TestGetValue<Int64>(value, standard), Is.EqualTo(expected));
+        }
+
+        #endregion
+
+        #region GetSectionValues
+
+        [Test]
+        public void GetSectionValues_SectionIsNull_ResultIsStandard()
+        {
+            List<String> standard = new List<String>() { "1", "2", "3" };
+            List<String> expected = new List<String>() { "1", "2", "3" };
+
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetSectionValues(null, "key", standard).SequenceEqual(expected), Is.True);
+        }
+
+        [Test]
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase("  ")]
+        public void GetSectionValues_KeyInvalid_ResultIsStandard(String key)
+        {
+            List<String> standard = new List<String>() { "1", "2", "3" };
+            List<String> expected = new List<String>() { "1", "2", "3" };
+
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetSectionValues(this.section.Object, key, standard).SequenceEqual(expected), Is.True);
+        }
+
+        [Test]
+        public void GetSectionValues_SectionGetValuesReturnsEmpty_ResultIsStandard()
+        {
+            List<String> standard = new List<String>() { "1", "2", "3" };
+            List<String> expected = new List<String>() { "1", "2", "3" };
+
+            this.section.Setup(x => x.GetValues(It.IsAny<String>())).Returns(Enumerable.Empty<String>());
+
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetSectionValues(this.section.Object, "key", standard).SequenceEqual(expected), Is.True);
+        }
+
+        [Test]
+        public void GetSectionValues_SectionGetValuesReturnsValues_ResultAsExpected()
+        {
+            List<String> standard = new List<String>() { "1", "2", "3" };
+            List<String> expected = new List<String>() { "3", "2", "1" };
+            List<String> result = new List<String>() { "3", "2", "1" };
+
+            this.section.Setup(x => x.GetValues(It.IsAny<String>())).Returns(result);
+
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            Assert.That(instance.TestGetSectionValues(this.section.Object, "key", standard).SequenceEqual(expected), Is.True);
+        }
+
+        #endregion
+
         #region Private test class implementations
 
         private class LoggerSettingsDummyClass : LoggerSettings
@@ -563,6 +740,16 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             public void LoadSettingsTest(ILoggerSettingsSection configuration)
             {
                 base.LoadSettings(configuration);
+            }
+
+            public TType TestGetValue<TType>(String value, TType standard)
+            {
+                return base.GetValue<TType>(value, standard);
+            }
+
+            public IEnumerable<String> TestGetSectionValues(ILoggerSettingsSection section, String key, IEnumerable<String> standard)
+            {
+                return base.GetSectionValues(section, key, standard);
             }
         }
 

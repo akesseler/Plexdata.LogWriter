@@ -25,8 +25,10 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace Plexdata.LogWriter.Settings
@@ -516,6 +518,49 @@ namespace Plexdata.LogWriter.Settings
                 {
                     return standard;
                 }
+            }
+
+            return standard;
+        }
+
+        /// <summary>
+        /// Gets the values from <paramref name="section"/> for provided <paramref name="key"/>.
+        /// </summary>
+        /// <remarks>
+        /// This method tries to read the values from <paramref name="section"/> for provided 
+        /// <paramref name="key"/> and returns them.
+        /// </remarks>
+        /// <param name="section">
+        /// An instance of <see cref="Plexdata.LogWriter.Abstraction.ILoggerSettingsSection"/> 
+        /// that represents the settings get a list of section values for.
+        /// </param>
+        /// <param name="key">
+        /// The key to get a list of section values for.
+        /// </param>
+        /// <param name="standard">
+        /// The fallback value if conversion fails.
+        /// </param>
+        /// <returns>
+        /// The list of section values or <paramref name="standard"/> if getting section values 
+        /// fails or result was <c>empty</c>.
+        /// </returns>
+        protected IEnumerable<String> GetSectionValues(ILoggerSettingsSection section, String key, IEnumerable<String> standard)
+        {
+            if (section == null)
+            {
+                return standard;
+            }
+
+            if (String.IsNullOrWhiteSpace(key))
+            {
+                return standard;
+            }
+
+            IEnumerable<String> result = section.GetValues(key);
+
+            if (result.Any())
+            {
+                return result;
             }
 
             return standard;
