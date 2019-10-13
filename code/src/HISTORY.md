@@ -3,6 +3,8 @@
 **1.0.4.3**
 - Interface `ILoggerSettingsSection` extended by method `GetValues()`.
 - Tests for `ILoggerSettingsSection` derived classes have been adjusted.
+- Class `LoggerSettings` extended by method `GetSectionValues()`.
+- Missing tests added to `LoggerSettingsTests`.
 - Version number increased.
 
 **1.0.4.2**
