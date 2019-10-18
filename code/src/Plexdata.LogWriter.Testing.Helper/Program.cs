@@ -83,9 +83,6 @@ namespace Plexdata.LogWriter.Testing.Helper
  *             logger.Error("This is a Error logging entry.", details);
  *             logger.Fatal("This is a Fatal logging entry.", details);
  *             logger.Critical("This is a Critical logging entry.", details);
- * 
- *             Console.Write("Hit any key to finish... ");
- *             Console.ReadKey();
  *         }
  *     }
  * }
@@ -135,9 +132,6 @@ namespace Plexdata.LogWriter.Testing.Helper
  *             logger.Error("This is a Error logging entry.", details);
  *             logger.Fatal("This is a Fatal logging entry.", details);
  *             logger.Critical("This is a Critical logging entry.", details);
- * 
- *             Console.Write("Hit any key to finish... ");
- *             Console.ReadKey();
  *         }
  *     }
  * }
@@ -178,9 +172,6 @@ namespace Plexdata.LogWriter.Testing.Helper
  *             logger.Error("This is a Error logging entry.");
  *             logger.Fatal("This is a Fatal logging entry.");
  *             logger.Critical("This is a Critical logging entry.");
- * 
- *             Console.Write("Hit any key to finish... ");
- *             Console.ReadKey();
  *         }
  *     }
  * }
@@ -252,9 +243,6 @@ namespace Plexdata.LogWriter.Testing.Helper
  *             logger.Error("This is a Error logging entry.");
  *             logger.Fatal("This is a Fatal logging entry.");
  *             logger.Critical("This is a Critical logging entry.");
- * 
- *             Console.Write("Hit any key to finish... ");
- *             Console.ReadKey();
  *         }
  *     }
  * }
@@ -440,6 +428,65 @@ namespace Plexdata.LogWriter.Testing.Helper
  *             logger.Error("Error...");
  *             logger.Fatal("Fatal...");
  *             logger.Critical("Critical...");
+ *         }
+ *     }
+ * }
+ */
+
+/* An example of how to use mail logger.
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Extensions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ * using System.Collections.Generic;
+ * using System.Text;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             IMailLoggerSettings settings = new MailLoggerSettings()
+ *             {
+ *                 Address = "from@example.org",
+ *                 Username = "SMTP host username",
+ *                 Password = "SMTP host password",
+ *                 SmtpHost = "mail.example.org",
+ *                 SmtpPort = 587,
+ *                 UseSsl = true,
+ *                 Encoding = Encoding.UTF8,
+ *                 Subject = "Logger Mail",
+ *                 Receivers = new List<String>() {
+ *                     "to1@example.org",
+ *                     "to2@example.org"
+ *                 },
+ *                 ClearCopies = new List<String>() {
+ *                     "cc1@example.org",
+ *                     "cc2@example.org"
+ *                 },
+ *                 BlindCopies = new List<String>() {
+ *                     "bcc1@example.org",
+ *                     "bcc2@example.org"
+ *                 }
+ *             };
+ * 
+ *             IMailLogger logger = new MailLogger(settings);
+ * 
+ *             (String, Object)[] details = new (String, Object)[]
+ *             {
+ *                 ("Active", true), ("Average", 12345.67M), ("Name", "Details")
+ *             };
+ * 
+ *             logger.Debug("This is a Debug logging entry.", details);
+ *             logger.Trace("This is a Trace logging entry.", details);
+ *             logger.Verbose("This is a Verbose logging entry.", details);
+ *             logger.Message("This is a Message logging entry.", details);
+ *             logger.Warning("This is a Warning logging entry.", details);
+ *             logger.Error("This is a Error logging entry.", details);
+ *             logger.Fatal("This is a Fatal logging entry.", details);
+ *             logger.Critical("This is a Critical logging entry.", details);
  *         }
  *     }
  * }

@@ -28,11 +28,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Plexdata.LogWriter.Abstraction.Tests")]
+[assembly: AssemblyTitle("Plexdata.LogWriter.Mail.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Plexdata.LogWriter.Abstraction.Tests")]
+[assembly: AssemblyProduct("Plexdata.LogWriter.Mail.Tests")]
 [assembly: AssemblyCopyright("Copyright © 2019 - plexdata.de")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -43,7 +43,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("22b35465-3c55-41b2-80c3-76f4f807dd0d")]
+[assembly: Guid("588837a0-62cd-42fb-b1ef-aad20a99e962")]
 
 // Version information for an assembly consists of the following four values:
 //

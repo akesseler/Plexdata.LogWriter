@@ -67,6 +67,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Composit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Composite.Tests", "Plexdata.LogWriter.Composite.Tests\Plexdata.LogWriter.Composite.Tests.csproj", "{C6FE87CC-BDD2-4B24-AE01-497269F8D167}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Mail", "Plexdata.LogWriter.Mail\Plexdata.LogWriter.Mail.csproj", "{647B3E1B-40F8-4B8C-AF7B-369F6AD80493}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Mail.Tests", "Plexdata.LogWriter.Mail.Tests\Plexdata.LogWriter.Mail.Tests.csproj", "{588837A0-62CD-42FB-B1EF-AAD20A99E962}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -145,6 +149,14 @@ Global
 		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6FE87CC-BDD2-4B24-AE01-497269F8D167}.Release|Any CPU.Build.0 = Release|Any CPU
+		{647B3E1B-40F8-4B8C-AF7B-369F6AD80493}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{647B3E1B-40F8-4B8C-AF7B-369F6AD80493}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{647B3E1B-40F8-4B8C-AF7B-369F6AD80493}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{647B3E1B-40F8-4B8C-AF7B-369F6AD80493}.Release|Any CPU.Build.0 = Release|Any CPU
+		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
