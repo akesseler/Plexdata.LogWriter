@@ -4,10 +4,11 @@
 - Introduction of e-mail logger.
   - Mail logger project added.
   - Mail logger testing project added.
-- TBD Source code and online documentation updated.
+- All package release notes replaced by project history hints.
+- Source code and online documentation updated.
 - Version number increased.
-- TBD Wiki and release update on _GitHub_.
-- TBD All affected packages released on `nuget.org`.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
 
 **1.0.4.3**
 - Interface `ILoggerSettingsSection` extended by method `GetValues()`.

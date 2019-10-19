@@ -99,8 +99,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// Gets and sets the SMTP port name.
         /// </summary>
         /// <remarks>
-        /// This property allows to get or set the SMTP port name. Usually, 
-        /// such a port is set to <c>587</c> for new SMTP servers. Legacy 
+        /// This property allows to get or set the SMTP port number. Usually, 
+        /// such a port number is set to <c>587</c> for new SMTP servers. Legacy 
         /// SMTP servers may use <c>25</c> as SMTP port. Default value is 
         /// <c>587</c>.
         /// </remarks>
