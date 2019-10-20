@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
