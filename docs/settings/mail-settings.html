@@ -1,0 +1,128 @@
+﻿
+<h2 id="mail-logger-settings">Mail Settings</h2>
+
+<p>
+    The mail logger settings are the settings used together with each of the mail logger
+    implementations. These settings are defined in interface <code>IMailLoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#conditions">Conditions</a></li>
+    <li><a href="#address">Address</a></li>
+    <li><a href="#username">Username</a></li>
+    <li><a href="#password">Password</a></li>
+    <li><a href="#smtphost">SMTP Host</a></li>
+    <li><a href="#smtpport">SMTP Port</a></li>
+    <li><a href="#usessl">Use SSL</a></li>
+    <li><a href="#encoding">Encoding</a></li>
+    <li><a href="#subject">Subject</a></li>
+    <li><a href="#receivers">Receivers</a></li>
+    <li><a href="#clearcopies">Clear Copies</a></li>
+    <li><a href="#blindcopies">Blind Copies</a></li>
+</ul>
+
+<h3 id="conditions">Conditions</h3>
+
+<p>
+    To be able the send logging messages by e&ndash;mail it is at least required to define
+    the settings <a href="#address">Address</a> and <a href="#username">Username</a> and
+    <a href="#password">Password</a> and <a href="#smtphost">SMTP Host</a>. Additionally,
+    at least one of the receiver addresses (<a href="#receivers">Receivers</a> or
+    <a href="#clearcopies">Clear Copies</a> or <a href="#blindcopies">Blind Copies</a>) must
+    be set. Otherwise, sending of e&ndash;mails will be impossible.
+</p>
+
+<p>
+    On the other hand it is important to know that the mail logger does not throw any exception
+    if sending an e&ndash;mail has failed. But all exceptions are printed out in the <em>Console</em>.
+    This in turn requires a <em>Console</em> window, to be able to recognize trouble with sending
+    e&ndash;mails.
+</p>
+
+<h3 id="address">Address</h3>
+
+<p>
+    With this setting it becomes possible to define the e&ndash;mail sender address. Such a
+    sender address might be an e&ndash;mail address that is specially reserved for a logging
+    service. Example are <code>logging@example.org</code> or <code>noreply@example.org</code>.
+    The <em>Address</em> setting is actually the <em>From</em> e&ndash;mail address.
+</p>
+
+<h3 id="username">Username</h3>
+
+<p>
+    This setting represents the account name required to be able to login at the mail server.
+    Depending on the SMTP host login procedure, the username might be an e&ndash;mail address.
+    The <em>Username</em> in combination with setting <a href="#password">Password</a> is known
+    as <em>Network Credential</em>.
+</p>
+
+<h3 id="password">Password</h3>
+
+<p>
+    This setting represents the account password required to be able to login at the mail server.
+    The <em>Password</em> in combination with setting <a href="#username">Username</a> is known
+    as <em>Network Credential</em>. Be aware, there might be a security issue if such a password is
+    put into an unencrypted configuration file!
+</p>
+
+<h3 id="smtphost">SMTP Host</h3>
+
+<p>
+    This setting describes the fully qualified name of the SMTP host from which e&ndash;mails are
+    sent. Such a host name could be for example <code>mail.example.org</code>.
+</p>
+
+<h3 id="smtpport">SMTP Port</h3>
+
+<p>
+    This setting allows to define the SMTP port number. Usually, such a port number is set to
+    <em>587</em> for new SMTP servers. Legacy SMTP servers may use <em>25</em> as SMTP port.
+    Default value is <em>587</em>.
+</p>
+
+<h3 id="usessl">Use SSL</h3>
+
+<p>
+    This setting allows to determine whether the usage of SSL is enabled or not. Default value is
+    <em>enabled</em>.
+</p>
+
+<h3 id="encoding">Encoding</h3>
+
+<p>
+    This setting allows to define the used e&ndash;mail encoding. This encoding is used for the
+    mail subject as well as for the mail body text. Default value is <em>UTF&ndash;8</em>.
+</p>
+
+<h3 id="subject">Subject</h3>
+
+<p>
+    This setting allows to define the e&ndash;mail subject. The logging message is used as subject
+    if this setting is not define (<code>null</code>, <code>empty</code>, <code>whitespaces</code>).
+    Default value is <em>empty</em>.
+</p>
+
+<h3 id="receivers">Receivers</h3>
+
+<p>
+    This setting allows to define the list of main e&ndash;mail recipients (<em>To</em>). Default
+    value is <em>empty</em>.
+</p>
+
+<h3 id="clearcopies">Clear Copies</h3>
+
+<p>
+    This setting allows to define the list of copy e&ndash;mail recipients (carbon copy <em>CC</em>).
+    Default value is <em>empty</em>.
+</p>
+
+<h3 id="blindcopies">Blind Copies</h3>
+
+<p>
+    This setting allows to define the list of blind e&ndash;mail recipients (blind carbon copy
+    <em>BCC</em>). Default value is <em>empty</em>.
+</p>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

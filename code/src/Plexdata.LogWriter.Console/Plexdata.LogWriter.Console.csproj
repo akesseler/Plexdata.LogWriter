@@ -13,10 +13,10 @@ This package includes classes that are shared between all available implementati
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
     <PackageTags>logging logger log trace debug raw structured console</PackageTags>
-    <PackageReleaseNotes>No changes since last version.</PackageReleaseNotes>
-    <AssemblyVersion>1.0.4.3</AssemblyVersion>
-    <FileVersion>1.0.4.3</FileVersion>
-    <Version>1.0.4.3</Version>
+    <PackageReleaseNotes>See project history under https://github.com/akesseler/Plexdata.LogWriter/blob/master/code/src/HISTORY.md</PackageReleaseNotes>
+    <AssemblyVersion>1.0.5.1</AssemblyVersion>
+    <FileVersion>1.0.5.1</FileVersion>
+    <Version>1.0.5.1</Version>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 
