@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Testing.Helper.Dialogs
 {
     partial class LogLevelDisplayTextDialog
     {

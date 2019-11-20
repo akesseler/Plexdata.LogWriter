@@ -81,6 +81,8 @@ namespace Plexdata.LogWriter.Internals.Factories
                     return new JsonFormatter(settings);
                 case LogType.Csv:
                     return new CsvFormatter(settings);
+                case LogType.Xml:
+                    return new XmlFormatter(settings);
                 default:
                     return new RawFormatter(settings);
             }

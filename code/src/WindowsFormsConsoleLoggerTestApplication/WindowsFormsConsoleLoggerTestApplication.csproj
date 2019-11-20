@@ -65,10 +65,16 @@
     <Compile Include="Controls\ColorComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="LogLevelDisplayColorsDialog.cs">
+    <Compile Include="Dialogs\AboutDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogLevelDisplayColorsDialog.Designer.cs">
+    <Compile Include="Dialogs\AboutDialog.Designer.cs">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\LogLevelDisplayColorsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\LogLevelDisplayColorsDialog.Designer.cs">
       <DependentUpon>LogLevelDisplayColorsDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.cs">
@@ -77,18 +83,24 @@
     <Compile Include="MainWindow.Designer.cs">
       <DependentUpon>MainWindow.cs</DependentUpon>
     </Compile>
-    <Compile Include="LogLevelDisplayTextDialog.cs">
+    <Compile Include="Dialogs\LogLevelDisplayTextDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="LogLevelDisplayTextDialog.Designer.cs">
+    <Compile Include="Dialogs\LogLevelDisplayTextDialog.Designer.cs">
       <DependentUpon>LogLevelDisplayTextDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="LogLevelDisplayColorsDialog.resx">
+    <Compile Include="Utilities\AssemblyHelper.cs" />
+    <Compile Include="Utilities\AssemblyInfo.cs" />
+    <Compile Include="Utilities\SystemMenuHelper.cs" />
+    <EmbeddedResource Include="Dialogs\AboutDialog.resx">
+      <DependentUpon>AboutDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\LogLevelDisplayColorsDialog.resx">
       <DependentUpon>LogLevelDisplayColorsDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="LogLevelDisplayTextDialog.resx">
+    <EmbeddedResource Include="Dialogs\LogLevelDisplayTextDialog.resx">
       <DependentUpon>LogLevelDisplayTextDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainWindow.resx">
@@ -146,5 +158,6 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

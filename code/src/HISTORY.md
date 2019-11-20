@@ -1,5 +1,15 @@
 
 
+**1.0.5.2**
+- Support of a simple XML message format.
+- Correction of some typos.
+- Test adjusted as well as new tests added.
+- Testing application enriched by new feature and others.
+- Source code and online documentation updated.
+- Version number increased.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
+
 **1.0.5.1**
 - Introduction of e-mail logger.
   - Mail logger project added.

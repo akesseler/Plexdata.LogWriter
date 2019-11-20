@@ -25,19 +25,20 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Plexdata.LogWriter.Internals.Formatters
 {
     /// <summary>
     /// This internal class provides functionality to transform 
-    /// logging massages into CSV format.
+    /// logging massages into XML format.
     /// </summary>
     /// <remarks>
-    /// Each logging message transformed by this formatter creates 
-    /// a string that is compatible to RFC 4180.
+    /// Each logging message transformed by this formatter just 
+    /// creates a simple XML string.
     /// </remarks>
-    internal class CsvFormatter : FormatterBase, ILogEventFormatter
+    internal class XmlFormatter : FormatterBase, ILogEventFormatter
     {
         #region Construction
 
@@ -53,13 +54,13 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </param>
         /// <exception cref="NotSupportedException">
         /// This exception is thrown if the logging type within provided settings 
-        /// is not set to <see cref="LogType.Csv"/>.
+        /// is not set to <see cref="LogType.Xml"/>.
         /// </exception>
         /// <seealso cref="FormatterBase(ILoggerSettings)"/>
-        public CsvFormatter(ILoggerSettings settings)
+        public XmlFormatter(ILoggerSettings settings)
             : base(settings)
         {
-            if (base.Settings.LogType != LogType.Csv)
+            if (base.Settings.LogType != LogType.Xml)
             {
                 throw new NotSupportedException($"Logging type of {base.Settings.LogType.ToString().ToUpper()} is not supported by this formatter.");
             }
@@ -71,9 +72,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
 
         /// <inheritdoc />
         /// <remarks>
-        /// Intentionally, the CSV formatter does not skip any of the message parts. 
-        /// This means that the <c>null</c> string or an empty string is used if a 
-        /// particular part is not valid.
+        /// Intentionally, the XML formatter does not skip any of the message parts. 
+        /// This means that an <c>empty</c> string is used if a particular part is not 
+        /// valid.
         /// </remarks>
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown as soon as one the parameters is <c>null</c>.
@@ -92,25 +93,28 @@ namespace Plexdata.LogWriter.Internals.Formatters
 
             builder.Clear();
 
-            Char split = base.Settings.PartSplit;
+            // BUG: UTF-8 may not be correct because which encoding is really used?
+            builder.Append("<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification>");
 
-            this.AddKey(builder, value.Key, split);
+            Char split = '\0';
 
-            this.AddTime(builder, value.Time, split);
+            this.AddKey(builder, nameof(value.Key), value.Key, split);
 
-            this.AddLevel(builder, value.Level, split);
+            this.AddTime(builder, nameof(value.Time), value.Time, split);
 
-            this.AddContext(builder, value.Context, split);
+            this.AddLevel(builder, nameof(value.Level), value.Level, split);
 
-            this.AddScope(builder, value.Scope, split);
+            this.AddContext(builder, nameof(value.Context), value.Context, split);
 
-            this.AddMessage(builder, value.Message, split);
+            this.AddScope(builder, nameof(value.Scope), value.Scope, split);
 
-            this.AddDetails(builder, value.Details, split);
+            this.AddMessage(builder, nameof(value.Message), value.Message, split);
 
-            this.AddException(builder, value.Exception, split);
+            this.AddDetails(builder, nameof(value.Details), value.Details, split);
 
-            base.TrimEnd(builder, split); // RFC 4180 does not include a terminating split character.
+            this.AddException(builder, nameof(value.Exception), value.Exception, split);
+
+            builder.Append("</notification></logging>");
         }
 
         #endregion
@@ -119,66 +123,68 @@ namespace Plexdata.LogWriter.Internals.Formatters
 
         /// <inheritdoc />
         /// <remarks>
-        /// This method is only used for value formatting. Furthermore, a <c>null</c> 
-        /// string is used if a label-value-pair contains an invalid label text.
+        /// This method is used to format every label. Furthermore, a <c>null</c> 
+        /// string is used if a label contains an invalid descriptor. All spaces 
+        /// are replaced by dashes. Finally, the resulting label is converted in 
+        /// lower cases.
         /// </remarks>
         protected override String ToLabel(String label)
         {
-            return (label ?? base.NullValue).Trim();
+            return (label ?? base.NullValue).Trim().Replace(" ", "-").ToLower();
         }
 
         /// <inheritdoc />
         /// <remarks>
-        /// This method is only used for value formatting. Furthermore, a <c>null</c> 
-        /// string is used if a label-value-pair contains an invalid label text.
+        /// This method simply calls method <see cref="ToOutput(String, Char)"/>
         /// </remarks>
         protected override String ToValue(String value, Char split)
         {
-            return (value ?? base.NullValue).Trim();
+            return this.ToOutput(value, split);
         }
 
         /// <inheritdoc />
         /// <remarks>
-        /// This method takes the value and checks if it includes at least one double 
-        /// quote character or one carriage return character or one line feed character 
-        /// or one of the provided split character. If this the case then the whole 
-        /// value is surrounded by double quotes. Additionally, each of the double 
-        /// quotes within the value are escaped according to the rules of RFC 4180.
+        /// This method takes the value and checks if it includes at least one of the 
+        /// characters "less than", "greater than", "double quote", "single quote" or 
+        /// "ampersand". Each of those characters is replaced by its XML expression 
+        /// if this is the case.
         /// </remarks>
         protected override String ToOutput(String value, Char split)
         {
-            const Char DQ = '"';  // Double Quote 
-            const Char CR = '\r'; // Carriage Return
-            const Char LF = '\n'; // Line Feed
-
-            if (String.IsNullOrWhiteSpace(value))
+            if (value == null || value == base.NullValue || String.IsNullOrWhiteSpace(value))
             {
-                value = String.Empty;
+                return String.Empty;
             }
 
-            if (value.IndexOfAny(new Char[] { DQ, CR, LF, split }) >= 0)
-            {
-                if (value.IndexOf(DQ) >= 0)
-                {
-                    value = value.Replace($"{DQ}", $"{DQ}{DQ}");
-                }
-
-                return $"{DQ}{value}{DQ}{split}";
-            }
-            else
-            {
-                return $"{value}{split}";
-            }
+            return value
+                 .Replace("&", "&amp;")   // Replace "ampersand" by escaped "ampersand" (must be first).
+                 .Replace("<", "&lt;")    // Replace "less than" by escaped "less than".
+                 .Replace(">", "&gt;")    // Replace "greater than" by escaped "greater than".
+                 .Replace("\"", "&quot;") // Replace "double quote" by escaped "double quote".
+                 .Replace("'", "&apos;"); // Replace "single quote" by escaped "single quote".
         }
 
         /// <inheritdoc />
         /// <remarks>
-        /// This method just calls method <see cref="ToOutput(String, Char)"/>
+        /// This method formats each <paramref name="label"/> and 
+        /// <paramref name="value"/> combination as XML string. The 
+        /// provided <paramref name="split"/> character is not use.
         /// </remarks>
+        /// <seealso cref="ToLabel(String)"/>
         /// <seealso cref="ToValue(String, Char)"/>
         protected override String ToOutput(String label, String value, Char split)
         {
-            return this.ToOutput(value, split);
+            label = this.ToLabel(label);
+            value = this.ToValue(value, split);
+
+            if (String.IsNullOrWhiteSpace(value))
+            {
+                return $"<{label} />";
+            }
+            else
+            {
+                return $"<{label}>{value}</{label}>";
+            }
         }
 
         #endregion
@@ -187,32 +193,33 @@ namespace Plexdata.LogWriter.Internals.Formatters
 
         /// <summary>
         /// The method puts the <paramref name="key"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The key is always appended and cannot be disabled.
+        /// The key is always added and cannot be disabled.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="key">
         /// The key to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <see cref="FormatterBase.GetKey(Guid)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddKey(StringBuilder builder, Guid key, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddKey(StringBuilder builder, String label, Guid key, Char split)
         {
-            builder.Append(this.ToOutput(base.GetKey(key), split));
+            builder.Append(this.ToOutput(label, base.GetKey(key), split));
         }
 
         /// <summary>
         /// The method puts the <paramref name="time"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
         /// The time stamp is always appended and cannot be disabled.
@@ -220,184 +227,203 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <param name="builder">
         /// The string builder to be used.
         /// </param>
+        /// <param name="label">
+        /// The value label to be used.
+        /// </param>
         /// <param name="time">
         /// The time stamp to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <see cref="FormatterBase.GetTime(DateTime)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddTime(StringBuilder builder, DateTime time, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddTime(StringBuilder builder, String label, DateTime time, Char split)
         {
-            builder.Append(this.ToOutput(base.GetTime(time), split));
+            builder.Append(this.ToOutput(label, base.GetTime(time), split));
         }
 
         /// <summary>
         /// The method puts the <paramref name="level"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The logging level is always appended and cannot be disabled.
+        /// The logging level is always added and cannot be disabled.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="level">
         /// The logging level to be appended.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <see cref="FormatterBase.GetLevel(LogLevel)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddLevel(StringBuilder builder, LogLevel level, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddLevel(StringBuilder builder, String label, LogLevel level, Char split)
         {
-            builder.Append(this.ToOutput(base.GetLevel(level), split));
+            builder.Append(this.ToOutput(label, base.GetLevel(level), split));
         }
 
         /// <summary>
         /// The method puts the <paramref name="context"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The context is always appended and cannot be disabled, but might be empty.
+        /// The context is always added and cannot be disabled, but might 
+        /// be <c>empty</c>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="context">
         /// The context to be appended.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <see cref="FormatterBase.GetContext(String)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddContext(StringBuilder builder, String context, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddContext(StringBuilder builder, String label, String context, Char split)
         {
-            builder.Append(this.ToOutput(base.GetContext(context, String.Empty), split));
+            builder.Append(this.ToOutput(label, base.GetContext(context, String.Empty), split));
         }
 
         /// <summary>
         /// The method puts the <paramref name="scope"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The scope is always appended and cannot be disabled, but might be empty.
+        /// The scope is always added and cannot be disabled, but might 
+        /// be <c>empty</c>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="scope">
         /// The scope to be appended.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <see cref="FormatterBase.GetScope(String)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddScope(StringBuilder builder, String scope, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddScope(StringBuilder builder, String label, String scope, Char split)
         {
-            builder.Append(this.ToOutput(base.GetScope(scope, String.Empty), split));
+            builder.Append(this.ToOutput(label, base.GetScope(scope, String.Empty), split));
         }
 
         /// <summary>
         /// The method puts the <paramref name="message"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The message is always appended and cannot be disabled, but might be empty.
+        /// The message is always added and cannot be disabled, but might 
+        /// be <c>empty</c>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="message">
         /// The message to be appended.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <see cref="FormatterBase.GetMessage(String)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddMessage(StringBuilder builder, String message, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddMessage(StringBuilder builder, String label, String message, Char split)
         {
-            builder.Append(this.ToOutput(base.GetMessage(message, String.Empty), split));
+            builder.Append(this.ToOutput(label, base.GetMessage(message, String.Empty), split));
         }
 
         /// <summary>
         /// The method puts the <paramref name="details"/> into the string 
-        /// <paramref name="builder"/> and appends the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// <para>
-        /// The details are always appended and cannot be disabled, but might be empty.
-        /// </para>
-        /// <para>
-        /// If a value list is available, then each of them is put into a string with 
-        /// surrounding square brackets. Each of the label-value-pairs is separated by 
-        /// one comma. 
-        /// </para>
+        /// The details are always added and cannot be disabled, but might be 
+        /// <c>empty</c>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="details">
         /// The details to be appended.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character is ignored.
         /// </param>
         /// <seealso cref="ToLabel(String)"/>
         /// <seealso cref="ToValue(String, Char)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
         /// <see cref="FormatterBase.GetConverted(Object)"/>
-        private void AddDetails(StringBuilder builder, (String Label, Object Value)[] details, Char split)
+        private void AddDetails(StringBuilder builder, String label, (String Label, Object Value)[] details, Char split)
         {
-            StringBuilder helper = new StringBuilder(512);
+            label = this.ToLabel(label);
 
             if (details != null && details.Length > 0)
             {
-                Char temp = ',';
+                StringBuilder helper = new StringBuilder(512);
+
+                helper.Append($"<{label}>");
 
                 foreach ((String Label, Object Value) in details)
                 {
-                    helper.Append($"[{this.ToLabel(Label)}={this.ToValue(base.GetConverted(Value), '\0')}]{temp}");
+                    helper.Append(this.ToOutput(Label, base.GetConverted(Value), split));
                 }
 
-                base.TrimEnd(helper, temp);
-            }
+                helper.Append($"</{label}>");
 
-            builder.Append(this.ToOutput(helper.ToString(), split));
+                builder.Append(helper.ToString());
+            }
+            else
+            {
+                builder.Append($"<{label} />");
+            }
         }
 
         /// <summary>
         /// The method puts the <paramref name="exception"/> into the string 
-        /// <paramref name="builder"/> and adds the <paramref name="split"/> 
-        /// character.
+        /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The exception is always appended and cannot be disabled, but might be empty.
+        /// The exception is always added and cannot be disabled, but might 
+        /// be <c>empty</c>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
+        /// </param>
+        /// <param name="label">
+        /// The value label to be used.
         /// </param>
         /// <param name="exception">
         /// The exception to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be used.
+        /// The split character is ignored.
         /// </param>
         /// <seealso cref="FormatterBase.GetException(Exception, String)"/>
-        /// <seealso cref="ToOutput(String, Char)"/>
-        private void AddException(StringBuilder builder, Exception exception, Char split)
+        /// <seealso cref="ToOutput(String, String, Char)"/>
+        private void AddException(StringBuilder builder, String label, Exception exception, Char split)
         {
-            builder.Append(this.ToOutput(base.GetException(exception, String.Empty), split));
+            builder.Append(this.ToOutput(label, base.GetException(exception, String.Empty), split));
         }
 
         #endregion

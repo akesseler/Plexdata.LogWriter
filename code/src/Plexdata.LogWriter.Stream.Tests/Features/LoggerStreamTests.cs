@@ -191,7 +191,7 @@ namespace Plexdata.LogWriter.Stream.Tests.Features
 
             List<String> messages = this.GetInitialMessageList(count);
 
-            Byte[] buffer = instance.Encoding.GetBytes(String.Join(Environment.NewLine, messages));
+            Byte[] buffer = instance.Encoding.GetBytes(String.Join(LoggerStream.ETB, messages));
 
             instance.Write(buffer, 0, buffer.Length);
 

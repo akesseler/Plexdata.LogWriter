@@ -105,6 +105,19 @@ namespace Plexdata.LogWriter.Features
 
         #endregion
 
+        #region Public constants
+
+        /// <summary>
+        /// The End of Transmission Block control character.
+        /// </summary>
+        /// <remarks>
+        /// The ETB control character is used to split a written 
+        /// buffer into a list of messages.
+        /// </remarks>
+        public static readonly String ETB = new String((Char)0x17, 1);
+
+        #endregion
+
         #region Construction
 
         /// <summary>
@@ -343,7 +356,7 @@ namespace Plexdata.LogWriter.Features
         /// This method splits the content of provided <paramref name="buffer"/> 
         /// (starting at <paramref name="offset"/> and taking <paramref name="count"/> 
         /// bytes) into multiple lines of strings. These line-splits are made at each 
-        /// <see cref="Environment.NewLine"/>. Furthermore, every invalid or empty 
+        /// <see cref="LoggerStream.ETB"/>. Furthermore, every invalid or empty 
         /// line is automatically removed from the resulting list of lines!
         /// </para>
         /// <para>
@@ -369,7 +382,7 @@ namespace Plexdata.LogWriter.Features
                 {
                     IEnumerable<String> messages = this.Encoding
                         .GetString(buffer, offset, count)
-                        .Split(new String[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries)
+                        .Split(new String[] { LoggerStream.ETB }, StringSplitOptions.RemoveEmptyEntries)
                         .Where(x => !String.IsNullOrWhiteSpace(x))
                         .AsEnumerable();
 

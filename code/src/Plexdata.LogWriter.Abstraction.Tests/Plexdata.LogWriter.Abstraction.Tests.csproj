@@ -68,6 +68,7 @@
     <Compile Include="Internals\Formatters\FormatterBaseTests.cs" />
     <Compile Include="Internals\Formatters\JsonFormatterTests.cs" />
     <Compile Include="Internals\Formatters\RawFormatterTests.cs" />
+    <Compile Include="Internals\Formatters\XmlFormatterTests.cs" />
     <Compile Include="Internals\Settings\LoggerSettingsBaseTests.cs" />
     <Compile Include="Internals\Settings\LoggerSettingsEmptyTests.cs" />
     <Compile Include="Internals\Settings\LoggerSettingsJsonTests.cs" />

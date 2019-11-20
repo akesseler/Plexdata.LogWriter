@@ -28,7 +28,7 @@ using System;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Testing.Helper.Dialogs
 {
     public partial class LogLevelDisplayTextDialog : Form
     {
