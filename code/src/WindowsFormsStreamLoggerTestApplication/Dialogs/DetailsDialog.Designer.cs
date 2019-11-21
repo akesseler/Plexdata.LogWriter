@@ -22,9 +22,9 @@
  * SOFTWARE.
  */
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Testing.Helper.Dialogs
 {
-    partial class LoggerDataDetailDialog
+    partial class DetailsDialog
     {
         /// <summary>
         /// Required designer variable.
@@ -52,7 +52,7 @@ namespace Plexdata.LogWriter.Testing.Helper
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoggerDataDetailDialog));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DetailsDialog));
             this.btnClose = new System.Windows.Forms.Button();
             this.panBottom = new System.Windows.Forms.Panel();
             this.lstDetails = new System.Windows.Forms.ListView();
@@ -141,7 +141,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.spcContent.SplitterDistance = 120;
             this.spcContent.TabIndex = 0;
             // 
-            // LoggerDataDetailDialog
+            // DetailsDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -152,7 +152,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "LoggerDataDetailDialog";
+            this.Name = "DetailsDialog";
             this.ShowInTaskbar = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;

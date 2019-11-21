@@ -120,7 +120,7 @@
 
 <p>
     The logging type actually decides which message formatting type is used. For the moment, possible
-    formats are RAW, CSV and JSON.
+    formats are RAW, CSV, JSON and XML.
 </p>
 
 <h4>Raw Format</h4>
@@ -213,7 +213,7 @@ B5BCB835-1272-48A2-83D1-824267298716;2019-05-23 17:23:05.1234;ERROR;;;"message t
     In that order, any of these messages consists of:
     <ul style="list-style-type:circle;">
         <li><code>Key</code>;</li>
-        <li><code>Timestamp</code>;</li>
+        <li><code>Time</code>;</li>
         <li><code>Level</code>;</li>
         <li><code>Context</code>, or null value;</li>
         <li><code>Scope</code>, or null value;</li>
@@ -223,6 +223,43 @@ B5BCB835-1272-48A2-83D1-824267298716;2019-05-23 17:23:05.1234;ERROR;;;"message t
     </ul>
     Each label and each value (except null) is surrounded by double quotes. Any user&ndash;defined date/time
     format is replaced by UTC format with time&ndash;zone information.
+</p>
+
+<h4>XML Format</h4>
+
+<p>
+    XML (Extensible Markup Language) is also a format that allows to share objects between different programs. Thus,
+    the XML format can be used to transform logging messages in this special data format. More information about
+    XML format might be found on <a href="https://www.w3.org/tr/xml" target="_blank">https://www.w3.org/tr/xml</a>.
+</p>
+
+<p>
+    For the moment, only a simple XML format is supported. That in turn means, all tags are put into lower cases
+    and no type specifications are available as tag attributes.
+</p>
+
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;7E098995-D1AA-431E-91CE-04FDF3DA09CF&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;TRACE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;2A42295D-1253-4317-8B81-65DE1512D60A&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;DEBUG&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;F727504C-73D6-4042-BC3A-96D107E478A9&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;VERBOSE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;E56F77B7-EE59-43BD-90C3-6CEEE272333A&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;MESSAGE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;C3F51AF2-BA0A-43E5-A1EB-32E2210A9C16&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;WARNING&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;EDA354AC-C651-4972-90D8-71EA02F8CB24&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;ERROR&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;2A6CA48D-ECF4-446B-B6C1-BAC7E52FB237&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;FATAL&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;6C094A18-87CF-451F-A39D-793A68758A0E&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;CRITICAL&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;</code></pre>
+
+<p>
+    In that order, any of these messages consists of:
+    <ul style="list-style-type:circle;">
+        <li><code>key</code>;</li>
+        <li><code>time</code>;</li>
+        <li><code>level</code>;</li>
+        <li><code>context</code>, or empty;</li>
+        <li><code>scope</code>, or empty;</li>
+        <li><code>message</code>, or empty;</li>
+        <li><code>details</code>, or empty;</li>
+        <li><code>exception</code>, or empty.</li>
+    </ul>
+    Finally, all logging message using XML format are not put into &ldquo;pretty format&rdquo;.
 </p>
 
 <h3 id="logging-time">Logging Time</h3>

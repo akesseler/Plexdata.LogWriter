@@ -81,6 +81,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Factories
         [TestCase(LogType.Raw, typeof(RawFormatter))]
         [TestCase(LogType.Csv, typeof(CsvFormatter))]
         [TestCase(LogType.Json, typeof(JsonFormatter))]
+        [TestCase(LogType.Xml, typeof(XmlFormatter))]
         public void LoggerFactory_CreateLogEventFormatterForSpecialType_FormatterTypeAsExpected(LogType type, Type expected)
         {
             this.settings.LogType = type;

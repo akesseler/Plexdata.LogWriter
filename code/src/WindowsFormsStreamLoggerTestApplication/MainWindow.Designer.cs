@@ -55,6 +55,16 @@ namespace Plexdata.LogWriter.Testing.Helper
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.lblTest = new System.Windows.Forms.Label();
             this.spcContent = new System.Windows.Forms.SplitContainer();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
+            this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuTools = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuToolsLevel = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuToolsFormat = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.mnuToolsDumps = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelp = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuHelpAbout = new System.Windows.Forms.ToolStripMenuItem();
             this.lstMessages = new System.Windows.Forms.ListView();
             this.colTime = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.colLevel = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -65,15 +75,16 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.spcContent.Panel1.SuspendLayout();
             this.spcContent.Panel2.SuspendLayout();
             this.spcContent.SuspendLayout();
+            this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblTest
             // 
             this.lblTest.BackColor = System.Drawing.SystemColors.ControlDark;
             this.lblTest.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblTest.Location = new System.Drawing.Point(0, 0);
+            this.lblTest.Location = new System.Drawing.Point(0, 24);
             this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(784, 350);
+            this.lblTest.Size = new System.Drawing.Size(784, 326);
             this.lblTest.TabIndex = 2;
             this.lblTest.Text = "Click here to generate messages.\r\n\r\nDouble-click on of the list items to show mes" +
     "sage details.";
@@ -89,6 +100,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             // spcContent.Panel1
             // 
             this.spcContent.Panel1.Controls.Add(this.lblTest);
+            this.spcContent.Panel1.Controls.Add(this.mainMenu);
             // 
             // spcContent.Panel2
             // 
@@ -96,6 +108,85 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.spcContent.Size = new System.Drawing.Size(784, 562);
             this.spcContent.SplitterDistance = 350;
             this.spcContent.TabIndex = 3;
+            // 
+            // mainMenu
+            // 
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFile,
+            this.mnuTools,
+            this.mnuHelp});
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(784, 24);
+            this.mainMenu.TabIndex = 4;
+            this.mainMenu.Text = "Main Menu";
+            // 
+            // mnuFile
+            // 
+            this.mnuFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuFileExit});
+            this.mnuFile.Name = "mnuFile";
+            this.mnuFile.Size = new System.Drawing.Size(37, 20);
+            this.mnuFile.Text = "&File";
+            // 
+            // mnuFileExit
+            // 
+            this.mnuFileExit.Name = "mnuFileExit";
+            this.mnuFileExit.Size = new System.Drawing.Size(92, 22);
+            this.mnuFileExit.Text = "E&xit";
+            this.mnuFileExit.Click += new System.EventHandler(this.OnMenuExitClicked);
+            // 
+            // mnuTools
+            // 
+            this.mnuTools.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuToolsLevel,
+            this.mnuToolsFormat,
+            this.mnuSeparator1,
+            this.mnuToolsDumps});
+            this.mnuTools.Name = "mnuTools";
+            this.mnuTools.Size = new System.Drawing.Size(48, 20);
+            this.mnuTools.Text = "&Tools";
+            // 
+            // mnuToolsLevel
+            // 
+            this.mnuToolsLevel.Name = "mnuToolsLevel";
+            this.mnuToolsLevel.Size = new System.Drawing.Size(180, 22);
+            this.mnuToolsLevel.Text = "Level";
+            this.mnuToolsLevel.DropDownOpening += new System.EventHandler(this.OnLevelOpening);
+            // 
+            // mnuToolsFormat
+            // 
+            this.mnuToolsFormat.Name = "mnuToolsFormat";
+            this.mnuToolsFormat.Size = new System.Drawing.Size(180, 22);
+            this.mnuToolsFormat.Text = "Format";
+            this.mnuToolsFormat.DropDownOpening += new System.EventHandler(this.OnFormatOpening);
+            // 
+            // mnuSeparator1
+            // 
+            this.mnuSeparator1.Name = "mnuSeparator1";
+            this.mnuSeparator1.Size = new System.Drawing.Size(177, 6);
+            // 
+            // mnuToolsDumps
+            // 
+            this.mnuToolsDumps.Name = "mnuToolsDumps";
+            this.mnuToolsDumps.Size = new System.Drawing.Size(180, 22);
+            this.mnuToolsDumps.Text = "&Dumps";
+            this.mnuToolsDumps.Click += new System.EventHandler(this.OnMenuDumpsClicked);
+            // 
+            // mnuHelp
+            // 
+            this.mnuHelp.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuHelpAbout});
+            this.mnuHelp.Name = "mnuHelp";
+            this.mnuHelp.Size = new System.Drawing.Size(44, 20);
+            this.mnuHelp.Text = "&Help";
+            // 
+            // mnuHelpAbout
+            // 
+            this.mnuHelpAbout.Name = "mnuHelpAbout";
+            this.mnuHelpAbout.Size = new System.Drawing.Size(116, 22);
+            this.mnuHelpAbout.Text = "&About...";
+            this.mnuHelpAbout.Click += new System.EventHandler(this.OnMenuAboutClicked);
             // 
             // lstMessages
             // 
@@ -107,6 +198,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.colMessage});
             this.lstMessages.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lstMessages.FullRowSelect = true;
+            this.lstMessages.HideSelection = false;
             this.lstMessages.Location = new System.Drawing.Point(0, 0);
             this.lstMessages.MultiSelect = false;
             this.lstMessages.Name = "lstMessages";
@@ -148,12 +240,16 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.ClientSize = new System.Drawing.Size(784, 562);
             this.Controls.Add(this.spcContent);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MainMenuStrip = this.mainMenu;
             this.Name = "MainWindow";
             this.Text = "Stream Logger Test Window";
             this.spcContent.Panel1.ResumeLayout(false);
+            this.spcContent.Panel1.PerformLayout();
             this.spcContent.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.spcContent)).EndInit();
             this.spcContent.ResumeLayout(false);
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -167,6 +263,16 @@ namespace Plexdata.LogWriter.Testing.Helper
         private System.Windows.Forms.ColumnHeader colContext;
         private System.Windows.Forms.ColumnHeader colScope;
         private System.Windows.Forms.ColumnHeader colMessage;
+        private System.Windows.Forms.MenuStrip mainMenu;
+        private System.Windows.Forms.ToolStripMenuItem mnuFile;
+        private System.Windows.Forms.ToolStripMenuItem mnuFileExit;
+        private System.Windows.Forms.ToolStripMenuItem mnuTools;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelp;
+        private System.Windows.Forms.ToolStripMenuItem mnuHelpAbout;
+        private System.Windows.Forms.ToolStripMenuItem mnuToolsDumps;
+        private System.Windows.Forms.ToolStripMenuItem mnuToolsFormat;
+        private System.Windows.Forms.ToolStripMenuItem mnuToolsLevel;
+        private System.Windows.Forms.ToolStripSeparator mnuSeparator1;
     }
 }
 

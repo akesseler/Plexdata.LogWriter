@@ -26,11 +26,11 @@ using Plexdata.LogWriter.Testing.Helper.Logging;
 using System;
 using System.Windows.Forms;
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Testing.Helper.Dialogs
 {
-    public partial class LoggerDataDetailDialog : Form
+    public partial class DetailsDialog : Form
     {
-        public LoggerDataDetailDialog(LoggerData message)
+        public DetailsDialog(LoggerData message)
         {
             this.InitializeComponent();
             this.SetupControls(message);

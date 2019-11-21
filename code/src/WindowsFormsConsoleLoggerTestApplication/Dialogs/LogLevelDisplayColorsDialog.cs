@@ -31,7 +31,7 @@ using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Plexdata.LogWriter.Testing.Helper
+namespace Plexdata.LogWriter.Testing.Helper.Dialogs
 {
     public partial class LogLevelDisplayColorsDialog : Form
     {

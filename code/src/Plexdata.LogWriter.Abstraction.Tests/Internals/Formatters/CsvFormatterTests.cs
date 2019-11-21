@@ -81,6 +81,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [Test]
         [TestCase(LogType.Raw)]
         [TestCase(LogType.Json)]
+        [TestCase(LogType.Xml)]
         public void CsvFormatter_WrongLogType_ThrowsNotSupportedException(LogType logType)
         {
             this.settings.SetupGet(x => x.LogType).Returns(logType);

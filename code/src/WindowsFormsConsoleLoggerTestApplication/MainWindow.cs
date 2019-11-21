@@ -28,6 +28,8 @@ using Plexdata.LogWriter.Extensions;
 using Plexdata.LogWriter.Facades.Windows;
 using Plexdata.LogWriter.Logging.Windows;
 using Plexdata.LogWriter.Settings;
+using Plexdata.LogWriter.Testing.Helper.Dialogs;
+using Plexdata.Utilities.Assembly;
 using System;
 using System.Diagnostics;
 using System.Globalization;
@@ -39,6 +41,7 @@ namespace Plexdata.LogWriter.Testing.Helper
 {
     public partial class MainWindow : Form
     {
+        private SystemMenuHelper handler;
         private IConsoleLoggerFacade facade = null;
         private IConsoleLoggerSettings settings = null;
         private IConsoleLogger defaultLogger = null;
@@ -49,6 +52,10 @@ namespace Plexdata.LogWriter.Testing.Helper
         public MainWindow()
         {
             this.InitializeComponent();
+
+            this.handler = new SystemMenuHelper(this);
+            this.handler.AddSeparator();
+            this.handler.AddCommand("&About...", this.OnSystemMenuAbout);
 
             this.facade = new ConsoleLoggerFacade();
             this.settings = new ConsoleLoggerSettings
@@ -67,6 +74,15 @@ namespace Plexdata.LogWriter.Testing.Helper
 
             this.SetupControls();
         }
+
+        #region Action handlers
+
+        private void OnSystemMenuAbout()
+        {
+            (new AboutDialog()).ShowDialog(this);
+        }
+
+        #endregion
 
         #region Event handlers
 

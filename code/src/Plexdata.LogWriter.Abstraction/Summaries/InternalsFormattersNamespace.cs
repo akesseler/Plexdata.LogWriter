@@ -32,8 +32,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
     /// This namespace only includes classes that implement interface 
     /// <see cref="Plexdata.LogWriter.Abstraction.ILogEventFormatter"/>. At the moment, these 
     /// classes are the <see cref="Plexdata.LogWriter.Internals.Formatters.RawFormatter"/>, 
-    /// the <see cref="Plexdata.LogWriter.Internals.Formatters.CsvFormatter"/> and  the 
-    /// <see cref="Plexdata.LogWriter.Internals.Formatters.JsonFormatter"/>. All of these 
+    /// the <see cref="Plexdata.LogWriter.Internals.Formatters.CsvFormatter"/>, 
+    /// the <see cref="Plexdata.LogWriter.Internals.Formatters.JsonFormatter"/> and 
+    /// the <see cref="Plexdata.LogWriter.Internals.Formatters.XmlFormatter"/>. All of these 
     /// classes are derived from <see cref="Plexdata.LogWriter.Internals.Formatters.FormatterBase"/>.
     /// </remarks>
     [System.Runtime.CompilerServices.CompilerGenerated]

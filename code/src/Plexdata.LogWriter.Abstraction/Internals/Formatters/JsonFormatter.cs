@@ -151,7 +151,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <inheritdoc />
         /// <remarks>
         /// <para>
-        /// This method takes the value and check if it includes at least one the 
+        /// This method takes the value and checks if it includes at least one the 
         /// characters backslash, double quote, carriage return, line feed, form 
         /// feed, backspace or tab. If this is the case then each of those control 
         /// characters is escaped by a backslash. Additionally, each result string 
@@ -231,7 +231,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="key">
-        /// The key stamp to be used.
+        /// The key to be used.
         /// </param>
         /// <param name="split">
         /// The split character to be appended.
@@ -399,7 +399,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// <para>
-        /// The details are always added and cannot be disabled, but might be empty.
+        /// The details are always added and cannot be disabled, but might be <c>empty</c>.
         /// </para>
         /// <para>
         /// If a value list is available, then each of them is put into a string with 

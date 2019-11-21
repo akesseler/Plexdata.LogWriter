@@ -53,6 +53,19 @@ namespace Plexdata.LogWriter.Facades
 
         #endregion
 
+        #region Public constants
+
+        /// <summary>
+        /// The End of Transmission Block control character.
+        /// </summary>
+        /// <remarks>
+        /// The ETB control character is used to split a written 
+        /// buffer into a list of messages.
+        /// </remarks>
+        public static readonly String ETB = new String((Char)0x17, 1);
+
+        #endregion
+
         #region Construction
 
         /// <summary>
@@ -163,9 +176,9 @@ namespace Plexdata.LogWriter.Facades
                         return false;
                     }
 
-                    StringBuilder builder = new StringBuilder(String.Join(Environment.NewLine, StreamLoggerFacade.GetCleanMessages(messages))).Append(Environment.NewLine);
+                    StringBuilder builder = new StringBuilder(String.Join(StreamLoggerFacade.ETB, StreamLoggerFacade.GetCleanMessages(messages))).Append(StreamLoggerFacade.ETB);
 
-                    if (builder.Length < 3) // Check if less than last new line.
+                    if (builder.Length < 2) // Check if less than last ETB.
                     {
                         return false;
                     }

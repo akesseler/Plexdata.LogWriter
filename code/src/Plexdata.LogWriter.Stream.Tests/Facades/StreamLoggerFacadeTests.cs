@@ -133,7 +133,7 @@ namespace Plexdata.LogWriter.Stream.Tests.Facades
         {
             List<String> messages = new List<String> { "message", null, "  message  ", "", "   ", "\r\nmessage", "message\r\n", "message  \r\n  " };
 
-            Int64 written = Encoding.ASCII.GetBytes("message\r\nmessage\r\nmessage\r\nmessage\r\nmessage\r\n").Length;
+            Int64 written = this.GetBuffer(Encoding.ASCII, "message", 5).Length;
 
             Int64 expected = this.stream.Length + written;
 
@@ -149,7 +149,7 @@ namespace Plexdata.LogWriter.Stream.Tests.Facades
         {
             List<String> messages = new List<String> { "message", "  message  ", "\r\nmessage", "message\r\n", "message  \r\n  ", " \r\n   \r\n    message  \r\n  \r\n  " };
 
-            Int64 written = Encoding.ASCII.GetBytes("message\r\nmessage\r\nmessage\r\nmessage\r\nmessage\r\nmessage\r\n").Length;
+            Int64 written = this.GetBuffer(Encoding.ASCII, "message", 6).Length;
 
             Int64 expected = this.stream.Length + written;
 
@@ -158,6 +158,22 @@ namespace Plexdata.LogWriter.Stream.Tests.Facades
             Int64 actual = this.stream.Length;
 
             Assert.That(actual, Is.EqualTo(expected));
+        }
+
+        #endregion
+
+        #region Private helpers
+
+        private Byte[] GetBuffer(Encoding encoding, String message, Int32 count)
+        {
+            StringBuilder builder = new StringBuilder((message.Length + StreamLoggerFacade.ETB.Length) * count);
+
+            for (Int32 index = 0; index < count; index++)
+            {
+                builder.Append($"{message}{StreamLoggerFacade.ETB}");
+            }
+
+            return encoding.GetBytes(builder.ToString());
         }
 
         #endregion
