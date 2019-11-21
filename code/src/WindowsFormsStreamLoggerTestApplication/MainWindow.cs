@@ -159,11 +159,9 @@ namespace Plexdata.LogWriter.Testing.Helper
                         case LogType.Xml:
                             message = this.GetLoggerDataFromXml(current);
                             break;
-
                         case LogType.Csv:
                             message = this.GetLoggerDataFromCsv(current);
                             break;
-
                         default:
                             return;
                     }

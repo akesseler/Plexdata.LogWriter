@@ -115,7 +115,7 @@ namespace Plexdata.Utilities.Assembly
 
             try
             {
-                if (message.Msg == WM_SYSCOMMAND)
+                if (message.Msg == SystemMenuHelper.WM_SYSCOMMAND)
                 {
                     if ((Int64)message.WParam > 0 && (Int64)message.WParam <= this.offset)
                     {
@@ -174,11 +174,11 @@ namespace Plexdata.Utilities.Assembly
         {
             if (command.IsSeparator)
             {
-                SystemMenuHelper.AppendMenu(handle, MF_SEPARATOR, 0, String.Empty);
+                SystemMenuHelper.AppendMenu(handle, SystemMenuHelper.MF_SEPARATOR, 0, String.Empty);
             }
             else
             {
-                SystemMenuHelper.AppendMenu(handle, MF_STRING, command.Id, command.Label);
+                SystemMenuHelper.AppendMenu(handle, SystemMenuHelper.MF_STRING, command.Id, command.Label);
             }
 
             this.commands.Add(command.Id, command);

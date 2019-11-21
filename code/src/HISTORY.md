@@ -3,7 +3,7 @@
 **1.0.5.2**
 - Support of a simple XML message format.
 - Correction of some typos.
-- Test adjusted as well as new tests added.
+- Tests adjusted as well as new tests added.
 - Testing application enriched by new feature and others.
 - Source code and online documentation updated.
 - Version number increased.
