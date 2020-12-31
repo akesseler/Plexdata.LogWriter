@@ -1,7 +1,6 @@
 
 **TODOs**
 
-- Correct NuGet upload warning: "The `<iconUrl>` element is deprecated. Consider using the `<icon>` element instead. `https://aka.ms/deprecateIconUrl`"
 - Implement IDatabaseLogger
   - A logger that writes logging message into SQL databases.
 - Implement IEventLogger

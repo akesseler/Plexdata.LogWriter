@@ -11,7 +11,7 @@ This package includes classes that are shared between all available implementati
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageTags>logging logger log trace debug raw structured console</PackageTags>
     <PackageReleaseNotes>See project history under https://github.com/akesseler/Plexdata.LogWriter/blob/master/code/src/HISTORY.md</PackageReleaseNotes>
     <AssemblyVersion>1.0.5.2</AssemblyVersion>
@@ -40,6 +40,7 @@ This package includes classes that are shared between all available implementati
 
   <ItemGroup>
     <None Include="..\..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="$(PackageIcon)" />
   </ItemGroup>
 
 </Project>
