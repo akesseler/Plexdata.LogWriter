@@ -9,7 +9,7 @@
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <Description>Plexdata.LogWriter.Abstraction defines all basic interfaces as well as other implementations of the Plexdata Logging Writer.
 
 This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
@@ -36,6 +36,7 @@ This package provides an implementation of an Empty logger as well, that might b
 
   <ItemGroup>
     <None Include="..\..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="$(PackageIcon)" />
   </ItemGroup>
 
 </Project>

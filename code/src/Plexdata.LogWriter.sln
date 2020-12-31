@@ -13,6 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WindowsFormsConsoleLoggerTe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "General", "General", "{109E9A14-DE6D-466A-B5D6-CAB4E2373D43}"
 	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
 		clean.cmd = clean.cmd
 		HISTORY.md = HISTORY.md
 		post-build.cmd = post-build.cmd

@@ -8,7 +8,7 @@
     <Copyright>Copyright © 2019 - plexdata.de</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
-    <PackageIconUrl>https://github.com/akesseler/Plexdata.LogWriter/blob/master/icon.png?raw=true</PackageIconUrl>
+    <PackageIcon>icon.png</PackageIcon>
     <PackageTags>logging logger log trace debug raw structured console windows</PackageTags>
     <PackageReleaseNotes>See project history under https://github.com/akesseler/Plexdata.LogWriter/blob/master/code/src/HISTORY.md</PackageReleaseNotes>
     <Description>Plexdata.LogWriter.Console.Windows implements the IConsoleLogger interface that allows printing of logging messages into the console window.
@@ -43,6 +43,7 @@ Attention: This package can only be used on Windows platforms because of it uses
 
   <ItemGroup>
     <None Include="..\..\..\LICENSE.md" Pack="true" PackagePath="$(PackageLicenseFile)" />
+    <None Include="..\..\..\icon.png" Pack="true" PackagePath="$(PackageIcon)" />
   </ItemGroup>
 
 </Project>
