@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -73,7 +73,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #region GetSection
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -98,7 +97,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #region GetValues
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -116,7 +114,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
             }
         }
 
-        [Test]
         [TestCase("level1:level2:level3", "value1,value2,value3,valueZ1")]
         [TestCase("level1:level2:level3:itemZ", "valueZ1")]
         public void GetValues_VariousSectionKeys_ResultAsExpected(String key, String result)
@@ -148,7 +145,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #region GetValue
 
-        [Test]
         [TestCase(null, "item1", "")]
         [TestCase("", "item1", "")]
         [TestCase(" ", "item1", "")]

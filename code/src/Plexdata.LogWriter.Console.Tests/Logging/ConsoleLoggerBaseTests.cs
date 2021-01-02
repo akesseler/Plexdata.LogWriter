@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -194,7 +194,6 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
             this.facade.Verify(x => x.Write(It.IsAny<String>()), Times.Never);
         }
 
-        [Test]
         [TestCase(true, 1, 2)]
         [TestCase(false, 1, 1)]
         public void Write_AffectedColoringHandling_FacadePropertiesCalledAsExpected(Boolean used, Int32 gets, Int32 sets)
@@ -236,7 +235,6 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
             this.facade.VerifySet(x => x.Background = ConsoleColor.Black, Times.Once);
         }
 
-        [Test]
         [TestCase(LogLevel.Trace, ConsoleColor.Gray, ConsoleColor.Black)]
         [TestCase(LogLevel.Debug, ConsoleColor.Gray, ConsoleColor.Black)]
         [TestCase(LogLevel.Verbose, ConsoleColor.White, ConsoleColor.Black)]

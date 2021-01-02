@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -64,7 +64,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region GetKey
 
-        [Test]
         [TestCase("12345678-90ab-cdef-1234-567890abcdef", "12345678-90AB-CDEF-1234-567890ABCDEF")]
         [TestCase("12345678-90AB-CDEF-1234-567890ABCDEF", "12345678-90AB-CDEF-1234-567890ABCDEF")]
         public void GetKey_WithValidKey_ResultIsExpected(String actual, String expected)
@@ -76,7 +75,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region GetLevel
 
-        [Test]
         [TestCase(LogLevel.Disabled)]
         [TestCase((LogLevel)42)]
         public void GetLevel_LogLevelIsNotSupported_ThrowsNotSupportedException(LogLevel level)
@@ -84,7 +82,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(() => this.instance.TestGetLevel(level), Throws.InstanceOf<NotSupportedException>());
         }
 
-        [Test]
         [TestCase("1", LogLevel.Trace, "TRACE")]
         [TestCase("2", LogLevel.Debug, "DEBUG")]
         [TestCase("3", LogLevel.Verbose, "VERBOSE")]
@@ -103,7 +100,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region GetTime
 
-        [Test]
         [TestCase("2019-10-29T17:05:42.6789", LogTime.Utc, DateTimeKind.Utc, null)]
         [TestCase("2019-10-29T17:05:42.6789", LogTime.Utc, DateTimeKind.Utc, "")]
         [TestCase("2019-10-29T17:05:42.6789", LogTime.Utc, DateTimeKind.Utc, " ")]
@@ -134,7 +130,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetTime(actual), Is.EqualTo(expected.ToString(LoggerSettings.DefaultTimeFormat)));
         }
 
-        [Test]
         [TestCase("2019-10-29T17:05:42.6789", LogTime.Utc, DateTimeKind.Utc, "s")]
         [TestCase("2019-10-29T17:05:42.6789", LogTime.Local, DateTimeKind.Utc, "s")]
         [TestCase("2019-10-29T17:05:42.6789", LogTime.Utc, DateTimeKind.Local, "s")]
@@ -161,7 +156,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region GetContext
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -170,7 +164,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetContext(context), Is.EqualTo("null"));
         }
 
-        [Test]
         [TestCase(null, "my default result")]
         [TestCase("", "my default result")]
         [TestCase(" ", "my default result")]
@@ -182,7 +175,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetContext(context, standard), Is.EqualTo(standard));
         }
 
-        [Test]
         [TestCase("my result", "my result")]
         [TestCase(" my result ", "my result")]
         [TestCase("my result\r\n", "my result")]
@@ -197,7 +189,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region GetScope
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -206,7 +197,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetScope(scope), Is.EqualTo("null"));
         }
 
-        [Test]
         [TestCase(null, "my default result")]
         [TestCase("", "my default result")]
         [TestCase(" ", "my default result")]
@@ -218,7 +208,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetScope(scope, standard), Is.EqualTo(standard));
         }
 
-        [Test]
         [TestCase("my result", "my result")]
         [TestCase(" my result ", "my result")]
         [TestCase("my result\r\n", "my result")]
@@ -233,7 +222,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region GetMessage
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -242,7 +230,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetMessage(message), Is.EqualTo("null"));
         }
 
-        [Test]
         [TestCase(null, "my default result")]
         [TestCase("", "my default result")]
         [TestCase(" ", "my default result")]
@@ -254,7 +241,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(this.instance.TestGetMessage(message, standard), Is.EqualTo(standard));
         }
 
-        [Test]
         [TestCase("my result", "my result")]
         [TestCase(" my result ", "my result")]
         [TestCase("my result\r\n", "my result")]
@@ -302,7 +288,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(() => this.instance.TestTrimEnd(null, '#'), Throws.Nothing);
         }
 
-        [Test]
         [TestCase("", '#', 0)]
         [TestCase("#", '#', 0)]
         [TestCase("my builder value", '#', 16)]

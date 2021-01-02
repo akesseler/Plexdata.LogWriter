@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -61,7 +61,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #region GetSection
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -78,7 +77,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #region GetValues
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -95,7 +93,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
 
         #region GetValue
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]

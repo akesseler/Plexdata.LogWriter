@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -500,6 +500,11 @@ namespace Plexdata.LogWriter.Settings
             {
                 try
                 {
+                    if (!this.IsValidCultureName(value))
+                    {
+                        return standard;
+                    }
+
                     return (TType)(Object)CultureInfo.GetCultureInfo(value);
                 }
                 catch
@@ -588,6 +593,30 @@ namespace Plexdata.LogWriter.Settings
             }
 
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(property));
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Checks if value is a valid culture name.
+        /// </summary>
+        /// <remarks>
+        /// This method determines whether provided <paramref name="value"/> 
+        /// represents a valid culture name.
+        /// </remarks>
+        /// <param name="value">
+        /// The culture name to be validated.
+        /// </param>
+        /// <returns>
+        /// True if value represents a valid culture name and false otherwise.
+        /// </returns>
+        private Boolean IsValidCultureName(String value)
+        {
+            return CultureInfo
+                .GetCultures(CultureTypes.AllCultures)
+                .Any(culture => String.Equals(culture.Name, value, StringComparison.InvariantCultureIgnoreCase));
         }
 
         #endregion

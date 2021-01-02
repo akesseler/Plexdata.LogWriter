@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -335,7 +335,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 
         #region PropertyChanged
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
@@ -372,8 +371,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 
             this.configuration.Verify(x => x.GetSection("Plexdata:LogWriter:Settings"), Times.Once);
         }
-
-        [Test]
 
         [TestCase(null, LogLevel.Default)]
         [TestCase("", LogLevel.Default)]
@@ -414,7 +411,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.LogLevel, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, LogType.Default)]
         [TestCase("", LogType.Default)]
         [TestCase(" ", LogType.Default)]
@@ -439,7 +435,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.LogType, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, LogTime.Default)]
         [TestCase("", LogTime.Default)]
         [TestCase(" ", LogTime.Default)]
@@ -461,7 +456,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.LogTime, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, true)]
         [TestCase("", true)]
         [TestCase(" ", true)]
@@ -483,7 +477,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.ShowTime, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, "yyyy-MM-dd HH:mm:ss.ffff")]
         [TestCase("", "yyyy-MM-dd HH:mm:ss.ffff")]
         [TestCase(" ", "yyyy-MM-dd HH:mm:ss.ffff")]
@@ -501,7 +494,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TimeFormat, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, ';')]
         [TestCase("", ';')]
         [TestCase(" ", ';')]
@@ -519,7 +511,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.PartSplit, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, true)]
         [TestCase("", true)]
         [TestCase(" ", true)]
@@ -541,7 +532,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.FullName, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, "en-US")]
         [TestCase("", "en-US")]
         [TestCase(" ", "en-US")]
@@ -564,7 +554,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 
         #region GetValue
 
-        [Test]
         [TestCase(null, "standard")]
         [TestCase("", "standard")]
         [TestCase(" ", "standard")]
@@ -575,7 +564,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<String>(value, standard), Is.EqualTo(standard));
         }
 
-        [Test]
         [TestCase("TestEnumValue1", TestEnum.TestEnumValue1, TestEnum.TestEnumValue1)]
         [TestCase("testenumvalue1", TestEnum.TestEnumValue1, TestEnum.TestEnumValue1)]
         [TestCase("TestEnumValue2", TestEnum.TestEnumValue1, TestEnum.TestEnumValue2)]
@@ -589,7 +577,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<TestEnum>(value, standard), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("False", true, false)]
         [TestCase("FALSE", true, false)]
         [TestCase("false", true, false)]
@@ -606,7 +593,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<Boolean>(value, standard), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("string", "other", "string")]
         public void GetValue_ValueIsString_ResultAsExpected(String value, String standard, String expected)
         {
@@ -615,7 +601,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<String>(value, standard), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("string", 'o', 's')]
         public void GetValue_ValueIsChar_ResultAsExpected(String value, Char standard, Char expected)
         {
@@ -624,7 +609,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<Char>(value, standard), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("42", -1, 42)]
         [TestCase("xx", -1, -1)]
         public void GetValue_ValueIsInt32_ResultAsExpected(String value, Int32 standard, Int32 expected)
@@ -634,7 +618,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<Int32>(value, standard), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("en-US", "de-DE", "en-US")]
         [TestCase("de-DE", "en-US", "de-DE")]
         [TestCase("xx-YY", "en-US", "en-US")]
@@ -645,7 +628,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetValue<CultureInfo>(value, CultureInfo.GetCultureInfo(standard)), Is.EqualTo(CultureInfo.GetCultureInfo(expected)));
         }
 
-        [Test]
         [TestCase("invalid", "utf-8", "utf-8")]
         [TestCase("utf-7", "utf-8", "utf-7")]
         [TestCase("utf-8", "utf-8", "utf-8")]
@@ -683,7 +665,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TestGetSectionValues(null, "key", standard).SequenceEqual(expected), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]

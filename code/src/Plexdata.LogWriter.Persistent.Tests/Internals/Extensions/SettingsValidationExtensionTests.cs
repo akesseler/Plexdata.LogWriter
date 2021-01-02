@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -77,7 +77,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
 
         #region EnsureFullFilePathOrThrow
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
@@ -94,7 +93,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentOutOfRangeException>());
         }
 
-        [Test]
         [TestCase("test-file-name.xyz")]
         [TestCase("/test-file-name.xyz")]
         [TestCase("\\test-file-name.xyz")]
@@ -108,7 +106,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("*/")]
         [TestCase("?/")]
         [TestCase("|/")]
@@ -141,7 +138,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentException>());
         }
 
-        [Test]
         [TestCase("/path-should-not-exist/test*file-name.xyz")]
         [TestCase("/path-should-not-exist/test?file-name.xyz")]
         [TestCase("/path-should-not-exist/test|file-name.xyz")]
@@ -159,7 +155,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentException>());
         }
 
-        [Test]
         [TestCase("/path-should-not-exist/file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
         [TestCase("c:/path-should-not-exist/file-may-not-exist", "c:\\path-should-not-exist\\file-may-not-exist")]
         [TestCase("\\path-should-not-exist\\file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
@@ -180,7 +175,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentException>());
         }
 
-        [Test]
         [TestCase("/Users/{0}/Documents/test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
         [TestCase("C:/Users/{0}/Documents/test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
         [TestCase("\\Users\\{0}\\Documents\\test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
@@ -192,7 +186,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(filename.EnsureFullFilePathOrThrow(), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("{0}test-file-name.xyz")]
         [TestCase("  {0}test-file-name.xyz")]
         [TestCase("{0}test-file-name.xyz  ")]
@@ -203,7 +196,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(filename.EnsureFullFilePathOrThrow(), Is.EqualTo(filename.Trim()));
         }
 
-        [Test]
         [TestCase("%tmp%")]
         [TestCase("%TMP%")]
         [TestCase("%temp%")]

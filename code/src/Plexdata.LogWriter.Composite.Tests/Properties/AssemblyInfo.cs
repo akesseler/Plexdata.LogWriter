@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -33,7 +33,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Plexdata.LogWriter.Composite.Tests")]
-[assembly: AssemblyCopyright("Copyright © 2019 - plexdata.de")]
+[assembly: AssemblyCopyright("Copyright © 2021 - plexdata.de")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

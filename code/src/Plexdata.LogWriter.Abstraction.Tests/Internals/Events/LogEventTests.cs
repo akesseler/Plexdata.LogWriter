@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -79,7 +79,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Events
             Assert.That(instance.Message, Is.EqualTo(String.Empty));
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
@@ -110,7 +109,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Events
             Assert.That(instance.Message, Is.EqualTo("message"));
         }
 
-        [Test]
         [TestCase(null, "")]
         [TestCase("", "")]
         [TestCase("  ", "")]
@@ -123,7 +121,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Events
             Assert.That(instance.Context, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, "")]
         [TestCase("", "")]
         [TestCase("  ", "")]

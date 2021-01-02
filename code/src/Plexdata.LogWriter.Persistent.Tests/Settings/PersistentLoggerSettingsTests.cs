@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -106,7 +106,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
             this.configuration.Verify(x => x.GetSection("Plexdata:LogWriter:Settings"), Times.Exactly(2));
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -129,7 +128,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
             Assert.That(instance.Filename, Is.EqualTo(this.testingFilename));
         }
 
-        [Test]
         [TestCase(null, false)]
         [TestCase("", false)]
         [TestCase(" ", false)]
@@ -149,7 +147,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
             Assert.That(instance.IsRolling, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, false)]
         [TestCase("", false)]
         [TestCase(" ", false)]
@@ -169,7 +166,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
             Assert.That(instance.IsQueuing, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, -1)]
         [TestCase("", -1)]
         [TestCase(" ", -1)]
@@ -187,7 +183,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
             Assert.That(instance.Threshold, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCaseSource(nameof(EncodingTestItemList))]
         public void PersistentLoggerSettings_ConfigurationValid_GetSectionValueForEncodingAsExpected(Object current)
         {

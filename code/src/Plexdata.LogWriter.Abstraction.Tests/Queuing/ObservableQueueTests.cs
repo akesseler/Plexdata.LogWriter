@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -66,7 +66,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
 
         #region Property tests
 
-        [Test]
         [TestCase(0, 0, 0)]
         [TestCase(1, 0, 1)]
         [TestCase(2, 0, 2)]
@@ -91,7 +90,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(this.instance.Count, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(0, true)]
         [TestCase(1, false)]
         public void IsEmpty_EnqueueOnly_ResultAsExpected(Int32 enqueue, Boolean expected)
@@ -108,7 +106,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
 
         #region Method tests
 
-        [Test]
         [TestCase(0, null)]
         [TestCase(1, "item1")]
         [TestCase(3, "item1", null, "item2", null, "item3")]
@@ -122,7 +119,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(this.instance.Count, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("item1", 1, "item1", "item2", "item3", "item4", "item5")]
         [TestCase("item2", 2, "item1", "item2", "item3", "item4", "item5")]
         [TestCase("item3", 3, "item1", "item2", "item3", "item4", "item5")]
@@ -146,7 +142,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("item1", 0, "item1")]
         [TestCase("item1", 1, null)]
         [TestCase("item1,item2", 0, "item1")]
@@ -167,7 +162,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(this.instance.Peek(), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(0)]
         [TestCase(1)]
         [TestCase(2)]
@@ -184,7 +178,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(this.instance.IsEmpty, Is.True);
         }
 
-        [Test]
         [TestCase(0, 0)]
         [TestCase(1, 1)]
         [TestCase(2, 2)]
@@ -219,7 +212,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(this.GetPrivateArraySize(), Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("item1", "item2", "item3", "item4", "item5")]
         public void Enqueue_RaiseEnqueuedEvent_EventFiredForEachItem(params String[] items)
         {
@@ -237,7 +229,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(fired, Is.EqualTo(items.Length));
         }
 
-        [Test]
         [TestCase("item1", "item2", "item3", "item4", "item5")]
         public void Dequeue_RaiseDequeuedEvent_EventFiredForEachItem(params String[] items)
         {
@@ -260,7 +251,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
             Assert.That(fired, Is.EqualTo(items.Length));
         }
 
-        [Test]
         [TestCase("item1")]
         [TestCase("item1", "item2", "item3")]
         [TestCase("item1", "item2", "item3", "item4", "item5")]

@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -102,7 +102,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
 
         #region Default filename tests
 
-        [Test]
         [TestCase(0)]
         [TestCase(-1)]
         public void GetCurrentFilename_RollingOffThresholdZero_ResultIsSameFilename(Int32 threshold)
@@ -112,7 +111,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(settings.Object.GetCurrentFilename(out Boolean dispose), Is.EqualTo(this.fullname));
         }
 
-        [Test]
         [TestCase(LogTime.Utc)]
         [TestCase(LogTime.Local)]
         public void GetCurrentFilename_RollingOffThresholdNotZeroNoFileExist_ResultIsNewFilename(LogTime kind)
@@ -127,7 +125,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(actual, Is.GreaterThanOrEqualTo(expected));
         }
 
-        [Test]
         [TestCase(LogTime.Utc, 1024)]
         [TestCase(LogTime.Local, 1024)]
         [TestCase(LogTime.Utc, 1025)]
@@ -146,7 +143,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(actual, Is.GreaterThanOrEqualTo(expected));
         }
 
-        [Test]
         [TestCase(LogTime.Utc, 0)]
         [TestCase(LogTime.Local, 0)]
         [TestCase(LogTime.Utc, 100)]
@@ -167,7 +163,6 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(LogTime.Utc, 100)]
         [TestCase(LogTime.Local, 100)]
         public void GetCurrentFilename_RollingOffThresholdNotZeroMultiFileExistAndNotFull_ResultIsOldFilename(LogTime kind, Int32 size)

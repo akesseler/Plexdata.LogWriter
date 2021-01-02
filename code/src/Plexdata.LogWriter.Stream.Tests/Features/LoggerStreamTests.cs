@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -69,7 +69,6 @@ namespace Plexdata.LogWriter.Stream.Tests.Features
 
         #region Properties
 
-        [Test]
         [TestCase(null, "utf-8")]
         [TestCase("utf-8", "utf-8")]
         [TestCase("us-ascii", "us-ascii")]
@@ -166,7 +165,6 @@ namespace Plexdata.LogWriter.Stream.Tests.Features
             Assert.That(this.GetMessagesFieldValue(instance), Is.Empty);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
