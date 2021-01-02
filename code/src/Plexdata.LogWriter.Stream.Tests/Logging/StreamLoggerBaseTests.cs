@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -148,7 +148,6 @@ namespace Plexdata.LogWriter.Stream.Tests.Logging
             this.facade.Verify(x => x.Write(It.IsAny<System.IO.Stream>(), It.IsAny<Encoding>(), It.IsAny<IEnumerable<String>>()), Times.Never);
         }
 
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void Write_CheckCallFacadeWrite_FacadeWriteSingleWasCalledOnce(Boolean returns)

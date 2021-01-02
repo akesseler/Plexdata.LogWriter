@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -131,7 +131,6 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             this.section.Verify(x => x.GetSection("Coloring"), Times.Once);
         }
 
-        [Test]
         [TestCase(null, true)]
         [TestCase("", true)]
         [TestCase(" ", true)]
@@ -151,7 +150,6 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.UseColors, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, "")]
         [TestCase("", "")]
         [TestCase(" ", "")]
@@ -168,7 +166,6 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.WindowTitle, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, false)]
         [TestCase("", false)]
         [TestCase(" ", false)]
@@ -188,7 +185,6 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.QuickEdit, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(null, null, 0, 0)]
         [TestCase("", "", 0, 0)]
         [TestCase(" ", " ", 0, 0)]
@@ -219,7 +215,6 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.BufferSize.Lines, Is.EqualTo(nLines));
         }
 
-        [Test]
         [TestCase(LogLevel.Trace, null, null, ConsoleColor.Gray, ConsoleColor.Black)]
         [TestCase(LogLevel.Trace, "", "", ConsoleColor.Gray, ConsoleColor.Black)]
         [TestCase(LogLevel.Trace, " ", " ", ConsoleColor.Gray, ConsoleColor.Black)]

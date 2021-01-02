@@ -1,10 +1,12 @@
 
 
-**1.0.5.3**
+**1.0.X.Y**
 - File `.editorconfig` added.
 - Framework updates (.NET Framework 4.8, .NET Core 3.1).
 - Help projects and readmes updated.
 - NuGet icon reference changed from _URL_ into _Pack_.
+- Minor fixings in tests and some files renamed.
+- Copyright year changed in all files.
 
 **1.0.5.2**
 - Support of a simple XML message format.

@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -83,7 +83,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
             Assert.That(instance.TestFindSection(new String[] { "level1", "level2", "level3" }), Is.Null);
         }
 
-        [Test]
         [TestCase(0)]
         [TestCase(1)]
         public void FindSection_InvalidKeyList_ResultIsNull(Int32 count)
@@ -101,7 +100,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
             }
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -131,7 +129,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
             }
         }
 
-        [Test]
         [TestCase("level1", "level1")]
         [TestCase("level2", "level1", "level2")]
         [TestCase("level3", "level1", "level2", "level3")]
@@ -163,7 +160,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
             Assert.That(instance.TestFindValue("item1"), Is.Empty);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -182,7 +178,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Settings
             }
         }
 
-        [Test]
         [TestCase("item1", "value1")]
         [TestCase("item2", "value2")]
         [TestCase("item3", "value3")]

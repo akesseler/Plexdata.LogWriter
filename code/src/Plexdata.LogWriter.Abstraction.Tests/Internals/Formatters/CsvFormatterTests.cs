@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Construction
 
-        [Test]
         [TestCase(LogType.Raw)]
         [TestCase(LogType.Json)]
         [TestCase(LogType.Xml)]
@@ -109,7 +108,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Format tests
 
-        [Test]
         [TestCase(false, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         public void Format_ShowTimeAsDefined_ResultAsExpected(Boolean showTime, String expected)
@@ -126,7 +124,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(LogLevel.Trace, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@TRACE@@@{0}@@")]
         [TestCase(LogLevel.Debug, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@DEBUG@@@{0}@@")]
         [TestCase(LogLevel.Verbose, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@VERBOSE@@@{0}@@")]
@@ -149,7 +146,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase("", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase(" ", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
@@ -168,7 +164,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase("", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase(" ", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
@@ -187,7 +182,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@@@")]
         [TestCase("", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@@@")]
         [TestCase(" ", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@@@")]
@@ -203,7 +197,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(-1, 'a', '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase(0, 'a', '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase(1, 'a', '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@[Label0=Value0]@")]
@@ -235,7 +228,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(false, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@System.Exception: exception")]
         public void Format_ExceptionAsDefined_ResultAsExpected(Boolean exception, String expected)
@@ -271,7 +263,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("de-DE", ',', "12345678-90AB-CDEF-1234-567890ABCDEF,20191029170542,MESSAGE,,,{0},\"[Boolean=true],[Double=1234567,89],[Decimal=1234567,89],[DateTime=29.10.2019 17:05:42],[Object=System.Object]\",")]
         [TestCase("de-DE", ';', "12345678-90AB-CDEF-1234-567890ABCDEF;20191029170542;MESSAGE;;;{0};[Boolean=true],[Double=1234567,89],[Decimal=1234567,89],[DateTime=29.10.2019 17:05:42],[Object=System.Object];")]
         [TestCase("de-DE", ':', "12345678-90AB-CDEF-1234-567890ABCDEF:20191029170542:MESSAGE:::{0}:\"[Boolean=true],[Double=1234567,89],[Decimal=1234567,89],[DateTime=29.10.2019 17:05:42],[Object=System.Object]\":")]

@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Construction
 
-        [Test]
         [TestCase(LogType.Csv)]
         [TestCase(LogType.Raw)]
         [TestCase(LogType.Xml)]
@@ -109,7 +108,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Format tests
 
-        [Test]
         [TestCase(false, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(true, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         public void Format_ShowTimeAsDefined_ResultAsExpected(Boolean showTime, String expected)
@@ -126,7 +124,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(LogLevel.Trace, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"TRACE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(LogLevel.Debug, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"DEBUG\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(LogLevel.Verbose, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"VERBOSE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
@@ -149,7 +146,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase("", "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(" ", "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
@@ -168,7 +164,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase("", "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(" ", "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
@@ -187,7 +182,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":null,\"Details\":null,\"Exception\":null}")]
         [TestCase("", "{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":null,\"Details\":null,\"Exception\":null}")]
         [TestCase(" ", "{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":null,\"Details\":null,\"Exception\":null}")]
@@ -203,7 +197,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(-1, 'a', "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(0, 'a', "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(1, 'a', "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":[{{\"Label0\":\"Value0\"}}],\"Exception\":null}}")]
@@ -226,7 +219,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(false, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(true, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":\"System.Exception: exception\"}}")]
         public void Format_ExceptionAsDefined_ResultAsExpected(Boolean exception, String expected)
@@ -262,7 +254,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("de-DE", ':', "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":[{{\"Boolean\":\"true\"}},{{\"Double\":\"1234567,89\"}},{{\"Decimal\":\"1234567,89\"}},{{\"DateTime\":\"29.10.2019 17:05:42\"}},{{\"Object\":\"System.Object\"}}],\"Exception\":null}}")]
         [TestCase("de-DE", ',', "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":[{{\"Boolean\":\"true\"}},{{\"Double\":\"1234567,89\"}},{{\"Decimal\":\"1234567,89\"}},{{\"DateTime\":\"29.10.2019 17:05:42\"}},{{\"Object\":\"System.Object\"}}],\"Exception\":null}}")]
         [TestCase("de-DE", ';', "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"MESSAGE\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":[{{\"Boolean\":\"true\"}},{{\"Double\":\"1234567,89\"}},{{\"Decimal\":\"1234567,89\"}},{{\"DateTime\":\"29.10.2019 17:05:42\"}},{{\"Object\":\"System.Object\"}}],\"Exception\":null}}")]

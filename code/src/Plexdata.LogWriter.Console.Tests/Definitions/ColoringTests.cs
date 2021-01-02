@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -53,7 +53,6 @@ namespace Plexdata.LogWriter.Console.Tests.Definitions
             Assert.That(instance.Background, Is.EqualTo(ConsoleColor.Yellow));
         }
 
-        [Test]
         [TestCase(-1, ConsoleColor.Black)]
         [TestCase(16, ConsoleColor.Black)]
         [TestCase(ConsoleColor.Black, -1)]

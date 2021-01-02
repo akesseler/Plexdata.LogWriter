@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -302,8 +302,11 @@ namespace Plexdata.LogWriter.Testing.Helper
             if (this.details == null)
             {
                 this.details = new (String, Object)[] {
-                    ( "Boolean",  true ),( "Double",   1234567.89 ),( "Decimal",  1234567.89m ),
-                    ( "DateTime", DateTime.Parse("2019-10-29T17:05:42.6789") ),( "Object",   new Object() )
+                    ( "Boolean",  true         ),
+                    ( "Double",   1234567.89   ),
+                    ( "Decimal",  1234567.89m  ),
+                    ( "DateTime", DateTime.Now ),
+                    ( "Object",   new Object() )
                 };
             }
 

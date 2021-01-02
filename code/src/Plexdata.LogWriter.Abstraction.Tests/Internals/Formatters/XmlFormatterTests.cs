@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Construction
 
-        [Test]
         [TestCase(LogType.Csv)]
         [TestCase(LogType.Json)]
         [TestCase(LogType.Raw)]
@@ -109,7 +108,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Format tests
 
-        [Test]
         [TestCase(false, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(true, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         public void Format_ShowTimeAsDefined_ResultAsExpected(Boolean showTime, String expected)
@@ -126,7 +124,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(LogLevel.Trace, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>TRACE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(LogLevel.Debug, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>DEBUG</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(LogLevel.Verbose, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>VERBOSE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
@@ -149,7 +146,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase("", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(" ", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
@@ -168,7 +164,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase("", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(" ", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
@@ -187,7 +182,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(null, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message /><details /><exception /></notification></logging>")]
         [TestCase("", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message /><details /><exception /></notification></logging>")]
         [TestCase(" ", "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message /><details /><exception /></notification></logging>")]
@@ -203,7 +197,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase(-1, 'a', "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details /><exception /></notification></logging>")]
         [TestCase(0, 'a', "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details /><exception /></notification></logging>")]
         [TestCase(1, 'a', "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details><label0>Value0</label0></details><exception /></notification></logging>")]
@@ -226,7 +219,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [Test]
         [TestCase(false, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details /><exception /></notification></logging>")]
         [TestCase(true, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details /><exception>System.Exception: exception</exception></notification></logging>")]
         public void Format_ExceptionAsDefined_ResultAsExpected(Boolean exception, String expected)
@@ -262,7 +254,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [Test]
         [TestCase("de-DE", ':', "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details><boolean>true</boolean><double>1234567,89</double><decimal>1234567,89</decimal><datetime>29.10.2019 17:05:42</datetime><object>System.Object</object></details><exception /></notification></logging>")]
         [TestCase("de-DE", ',', "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details><boolean>true</boolean><double>1234567,89</double><decimal>1234567,89</decimal><datetime>29.10.2019 17:05:42</datetime><object>System.Object</object></details><exception /></notification></logging>")]
         [TestCase("de-DE", ';', "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>MESSAGE</level><context /><scope /><message>{0}</message><details><boolean>true</boolean><double>1234567,89</double><decimal>1234567,89</decimal><datetime>29.10.2019 17:05:42</datetime><object>System.Object</object></details><exception /></notification></logging>")]

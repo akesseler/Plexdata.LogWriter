@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -52,7 +52,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
 
         #region ToDisplayText
 
-        [Test]
         [TestCase(10, LogLevel.Disabled, "DISABLED")]
         [TestCase(11, LogLevel.Trace, "TRACE")]
         [TestCase(12, LogLevel.Debug, "DEBUG")]
@@ -80,7 +79,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
 
         #region RegisterDisplayText
 
-        [Test]
         [TestCase(LogLevel.Disabled, null)]
         [TestCase(LogLevel.Disabled, "")]
         [TestCase(LogLevel.Disabled, " ")]
@@ -120,7 +118,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
             Assert.That(() => actual.RegisterDisplayText("foo"), Throws.InstanceOf<InvalidEnumArgumentException>());
         }
 
-        [Test]
         [TestCase(LogLevel.Disabled, "FooDisabled")]
         [TestCase(LogLevel.Disabled, "foodisabled")]
         [TestCase(LogLevel.Disabled, "FOODISABLED")]
@@ -159,7 +156,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
 
         #region RestoreDisplayText
 
-        [Test]
         [TestCase(LogLevel.Disabled, "FooDisabled", "DISABLED")]
         [TestCase(LogLevel.Trace, "FooTrace", "TRACE")]
         [TestCase(LogLevel.Debug, "FooDebug", "DEBUG")]

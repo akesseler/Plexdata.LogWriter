@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -47,7 +47,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region IsSupported
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase("string")]
@@ -56,7 +55,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void IsSupported_BooleanStandard_ResultIsTrue(Boolean value)
@@ -64,7 +62,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(true)]
         [TestCase(false)]
@@ -73,14 +70,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase('#')]
         public void IsSupported_CharStandard_ResultIsTrue(Char value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase('#')]
         public void IsSupported_CharNullable_ResultIsTrue(Char? value)
@@ -88,14 +83,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(-42)]
         public void IsSupported_SByteStandard_ResultIsTrue(SByte value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(-42)]
         public void IsSupported_SByteNullable_ResultIsTrue(SByte? value)
@@ -103,14 +96,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(42)]
         public void IsSupported_ByteStandard_ResultIsTrue(Byte value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(42)]
         public void IsSupported_ByteNullable_ResultIsTrue(Byte? value)
@@ -118,14 +109,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(-42)]
         public void IsSupported_Int16Standard_ResultIsTrue(Int16 value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(-42)]
         public void IsSupported_Int16Nullable_ResultIsTrue(Int16? value)
@@ -133,14 +122,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase((UInt16)42)]
         public void IsSupported_UInt16Standard_ResultIsTrue(UInt16 value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase((UInt16)42)]
         public void IsSupported_UInt16Nullable_ResultIsTrue(UInt16? value)
@@ -148,14 +135,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(-42)]
         public void IsSupported_Int32Standard_ResultIsTrue(Int32 value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(-42)]
         public void IsSupported_Int32Nullable_ResultIsTrue(Int32? value)
@@ -163,14 +148,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase((UInt32)42)]
         public void IsSupported_UInt32Standard_ResultIsTrue(UInt32 value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase((UInt32)42)]
         public void IsSupported_UInt32Nullable_ResultIsTrue(UInt32? value)
@@ -185,7 +168,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(-42)]
         public void IsSupported_Int64Nullable_ResultIsTrue(Int64? value)
@@ -193,14 +175,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase((UInt64)42)]
         public void IsSupported_UInt64Standard_ResultIsTrue(UInt64 value)
         {
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase((UInt64)42)]
         public void IsSupported_UInt64Nullable_ResultIsTrue(UInt64? value)
@@ -208,7 +188,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(42.5F)]
         [TestCase(-42.5F)]
         public void IsSupported_SingleStandard_ResultIsTrue(Single value)
@@ -216,7 +195,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(42.5F)]
         [TestCase(-42.5F)]
@@ -225,7 +203,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(42.5)]
         [TestCase(-42.5)]
         public void IsSupported_DoubleStandard_ResultIsTrue(Double value)
@@ -233,7 +210,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(42.5)]
         [TestCase(-42.5)]
@@ -242,7 +218,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(42.5)]
         [TestCase(-42.5)]
         public void IsSupported_DecimalStandard_ResultIsTrue(Decimal value)
@@ -250,7 +225,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase(42.5)]
         [TestCase(-42.5)]
@@ -259,7 +233,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(value.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase("2019-10-29T17:05:42")]
         public void IsSupported_DateTimeStandard_ResultIsTrue(String value)
         {
@@ -268,7 +241,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(actual.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("2019-10-29T17:05:42")]
         public void IsSupported_DateTimeNullable_ResultIsTrue(String value)
@@ -278,7 +250,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(actual.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase("01234567-89AB-CDEF-0123-456789ABCDEF")]
         public void IsSupported_GuidStandard_ResultIsTrue(String value)
         {
@@ -287,7 +258,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(actual.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(null)]
         [TestCase("01234567-89AB-CDEF-0123-456789ABCDEF")]
         public void IsSupported_GuidNullable_ResultIsTrue(String value)
@@ -297,7 +267,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(actual.IsSupported(), Is.True);
         }
 
-        [Test]
         [TestCase(true)]
         [TestCase(false)]
         public void IsSupported_UnsupportedType_ResultIsFalse(Boolean nullable)
@@ -336,7 +305,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region String conversion
 
-        [Test]
         [TestCase("abcdefg", null, "abcdefg")]
         [TestCase("äüöÄÖÜß", null, "äüöÄÖÜß")]
         [TestCase("abcdefg", "de-DE", "abcdefg")]
@@ -376,7 +344,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region SByte conversion
 
-        [Test]
         [TestCase(42, null, null, "42")]
         [TestCase(-42, null, null, "-42")]
         [TestCase(42, null, "de-DE", "42")]
@@ -394,7 +361,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Byte conversion
 
-        [Test]
         [TestCase(42, null, null, "42")]
         [TestCase(42, null, "de-DE", "42")]
         [TestCase(42, "X4", null, "002A")]
@@ -408,7 +374,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Int16 conversion
 
-        [Test]
         [TestCase(42, null, null, "42")]
         [TestCase(42, null, "de-DE", "42")]
         [TestCase(42, "X4", null, "002A")]
@@ -422,7 +387,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region UInt16 conversion
 
-        [Test]
         [TestCase((UInt16)42, null, null, "42")]
         [TestCase((UInt16)42, null, "de-DE", "42")]
         [TestCase((UInt16)42, "X4", null, "002A")]
@@ -436,7 +400,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Int32 conversion
 
-        [Test]
         [TestCase(42, null, null, "42")]
         [TestCase(42, null, "de-DE", "42")]
         [TestCase(42, "X4", null, "002A")]
@@ -450,7 +413,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region UInt32 conversion
 
-        [Test]
         [TestCase((UInt32)42, null, null, "42")]
         [TestCase((UInt32)42, null, "de-DE", "42")]
         [TestCase((UInt32)42, "X4", null, "002A")]
@@ -464,7 +426,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Int64 conversion
 
-        [Test]
         [TestCase(42, null, null, "42")]
         [TestCase(42, null, "de-DE", "42")]
         [TestCase(42, "X4", null, "002A")]
@@ -478,7 +439,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region UInt64 conversion
 
-        [Test]
         [TestCase((UInt64)42, null, null, "42")]
         [TestCase((UInt64)42, null, "de-DE", "42")]
         [TestCase((UInt64)42, "X4", null, "002A")]
@@ -492,7 +452,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Single conversion
 
-        [Test]
         [TestCase(42.5F, null, null, "42.5")]
         [TestCase(-42.5F, null, null, "-42.5")]
         [TestCase(42.5F, null, "de-DE", "42,5")]
@@ -510,7 +469,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Double conversion
 
-        [Test]
         [TestCase(42.5, null, null, "42.5")]
         [TestCase(-42.5, null, null, "-42.5")]
         [TestCase(42.5, null, "de-DE", "42,5")]
@@ -528,7 +486,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Decimal conversion
 
-        [Test]
         [TestCase(42.5, null, null, "42.5")]
         [TestCase(-42.5, null, null, "-42.5")]
         [TestCase(42.5, null, "de-DE", "42,5")]
@@ -546,7 +503,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region DateTime conversion
 
-        [Test]
         [TestCase("2019-10-29T17:05:42", null, null, "10/29/2019 5:05:42 PM")]
         [TestCase("2019-10-29T17:05:42", null, "de-DE", "29.10.2019 17:05:42")]
         [TestCase("2019-10-29T17:05:42", "yyMMddHHmmss", null, "191029170542")]
@@ -560,7 +516,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 
         #region Guid conversion
 
-        [Test]
         [TestCase("01234567-89AB-CDEF-0123-456789ABCDEF", null, null, "01234567-89AB-CDEF-0123-456789ABCDEF")]
         [TestCase("01234567-89AB-CDEF-0123-456789ABCDEF", null, "de-DE", "01234567-89AB-CDEF-0123-456789ABCDEF")]
         [TestCase("01234567-89AB-CDEF-0123-456789ABCDEF", "N", null, "0123456789ABCDEF0123456789ABCDEF")]
@@ -591,7 +546,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
             Assert.That(actual.TryFormat(provider, out String result), Is.False);
         }
 
-        [Test]
         [TestCaseSource(nameof(InvalidFormatTestItems))]
         public void TryFormat_FormatIsInvalid_ResultIsFalse(Object current)
         {

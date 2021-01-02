@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2019 plexdata.de
+ * Copyright (c) 2021 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -39,7 +39,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
     {
         #region SetFilename
 
-        [Test]
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
@@ -80,7 +79,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             }
         }
 
-        [Test]
         [TestCase("some-file-name.xml", "Xml")]
         [TestCase("some-file-name.json", "Json")]
         public void SetFilename_FormatFromExtensionSupported_PropertiesUseAppliedValues(String filename, String filetype)
@@ -132,7 +130,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             }
         }
 
-        [Test]
         [TestCase("some-file-name.xyz", "Xml")]
         [TestCase("some-file-name.xyz", "Json")]
         public void SetFilename_FormatManualAppliedSupported_PropertiesUseAppliedValues(String filename, String filetype)
@@ -179,7 +176,6 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.Build(), Is.InstanceOf<LoggerSettingsEmpty>());
         }
 
-        [Test]
         [TestCase("xml", typeof(LoggerSettingsXml))]
         [TestCase("json", typeof(LoggerSettingsJson))]
         public void Build_FileNameAndTypeValid_ResultIsLoggerSettingsTypeAsExpected(String filetype, Type expected)
