@@ -60,8 +60,15 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\LogLevelCriticalExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelDebugExtensionTests.cs" />
     <Compile Include="Extensions\LogLevelDisplayExtensionTests.cs" />
-    <Compile Include="Extensions\LogLevelILoggerExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelErrorExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelFatalExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelMessageExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelTraceExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelVerboseExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelWarningExtensionTests.cs" />
     <Compile Include="Internals\Events\LogEventTests.cs" />
     <Compile Include="Internals\Extensions\TypeFormatterExtensionTests.cs" />
     <Compile Include="Internals\Factories\LoggerFactoryTests.cs" />
