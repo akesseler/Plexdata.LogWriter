@@ -310,6 +310,40 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
             Assert.That(this.instance.TestResolveScope<String>(expected, other.Object), Is.EqualTo(expected));
         }
 
+        [Test]
+        public void ResolveScope_ScopeIsGuidLoggerSettingsWithShortName_ResultIsExpectedString()
+        {
+            this.settings.Setup(x => x.FullName).Returns(false);
+            Guid expected = Guid.Parse("11223344-5566-7788-9900-AABBCCDDEEFF");
+            Assert.That(this.instance.TestResolveScope<Guid>(expected), Is.EqualTo(expected.ToString()));
+        }
+
+        [Test]
+        public void ResolveScopeSettings_ScopeIsGuidLoggerSettingsWithShortName_ResultIsExpectedString()
+        {
+            Mock<ILoggerSettings> other = new Mock<ILoggerSettings>();
+            other.Setup(x => x.FullName).Returns(false);
+            Guid expected = Guid.Parse("11223344-5566-7788-9900-AABBCCDDEEFF");
+            Assert.That(this.instance.TestResolveScope<Guid>(expected, other.Object), Is.EqualTo(expected.ToString()));
+        }
+
+        [Test]
+        public void ResolveScope_ScopeIsGuidLoggerSettingsWithFullName_ResultIsExpectedString()
+        {
+            this.settings.Setup(x => x.FullName).Returns(true);
+            Guid expected = Guid.Parse("11223344-5566-7788-9900-AABBCCDDEEFF");
+            Assert.That(this.instance.TestResolveScope<Guid>(expected), Is.EqualTo(expected.ToString()));
+        }
+
+        [Test]
+        public void ResolveScopeSettings_ScopeIsGuidLoggerSettingsWithFullName_ResultIsExpectedString()
+        {
+            Mock<ILoggerSettings> other = new Mock<ILoggerSettings>();
+            other.Setup(x => x.FullName).Returns(true);
+            Guid expected = Guid.Parse("11223344-5566-7788-9900-AABBCCDDEEFF");
+            Assert.That(this.instance.TestResolveScope<Guid>(expected, other.Object), Is.EqualTo(expected.ToString()));
+        }
+
         #endregion
 
         #region CreateOutput

@@ -83,7 +83,7 @@ namespace Plexdata.LogWriter.Logging
 
         #region Write methods
 
-        // NOTE: Can't be moved into base class(es) because of otherwise the context can't be resolved anymore.
+        // Can't be moved into base class(es) because of otherwise the context can't be resolved anymore.
 
         /// <inheritdoc />
         public void Write(LogLevel level, String message)

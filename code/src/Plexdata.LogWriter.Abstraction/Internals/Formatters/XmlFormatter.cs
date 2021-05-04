@@ -73,7 +73,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <inheritdoc />
         /// <remarks>
         /// Intentionally, the XML formatter does not skip any of the message parts. 
-        /// This means that an <c>empty</c> string is used if a particular part is not 
+        /// This means that an <em>empty</em> string is used if a particular part is not 
         /// valid.
         /// </remarks>
         /// <exception cref="ArgumentNullException">
@@ -275,7 +275,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The context is always added and cannot be disabled, but might 
-        /// be <c>empty</c>.
+        /// be <em>empty</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -302,7 +302,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The scope is always added and cannot be disabled, but might 
-        /// be <c>empty</c>.
+        /// be <em>empty</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -329,7 +329,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The message is always added and cannot be disabled, but might 
-        /// be <c>empty</c>.
+        /// be <em>empty</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -356,7 +356,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The details are always added and cannot be disabled, but might be 
-        /// <c>empty</c>.
+        /// <em>empty</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -405,7 +405,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The exception is always added and cannot be disabled, but might 
-        /// be <c>empty</c>.
+        /// be <em>empty</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.

@@ -150,8 +150,8 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown in case of parameter <paramref name="filename"/> is 
-        /// <c>null</c>, <c>empty</c> or consists only of whitespaces or if this parameter 
-        /// only includes a folder path.
+        /// <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em> or if this 
+        /// parameter includes a folder path only.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// This exception is thrown in case of the <paramref name="filename"/> contains 
@@ -244,8 +244,8 @@ namespace Plexdata.LogWriter.Internals.Extensions
         /// The fully qualified and trimmed filename.
         /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// This exception is thrown in case of the full name, the path name or the name 
-        /// of the file is <c>null</c>, <c>empty</c> or consists only of whitespaces.
+        /// This exception is thrown in case of the full name, the path name or the name of 
+        /// the file is <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em>.
         /// </exception>
         /// <exception cref="ArgumentException">
         /// This exception is thrown in case of the <paramref name="filename"/> contains 

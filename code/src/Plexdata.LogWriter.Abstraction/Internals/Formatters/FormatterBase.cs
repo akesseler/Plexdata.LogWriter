@@ -68,26 +68,26 @@ namespace Plexdata.LogWriter.Internals.Formatters
         #region Protected properties
 
         /// <summary>
-        /// Gets the string of a <c>null</c> value.
+        /// Gets the string of a “null” value.
         /// </summary>
         /// <remarks>
-        /// The <c>null</c> value string can be used to tag formatted 
+        /// The “null” value string can be used to tag formatted 
         /// data as invalid.
         /// </remarks>
         /// <value>
-        /// A string representing the <c>null</c> value.
+        /// A string representing the “null” value.
         /// </value>
         protected String NullValue { get { return "null"; } }
 
         /// <summary>
-        /// Gets the string of a <c>empty</c> value.
+        /// Gets the string of an “empty” value.
         /// </summary>
         /// <remarks>
-        /// The <c>empty</c> value string can be used to tag formatted 
+        /// The “empty” value string can be used to tag formatted 
         /// data as invalid.
         /// </remarks>
         /// <value>
-        /// A string representing the <c>empty</c> value.
+        /// A string representing the “empty” value.
         /// </value>
         protected String EmptyValue { get { return "empty"; } }
 
@@ -291,8 +291,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The method simply returns the trimmed version of provided parameter 
-        /// <paramref name="context"/>, if it is neither <c>null</c> nor <c>empty</c> 
-        /// nor consists only of white spaces.
+        /// <paramref name="context"/>, if it is neither <c>null</c> nor <em>empty</em> 
+        /// nor consists only of <em>whitespaces</em>.
         /// </remarks>
         /// <param name="context">
         /// The context to be converted.
@@ -342,8 +342,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The method simply returns the trimmed version of provided parameter 
-        /// <paramref name="scope"/>, if it is neither <c>null</c> nor <c>empty</c> 
-        /// nor consists only of white spaces.
+        /// <paramref name="scope"/>, if it is neither <c>null</c> nor <em>empty</em> 
+        /// nor consists only of <em>whitespaces</em>.
         /// </remarks>
         /// <param name="scope">
         /// The scope to be converted.
@@ -393,8 +393,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// The method simply returns the trimmed version of provided parameter 
-        /// <paramref name="message"/>, if it is neither <c>null</c> nor <c>empty</c> 
-        /// nor consists only of white spaces.
+        /// <paramref name="message"/>, if it is neither <c>null</c> nor <em>empty</em> 
+        /// nor consists only of <em>whitespaces</em>.
         /// </remarks>
         /// <param name="message">
         /// The message to be converted.
@@ -474,8 +474,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <remarks>
         /// This method uses the type formatter extension for a value conversion. 
         /// If the value conversion fails and value is not <c>null</c> then method 
-        /// <see cref="Object.ToString()"/> is used. Otherwise an <c>empty</c> string 
-        /// is returned.
+        /// <see cref="Object.ToString()"/> is used. Otherwise an <em>empty</em> 
+        /// string is returned.
         /// </remarks>
         /// <param name="value">
         /// The value to be converted.
@@ -501,7 +501,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <remarks>
         /// This method tries to remove the last occurrences of character <paramref name="value"/> 
         /// from provided string <paramref name="builder"/>, but only if the string builder is 
-        /// neither <c>null</c> nor <c>empty</c> and if provided character actually exists at the end.
+        /// neither <c>null</c> nor <em>empty</em> and if provided character actually exists at the end.
         /// </remarks>
         /// <param name="builder">
         /// The string builder instance to be trimmed at its end.
@@ -565,10 +565,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <remarks>
         /// This method tries to format provided timestamp and puts it into out 
         /// parameter result if successful. But be aware, the default time format 
-        /// is used if provided format is <c>null</c>, <c>empty</c> or consists 
-        /// only of white spaces, or if a formatting error occurs. Keep in mind, 
-        /// a deadlock might be possible but only the default time format string 
-        /// is invalid.
+        /// is used if provided format is <c>null</c>, <em>empty</em> or consists 
+        /// only of <em>whitespaces</em>, or if a formatting error occurs. Keep in 
+        /// mind, a deadlock might be possible but only the default time format 
+        /// string is invalid.
         /// </remarks>
         /// <param name="value">
         /// The timestamp to be formatted.

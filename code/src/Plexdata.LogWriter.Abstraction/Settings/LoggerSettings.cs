@@ -425,7 +425,7 @@ namespace Plexdata.LogWriter.Settings
         /// or its <paramref name="standard"/> value in case of conversion has failed.
         /// </para>
         /// <para>
-        /// Please note, white spaces are not supported for character types at the moment.
+        /// Please note, whitespaces are not supported for character types at the moment.
         /// </para>
         /// </remarks>
         /// <typeparam name="TType">
@@ -442,7 +442,7 @@ namespace Plexdata.LogWriter.Settings
         /// </returns>
         protected TType GetValue<TType>(String value, TType standard)
         {
-            // BUG: White spaces cannot be applied to character types!
+            // BUG: Whitespaces cannot be applied to character types!
             if (String.IsNullOrWhiteSpace(value))
             {
                 return standard;
@@ -547,7 +547,7 @@ namespace Plexdata.LogWriter.Settings
         /// </param>
         /// <returns>
         /// The list of section values or <paramref name="standard"/> if getting section values 
-        /// fails or result was <c>empty</c>.
+        /// fails or result was <em>empty</em>.
         /// </returns>
         protected IEnumerable<String> GetSectionValues(ILoggerSettingsSection section, String key, IEnumerable<String> standard)
         {
@@ -583,7 +583,7 @@ namespace Plexdata.LogWriter.Settings
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown as soon as provided <paramref name="property"/> 
-        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// is <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em>. 
         /// </exception>
         protected void RaisePropertyChanged(String property)
         {

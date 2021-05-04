@@ -76,7 +76,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <remarks>
         /// Intentionally, the raw formatter only supports the timestamp (if configured), 
         /// the logging level, the context (if available), the scope (if available), the 
-        /// message (or <c>empty</c>, if not available), the list of values (if available) 
+        /// message (or <em>empty</em>, if not available), the list of values (if available) 
         /// and finally the exception (but only if not <c>null</c>). Keep in mind, an exception 
         /// (if not <c>null</c>) is put into a new line.
         /// </remarks>
@@ -143,8 +143,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <inheritdoc />
         /// <remarks>
         /// This method simply takes the <paramref name="value"/> an appends the <paramref name="split"/> 
-        /// character. An empty string is used, if provided value is <c>null</c>, <c>empty</c> or consists 
-        /// only of white spaces.
+        /// character. An empty string is used, if provided value is <c>null</c>, <em>empty</em> or consists 
+        /// only of <em>whitespaces</em>.
         /// </remarks>
         protected override String ToOutput(String value, Char split)
         {
@@ -228,8 +228,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The context is only appended if it is neither <c>null</c> nor <c>empty</c> 
-        /// nor consists only of white spaces.
+        /// The context is only appended if it is neither <c>null</c> nor <em>empty</em> 
+        /// nor consists only of <em>whitespaces</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -256,8 +256,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The scope is only appended if it is neither <c>null</c> nor <c>empty</c> 
-        /// nor consists only of white spaces.
+        /// The scope is only appended if it is neither <c>null</c> nor <em>empty</em> 
+        /// nor consists only of <em>whitespaces</em>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -308,7 +308,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The details are only appended if the list is neither <c>null</c> nor <c>empty</c>.
+        /// The details are only appended if the list is neither <c>null</c> nor <em>empty</em>.
         /// </remarks>
         /// <example>
         /// If a value list is available, then each of them is put into a string with 

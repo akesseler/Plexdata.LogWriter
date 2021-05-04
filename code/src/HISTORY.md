@@ -8,6 +8,8 @@
 - Minor fixings in tests and some files renamed.
 - Copyright year changed in all files.
 - Logger extension methods split into different files.
+- Support of type `Guid` as `TScope`. 
+- Review of source code documentation.
 
 **1.0.5.2**
 - Support of a simple XML message format.

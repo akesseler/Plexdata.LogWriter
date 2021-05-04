@@ -221,7 +221,7 @@ namespace Plexdata.LogWriter.Facades
                     continue;
                 }
 
-                // Keep in mind, all white spaces (including carriage return and line feed) are removed!
+                // Keep in mind, all whitespaces (including carriage return and line feed) are removed!
                 yield return message.Trim();
             }
         }

@@ -113,7 +113,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// This method sends one message to configured mail server using provided arguments. Such a 
         /// mail message is only sent if all provided arguments are valid. Valid means in this case 
         /// that <paramref name="address"/>, <paramref name="subject"/> and <paramref name="content"/> 
-        /// are neither <c>null</c>, nor <c>empty</c> nor consist only of white spaces. Furthermore, 
+        /// are neither <c>null</c>, nor <em>empty</em> nor consist only of <em>whitespaces</em>. Furthermore, 
         /// encoding must not be <c>null</c>. Finally, at least one of the receiver addresses 
         /// (<paramref name="receivers"/>, <paramref name="clearCopies"/>, <paramref name="blindCopies"/>) 
         /// must be set. No message is sent if at least one of these conditions is violated!
