@@ -179,6 +179,9 @@ logger.Write(LogLevel.Warning, "User has reached limit",
 
         // Example of using some user defined string as scope.
         this.logger.Write("Works Too", LogLevel.Verbose, "Scope is user defined string");
+
+        // Example of using a GUID as scope.
+        this.logger.Write(Guid.NewGuid(), LogLevel.Verbose, "Scope is GUID");
     }
 }</code></pre>
 

@@ -174,7 +174,7 @@ namespace Plexdata.LogWriter.Extensions
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown as soon as provided <paramref name="text"/> 
-        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// is <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em>. 
         /// </exception>
         /// <seealso cref="LogLevel"/>
         /// <seealso cref="ThrowIfInvalid(LogLevel)"/>

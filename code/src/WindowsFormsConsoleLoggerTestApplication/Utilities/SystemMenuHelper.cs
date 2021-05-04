@@ -87,7 +87,7 @@ namespace Plexdata.Utilities.Assembly
         {
             if (String.IsNullOrWhiteSpace(label))
             {
-                throw new ArgumentException("Menu label must not be null, empty or consists only of white spaces.", nameof(label));
+                throw new ArgumentException("Menu label must not be null, empty or consists only of whitespaces.", nameof(label));
             }
 
             if (action == null)

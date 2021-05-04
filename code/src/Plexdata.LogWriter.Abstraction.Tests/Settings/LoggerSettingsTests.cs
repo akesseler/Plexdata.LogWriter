@@ -79,7 +79,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         [Test]
         public void LoggerSettings_ValidateDefaultSettings_DefaultSettingsAsExpected()
         {
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             Assert.That(instance.LogLevel, Is.EqualTo(LogLevel.Default));
             Assert.That(instance.LogType, Is.EqualTo(LogType.Default));
@@ -88,6 +88,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.TimeFormat, Is.EqualTo(LoggerSettings.DefaultTimeFormat));
             Assert.That(instance.PartSplit, Is.EqualTo(';'));
             Assert.That(instance.FullName, Is.EqualTo(true));
+            Assert.That(instance.Culture, Is.Not.Null);
             Assert.That(instance.Culture.Name, Is.EqualTo("en-US"));
         }
 
@@ -99,7 +100,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void LogLevel_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.LogLevel = LogLevel.Trace;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -112,7 +113,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void LogLevel_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.LogLevel = LogLevel.Critical;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -129,7 +130,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void LogType_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.LogType = LogType.Csv;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -142,7 +143,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void LogType_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.LogType = LogType.Json;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -159,7 +160,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void LogTime_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.LogTime = LogTime.Local;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -172,7 +173,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void LogTime_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.LogTime = LogTime.Default;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -189,7 +190,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void ShowTime_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.ShowTime = false;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -202,7 +203,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void ShowTime_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.ShowTime = true;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -219,7 +220,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void TimeFormat_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.TimeFormat = "old time format";
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -232,7 +233,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void TimeFormat_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.TimeFormat = "same time format";
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -249,7 +250,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void PartSplit_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.PartSplit = '#';
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -262,7 +263,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void PartSplit_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.PartSplit = '|';
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -279,7 +280,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void FullName_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.FullName = false;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -292,7 +293,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void FullName_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.FullName = true;
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -309,7 +310,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void Culture_ValueChanged_PropertyChangedFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.Culture = CultureInfo.GetCultureInfo("en-US");
             instance.PropertyChanged += (sender, args) => { fired = true; };
@@ -322,7 +323,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         public void Culture_ValueUnchanged_PropertyChangedNotFired()
         {
             Boolean fired = false;
-            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
 
             instance.Culture = CultureInfo.GetCultureInfo("en-US");
             instance.PropertyChanged += (sender, args) => { fired = true; };

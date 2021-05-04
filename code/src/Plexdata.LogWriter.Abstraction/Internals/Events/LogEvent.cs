@@ -198,7 +198,7 @@ namespace Plexdata.LogWriter.Internals.Events
         /// <remarks>
         /// This method returns an empty string if provided parameter 
         /// <paramref name="context"/> is <c>null</c>, empty or only 
-        /// consists of white spaces. Furthermore, the returned context 
+        /// consists of whitespaces. Furthermore, the returned context 
         /// does not include leading and trailing whitespaces.
         /// </remarks>
         /// <param name="context">
@@ -218,7 +218,7 @@ namespace Plexdata.LogWriter.Internals.Events
         /// <remarks>
         /// This method returns an empty string if provided parameter 
         /// <paramref name="scope"/> is <c>null</c>, empty or only 
-        /// consists of white spaces. Furthermore, the returned scope 
+        /// consists of whitespaces. Furthermore, the returned scope 
         /// does not include leading and trailing whitespaces.
         /// </remarks>
         /// <param name="scope">

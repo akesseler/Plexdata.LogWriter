@@ -399,7 +399,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// <para>
-        /// The details are always added and cannot be disabled, but might be <c>empty</c>.
+        /// The details are always added and cannot be disabled, but might be <em>empty</em>.
         /// </para>
         /// <para>
         /// If a value list is available, then each of them is put into a string with 

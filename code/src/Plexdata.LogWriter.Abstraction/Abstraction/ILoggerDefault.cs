@@ -24,6 +24,7 @@
 
 using Plexdata.LogWriter.Definitions;
 using System;
+using System.Reflection;
 
 namespace Plexdata.LogWriter.Abstraction
 {
@@ -79,8 +80,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces.
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em>.
         /// </para>
         /// </remarks>
         /// <param name="level">
@@ -98,8 +99,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces.
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em>.
         /// </para>
         /// </remarks>
         /// <param name="level">
@@ -159,8 +160,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces and if <paramref name="exception"/> is <c>null</c>. 
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em> and if <paramref name="exception"/> is <c>null</c>. 
         /// </para>
         /// <para>
         /// On the other hand, if the <paramref name="message"/> is invalid but the <paramref name="exception"/> is valid 
@@ -185,8 +186,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces and if <paramref name="exception"/> is <c>null</c>. 
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em> and if <paramref name="exception"/> is <c>null</c>. 
         /// </para>
         /// <para>
         /// On the other hand, if the <paramref name="message"/> is invalid but the <paramref name="exception"/> is valid 
@@ -214,17 +215,31 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces.
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em>.
         /// </para>
         /// <para>
-        /// The logging scope is intended to be more than just the type name. If type of parameter <paramref name="scope"/> is 
-        /// for example a string then this string is used. If type of parameter <paramref name="scope"/> is for example of type 
-        /// <see cref="System.Reflection.MemberInfo"/> then the referenced member's <see cref="System.Reflection.MemberInfo.Name"/> 
-        /// is taken instead. In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it 
-        /// is just the <see cref="System.Reflection.MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or 
-        /// short name is determined from current settings.
+        /// The logging scope is intended to be more than just the type name.
         /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>. Using a <see cref="Guid"/> as scope type can be seen as some kind 
+        /// of <em>correlation ID</em>, especially if this <see cref="Guid"/> is the same for multiple calls. 
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it is just the 
+        /// <see cref="MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or short name is determined 
+        /// from current settings.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.
@@ -247,17 +262,31 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces.
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em>.
         /// </para>
         /// <para>
-        /// The logging scope is intended to be more than just the type name. If type of parameter <paramref name="scope"/> is 
-        /// for example a string then this string is used. If type of parameter <paramref name="scope"/> is for example of type 
-        /// <see cref="System.Reflection.MemberInfo"/> then the referenced member's <see cref="System.Reflection.MemberInfo.Name"/> 
-        /// is taken instead. In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it 
-        /// is just the <see cref="System.Reflection.MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or 
-        /// short name is determined from current settings.
+        /// The logging scope is intended to be more than just the type name.
         /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>. Using a <see cref="Guid"/> as scope type can be seen as some kind 
+        /// of <em>correlation ID</em>, especially if this <see cref="Guid"/> is the same for multiple calls. 
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it is just the 
+        /// <see cref="MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or short name is determined 
+        /// from current settings.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.
@@ -286,13 +315,27 @@ namespace Plexdata.LogWriter.Abstraction
         /// Be aware, nothing will happen if <paramref name="exception"/> is <c>null</c>. 
         /// </para>
         /// <para>
-        /// The logging scope is intended to be more than just the type name. If type of parameter <paramref name="scope"/> is 
-        /// for example a string then this string is used. If type of parameter <paramref name="scope"/> is for example of type 
-        /// <see cref="System.Reflection.MemberInfo"/> then the referenced member's <see cref="System.Reflection.MemberInfo.Name"/> 
-        /// is taken instead. In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it 
-        /// is just the <see cref="System.Reflection.MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or 
-        /// short name is determined from current settings.
+        /// The logging scope is intended to be more than just the type name.
         /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>. Using a <see cref="Guid"/> as scope type can be seen as some kind 
+        /// of <em>correlation ID</em>, especially if this <see cref="Guid"/> is the same for multiple calls. 
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it is just the 
+        /// <see cref="MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or short name is determined 
+        /// from current settings.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.
@@ -318,13 +361,27 @@ namespace Plexdata.LogWriter.Abstraction
         /// Be aware, nothing will happen if <paramref name="exception"/> is <c>null</c>. 
         /// </para>
         /// <para>
-        /// The logging scope is intended to be more than just the type name. If type of parameter <paramref name="scope"/> is 
-        /// for example a string then this string is used. If type of parameter <paramref name="scope"/> is for example of type 
-        /// <see cref="System.Reflection.MemberInfo"/> then the referenced member's <see cref="System.Reflection.MemberInfo.Name"/> 
-        /// is taken instead. In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it 
-        /// is just the <see cref="System.Reflection.MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or 
-        /// short name is determined from current settings.
+        /// The logging scope is intended to be more than just the type name.
         /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>. Using a <see cref="Guid"/> as scope type can be seen as some kind 
+        /// of <em>correlation ID</em>, especially if this <see cref="Guid"/> is the same for multiple calls. 
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it is just the 
+        /// <see cref="MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or short name is determined 
+        /// from current settings.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.
@@ -350,21 +407,35 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces and if <paramref name="exception"/> is <c>null</c>. 
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em> and if <paramref name="exception"/> is <c>null</c>. 
         /// </para>
         /// <para>
         /// On the other hand, if the <paramref name="message"/> is invalid but the <paramref name="exception"/> is valid 
         /// then the message text is taken from the exception instead.
         /// </para>
         /// <para>
-        /// The logging scope is intended to be more than just the type name. If type of parameter <paramref name="scope"/> is 
-        /// for example a string then this string is used. If type of parameter <paramref name="scope"/> is for example of type 
-        /// <see cref="System.Reflection.MemberInfo"/> then the referenced member's <see cref="System.Reflection.MemberInfo.Name"/> 
-        /// is taken instead. In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it 
-        /// is just the <see cref="System.Reflection.MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or 
-        /// short name is determined from current settings.
+        /// The logging scope is intended to be more than just the type name.
         /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>. Using a <see cref="Guid"/> as scope type can be seen as some kind 
+        /// of <em>correlation ID</em>, especially if this <see cref="Guid"/> is the same for multiple calls. 
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it is just the 
+        /// <see cref="MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or short name is determined 
+        /// from current settings.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.
@@ -390,21 +461,35 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// <para>
         /// This method performs the actual writing of logging data into the logging target using a particular logging level. 
-        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <c>empty</c> or consists only of white 
-        /// spaces and if <paramref name="exception"/> is <c>null</c>. 
+        /// Be aware, nothing will happen if <paramref name="message"/> is <c>null</c>, <em>empty</em> or consists only of 
+        /// <em>whitespaces</em> and if <paramref name="exception"/> is <c>null</c>. 
         /// </para>
         /// <para>
         /// On the other hand, if the <paramref name="message"/> is invalid but the <paramref name="exception"/> is valid 
         /// then the message text is taken from the exception instead.
         /// </para>
         /// <para>
-        /// The logging scope is intended to be more than just the type name. If type of parameter <paramref name="scope"/> is 
-        /// for example a string then this string is used. If type of parameter <paramref name="scope"/> is for example of type 
-        /// <see cref="System.Reflection.MemberInfo"/> then the referenced member's <see cref="System.Reflection.MemberInfo.Name"/> 
-        /// is taken instead. In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it 
-        /// is just the <see cref="System.Reflection.MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or 
-        /// short name is determined from current settings.
+        /// The logging scope is intended to be more than just the type name.
         /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>. Using a <see cref="Guid"/> as scope type can be seen as some kind 
+        /// of <em>correlation ID</em>, especially if this <see cref="Guid"/> is the same for multiple calls. 
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is either taken from the type's <see cref="Type.FullName"/> or it is just the 
+        /// <see cref="MemberInfo.Name"/> of type <typeparamref name="TScope"/>. The usage of full or short name is determined 
+        /// from current settings.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.

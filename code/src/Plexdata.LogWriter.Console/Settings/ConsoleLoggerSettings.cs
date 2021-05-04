@@ -94,7 +94,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default window title.
         /// </summary>
         /// <remarks>
-        /// The default window title is <c>empty</c>, which means the original 
+        /// The default window title is <em>empty</em>, which means the original 
         /// window title remains unchanged.
         /// </remarks>
         private static readonly String DefaultWindowTitle = String.Empty;

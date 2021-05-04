@@ -46,7 +46,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// </summary>
         /// <remarks>
         /// This property allows to get or set the sender e-mail address. 
-        /// Default value is <c>empty</c>.
+        /// Default value is <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The sender e-mail address.
@@ -58,7 +58,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// </summary>
         /// <remarks>
         /// This property allows to get or set the e-mail account username. 
-        /// Default value is <c>empty</c>.
+        /// Default value is <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The e-mail account username.
@@ -72,7 +72,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// This property allows to get or set the e-mail account password.
         /// Be aware, there might be a security issue if such a password is 
         /// put into an unencrypted configuration file! Default value is 
-        /// <c>empty</c>.
+        /// <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The e-mail account password.
@@ -88,7 +88,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// </summary>
         /// <remarks>
         /// This property allows to get or set the SMTP host name. Default 
-        /// value is <c>empty</c>.
+        /// value is <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The SMTP host name.
@@ -143,8 +143,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// <remarks>
         /// This property allows to change the used mail subject. The 
         /// logging message is used as subject if this property is not 
-        /// set (<c>null</c>, <c>empty</c>, <c>whitespaces</c>). Default 
-        /// value is <c>empty</c>.
+        /// set (<c>null</c>, <em>empty</em>, <em>whitespaces</em>). 
+        /// Default value is <em>empty</em>.
         /// </remarks>
         ///<value>
         /// The used mail subject.
@@ -156,7 +156,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// </summary>
         /// <remarks>
         /// This property allows to get or set the list of main e-mail 
-        /// recipients (<c>To</c>). Default value is <c>empty</c>.
+        /// recipients (<em>To</em>). Default value is <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The list of main e-mail recipients.
@@ -168,7 +168,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// </summary>
         /// <remarks>
         /// This property allows to get or set the list of copy e-mail 
-        /// recipients (carbon copy <c>CC</c>). Default value is <c>empty</c>.
+        /// recipients (carbon copy <em>CC</em>). Default value is <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The list of copy e-mail recipients.
@@ -180,8 +180,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// </summary>
         /// <remarks>
         /// This property allows to get or set the list of blind e-mail 
-        /// recipients (blind carbon copy <c>BCC</c>). Default value is 
-        /// <c>empty</c>.
+        /// recipients (blind carbon copy <em>BCC</em>). Default value is 
+        /// <em>empty</em>.
         /// </remarks>
         /// <value>
         /// The list of blind e-mail recipients.

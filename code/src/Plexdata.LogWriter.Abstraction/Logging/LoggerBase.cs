@@ -290,13 +290,28 @@ namespace Plexdata.LogWriter.Logging
         /// This method resolves the logging scope.
         /// </summary>
         /// <remarks>
-        /// The logging scope is intended to be more than just the type name. If the 
-        /// <paramref name="scope"/> type is for example a string then this string is 
-        /// taken as it is. Or if the <paramref name="scope"/> type is for example of 
-        /// type of <see cref="MemberInfo"/> then member name is taken instead. In all 
-        /// other cases the logging scope is either the full name or the short name 
-        /// of the type of <typeparamref name="TScope"/>. If the full name or short 
-        /// name is used will be determined from current <paramref name="settings"/>.
+        /// <para>
+        /// The logging scope is intended to be more than just the type name. 
+        /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If the <paramref name="scope"/> type is for example a string then this string is 
+        /// taken as it is.
+        /// </description></item>
+        /// <item><description>
+        /// If the <paramref name="scope"/> type is a <see cref="Guid"/> instead then the guid's 
+        /// string representation is taken by calling <see cref="Guid.ToString()"/>.
+        /// </description></item>
+        /// <item><description>
+        /// If the <paramref name="scope"/> type is for example of type of <see cref="MemberInfo"/> 
+        /// then member name is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the logging scope is either the full name or the short name of the 
+        /// type of <typeparamref name="TScope"/>. If the full name or short name is used will be 
+        /// determined from current <paramref name="settings"/>.
+        /// </description></item>
+        /// </list>
         /// </remarks>
         /// <typeparam name="TScope">
         /// The type to get the logging scope from.
@@ -323,6 +338,11 @@ namespace Plexdata.LogWriter.Logging
                 if (scope is String)
                 {
                     return scope as String;
+                }
+
+                if (scope is Guid)
+                {
+                    return scope.ToString();
                 }
 
                 if (scope is MemberInfo)

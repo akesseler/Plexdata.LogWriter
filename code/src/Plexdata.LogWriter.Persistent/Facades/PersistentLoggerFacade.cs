@@ -94,7 +94,7 @@ namespace Plexdata.LogWriter.Facades
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown if provided parameter <paramref name="filename"/> 
-        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// is <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em>. 
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown if provided parameter <paramref name="encoding"/> 
@@ -110,7 +110,7 @@ namespace Plexdata.LogWriter.Facades
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown if provided parameter <paramref name="filename"/> 
-        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// is <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em>. 
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown if provided parameter <paramref name="encoding"/> is 
@@ -148,7 +148,7 @@ namespace Plexdata.LogWriter.Facades
         /// <inheritdoc />
         /// <exception cref="ArgumentOutOfRangeException">
         /// This exception is thrown if provided parameter <paramref name="filename"/> 
-        /// is <c>null</c>, <c>empty</c> or consists only of white spaces. 
+        /// is <c>null</c>, <em>empty</em> or consists only of <em>whitespaces</em>. 
         /// </exception>
         /// <exception cref="Exception">
         /// Other exceptions, such as <see cref="DirectoryNotFoundException"/>, 

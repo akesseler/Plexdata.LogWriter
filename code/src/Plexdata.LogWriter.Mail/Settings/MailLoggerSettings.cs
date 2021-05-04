@@ -52,7 +52,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default address value.
         /// </summary>
         /// <remarks>
-        /// The default address value is set to <c>empty</c>.
+        /// The default address value is set to <em>empty</em>.
         /// </remarks>
         private static readonly String DefaultAddress = String.Empty;
 
@@ -60,7 +60,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default username value.
         /// </summary>
         /// <remarks>
-        /// The default username value is set to <c>empty</c>.
+        /// The default username value is set to <em>empty</em>.
         /// </remarks>
         private static readonly String DefaultUsername = String.Empty;
 
@@ -68,7 +68,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default password value.
         /// </summary>
         /// <remarks>
-        /// The default password value is set to <c>empty</c>.
+        /// The default password value is set to <em>empty</em>.
         /// </remarks>
         private static readonly String DefaultPassword = String.Empty;
 
@@ -76,7 +76,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default SMTP host value.
         /// </summary>
         /// <remarks>
-        /// The default SMTP host value is set to <c>empty</c>.
+        /// The default SMTP host value is set to <em>empty</em>.
         /// </remarks>
         private static readonly String DefaultSmtpHost = String.Empty;
 
@@ -108,7 +108,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default subject value.
         /// </summary>
         /// <remarks>
-        /// The default subject value is set to <c>empty</c>.
+        /// The default subject value is set to <em>empty</em>.
         /// </remarks>
         private static readonly String DefaultSubject = String.Empty;
 
@@ -116,7 +116,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default receivers value.
         /// </summary>
         /// <remarks>
-        /// The default receivers value is set to <c>empty</c>.
+        /// The default receivers value is set to <em>empty</em>.
         /// </remarks>
         private static readonly IEnumerable<String> DefaultReceivers = Enumerable.Empty<String>();
 
@@ -124,7 +124,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default clear copies value.
         /// </summary>
         /// <remarks>
-        /// The default clear copies value is set to <c>empty</c>.
+        /// The default clear copies value is set to <em>empty</em>.
         /// </remarks>
         private static readonly IEnumerable<String> DefaultClearCopies = Enumerable.Empty<String>();
 
@@ -132,7 +132,7 @@ namespace Plexdata.LogWriter.Settings
         /// The default blind copies value.
         /// </summary>
         /// <remarks>
-        /// The default blind copies value is set to <c>empty</c>.
+        /// The default blind copies value is set to <em>empty</em>.
         /// </remarks>
         private static readonly IEnumerable<String> DefaultBlindCopies = Enumerable.Empty<String>();
 
