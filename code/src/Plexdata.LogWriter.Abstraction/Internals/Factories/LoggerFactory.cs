@@ -65,9 +65,6 @@ namespace Plexdata.LogWriter.Internals.Factories
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown if parameter <paramref name="settings"/> is <c>null</c>.
         /// </exception>
-        /// <exception cref="NotSupportedException">
-        /// This exception is thrown if provided settings contain an invalid logging type.
-        /// </exception>
         public ILogEventFormatter CreateLogEventFormatter(ILoggerSettings settings)
         {
             if (settings == null)

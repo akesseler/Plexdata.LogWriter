@@ -75,20 +75,20 @@ namespace EmptyLoggerExample
 <h4 id="logger-status-checks">Logger Status Checks</h4>
 
 <p>
-    Well, once a logger instance is available, users can check the logger&rsquo;s current status. 
-    For this purpose the basic logger interface provides one property and on method. The property 
-    named <code>IsDisabled</code> allows to check whether logging is enabled at all. In contrast 
-    to that the method <code>IsEnabled()</code> allows to test whether a particular logging level 
-    is enabled or not. With these both basic functionalities it would become possible to generally 
+    Well, once a logger instance is available, users can check the logger&rsquo;s current status.
+    For this purpose the basic logger interface provides one property and on method. The property
+    named <code>IsDisabled</code> allows to check whether logging is enabled at all. In contrast
+    to that the method <code>IsEnabled()</code> allows to test whether a particular logging level
+    is enabled or not. With these both basic functionalities it would become possible to generally
     check if logging a message could work.
 </p>
 
 <h4 id="native-message-writing">Native Message Writing</h4>
 
 <p>
-    For sure, it is actually recommended to use the provided extension methods to write logging 
-    messages of a particular type. But on the other hand, it is possible as well to take the native 
-    method <code>Write()</code> to perform message logging. How to use these native logging methods 
+    For sure, it is actually recommended to use the provided extension methods to write logging
+    messages of a particular type. But on the other hand, it is possible as well to take the native
+    method <code>Write()</code> to perform message logging. How to use these native logging methods
     is shown in code&ndash;snippets below.
 </p>
 
@@ -116,7 +116,7 @@ namespace EmptyLoggerExample
 }</code></pre>
 
 <p>
-    This second example demonstrates how to deal with exception logging. But keep in mind, using an 
+    This second example demonstrates how to deal with exception logging. But keep in mind, using an
     individual message in combination with an exception is possible as well.
 
 </p>
@@ -135,7 +135,7 @@ catch (Exception exception)
 }</code></pre>
 
 <p>
-    This next example points out how the feature of additional parameters can be used. These parameters 
+    This next example points out how the feature of additional parameters can be used. These parameters
     are appended at the end of the written message.
 </p>
 
@@ -146,16 +146,16 @@ Int32 bonus = 23;
 ...
 logger.Write(LogLevel.Warning, "User has reached limit",
     new (String Label, Object Value)[] {
-            ( Label: "Price", Value: price ),
-            ( Label: "User",  Value: user  ),
-            ( Label: "Bonus", Value: bonus ),
+        ( Label: "Price", Value: price ),
+        ( Label: "User",  Value: user  ),
+        ( Label: "Bonus", Value: bonus ),
     });</code></pre>
 
 <h4 id="scoped-message-logging">Scoped Message Logging</h4>
 
 <p>
     Writing logging message with a particular scope might be useful under various circumstances.
-    Therefore, the next code-snippet shows the supported ways of using the scope feature when 
+    Therefore, the next code-snippet shows the supported ways of using the scope feature when
     writing logging messages.
 </p>
 
@@ -184,6 +184,93 @@ logger.Write(LogLevel.Warning, "User has reached limit",
         this.logger.Write(Guid.NewGuid(), LogLevel.Verbose, "Scope is GUID");
     }
 }</code></pre>
+
+<p>
+    Another way to use scoped message logging is by using method <code>BeginScope()</code>. This
+    allows to define a message scope for all subsequent logging calls of the same logger instance.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('scoped-message-logging-example-2');return false;">Copy</a></div>
+<pre id="scoped-message-logging-example-2"><code>using (logger.BeginScope("useful-scope"))
+{
+    logger.Debug("This is a Debug logging entry.");
+    logger.Trace("This is a Trace logging entry.");
+    logger.Verbose("This is a Verbose logging entry.");
+    logger.Message("This is a Message logging entry.");
+    logger.Warning("This is a Warning logging entry.");
+    logger.Error("This is a Error logging entry.");
+    logger.Fatal("This is a Fatal logging entry.");
+    logger.Critical("This is a Critical logging entry.");
+}</code></pre>
+
+<p>
+    In raw format the output would like as shown below.
+</p>
+
+<pre><code>2021-05-23 17:23:05.1234;DEBUG;useful-scope;This is a Debug logging entry.
+2021-05-23 17:23:05.1234;TRACE;useful-scope;This is a Trace logging entry.
+2021-05-23 17:23:05.1234;VERBOSE;useful-scope;This is a Verbose logging entry.
+2021-05-23 17:23:05.1234;MESSAGE;useful-scope;This is a Message logging entry.
+2021-05-23 17:23:05.1234;WARNING;useful-scope;This is a Warning logging entry.
+2021-05-23 17:23:05.1234;ERROR;useful-scope;This is a Error logging entry.
+2021-05-23 17:23:05.1234;FATAL;useful-scope;This is a Fatal logging entry.
+2021-05-23 17:23:05.1234;CRITICAL;useful-scope;This is a Critical logging entry.</code></pre>
+
+<p>
+    For sure, multiple logging scope stages (or better ranges) are possible as well. How to use 
+    this feature is shown in following code&ndash;snippet.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('scoped-message-logging-example-3');return false;">Copy</a></div>
+<pre id="scoped-message-logging-example-3"><code>using (logger.BeginScope("scope-level-1"))
+{
+    using (logger.BeginScope("scope-level-2"))
+    {
+        using (logger.BeginScope("scope-level-3"))
+        {
+            logger.Verbose("The logging message.");
+        }
+        logger.Verbose("The logging message.");
+    }
+    logger.Verbose("The logging message.");
+}
+logger.Verbose("The logging message.");</code></pre>
+
+<p>
+    In raw format the output would like as shown below.
+</p>
+
+<pre><code>2021-05-23 17:23:05.1234;VERBOSE;[scope-level-1,scope-level-2,scope-level-3];The logging message.
+2021-05-23 17:23:05.1234;VERBOSE;[scope-level-1,scope-level-2];The logging message.
+2021-05-23 17:23:05.1234;VERBOSE;scope-level-1;The logging message.
+2021-05-23 17:23:05.1234;VERBOSE;The logging message.</code></pre>
+
+<p>
+    Finally, a third use case might also be of interest. This is the question of what happens 
+    if an independent scope is used within a set of scope ranges. The answer is pretty simple, 
+    the &ldquo;manual&rdquo; scope overwrites all scope stages. See next example for what is 
+    meant in detail.
+</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('scoped-message-logging-example-4');return false;">Copy</a></div>
+<pre id="scoped-message-logging-example-4"><code>using (logger.BeginScope("scope-level-1"))
+{
+    using (logger.BeginScope("scope-level-2"))
+    {
+        using (logger.BeginScope("scope-level-3"))
+        {
+            logger.Verbose("The logging message with scope stages.");
+            logger.Verbose("another-scope", "The logging message with manual scope.");
+        }
+    }
+}</code></pre>
+
+<p>
+    In raw format the output would like as shown below.
+</p>
+
+<pre><code>2021-05-23 17:23:05.1234;VERBOSE;[scope-level-1,scope-level-2,scope-level-3];The logging message with scope stages.
+2021-05-23 17:23:05.1234;VERBOSE;another-scope;The logging message with manual scope.</code></pre>
 
 <h4 id="using-dependency-injection">Using Dependency Injection</h4>
 

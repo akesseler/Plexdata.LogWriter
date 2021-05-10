@@ -61,6 +61,26 @@ namespace Plexdata.LogWriter.Logging
         /// </remarks>
         public virtual Boolean IsEnabled(LogLevel level) { return false; }
 
+        /// <summary>
+        /// Begins a logical operation scope.
+        /// </summary>
+        /// <remarks>
+        /// This method begins a logical operation scope.
+        /// </remarks>
+        /// <typeparam name="TScope">
+        /// The type to begin scope for.
+        /// </typeparam>
+        /// <param name="scope">
+        /// The identifier for the scope.
+        /// </param>
+        /// <returns>
+        /// A disposable object that ends the logical operation scope on dispose.
+        /// </returns>
+        public IDisposable BeginScope<TScope>(TScope scope)
+        {
+            return new Internals.Logging.LoggingScope();
+        }
+
         #endregion
 
         #region Write methods

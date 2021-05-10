@@ -25,8 +25,10 @@
 using Moq;
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
+using Plexdata.LogWriter.Internals.Logging;
 using Plexdata.LogWriter.Logging;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
@@ -170,6 +172,62 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
             Mock<ILoggerSettings> other = new Mock<ILoggerSettings>();
             other.Setup(x => x.FullName).Returns(true);
             Assert.That(this.instance.TestResolveContext<DummyClass>(other.Object), Is.EqualTo(typeof(DummyClass).FullName));
+        }
+
+        #endregion
+
+        #region CreateScope
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void CreateScope_WithManyScopeItems_ScopesCountAsExpected(Int32 count)
+        {
+            for (Int32 index = 0; index < count; index++)
+            {
+                this.instance.TestCreateScope($"scope-{index}");
+            }
+
+            Assert.That(this.GetValueOfScopesField(this.instance).Count, Is.EqualTo(count));
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void CreateScope_WithManyScopeItems_ScopesValuesAsExpected(Int32 count)
+        {
+            for (Int32 index = 0; index < count; index++)
+            {
+                this.instance.TestCreateScope($"scope-{index}");
+            }
+
+            List<LoggingScope> scopes = this.GetValueOfScopesField(this.instance);
+
+            for (Int32 index = 0; index < count; index++)
+            {
+                Assert.That(scopes[index].Value, Is.EqualTo($"scope-{index}"));
+            }
+        }
+
+        [TestCase(0)]
+        [TestCase(1)]
+        [TestCase(3)]
+        [TestCase(4)]
+        public void CreateScope_WithManyScopeItems_DisposingEventsAssignedAsExpected(Int32 count)
+        {
+            for (Int32 index = 0; index < count; index++)
+            {
+                this.instance.TestCreateScope($"scope-{index}");
+            }
+
+            List<LoggingScope> scopes = this.GetValueOfScopesField(this.instance);
+
+            for (Int32 index = 0; index < count; index++)
+            {
+                Assert.That(this.GetValueOfDisposingEvent(scopes[index]), Is.Not.Null);
+            }
         }
 
         #endregion
@@ -456,6 +514,211 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
 
         #endregion
 
+        #region RemoveScope
+
+        [Test]
+        public void RemoveScope_WithFourScopeItems_ScopesCountAsExpected()
+        {
+            using (this.instance.TestCreateScope("scope-1"))
+            {
+                using (this.instance.TestCreateScope("scope-2"))
+                {
+                    using (this.instance.TestCreateScope("scope-3"))
+                    {
+                        using (this.instance.TestCreateScope("scope-4"))
+                        {
+                            Assert.That(this.GetValueOfScopesField(this.instance).Count, Is.EqualTo(4));
+                        }
+                        Assert.That(this.GetValueOfScopesField(this.instance).Count, Is.EqualTo(3));
+                    }
+                    Assert.That(this.GetValueOfScopesField(this.instance).Count, Is.EqualTo(2));
+                }
+                Assert.That(this.GetValueOfScopesField(this.instance).Count, Is.EqualTo(1));
+            }
+            Assert.That(this.GetValueOfScopesField(this.instance).Count, Is.EqualTo(0));
+        }
+
+        #endregion
+
+        #region FetchScope
+
+        [Test]
+        public void FetchScope_ScopeValueIsValidAndNoOtherScopeAssigned_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = null;
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, "not-null", null, null, null);
+
+            Assert.That(actual, Is.EqualTo("not-null"));
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsNullAndNoOtherScopeAssigned_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = "not-null";
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, null, null, null, null);
+
+            Assert.That(actual, Is.Null);
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsValidAndOtherScopeAssigned_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = null;
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope("scope-1");
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, "not-null", null, null, null);
+
+            Assert.That(actual, Is.EqualTo("not-null"));
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsNullAndOtherScopeAssigned_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = "not-null";
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope("scope-1");
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, null, null, null, null);
+
+            Assert.That(actual, Is.EqualTo("scope-1"));
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsNullAndOtherScopeAssignedButWithOneInvalidValue_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = "not-null";
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope((Object)null);
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, null, null, null, null);
+
+            Assert.That(actual, Is.Null);
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsValidAndOtherScopesAssigned_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = null;
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope("scope-1");
+            this.instance.TestCreateScope("scope-2");
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, "not-null", null, null, null);
+
+            Assert.That(actual, Is.EqualTo("not-null"));
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsNullAndOtherScopesAssigned_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = "not-null";
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope("scope-1");
+            this.instance.TestCreateScope("scope-2");
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, null, null, null, null);
+
+            Assert.That(actual, Is.EqualTo("[scope-1,scope-2]"));
+        }
+
+        [TestCase(null)]
+        [TestCase("")]
+        [TestCase(" ")]
+        public void FetchScope_ScopeValueIsNullAndOtherScopesAssignedButWithOneInvalidValue_FactoryWasCalledWithExpectedScope(String invalid)
+        {
+            String actual = null;
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope("scope-1");
+            this.instance.TestCreateScope(invalid);
+            this.instance.TestCreateScope("scope-3");
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, null, null, null, null);
+
+            Assert.That(actual, Is.EqualTo("[scope-1,scope-3]"));
+        }
+
+        [Test]
+        public void FetchScope_ScopeValueIsNullAndOtherScopesAssignedButWithThreeInvalidValues_FactoryWasCalledWithExpectedScope()
+        {
+            String actual = null;
+
+            this.factory
+                .Setup(x => x.CreateLogEvent(
+                    It.IsAny<LogLevel>(), It.IsAny<DateTime>(), It.IsAny<String>(), It.IsAny<String>(),
+                    It.IsAny<String>(), It.IsAny<Exception>(), It.IsAny<ValueTuple<String, Object>[]>()))
+                .Callback((LogLevel l, DateTime t, String c, String s, String m, Exception e, (String Label, Object Value)[] d) => { actual = s; })
+                .Returns(this.message.Object);
+
+            this.instance.TestCreateScope((Object)null);
+            this.instance.TestCreateScope(" ");
+            this.instance.TestCreateScope(String.Empty);
+
+            this.instance.TestCreateOutput(this.settings.Object, LogLevel.Disabled, null, null, null, null, null);
+
+            Assert.That(actual, Is.Null);
+        }
+
+        #endregion
+
         #region Private test class implementations
 
         private class DummyClass
@@ -498,6 +761,11 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
                 return base.IsEnabled(level);
             }
 
+            public IDisposable TestCreateScope<TScope>(TScope scope)
+            {
+                return base.CreateScope<TScope>(scope);
+            }
+
             public String TestResolveScope<TScope>(TScope scope)
             {
                 return base.ResolveScope<TScope>(scope);
@@ -522,6 +790,20 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
             {
                 throw new NotImplementedException();
             }
+        }
+
+        private List<LoggingScope> GetValueOfScopesField(LoggerBase<ILoggerSettings> instance)
+        {
+            return typeof(LoggerBase<ILoggerSettings>)
+                .GetField("scopes", BindingFlags.Instance | BindingFlags.NonPublic)
+                .GetValue(instance) as List<LoggingScope>;
+        }
+
+        private Object GetValueOfDisposingEvent(LoggingScope instance)
+        {
+            return instance.GetType()
+                .GetField("Disposing", BindingFlags.NonPublic | BindingFlags.Instance)
+                .GetValue(instance);
         }
 
         #endregion

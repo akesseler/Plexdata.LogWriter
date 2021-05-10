@@ -32,8 +32,8 @@ namespace Plexdata.LogWriter.Facades.Windows
 {
     /// <summary>
     /// This class represents the default implementation of interface 
-    /// <see cref="IConsoleLoggerFacade"/> for Windows applications based on .NET Framework that 
-    /// are able to deal with .NET Standard libraries.
+    /// <see cref="IConsoleLoggerFacade"/> for Windows applications based on 
+    /// .NET Framework that are able to deal with .NET Standard libraries.
     /// </summary>
     /// <remarks>
     /// Major task of this class is the abstraction of all writing operations 

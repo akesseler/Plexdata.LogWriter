@@ -69,6 +69,41 @@ namespace Plexdata.LogWriter.Abstraction
         /// </returns>
         Boolean IsEnabled(LogLevel level);
 
+        /// <summary>
+        /// Begins a logical operation scope.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method begins a logical operation scope.
+        /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="String"/> then this string is used.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="Guid"/> then the guid's string representation 
+        /// is taken by calling <see cref="Guid.ToString()"/>.
+        /// </description></item>
+        /// <item><description>
+        /// If parameter <paramref name="scope"/> is for example of type <see cref="MemberInfo"/> then the referenced member's 
+        /// <see cref="MemberInfo.Name"/> is taken instead. 
+        /// </description></item>
+        /// <item><description>
+        /// In all other cases the scope text is determined by using an object's <see cref="Object.ToString()"/> method.
+        /// </description></item>
+        /// </list>
+        /// </remarks>
+        /// <typeparam name="TScope">
+        /// The type to begin scope for.
+        /// </typeparam>
+        /// <param name="scope">
+        /// The identifier for the scope.
+        /// </param>
+        /// <returns>
+        /// A disposable object that ends the logical operation scope on dispose.
+        /// </returns>
+        IDisposable BeginScope<TScope>(TScope scope);
+
         #endregion
 
         #region Write methods

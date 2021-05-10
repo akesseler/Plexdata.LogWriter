@@ -90,6 +90,30 @@ namespace Plexdata.LogWriter.Logging
         #region Public methods
 
         /// <summary>
+        /// Begins a logical operation scope.
+        /// </summary>
+        /// <remarks>
+        /// This method begins a logical operation scope by calling method 
+        /// <see cref="LoggerBase{TSettings}.CreateScope{TScope}(TScope)"/> 
+        /// of its base class.
+        /// </remarks>
+        /// <typeparam name="TScope">
+        /// The type to begin scope for.
+        /// </typeparam>
+        /// <param name="scope">
+        /// The identifier for the scope.
+        /// </param>
+        /// <returns>
+        /// A disposable object that ends the logical operation scope on dispose.
+        /// </returns>
+        /// <seealso cref="ILogger.BeginScope{TScope}(TScope)"/>
+        /// <seealso cref="LoggerBase{TSettings}.CreateScope{TScope}(TScope)"/>
+        public IDisposable BeginScope<TScope>(TScope scope)
+        {
+            return base.CreateScope(scope);
+        }
+
+        /// <summary>
         /// This method performs the object disposal.
         /// </summary>
         /// <remarks>
@@ -100,7 +124,6 @@ namespace Plexdata.LogWriter.Logging
         public void Dispose()
         {
             this.Dispose(true);
-
             GC.SuppressFinalize(this);
         }
 
