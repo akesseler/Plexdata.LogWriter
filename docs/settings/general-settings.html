@@ -132,14 +132,14 @@
     well. This format is also defined as default format. Here are some examples of raw messages.
 </p>
 
-<pre><code>2019-05-23 17:23:05.1234;TRACE;message text
-2019-05-23 17:23:05.1234;DEBUG;message text
-2019-05-23 17:23:05.1234;VERBOSE;message text
-2019-05-23 17:23:05.1234;MESSAGE;message text
-2019-05-23 17:23:05.1234;WARNING;message text
-2019-05-23 17:23:05.1234;ERROR;message text
-2019-05-23 17:23:05.1234;FATAL;message text
-2019-05-23 17:23:05.1234;CRITICAL;message text</code></pre>
+<pre><code>2021-05-23 17:23:05.1234;TRACE;message text
+2021-05-23 17:23:05.1234;DEBUG;message text
+2021-05-23 17:23:05.1234;VERBOSE;message text
+2021-05-23 17:23:05.1234;MESSAGE;message text
+2021-05-23 17:23:05.1234;WARNING;message text
+2021-05-23 17:23:05.1234;ERROR;message text
+2021-05-23 17:23:05.1234;FATAL;message text
+2021-05-23 17:23:05.1234;CRITICAL;message text</code></pre>
 
 <p>
     In that order, any of these messages consists of:
@@ -163,14 +163,14 @@
     Here are some examples of CSV messages.
 </p>
 
-<pre><code>190B66E6-99F8-46F0-805B-F3EDB7760A6C;2019-05-23 17:23:05.1234;TRACE;;;"message text; testing";;
-46CEFA61-D1AD-4154-A909-0AE7932BE712;2019-05-23 17:23:05.1234;DEBUG;;;"message text; testing";;
-217287EE-04E4-437B-89E7-C7E5F1352AC1;2019-05-23 17:23:05.1234;VERBOSE;;;"message text; testing";;
-2A0BCCB1-7646-4366-B4A9-AE4D11EB32EF;2019-05-23 17:23:05.1234;MESSAGE;;;"message text; testing";;
-4B7CA54B-0A4E-46D6-A634-A66E8DFEDC0D;2019-05-23 17:23:05.1234;WARNING;;;"message text; testing";;
-B5BCB835-1272-48A2-83D1-824267298716;2019-05-23 17:23:05.1234;ERROR;;;"message text; testing";;
-8F21E75D-502E-4F49-BA3B-CFAC3CFB3238;2019-05-23 17:23:05.1234;FATAL;;;"message text; testing";;
-0501358F-5FE2-4203-860A-F3A76CF22554;2019-05-23 17:23:05.1234;CRITICAL;;;"message text; testing";;</code></pre>
+<pre><code>190B66E6-99F8-46F0-805B-F3EDB7760A6C;2021-05-23 17:23:05.1234;TRACE;;;"message text; testing";;
+46CEFA61-D1AD-4154-A909-0AE7932BE712;2021-05-23 17:23:05.1234;DEBUG;;;"message text; testing";;
+217287EE-04E4-437B-89E7-C7E5F1352AC1;2021-05-23 17:23:05.1234;VERBOSE;;;"message text; testing";;
+2A0BCCB1-7646-4366-B4A9-AE4D11EB32EF;2021-05-23 17:23:05.1234;MESSAGE;;;"message text; testing";;
+4B7CA54B-0A4E-46D6-A634-A66E8DFEDC0D;2021-05-23 17:23:05.1234;WARNING;;;"message text; testing";;
+B5BCB835-1272-48A2-83D1-824267298716;2021-05-23 17:23:05.1234;ERROR;;;"message text; testing";;
+8F21E75D-502E-4F49-BA3B-CFAC3CFB3238;2021-05-23 17:23:05.1234;FATAL;;;"message text; testing";;
+0501358F-5FE2-4203-860A-F3A76CF22554;2021-05-23 17:23:05.1234;CRITICAL;;;"message text; testing";;</code></pre>
 
 <p>
     In that order, any of these messages consists of:
@@ -200,14 +200,14 @@ B5BCB835-1272-48A2-83D1-824267298716;2019-05-23 17:23:05.1234;ERROR;;;"message t
     in detail they are surrounded by double quotes. Here are some examples of JSON messages.
 </p>
 
-<pre><code>{"Key":"7E098995-D1AA-431E-91CE-04FDF3DA09CF","Time":"2019-05-23 17:23:05.1234567Z","Level":"TRACE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"2A42295D-1253-4317-8B81-65DE1512D60A","Time":"2019-05-23 17:23:05.1234567Z","Level":"DEBUG","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"F727504C-73D6-4042-BC3A-96D107E478A9","Time":"2019-05-23 17:23:05.1234567Z","Level":"VERBOSE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"E56F77B7-EE59-43BD-90C3-6CEEE272333A","Time":"2019-05-23 17:23:05.1234567Z","Level":"MESSAGE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"C3F51AF2-BA0A-43E5-A1EB-32E2210A9C16","Time":"2019-05-23 17:23:05.1234567Z","Level":"WARNING","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"EDA354AC-C651-4972-90D8-71EA02F8CB24","Time":"2019-05-23 17:23:05.1234567Z","Level":"ERROR","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"2A6CA48D-ECF4-446B-B6C1-BAC7E52FB237","Time":"2019-05-23 17:23:05.1234567Z","Level":"FATAL","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
-{"Key":"6C094A18-87CF-451F-A39D-793A68758A0E","Time":"2019-05-23 17:23:05.1234567Z","Level":"CRITICAL","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}</code></pre>
+<pre><code>{"Key":"7E098995-D1AA-431E-91CE-04FDF3DA09CF","Time":"2021-05-23 17:23:05.1234567Z","Level":"TRACE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"2A42295D-1253-4317-8B81-65DE1512D60A","Time":"2021-05-23 17:23:05.1234567Z","Level":"DEBUG","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"F727504C-73D6-4042-BC3A-96D107E478A9","Time":"2021-05-23 17:23:05.1234567Z","Level":"VERBOSE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"E56F77B7-EE59-43BD-90C3-6CEEE272333A","Time":"2021-05-23 17:23:05.1234567Z","Level":"MESSAGE","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"C3F51AF2-BA0A-43E5-A1EB-32E2210A9C16","Time":"2021-05-23 17:23:05.1234567Z","Level":"WARNING","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"EDA354AC-C651-4972-90D8-71EA02F8CB24","Time":"2021-05-23 17:23:05.1234567Z","Level":"ERROR","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"2A6CA48D-ECF4-446B-B6C1-BAC7E52FB237","Time":"2021-05-23 17:23:05.1234567Z","Level":"FATAL","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}
+{"Key":"6C094A18-87CF-451F-A39D-793A68758A0E","Time":"2021-05-23 17:23:05.1234567Z","Level":"CRITICAL","Context":null,"Scope":null,"Message":"message text","Details":null,"Exception":null}</code></pre>
 
 <p>
     In that order, any of these messages consists of:
@@ -238,14 +238,14 @@ B5BCB835-1272-48A2-83D1-824267298716;2019-05-23 17:23:05.1234;ERROR;;;"message t
     and no type specifications are available as tag attributes.
 </p>
 
-<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;7E098995-D1AA-431E-91CE-04FDF3DA09CF&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;TRACE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;2A42295D-1253-4317-8B81-65DE1512D60A&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;DEBUG&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;F727504C-73D6-4042-BC3A-96D107E478A9&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;VERBOSE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;E56F77B7-EE59-43BD-90C3-6CEEE272333A&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;MESSAGE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;C3F51AF2-BA0A-43E5-A1EB-32E2210A9C16&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;WARNING&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;EDA354AC-C651-4972-90D8-71EA02F8CB24&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;ERROR&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;2A6CA48D-ECF4-446B-B6C1-BAC7E52FB237&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;FATAL&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
-&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;6C094A18-87CF-451F-A39D-793A68758A0E&lt;/key&gt;&lt;time&gt;2019-05-23T17:23:05&lt;/time&gt;&lt;level&gt;CRITICAL&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;</code></pre>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;7E098995-D1AA-431E-91CE-04FDF3DA09CF&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;TRACE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;2A42295D-1253-4317-8B81-65DE1512D60A&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;DEBUG&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;F727504C-73D6-4042-BC3A-96D107E478A9&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;VERBOSE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;E56F77B7-EE59-43BD-90C3-6CEEE272333A&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;MESSAGE&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;C3F51AF2-BA0A-43E5-A1EB-32E2210A9C16&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;WARNING&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;EDA354AC-C651-4972-90D8-71EA02F8CB24&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;ERROR&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;2A6CA48D-ECF4-446B-B6C1-BAC7E52FB237&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;FATAL&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;logging&gt;&lt;notification&gt;&lt;key&gt;6C094A18-87CF-451F-A39D-793A68758A0E&lt;/key&gt;&lt;time&gt;2021-05-23T17:23:05&lt;/time&gt;&lt;level&gt;CRITICAL&lt;/level&gt;&lt;context /&gt;&lt;scope /&gt;&lt;message&gt;message text&lt;/message&gt;&lt;details /&gt;&lt;exception /&gt;&lt;/notification&gt;&lt;/logging&gt;</code></pre>
 
 <p>
     In that order, any of these messages consists of:

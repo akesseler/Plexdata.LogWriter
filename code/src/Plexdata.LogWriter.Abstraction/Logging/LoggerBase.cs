@@ -25,7 +25,9 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Internals.Factories;
+using Plexdata.LogWriter.Internals.Logging;
 using System;
+using System.Collections.Generic;
 using System.Reflection;
 using System.Text;
 
@@ -44,6 +46,21 @@ namespace Plexdata.LogWriter.Logging
     /// </typeparam>
     public abstract class LoggerBase<TSettings> where TSettings : ILoggerSettings
     {
+        #region Private fields
+
+        /// <summary>
+        /// The list of assigned logging scopes.
+        /// </summary>
+        /// <remarks>
+        /// This field represents the internal list of assigned logging scopes.
+        /// </remarks>
+        /// <seealso cref="CreateScope{TScope}(TScope)"/>
+        /// <seealso cref="FetchScope(String)"/>
+        /// <seealso cref="RemoveScope(LoggingScope)"/>
+        private readonly List<LoggingScope> scopes;
+
+        #endregion
+
         #region Construction
 
         /// <summary>
@@ -83,12 +100,12 @@ namespace Plexdata.LogWriter.Logging
         protected LoggerBase(TSettings settings, ILoggerFactory factory)
             : base()
         {
-            // Operator ?? cannot be used together with "throw"
+            // Operator ?? cannot be used together with "throw" and generic types.
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
             this.Settings = settings;
-
             this.Factory = factory ?? throw new ArgumentNullException(nameof(factory));
+            this.scopes = new List<LoggingScope>();
         }
 
         /// <summary>
@@ -99,6 +116,10 @@ namespace Plexdata.LogWriter.Logging
         /// </remarks>
         ~LoggerBase()
         {
+            while (this.scopes.Count > 0)
+            {
+                this.RemoveScope(this.scopes[0]);
+            }
         }
 
         #endregion
@@ -263,6 +284,35 @@ namespace Plexdata.LogWriter.Logging
             {
                 return String.Empty;
             }
+        }
+
+        /// <summary>
+        /// Creates an instance of an <see cref="IDisposable"/>.
+        /// </summary>
+        /// <remarks>
+        /// This method creates an instance of class <see cref="LoggingScope"/>, 
+        /// assigns event <see cref="LoggingScope.Disposing"/> and returns it.
+        /// </remarks>
+        /// <typeparam name="TScope">
+        /// The type to get the logging scope from.
+        /// </typeparam>
+        /// <param name="scope">
+        /// The type to get the logging scope from.
+        /// </param>
+        /// <returns>
+        /// An instance of an <see cref="IDisposable"/> object to be used inside 
+        /// <c>using</c> statements.
+        /// </returns>
+        /// <seealso cref="ILogger.BeginScope{TScope}(TScope)"/>
+        /// <seealso cref="FetchScope(String)"/>
+        /// <seealso cref="RemoveScope(LoggingScope)"/>
+        /// <seealso cref="OnLoggingScopeDisposing(Object, EventArgs)"/>
+        protected IDisposable CreateScope<TScope>(TScope scope)
+        {
+            LoggingScope value = new LoggingScope(scope);
+            value.Disposing += this.OnLoggingScopeDisposing;
+            this.scopes.Add(value);
+            return value;
         }
 
         /// <summary>
@@ -443,7 +493,7 @@ namespace Plexdata.LogWriter.Logging
         {
             if (settings == null) { throw new ArgumentNullException(nameof(settings)); }
 
-            ILogEvent output = this.Factory.CreateLogEvent(level, DateTime.Now, context, scope, message, exception, details);
+            ILogEvent output = this.Factory.CreateLogEvent(level, DateTime.Now, context, this.FetchScope(scope), message, exception, details);
 
             if (output.IsValid)
             {
@@ -456,6 +506,132 @@ namespace Plexdata.LogWriter.Logging
             }
 
             return String.Empty;
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Removes an assigned instance of class <see cref="LoggingScope"/>.
+        /// </summary>
+        /// <remarks>
+        /// This method removes a previously assigned instance of class <see cref="LoggingScope"/> 
+        /// and disconnects from its event <see cref="LoggingScope.Disposing"/>.
+        /// </remarks>
+        /// <param name="scope">
+        /// The instance of class <see cref="LoggingScope"/> to be removed.
+        /// </param>
+        /// <seealso cref="CreateScope{TScope}(TScope)"/>
+        /// <seealso cref="OnLoggingScopeDisposing(Object, EventArgs)"/>
+        private void RemoveScope(LoggingScope scope)
+        {
+            try
+            {
+                if (scope != null)
+                {
+                    scope.Disposing -= this.OnLoggingScopeDisposing;
+                    this.scopes.Remove(scope);
+                }
+            }
+            catch (Exception exception)
+            {
+                System.Diagnostics.Debug.WriteLine(exception);
+            }
+        }
+
+        /// <summary>
+        /// Fetches the string to be used as scope value.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// This method fetches the string to be used as scope value. Fetching takes place in the 
+        /// following three stages.
+        /// </para>
+        /// <list type="bullet">
+        /// <item><description>
+        /// If parameter <paramref name="actual"/> is not <c>null</c> then this string is returned.
+        /// </description></item>
+        /// <item><description>
+        /// If the list of currently assigned <see cref="scopes"/> is empty then <c>null</c> is returned.
+        /// </description></item>
+        /// <item><description>
+        /// If the list of currently assigned <see cref="scopes"/> contains only one single item then 
+        /// its string representation is returned, which might be <c>null</c> as well.
+        /// </description></item>
+        /// <item><description>
+        /// In any other case each of the assigned <see cref="scopes"/> is concatenated by comma, whereby 
+        /// any <c>null</c> value is skipped. Finally, the resulting string is enclosed by square brackets.
+        /// </description></item>
+        /// <item><description>
+        /// A value of <c>null</c> is also returned if all currently assigned <see cref="scopes"/> are 
+        /// <c>null</c> as well.
+        /// </description></item>
+        /// </list>
+        /// </remarks>
+        /// <param name="actual">
+        /// The scope string to be used if it is not <c>null</c>.
+        /// </param>
+        /// <returns>
+        /// A string to be used as logging scope, or <c>null</c> if no scope could be determined.
+        /// </returns>
+        /// <seealso cref="CreateScope{TScope}(TScope)"/>
+        /// <seealso cref="RemoveScope(LoggingScope)"/>
+        private String FetchScope(String actual)
+        {
+            if (actual != null) { return actual; }
+
+            if (this.scopes.Count < 1) { return null; }
+
+            if (this.scopes.Count == 1) { return this.scopes[0]?.ToDisplay()?.Trim() ?? null; }
+
+            StringBuilder builder = new StringBuilder();
+
+            for (Int32 index = 0; index < this.scopes.Count; index++)
+            {
+                String value = this.scopes[index]?.ToDisplay()?.Trim() ?? null;
+
+                if (String.IsNullOrEmpty(value)) { continue; }
+
+                builder.Append(value);
+
+                // Preventing an append of the comma depending on current index doesn't
+                // work for every possible case. => Append it here and cut it off below.
+                builder.Append(',');
+            }
+
+            if (builder.Length > 1)
+            {
+                builder.Length -= 1; // Cut off last comma.
+                return $"[{builder}]";
+            }
+
+            return null;
+        }
+
+        #endregion
+
+        #region Private events
+
+        /// <summary>
+        /// Handles all incoming <see cref="LoggingScope.Disposing"/> events.
+        /// </summary>
+        /// <remarks>
+        /// This method handles all incoming <see cref="LoggingScope.Disposing"/> 
+        /// events. In such a case the <paramref name="sender"/> is treated as 
+        /// instance of <see cref="LoggingScope"/> and will be removed from the 
+        /// internal <see cref="scopes"/> list.
+        /// </remarks>
+        /// <param name="sender">
+        /// The sender of this event as instance of <see cref="LoggingScope"/>.
+        /// </param>
+        /// <param name="args">
+        /// The event arguments, which are actually not used.
+        /// </param>
+        /// <seealso cref="RemoveScope(LoggingScope)"/>
+        private void OnLoggingScopeDisposing(Object sender, EventArgs args)
+        {
+            this.RemoveScope(sender as LoggingScope);
         }
 
         #endregion
