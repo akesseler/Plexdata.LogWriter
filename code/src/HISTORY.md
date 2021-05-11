@@ -1,6 +1,6 @@
 
 
-**1.0.X.Y**
+**1.0.6.1**
 - File `.editorconfig` added.
 - Framework updates (.NET Framework 4.8, .NET Core 3.1).
 - Help projects and readmes updated.
@@ -9,7 +9,11 @@
 - Copyright year changed in all files.
 - Logger extension methods split into different files.
 - Support of type `Guid` as `TScope`. 
+- Introduction of method `BeginScope()`.
 - Review of source code documentation.
+- Version number increased.
+- Wiki and release update on _GitHub_.
+- All affected packages released on `nuget.org`.
 
 **1.0.5.2**
 - Support of a simple XML message format.

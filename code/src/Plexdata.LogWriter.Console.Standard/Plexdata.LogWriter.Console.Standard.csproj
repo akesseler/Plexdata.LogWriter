@@ -14,9 +14,9 @@ Main feature of this package is that it can be used platform independently.</Des
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>logging logger log trace debug raw structured console standard</PackageTags>
     <PackageReleaseNotes>See project history under https://github.com/akesseler/Plexdata.LogWriter/blob/master/code/src/HISTORY.md</PackageReleaseNotes>
-    <AssemblyVersion>1.0.5.2</AssemblyVersion>
-    <FileVersion>1.0.5.2</FileVersion>
-    <Version>1.0.5.2</Version>
+    <AssemblyVersion>1.0.6.1</AssemblyVersion>
+    <FileVersion>1.0.6.1</FileVersion>
+    <Version>1.0.6.1</Version>
     <RootNamespace>Plexdata.LogWriter.Standard</RootNamespace>
   </PropertyGroup>
 
