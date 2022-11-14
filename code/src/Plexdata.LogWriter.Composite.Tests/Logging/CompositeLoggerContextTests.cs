@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Logging;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -37,6 +38,7 @@ namespace Plexdata.LogWriter.Composite.Tests.Logging
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(CompositeLogger<Object>))]
     public class CompositeLoggerContextTests
     {

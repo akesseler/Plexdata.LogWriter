@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
+using Plexdata.Utilities.Testing;
 using System;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
@@ -32,6 +33,7 @@ namespace Plexdata.LogWriter.Console.Tests.Definitions
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [NUnit.Framework.Category(TestType.UnitTest)]
     [TestOf(nameof(Coloring))]
     public class ColoringTests
     {

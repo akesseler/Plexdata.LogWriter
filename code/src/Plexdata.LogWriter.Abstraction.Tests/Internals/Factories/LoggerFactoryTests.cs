@@ -28,6 +28,7 @@ using Plexdata.LogWriter.Internals.Events;
 using Plexdata.LogWriter.Internals.Factories;
 using Plexdata.LogWriter.Internals.Formatters;
 using Plexdata.LogWriter.Settings;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -35,6 +36,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Factories
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(LoggerFactory))]
     public class LoggerFactoryTests
     {

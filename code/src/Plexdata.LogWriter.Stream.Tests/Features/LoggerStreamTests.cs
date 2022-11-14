@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Features;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -35,6 +36,7 @@ namespace Plexdata.LogWriter.Stream.Tests.Features
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(LoggerStream))]
     public class LoggerStreamTests
     {

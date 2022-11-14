@@ -1,4 +1,7 @@
 
+**1.0.X.Y**
+- Plexdata.Utilities.Testing integration
+- Package updates
 
 **1.0.6.1**
 - File `.editorconfig` added.

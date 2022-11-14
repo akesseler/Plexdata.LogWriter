@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Internals.Extensions;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -33,7 +34,7 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    [Category("IntegrationTest")]
+    [Category(TestType.IntegrationTest)]
     [TestOf(nameof(SettingsValidationExtension))]
     public class SettingsValidationExtensionTests
     {
@@ -155,9 +156,10 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentException>());
         }
 
-        [TestCase("/path-should-not-exist/file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
+        // Disabled tests do no longer work and may cause unexpected damage.
+        // [TestCase("/path-should-not-exist/file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
+        // [TestCase("\\path-should-not-exist\\file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
         [TestCase("c:/path-should-not-exist/file-may-not-exist", "c:\\path-should-not-exist\\file-may-not-exist")]
-        [TestCase("\\path-should-not-exist\\file-may-not-exist", "C:\\path-should-not-exist\\file-may-not-exist")]
         [TestCase("c:\\path-should-not-exist\\file-may-not-exist", "c:\\path-should-not-exist\\file-may-not-exist")]
         public void EnsureFullFilePathOrThrow_PathDoesNotExist_PathIsCreatedAsExpected(String filename, String expected)
         {
@@ -175,9 +177,11 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
             Assert.That(() => filename.EnsureFullFilePathOrThrow(), Throws.InstanceOf<ArgumentException>());
         }
 
-        [TestCase("/Users/{0}/Documents/test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
+        // Disabled tests do no longer work and may cause unexpected damage.
+        // As I did and crashed the contents of my Documents folder.
+        // [TestCase("/Users/{0}/Documents/test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
+        // [TestCase("\\Users\\{0}\\Documents\\test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
         [TestCase("C:/Users/{0}/Documents/test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
-        [TestCase("\\Users\\{0}\\Documents\\test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
         [TestCase("C:\\Users\\{0}\\Documents\\test-file-name.xyz", "C:\\Users\\{0}\\Documents\\test-file-name.xyz")]
         public void EnsureFullFilePathOrThrow_PartialPathConversion_ResultIsFullPath(String filename, String expected)
         {

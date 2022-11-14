@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Facades;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -35,6 +36,7 @@ namespace Plexdata.LogWriter.Mail.Tests.Facades
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.IntegrationTest)]
     [TestOf(nameof(MailLoggerFacade))]
     public class MailLoggerFacadeTests
     {

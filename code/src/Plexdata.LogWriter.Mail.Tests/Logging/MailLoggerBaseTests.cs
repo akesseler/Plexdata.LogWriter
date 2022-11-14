@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Logging;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,6 +38,7 @@ namespace Plexdata.LogWriter.Mail.Tests.Logging
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [NUnit.Framework.Category(TestType.UnitTest)]
     [TestOf(nameof(MailLoggerBase))]
     public class MailLoggerBaseTests
     {

@@ -26,6 +26,7 @@ using Moq;
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Settings;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -47,6 +48,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
 
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(LoggerSettings))]
     public class LoggerSettingsTests
     {

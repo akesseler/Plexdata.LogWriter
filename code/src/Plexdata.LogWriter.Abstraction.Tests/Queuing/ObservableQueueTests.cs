@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Queuing;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
@@ -33,6 +34,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Queuing
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(ObservableQueue<String>))]
     public class ObservableQueueTests
     {

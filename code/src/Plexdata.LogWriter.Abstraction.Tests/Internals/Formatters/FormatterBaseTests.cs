@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Internals.Formatters;
 using Plexdata.LogWriter.Settings;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Text;
@@ -35,6 +36,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(FormatterBase))]
     public class FormatterBaseTests
     {

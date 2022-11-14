@@ -25,7 +25,7 @@ choice /M "Do you really want to remove all folders in \"packages\""
 if %ERRORLEVEL% == 1 (
   goto CLEAN_PACKAGES
 ) else (
-  goto CHOICE_FINISHED
+  goto CHOICE_TRACES
 )
 
 :CLEAN_PACKAGES
@@ -33,6 +33,22 @@ if %ERRORLEVEL% == 1 (
 echo Clean up all "packages"...
 
 rmdir "packages" /s /q 2> nul
+
+:CHOICE_TRACES
+
+choice /M "Do you really want to remove all files \"InternalTrace.*.log\""
+
+if %ERRORLEVEL% == 1 (
+  goto CLEAN_TRACES
+) else (
+  goto CHOICE_FINISHED
+)
+
+:CLEAN_TRACES
+
+echo Clean up all "InternalTrace.*.log"...
+
+del InternalTrace.*.log 2> nul
 
 :CHOICE_FINISHED
 

@@ -26,6 +26,7 @@ using Moq;
 using NUnit.Framework;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Settings;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -35,7 +36,7 @@ namespace Plexdata.LogWriter.Persistent.Tests.Settings
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    [Category("IntegrationTest")]
+    [Category(TestType.IntegrationTest)]
     [TestOf(nameof(PersistentLoggerSettings))]
     public class PersistentLoggerSettingsTests
     {
