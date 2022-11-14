@@ -25,12 +25,14 @@
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Logging;
+using Plexdata.Utilities.Testing;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Plexdata.LogWriter.Abstraction.Tests.Logging
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(EmptyLogger))]
     public class EmptyLoggerDefaultTests
     {

@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Internals.Extensions;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
@@ -32,6 +33,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(TypeFormatterExtension))]
     public class TypeFormatterExtensionTests
     {

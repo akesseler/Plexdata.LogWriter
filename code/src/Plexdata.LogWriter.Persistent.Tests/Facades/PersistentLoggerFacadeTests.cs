@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Facades;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -34,7 +35,7 @@ namespace Plexdata.LogWriter.Persistent.Tests.Facades
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    [Category("IntegrationTest")]
+    [Category(TestType.IntegrationTest)]
     [TestOf(nameof(PersistentLoggerFacade))]
     public class PersistentLoggerFacadeTests
     {

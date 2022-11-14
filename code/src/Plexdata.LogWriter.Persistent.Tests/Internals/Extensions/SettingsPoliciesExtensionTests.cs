@@ -27,6 +27,7 @@ using NUnit.Framework;
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Internals.Extensions;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
@@ -38,7 +39,7 @@ namespace Plexdata.LogWriter.Persistent.Tests.Internals.Extensions
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
-    [Category("IntegrationTest")]
+    [Category(TestType.IntegrationTest)]
     [TestOf(nameof(SettingsPoliciesExtension))]
     public class SettingsPoliciesExtensionTests
     {

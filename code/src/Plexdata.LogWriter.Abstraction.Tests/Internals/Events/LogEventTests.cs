@@ -25,6 +25,7 @@
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Internals.Events;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -32,6 +33,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Events
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(LogEvent))]
     public class LogEventTests
     {

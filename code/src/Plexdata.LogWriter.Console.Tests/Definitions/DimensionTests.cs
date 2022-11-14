@@ -24,6 +24,7 @@
 
 using NUnit.Framework;
 using Plexdata.LogWriter.Definitions;
+using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
@@ -31,6 +32,7 @@ namespace Plexdata.LogWriter.Console.Tests.Definitions
 {
     [TestFixture]
     [ExcludeFromCodeCoverage]
+    [Category(TestType.UnitTest)]
     [TestOf(nameof(Dimension))]
     public class DimensionTests
     {
