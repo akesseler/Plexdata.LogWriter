@@ -1,7 +1,8 @@
 
 **1.0.X.Y**
-- Plexdata.Utilities.Testing integration
-- Package updates
+- Usage of package `Plexdata.Utilities.Testing`.
+- Package updates (NUnit and other).
+- Copyright year changed in all files.
 
 **1.0.6.1**
 - File `.editorconfig` added.
