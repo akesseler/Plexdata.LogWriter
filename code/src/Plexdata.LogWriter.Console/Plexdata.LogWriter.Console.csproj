@@ -8,7 +8,7 @@
     <Description>Plexdata.LogWriter.Console defines all ILogger derived interfaces for console logging of the Plexdata Logging Writer.
 
 This package includes classes that are shared between all available implementations of any of the console logger interfaces.</Description>
-    <Copyright>Copyright © 2021 - plexdata.de</Copyright>
+    <Copyright>Copyright © 2022 - plexdata.de</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
