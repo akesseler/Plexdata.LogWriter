@@ -117,6 +117,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
                     this.coloring[LogLevel.Error] = this.GetColoring(nameof(LogLevel.Error));
                     this.coloring[LogLevel.Fatal] = this.GetColoring(nameof(LogLevel.Fatal));
                     this.coloring[LogLevel.Critical] = this.GetColoring(nameof(LogLevel.Critical));
+                    this.coloring[LogLevel.Disaster] = this.GetColoring(nameof(LogLevel.Disaster));
                 }
                 catch (Exception exception)
                 {
@@ -145,6 +146,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
                 this.SetColoring(nameof(LogLevel.Error), new Coloring(ConsoleColor.Red, ConsoleColor.Black));
                 this.SetColoring(nameof(LogLevel.Fatal), new Coloring(ConsoleColor.Gray, ConsoleColor.DarkRed));
                 this.SetColoring(nameof(LogLevel.Critical), new Coloring(ConsoleColor.Black, ConsoleColor.Red));
+                this.SetColoring(nameof(LogLevel.Disaster), new Coloring(ConsoleColor.Black, ConsoleColor.Red));
             }
             finally
             {
@@ -162,6 +164,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             this.SetColoring(nameof(LogLevel.Error), this.coloring[LogLevel.Error]);
             this.SetColoring(nameof(LogLevel.Fatal), this.coloring[LogLevel.Fatal]);
             this.SetColoring(nameof(LogLevel.Critical), this.coloring[LogLevel.Critical]);
+            this.SetColoring(nameof(LogLevel.Disaster), this.coloring[LogLevel.Disaster]);
         }
 
         private void SetColoring(String level, Coloring coloring)

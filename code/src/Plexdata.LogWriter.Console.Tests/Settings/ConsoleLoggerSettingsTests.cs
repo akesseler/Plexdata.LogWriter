@@ -74,7 +74,7 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.BufferSize.IsValid, Is.False);
             Assert.That(instance.BufferSize.Width, Is.Zero);
             Assert.That(instance.BufferSize.Lines, Is.Zero);
-            Assert.That(instance.Coloring.Count, Is.EqualTo(8));
+            Assert.That(instance.Coloring.Count, Is.EqualTo(9));
             Assert.That(instance.Coloring[LogLevel.Trace].Foreground, Is.EqualTo(ConsoleColor.Gray));
             Assert.That(instance.Coloring[LogLevel.Trace].Background, Is.EqualTo(ConsoleColor.Black));
             Assert.That(instance.Coloring[LogLevel.Debug].Foreground, Is.EqualTo(ConsoleColor.Gray));
@@ -91,6 +91,8 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.Coloring[LogLevel.Fatal].Background, Is.EqualTo(ConsoleColor.DarkRed));
             Assert.That(instance.Coloring[LogLevel.Critical].Foreground, Is.EqualTo(ConsoleColor.Black));
             Assert.That(instance.Coloring[LogLevel.Critical].Background, Is.EqualTo(ConsoleColor.Red));
+            Assert.That(instance.Coloring[LogLevel.Disaster].Foreground, Is.EqualTo(ConsoleColor.Black));
+            Assert.That(instance.Coloring[LogLevel.Disaster].Background, Is.EqualTo(ConsoleColor.Red));
         }
 
         [Test]
@@ -104,7 +106,7 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.BufferSize.IsValid, Is.False);
             Assert.That(instance.BufferSize.Width, Is.Zero);
             Assert.That(instance.BufferSize.Lines, Is.Zero);
-            Assert.That(instance.Coloring.Count, Is.EqualTo(8));
+            Assert.That(instance.Coloring.Count, Is.EqualTo(9));
             Assert.That(instance.Coloring[LogLevel.Trace].Foreground, Is.EqualTo(ConsoleColor.Gray));
             Assert.That(instance.Coloring[LogLevel.Trace].Background, Is.EqualTo(ConsoleColor.Black));
             Assert.That(instance.Coloring[LogLevel.Debug].Foreground, Is.EqualTo(ConsoleColor.Gray));
@@ -121,6 +123,8 @@ namespace Plexdata.LogWriter.Console.Tests.Settings
             Assert.That(instance.Coloring[LogLevel.Fatal].Background, Is.EqualTo(ConsoleColor.DarkRed));
             Assert.That(instance.Coloring[LogLevel.Critical].Foreground, Is.EqualTo(ConsoleColor.Black));
             Assert.That(instance.Coloring[LogLevel.Critical].Background, Is.EqualTo(ConsoleColor.Red));
+            Assert.That(instance.Coloring[LogLevel.Disaster].Foreground, Is.EqualTo(ConsoleColor.Black));
+            Assert.That(instance.Coloring[LogLevel.Disaster].Background, Is.EqualTo(ConsoleColor.Red));
         }
 
         [Test]

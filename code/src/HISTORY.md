@@ -3,6 +3,7 @@
 - Usage of package `Plexdata.Utilities.Testing`.
 - Package updates (NUnit and other).
 - Copyright year changed in all files.
+- Introduction of new logging level `Disaster`.
 
 **1.0.6.1**
 - File `.editorconfig` added.

@@ -204,6 +204,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.logger.Error("Error messge", this.exception, parameters);
             this.logger.Fatal("Fatal messge", this.exception, parameters);
             this.logger.Critical("Critical messge", this.exception, parameters);
+            this.logger.Disaster("Disaster messge", this.exception, parameters);
         }
 
         private void OnMessagesMouseDoubleClick(Object sender, MouseEventArgs args)
@@ -239,6 +240,8 @@ namespace Plexdata.LogWriter.Testing.Helper
                     return Color.Red;
                 case "CRITICAL":
                     return Color.DarkRed;
+                case "DISASTER":
+                    return Color.DarkRed;
                 default:
                     return Color.White;
             }
@@ -263,6 +266,8 @@ namespace Plexdata.LogWriter.Testing.Helper
                 case "FATAL":
                     return Color.WhiteSmoke;
                 case "CRITICAL":
+                    return Color.WhiteSmoke;
+                case "DISASTER":
                     return Color.WhiteSmoke;
                 default:
                     return Color.Black;

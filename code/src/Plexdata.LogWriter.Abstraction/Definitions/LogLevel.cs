@@ -31,7 +31,7 @@ namespace Plexdata.LogWriter.Definitions
     /// Generally spoken, a logging level represents the granularity of information that are 
     /// put into a logging target. This in turn means, the higher the logging level the less 
     /// are the messages written into the log. Right here applies, the logging level rises from 
-    /// <c>Trace</c> up to <c>Critical</c>. And this means, if the logging level is for example 
+    /// <c>Trace</c> up to <c>Disaster</c>. And this means, if the logging level is for example 
     /// set to <c>Warning</c>, every message with a log-level below <c>Warning</c> will be 
     /// suppressed and every message with a log-level equal to or higher than <c>Warning</c> 
     /// is written to logging target.
@@ -93,9 +93,17 @@ namespace Plexdata.LogWriter.Definitions
         Critical,
 
         /// <summary>
+        /// The disaster logging level could be used to indicate for example 
+        /// a really dangerous program state. Such a disaster program state may 
+        /// cause the program to give up in an unwanted state and to terminate 
+        /// unexpectedly.
+        /// </summary>
+        Disaster,
+
+        /// <summary>
         /// The default logging level, which is set to <see cref="Message"/>. 
         /// It is used for example as initial logging level.
         /// </summary>
-        Default = Message,
+        Default = Message, // ATTENTION! If this value changes, then this must be done in Convert(LogLevel) as well!
     }
 }

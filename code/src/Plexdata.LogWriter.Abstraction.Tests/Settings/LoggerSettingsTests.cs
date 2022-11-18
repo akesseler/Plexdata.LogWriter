@@ -403,6 +403,9 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
         [TestCase("critical", LogLevel.Critical)]
         [TestCase("CRITICAL", LogLevel.Critical)]
         [TestCase("Critical", LogLevel.Critical)]
+        [TestCase("disaster", LogLevel.Disaster)]
+        [TestCase("DISASTER", LogLevel.Disaster)]
+        [TestCase("Disaster", LogLevel.Disaster)]
         public void LoadSettings_ConfigurationValid_GetSectionValueForLogLevelAsExpected(String value, Object expected)
         {
             LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();

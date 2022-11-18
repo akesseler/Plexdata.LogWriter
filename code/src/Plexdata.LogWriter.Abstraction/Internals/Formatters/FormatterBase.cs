@@ -234,6 +234,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
                 case LogLevel.Error:
                 case LogLevel.Fatal:
                 case LogLevel.Critical:
+                case LogLevel.Disaster:
                     return level.ToDisplayText();
                 default:
                     throw new NotSupportedException($"The value \"{nameof(level)}\" of type logging level is not supported.");

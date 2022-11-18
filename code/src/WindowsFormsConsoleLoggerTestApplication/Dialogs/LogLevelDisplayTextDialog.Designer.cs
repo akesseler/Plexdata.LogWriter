@@ -72,16 +72,18 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             this.txtFatal = new System.Windows.Forms.TextBox();
             this.txtCritical = new System.Windows.Forms.TextBox();
             this.btnRestore = new System.Windows.Forms.Button();
+            this.txtDisaster = new System.Windows.Forms.TextBox();
+            this.lblDisaster = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnCancel
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(297, 227);
+            this.btnCancel.Location = new System.Drawing.Point(297, 255);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 18;
+            this.btnCancel.TabIndex = 20;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -89,10 +91,10 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(216, 227);
+            this.btnApply.Location = new System.Drawing.Point(216, 255);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 17;
+            this.btnApply.TabIndex = 19;
             this.btnApply.Text = "&Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             // 
@@ -242,13 +244,32 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             // 
             // btnRestore
             // 
-            this.btnRestore.Location = new System.Drawing.Point(12, 227);
+            this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRestore.Location = new System.Drawing.Point(12, 255);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(75, 23);
-            this.btnRestore.TabIndex = 16;
+            this.btnRestore.TabIndex = 18;
             this.btnRestore.Text = "&Restore";
             this.btnRestore.UseVisualStyleBackColor = true;
             this.btnRestore.Click += new System.EventHandler(this.OnButtonRestoreClick);
+            // 
+            // txtDisaster
+            // 
+            this.txtDisaster.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtDisaster.Location = new System.Drawing.Point(79, 220);
+            this.txtDisaster.Name = "txtDisaster";
+            this.txtDisaster.Size = new System.Drawing.Size(293, 20);
+            this.txtDisaster.TabIndex = 17;
+            // 
+            // lblDisaster
+            // 
+            this.lblDisaster.AutoSize = true;
+            this.lblDisaster.Location = new System.Drawing.Point(12, 223);
+            this.lblDisaster.Name = "lblDisaster";
+            this.lblDisaster.Size = new System.Drawing.Size(45, 13);
+            this.lblDisaster.TabIndex = 16;
+            this.lblDisaster.Text = "Disaster";
             // 
             // LogLevelDisplayTextDialog
             // 
@@ -256,7 +277,9 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(384, 262);
+            this.ClientSize = new System.Drawing.Size(384, 290);
+            this.Controls.Add(this.txtDisaster);
+            this.Controls.Add(this.lblDisaster);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.txtCritical);
             this.Controls.Add(this.txtFatal);
@@ -310,5 +333,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
         private System.Windows.Forms.TextBox txtFatal;
         private System.Windows.Forms.TextBox txtCritical;
         private System.Windows.Forms.Button btnRestore;
+        private System.Windows.Forms.TextBox txtDisaster;
+        private System.Windows.Forms.Label lblDisaster;
     }
 }

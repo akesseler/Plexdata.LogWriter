@@ -223,6 +223,7 @@ namespace Plexdata.LogWriter.Testing.Helper
                 this.contextLogger.Error(method, messge, this.GetException(), this.GetDetails());
                 this.contextLogger.Fatal(method, messge, this.GetException(), this.GetDetails());
                 this.contextLogger.Critical(method, messge, this.GetException(), this.GetDetails());
+                this.contextLogger.Disaster(method, messge, this.GetException(), this.GetDetails());
             }
             else
             {
@@ -234,6 +235,7 @@ namespace Plexdata.LogWriter.Testing.Helper
                 this.contextLogger.Error(messge, this.GetException(), this.GetDetails());
                 this.contextLogger.Fatal(messge, this.GetException(), this.GetDetails());
                 this.contextLogger.Critical(messge, this.GetException(), this.GetDetails());
+                this.contextLogger.Disaster(messge, this.GetException(), this.GetDetails());
             }
         }
 
@@ -251,6 +253,7 @@ namespace Plexdata.LogWriter.Testing.Helper
                 this.defaultLogger.Error(method, messge, this.GetException(), this.GetDetails());
                 this.defaultLogger.Fatal(method, messge, this.GetException(), this.GetDetails());
                 this.defaultLogger.Critical(method, messge, this.GetException(), this.GetDetails());
+                this.defaultLogger.Disaster(method, messge, this.GetException(), this.GetDetails());
             }
             else
             {
@@ -262,6 +265,7 @@ namespace Plexdata.LogWriter.Testing.Helper
                 this.defaultLogger.Error(messge, this.GetException(), this.GetDetails());
                 this.defaultLogger.Fatal(messge, this.GetException(), this.GetDetails());
                 this.defaultLogger.Critical(messge, this.GetException(), this.GetDetails());
+                this.defaultLogger.Disaster(messge, this.GetException(), this.GetDetails());
             }
         }
 
