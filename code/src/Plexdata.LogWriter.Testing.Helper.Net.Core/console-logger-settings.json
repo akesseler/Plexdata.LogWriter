@@ -49,6 +49,10 @@
           "Critical": {
             "Foreground": "Black",
             "Background": "Red"
+          },
+          "Disaster": {
+            "Foreground": "Black",
+            "Background": "Red"
           }
         }
       }

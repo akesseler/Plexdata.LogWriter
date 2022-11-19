@@ -57,6 +57,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
                     LogLevel.Error.RegisterDisplayText(this.txtError.Text);
                     LogLevel.Fatal.RegisterDisplayText(this.txtFatal.Text);
                     LogLevel.Critical.RegisterDisplayText(this.txtCritical.Text);
+                    LogLevel.Disaster.RegisterDisplayText(this.txtDisaster.Text);
                 }
                 catch (Exception exception)
                 {
@@ -84,7 +85,8 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
                 LogLevel.Error.RestoreDisplayText();
                 LogLevel.Fatal.RestoreDisplayText();
                 LogLevel.Critical.RestoreDisplayText();
-
+                LogLevel.Disaster.RestoreDisplayText();
+                
                 this.Setup();
             }
             catch (Exception exception)
@@ -109,6 +111,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
                 this.txtError.Text = LogLevel.Error.ToDisplayText();
                 this.txtFatal.Text = LogLevel.Fatal.ToDisplayText();
                 this.txtCritical.Text = LogLevel.Critical.ToDisplayText();
+                this.txtDisaster.Text = LogLevel.Disaster.ToDisplayText();
             }
             catch (Exception exception)
             {

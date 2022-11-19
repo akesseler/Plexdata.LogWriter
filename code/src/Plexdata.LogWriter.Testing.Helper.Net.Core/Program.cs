@@ -127,6 +127,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
                 logger.Error("This is a Error logging entry.");
                 logger.Fatal("This is a Fatal logging entry.");
                 logger.Critical("This is a Critical logging entry.");
+                logger.Disaster("This is a Disaster logging entry.");
 
                 Console.WriteLine("Accomplished...");
             }
@@ -167,6 +168,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
                 logger.Error("This is a Error logging entry.");
                 logger.Fatal("This is a Fatal logging entry.");
                 logger.Critical("This is a Critical logging entry.");
+                logger.Disaster("This is a Disaster logging entry.");
 
                 Console.WriteLine("Accomplished...");
             }
@@ -207,6 +209,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
                 logger.Error("This is a Error logging entry.");
                 logger.Fatal("This is a Fatal logging entry.");
                 logger.Critical("This is a Critical logging entry.");
+                logger.Disaster("This is a Disaster logging entry.");
 
                 Console.WriteLine("Accomplished...");
             }
@@ -247,6 +250,7 @@ namespace Plexdata.LogWriter.Testing.Helper.Net.Core
                 logger.Error("This is a Error logging entry.");
                 logger.Fatal("This is a Fatal logging entry.");
                 logger.Critical("This is a Critical logging entry.");
+                logger.Disaster("This is a Disaster logging entry.");
 
                 Console.WriteLine("Accomplished...");
             }

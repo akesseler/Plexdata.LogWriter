@@ -63,10 +63,11 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
         [TestCase(16, LogLevel.Error, "ERROR")]
         [TestCase(17, LogLevel.Fatal, "FATAL")]
         [TestCase(18, LogLevel.Critical, "CRITICAL")]
-        [TestCase(19, LogLevel.Default, "MESSAGE")]
-        public void ToDisplayText_LogLevelWithDefaultValue_ResultIsDefaultDisplayText(Int32 index, LogLevel actual, String expected)
+        [TestCase(19, LogLevel.Disaster, "DISASTER")]
+        [TestCase(20, LogLevel.Default, "MESSAGE")]
+        public void ToDisplayText_LogLevelWithDefaultValue_ResultIsDefaultDisplayText(Int32 _, LogLevel actual, String expected)
         {
-            // NOTE: The index is only needed to ensure that "Default" is tested too!
+            // NOTE: The _ is only needed to ensure that "Default" is tested too!
             Assert.That(actual.ToDisplayText(), Is.EqualTo(expected));
         }
 
@@ -108,6 +109,9 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
         [TestCase(LogLevel.Critical, null)]
         [TestCase(LogLevel.Critical, "")]
         [TestCase(LogLevel.Critical, " ")]
+        [TestCase(LogLevel.Disaster, null)]
+        [TestCase(LogLevel.Disaster, "")]
+        [TestCase(LogLevel.Disaster, " ")]
         public void RegisterDisplayText_LogLevelWithInvalidText_ThrowsArgumentOutOfRangeException(LogLevel actual, String expected)
         {
             Assert.That(() => actual.RegisterDisplayText(expected), Throws.InstanceOf<ArgumentOutOfRangeException>());
@@ -147,6 +151,9 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
         [TestCase(LogLevel.Critical, "FooCritical")]
         [TestCase(LogLevel.Critical, "foocritical")]
         [TestCase(LogLevel.Critical, "FOOCRITICAL")]
+        [TestCase(LogLevel.Disaster, "FooDisaster")]
+        [TestCase(LogLevel.Disaster, "foodisaster")]
+        [TestCase(LogLevel.Disaster, "FOODISASTER")]
         public void RegisterDisplayText_LogLevelWithValidText_ResultIsEqualToExpected(LogLevel actual, String expected)
         {
             actual.RegisterDisplayText(expected);
@@ -167,6 +174,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Extensions
         [TestCase(LogLevel.Error, "FooError", "ERROR")]
         [TestCase(LogLevel.Fatal, "FooFatal", "FATAL")]
         [TestCase(LogLevel.Critical, "FooCritical", "CRITICAL")]
+        [TestCase(LogLevel.Disaster, "FooDisaster", "DISASTER")]
         public void RestoreDisplayText_ChangeAndRestoreDisplayText_ResultIsEqualToExpected(LogLevel actual, String display, String expected)
         {
             actual.RegisterDisplayText(display);

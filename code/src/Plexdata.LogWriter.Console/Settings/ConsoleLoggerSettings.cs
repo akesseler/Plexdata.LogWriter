@@ -151,7 +151,8 @@ namespace Plexdata.LogWriter.Settings
                 { LogLevel.Warning, new Coloring(ConsoleColor.Yellow, ConsoleColor.Black) },
                 { LogLevel.Error, new Coloring(ConsoleColor.Red, ConsoleColor.Black) },
                 { LogLevel.Fatal, new Coloring(ConsoleColor.Gray, ConsoleColor.DarkRed) },
-                { LogLevel.Critical, new Coloring(ConsoleColor.Black, ConsoleColor.Red) }
+                { LogLevel.Critical, new Coloring(ConsoleColor.Black, ConsoleColor.Red) },
+                { LogLevel.Disaster, new Coloring(ConsoleColor.Black, ConsoleColor.Red) },
             };
         }
 

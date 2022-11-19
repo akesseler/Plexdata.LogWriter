@@ -51,6 +51,10 @@
             <Foreground>Blue</Foreground>
             <Background>White</Background>
           </Critical>
+          <Disaster>
+            <Foreground>Red</Foreground>
+            <Background>White</Background>
+          </Disaster>
         </Coloring>
       </Settings>
     </LogWriter>

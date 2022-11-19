@@ -58,6 +58,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
         [TestCase(LogLevel.Error)]
         [TestCase(LogLevel.Fatal)]
         [TestCase(LogLevel.Critical)]
+        [TestCase(LogLevel.Disaster)]
         [TestCase(LogLevel.Default)]
         public void IsEnabled_EmptyLoggerMustBeDisabled_ResultIsExpected(LogLevel level)
         {

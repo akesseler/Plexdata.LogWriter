@@ -111,6 +111,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
         [TestCase(LogLevel.Error, false)]
         [TestCase(LogLevel.Fatal, false)]
         [TestCase(LogLevel.Critical, false)]
+        [TestCase(LogLevel.Disaster, false)]
         public void IsDisabled_LogLevelAsDefined_ResultAsExpected(LogLevel level, Boolean expected)
         {
             this.settings.SetupGet(x => x.LogLevel).Returns(level);
@@ -130,6 +131,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Logging
         [TestCase(LogLevel.Error, true)]
         [TestCase(LogLevel.Fatal, true)]
         [TestCase(LogLevel.Critical, true)]
+        [TestCase(LogLevel.Disaster, true)]
         public void IsEnabled_LogLevelAsDefined_ResultAsExpected(LogLevel actual, Boolean expected)
         {
             this.settings.SetupGet(x => x.LogLevel).Returns(LogLevel.Message);

@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="Extensions\LogLevelCriticalExtensionTests.cs" />
     <Compile Include="Extensions\LogLevelDebugExtensionTests.cs" />
+    <Compile Include="Extensions\LogLevelDisasterExtensionTests.cs" />
     <Compile Include="Extensions\LogLevelDisplayExtensionTests.cs" />
     <Compile Include="Extensions\LogLevelErrorExtensionTests.cs" />
     <Compile Include="Extensions\LogLevelFatalExtensionTests.cs" />

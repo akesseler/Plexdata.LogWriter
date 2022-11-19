@@ -134,6 +134,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [TestCase(LogLevel.Error, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"ERROR\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(LogLevel.Fatal, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"FATAL\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         [TestCase(LogLevel.Critical, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"CRITICAL\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
+        [TestCase(LogLevel.Disaster, "{{\"Key\":\"12345678-90AB-CDEF-1234-567890ABCDEF\",\"Time\":\"20191029170542\",\"Level\":\"DISASTER\",\"Context\":null,\"Scope\":null,\"Message\":\"{0}\",\"Details\":null,\"Exception\":null}}")]
         public void Format_LogLevelAsDefined_ResultAsExpected(LogLevel logLevel, String expected)
         {
             String message = "my message";

@@ -50,6 +50,7 @@ namespace Plexdata.LogWriter.Extensions
     /// LogLevel.Error.RegisterDisplayText("ERR");
     /// LogLevel.Fatal.RegisterDisplayText("FAT");
     /// LogLevel.Critical.RegisterDisplayText("CRT");
+    /// LogLevel.Disaster.RegisterDisplayText("DST");
     /// </code>
     /// </example>
     public static class LogLevelDisplayExtension
@@ -89,6 +90,7 @@ namespace Plexdata.LogWriter.Extensions
                 { LogLevel.Error,    LogLevel.Error.Convert()    },
                 { LogLevel.Fatal,    LogLevel.Fatal.Convert()    },
                 { LogLevel.Critical, LogLevel.Critical.Convert() },
+                { LogLevel.Disaster, LogLevel.Disaster.Convert() },
             };
 
             LogLevelDisplayExtension.AssertOnInvalidMappings();
@@ -209,6 +211,11 @@ namespace Plexdata.LogWriter.Extensions
         /// </returns>
         private static String Convert(this LogLevel level)
         {
+            if (level == LogLevel.Default)
+            {
+                return nameof(LogLevel.Message).ToUpper();
+            }
+
             return level.ToString().ToUpper();
         }
 

@@ -134,6 +134,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [TestCase(LogLevel.Error, "20191029170542@ERROR@{0}")]
         [TestCase(LogLevel.Fatal, "20191029170542@FATAL@{0}")]
         [TestCase(LogLevel.Critical, "20191029170542@CRITICAL@{0}")]
+        [TestCase(LogLevel.Disaster, "20191029170542@DISASTER@{0}")]
         public void Format_LogLevelAsDefined_ResultAsExpected(LogLevel logLevel, String expected)
         {
             String message = "my message";

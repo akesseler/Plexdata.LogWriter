@@ -134,6 +134,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [TestCase(LogLevel.Error, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>ERROR</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(LogLevel.Fatal, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>FATAL</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         [TestCase(LogLevel.Critical, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>CRITICAL</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
+        [TestCase(LogLevel.Disaster, "<?xml version=\"1.0\" encoding=\"UTF-8\"?><logging><notification><key>12345678-90AB-CDEF-1234-567890ABCDEF</key><time>20191029170542</time><level>DISASTER</level><context /><scope /><message>my message</message><details /><exception /></notification></logging>")]
         public void Format_LogLevelAsDefined_ResultAsExpected(LogLevel logLevel, String expected)
         {
             String message = "my message";

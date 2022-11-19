@@ -84,17 +84,19 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(() => this.instance.TestGetLevel(level), Throws.InstanceOf<NotSupportedException>());
         }
 
-        [TestCase("1", LogLevel.Trace, "TRACE")]
-        [TestCase("2", LogLevel.Debug, "DEBUG")]
-        [TestCase("3", LogLevel.Verbose, "VERBOSE")]
-        [TestCase("4", LogLevel.Message, "MESSAGE")]
-        [TestCase("5", LogLevel.Warning, "WARNING")]
-        [TestCase("6", LogLevel.Error, "ERROR")]
-        [TestCase("7", LogLevel.Fatal, "FATAL")]
-        [TestCase("8", LogLevel.Critical, "CRITICAL")]
-        [TestCase("9", LogLevel.Default, "MESSAGE")]
-        public void GetLevel_LogLevelIsSupported_ResultIsExpected(String label, LogLevel level, String expected)
+        [TestCase(10, LogLevel.Trace, "TRACE")]
+        [TestCase(11, LogLevel.Debug, "DEBUG")]
+        [TestCase(12, LogLevel.Verbose, "VERBOSE")]
+        [TestCase(13, LogLevel.Message, "MESSAGE")]
+        [TestCase(14, LogLevel.Warning, "WARNING")]
+        [TestCase(15, LogLevel.Error, "ERROR")]
+        [TestCase(16, LogLevel.Fatal, "FATAL")]
+        [TestCase(17, LogLevel.Critical, "CRITICAL")]
+        [TestCase(18, LogLevel.Disaster, "DISASTER")]
+        [TestCase(19, LogLevel.Default, "MESSAGE")]
+        public void GetLevel_LogLevelIsSupported_ResultIsExpected(Int32 _, LogLevel level, String expected)
         {
+            // NOTE: The _ is only needed to ensure that "Default" is tested too!
             Assert.That(this.instance.TestGetLevel(level), Is.EqualTo(expected));
         }
 

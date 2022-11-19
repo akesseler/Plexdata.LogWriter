@@ -245,6 +245,7 @@ namespace Plexdata.LogWriter.Console.Tests.Logging
         [TestCase(LogLevel.Error, ConsoleColor.Red, ConsoleColor.Black)]
         [TestCase(LogLevel.Fatal, ConsoleColor.Gray, ConsoleColor.DarkRed)]
         [TestCase(LogLevel.Critical, ConsoleColor.Black, ConsoleColor.Red)]
+        [TestCase(LogLevel.Disaster, ConsoleColor.Black, ConsoleColor.Red)]
         public void Write_MultipleColoringHandling_FacadePropertiesCalledAsExpected(LogLevel level, ConsoleColor foreground, ConsoleColor background)
         {
             Coloring coloring = new Coloring(foreground, background);

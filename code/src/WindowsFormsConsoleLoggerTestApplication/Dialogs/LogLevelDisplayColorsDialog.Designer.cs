@@ -82,6 +82,9 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             this.cmbVerboseForeground = new Plexdata.Controls.ColorComboBox();
             this.cmbDebugForeground = new Plexdata.Controls.ColorComboBox();
             this.cmbTraceForeground = new Plexdata.Controls.ColorComboBox();
+            this.lblDisaster = new System.Windows.Forms.Label();
+            this.cmbDisasterBackground = new Plexdata.Controls.ColorComboBox();
+            this.cmbDisasterForeground = new Plexdata.Controls.ColorComboBox();
             this.SuspendLayout();
             // 
             // lblTrace
@@ -178,10 +181,10 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             // 
             this.btnCancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(247, 267);
+            this.btnCancel.Location = new System.Drawing.Point(247, 283);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
-            this.btnCancel.TabIndex = 28;
+            this.btnCancel.TabIndex = 31;
             this.btnCancel.Text = "&Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
@@ -189,19 +192,20 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             // 
             this.btnApply.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btnApply.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.btnApply.Location = new System.Drawing.Point(166, 267);
+            this.btnApply.Location = new System.Drawing.Point(166, 283);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 27;
+            this.btnApply.TabIndex = 30;
             this.btnApply.Text = "&Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             // 
             // btnRestore
             // 
-            this.btnRestore.Location = new System.Drawing.Point(12, 267);
+            this.btnRestore.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.btnRestore.Location = new System.Drawing.Point(12, 283);
             this.btnRestore.Name = "btnRestore";
             this.btnRestore.Size = new System.Drawing.Size(75, 23);
-            this.btnRestore.TabIndex = 26;
+            this.btnRestore.TabIndex = 29;
             this.btnRestore.Text = "&Restore";
             this.btnRestore.UseVisualStyleBackColor = true;
             this.btnRestore.Click += new System.EventHandler(this.OnButtonRestoreClick);
@@ -366,13 +370,45 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
             this.cmbTraceForeground.Size = new System.Drawing.Size(121, 21);
             this.cmbTraceForeground.TabIndex = 3;
             // 
+            // lblDisaster
+            // 
+            this.lblDisaster.AutoSize = true;
+            this.lblDisaster.Location = new System.Drawing.Point(23, 255);
+            this.lblDisaster.Name = "lblDisaster";
+            this.lblDisaster.Size = new System.Drawing.Size(45, 13);
+            this.lblDisaster.TabIndex = 26;
+            this.lblDisaster.Text = "Disaster";
+            // 
+            // cmbDisasterBackground
+            // 
+            this.cmbDisasterBackground.FormattingEnabled = true;
+            this.cmbDisasterBackground.Location = new System.Drawing.Point(201, 252);
+            this.cmbDisasterBackground.Name = "cmbDisasterBackground";
+            this.cmbDisasterBackground.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cmbDisasterBackground.SelectorText = "";
+            this.cmbDisasterBackground.Size = new System.Drawing.Size(121, 21);
+            this.cmbDisasterBackground.TabIndex = 28;
+            // 
+            // cmbDisasterForeground
+            // 
+            this.cmbDisasterForeground.FormattingEnabled = true;
+            this.cmbDisasterForeground.Location = new System.Drawing.Point(74, 252);
+            this.cmbDisasterForeground.Name = "cmbDisasterForeground";
+            this.cmbDisasterForeground.SelectedColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.cmbDisasterForeground.SelectorText = "";
+            this.cmbDisasterForeground.Size = new System.Drawing.Size(121, 21);
+            this.cmbDisasterForeground.TabIndex = 27;
+            // 
             // LogLevelDisplayColorsDialog
             // 
             this.AcceptButton = this.btnApply;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(334, 302);
+            this.ClientSize = new System.Drawing.Size(334, 318);
+            this.Controls.Add(this.lblDisaster);
+            this.Controls.Add(this.cmbDisasterBackground);
+            this.Controls.Add(this.cmbDisasterForeground);
             this.Controls.Add(this.btnRestore);
             this.Controls.Add(this.btnApply);
             this.Controls.Add(this.btnCancel);
@@ -433,6 +469,8 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
         private Plexdata.Controls.ColorComboBox cmbFatalBackground;
         private Plexdata.Controls.ColorComboBox cmbCriticalForeground;
         private Plexdata.Controls.ColorComboBox cmbCriticalBackground;
+        private Plexdata.Controls.ColorComboBox cmbDisasterBackground;
+        private Plexdata.Controls.ColorComboBox cmbDisasterForeground;
         private System.Windows.Forms.Label lblTrace;
         private System.Windows.Forms.Label lblDebug;
         private System.Windows.Forms.Label lblVerbose;
@@ -446,5 +484,6 @@ namespace Plexdata.LogWriter.Testing.Helper.Dialogs
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.Button btnRestore;
+        private System.Windows.Forms.Label lblDisaster;
     }
 }

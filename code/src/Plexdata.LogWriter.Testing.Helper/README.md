@@ -53,6 +53,7 @@ namespace Plexdata.LogWriter.Examples
             logger.Error("This is a Error logging entry.", details);
             logger.Fatal("This is a Fatal logging entry.", details);
             logger.Critical("This is a Critical logging entry.", details);
+            logger.Disaster("This is a Disaster logging entry.", details);
 
             Console.Write("Hit any key to finish... ");
             Console.ReadKey();
@@ -108,6 +109,7 @@ namespace Plexdata.LogWriter.Examples
             logger.Error("This is a Error logging entry.", details);
             logger.Fatal("This is a Fatal logging entry.", details);
             logger.Critical("This is a Critical logging entry.", details);
+            logger.Disaster("This is a Disaster logging entry.", details);
 
             Console.Write("Hit any key to finish... ");
             Console.ReadKey();
