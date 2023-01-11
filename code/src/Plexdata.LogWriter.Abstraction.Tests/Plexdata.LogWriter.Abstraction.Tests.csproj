@@ -74,10 +74,13 @@
     <Compile Include="Extensions\LogLevelVerboseExtensionTests.cs" />
     <Compile Include="Extensions\LogLevelWarningExtensionTests.cs" />
     <Compile Include="Internals\Events\LogEventTests.cs" />
+    <Compile Include="Internals\Extensions\DateTimeExtensionTests.cs" />
+    <Compile Include="Internals\Extensions\LogLevelExtensionTests.cs" />
     <Compile Include="Internals\Extensions\TypeFormatterExtensionTests.cs" />
     <Compile Include="Internals\Factories\LoggerFactoryTests.cs" />
     <Compile Include="Internals\Formatters\CsvFormatterTests.cs" />
     <Compile Include="Internals\Formatters\FormatterBaseTests.cs" />
+    <Compile Include="Internals\Formatters\GelfFormatterTests.cs" />
     <Compile Include="Internals\Formatters\JsonFormatterTests.cs" />
     <Compile Include="Internals\Formatters\RawFormatterTests.cs" />
     <Compile Include="Internals\Formatters\XmlFormatterTests.cs" />

@@ -34,6 +34,8 @@
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Composite\bin\Release\netstandard2.0\Plexdata.LogWriter.Composite.xml" />
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Mail\bin\Release\netstandard2.0\Plexdata.LogWriter.Mail.dll" />
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Mail\bin\Release\netstandard2.0\Plexdata.LogWriter.Mail.xml" />
+      <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Network\bin\Release\netstandard2.0\Plexdata.LogWriter.Network.dll" />
+      <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Network\bin\Release\netstandard2.0\Plexdata.LogWriter.Network.xml" />
     </DocumentationSources>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <SyntaxFilters>C#</SyntaxFilters>

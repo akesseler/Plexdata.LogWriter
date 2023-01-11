@@ -76,11 +76,32 @@ namespace Plexdata.LogWriter.Abstraction
         LogTime LogTime { get; set; }
 
         /// <summary>
+        /// Determines whether the message key is shown or not.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Showing the key of a particular message is very useful. But sometimes it is more 
+        /// useful to hide message keys at all. For this purpose this property can be used.
+        /// </para>
+        /// </remarks>
+        /// <value>
+        /// True, the message key is visible and false the message key is hidden.
+        /// </value>
+        Boolean ShowKey { get; set; }
+
+        /// <summary>
         /// Determines whether the message timestamp is shown or not.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// Showing the timestamp of a particular message is very useful. But sometimes it is more 
         /// useful to hide this timestamp. For this purpose this property can be used.
+        /// </para>
+        /// <para>
+        /// In case of GELF messages, this property allows to enable or disable the usage of the 
+        /// <em>timestamp</em> field, that in fact ends up in the usage of server side or client 
+        /// side timestamps.
+        /// </para>
         /// </remarks>
         /// <value>
         /// True, the message timestamp is visible and false the timestamp is hidden.
@@ -91,8 +112,14 @@ namespace Plexdata.LogWriter.Abstraction
         /// Gets and sets the time format to be used.
         /// </summary>
         /// <remarks>
+        /// <para>
         /// The time format string is used to define how a timestamp has to look. As default 
         /// value an adaptation of the standard ISO format is used.
+        /// </para>
+        /// <para>
+        /// In case of GELF messages, this property is ignored because the <em>timestamp</em> 
+        /// field uses UNIX epoch time format.
+        /// </para>
         /// </remarks>
         /// <value>
         /// Any date and time format that is valid for method <see cref="DateTime.ToString(String)"/>.

@@ -86,6 +86,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             Assert.That(instance.LogLevel, Is.EqualTo(LogLevel.Default));
             Assert.That(instance.LogType, Is.EqualTo(LogType.Default));
             Assert.That(instance.LogTime, Is.EqualTo(LogTime.Default));
+            Assert.That(instance.ShowKey, Is.EqualTo(true));
             Assert.That(instance.ShowTime, Is.EqualTo(true));
             Assert.That(instance.TimeFormat, Is.EqualTo(LoggerSettings.DefaultTimeFormat));
             Assert.That(instance.PartSplit, Is.EqualTo(';'));
@@ -180,6 +181,36 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             instance.LogTime = LogTime.Default;
             instance.PropertyChanged += (sender, args) => { fired = true; };
             instance.LogTime = LogTime.Default;
+
+            Assert.That(fired, Is.False);
+        }
+
+        #endregion
+
+        #region ShowKey
+
+        [Test]
+        public void ShowKey_ValueChanged_PropertyChangedFired()
+        {
+            Boolean fired = false;
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
+
+            instance.ShowKey = false;
+            instance.PropertyChanged += (sender, args) => { fired = true; };
+            instance.ShowKey = true;
+
+            Assert.That(fired, Is.True);
+        }
+
+        [Test]
+        public void ShowKey_ValueUnchanged_PropertyChangedNotFired()
+        {
+            Boolean fired = false;
+            ILoggerSettings instance = new LoggerSettingsDummyClass();
+
+            instance.ShowKey = true;
+            instance.PropertyChanged += (sender, args) => { fired = true; };
+            instance.ShowKey = true;
 
             Assert.That(fired, Is.False);
         }
@@ -460,6 +491,27 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Settings
             instance.LoadSettingsTest(this.configuration.Object);
 
             Assert.That(instance.LogTime, Is.EqualTo(expected));
+        }
+
+        [TestCase(null, true)]
+        [TestCase("", true)]
+        [TestCase(" ", true)]
+        [TestCase("invalid", true)]
+        [TestCase("true", true)]
+        [TestCase("TRUE", true)]
+        [TestCase("True", true)]
+        [TestCase("false", false)]
+        [TestCase("FALSE", false)]
+        [TestCase("False", false)]
+        public void LoadSettings_ConfigurationValid_GetSectionValueForShowKeyAsExpected(String value, Object expected)
+        {
+            LoggerSettingsDummyClass instance = new LoggerSettingsDummyClass();
+
+            this.section.SetupGet(x => x["ShowKey"]).Returns(value);
+
+            instance.LoadSettingsTest(this.configuration.Object);
+
+            Assert.That(instance.ShowKey, Is.EqualTo(expected));
         }
 
         [TestCase(null, true)]

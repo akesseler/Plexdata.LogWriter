@@ -68,6 +68,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             this.settings.SetupGet(x => x.LogType).Returns(LogType.Csv);
             this.settings.SetupGet(x => x.LogTime).Returns(LogTime.Utc);
             this.settings.SetupGet(x => x.PartSplit).Returns('@');
+            this.settings.SetupGet(x => x.ShowKey).Returns(true);
             this.settings.SetupGet(x => x.ShowTime).Returns(true);
             this.settings.SetupGet(x => x.TimeFormat).Returns("yyyyMMddHHmmss");
             this.settings.SetupGet(x => x.FullName).Returns(false);
@@ -83,6 +84,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [TestCase(LogType.Raw)]
         [TestCase(LogType.Json)]
         [TestCase(LogType.Xml)]
+        [TestCase(LogType.Gelf)]
         public void CsvFormatter_WrongLogType_ThrowsNotSupportedException(LogType logType)
         {
             this.settings.SetupGet(x => x.LogType).Returns(logType);
@@ -110,7 +112,23 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Format tests
 
-        [TestCase(false, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
+        [TestCase(false, "@20191029170542@MESSAGE@@@{0}@@")]
+        [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
+        public void Format_ShowKeyAsDefined_ResultAsExpected(Boolean showKey, String expected)
+        {
+            String message = "my message";
+
+            this.value.SetupGet(x => x.Message).Returns(message);
+            this.settings.SetupGet(x => x.ShowKey).Returns(showKey);
+
+            this.instance.Format(this.builder, this.value.Object);
+
+            String actual = this.builder.ToString();
+
+            Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
+        }
+
+        [TestCase(false, "12345678-90AB-CDEF-1234-567890ABCDEF@@MESSAGE@@@{0}@@")]
         [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@@@{0}@@")]
         public void Format_ShowTimeAsDefined_ResultAsExpected(Boolean showTime, String expected)
         {

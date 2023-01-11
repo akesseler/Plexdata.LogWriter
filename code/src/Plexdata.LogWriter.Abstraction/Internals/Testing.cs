@@ -26,3 +26,6 @@ using System.Runtime.CompilerServices;
 
 // Make internal classes visible for testing...
 [assembly: InternalsVisibleTo("Plexdata.LogWriter.Abstraction.Tests")]
+
+// Make internal classes visible to Moq framework...
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

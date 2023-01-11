@@ -98,6 +98,37 @@ namespace Plexdata.LogWriter.Internals.Extensions
         #region Public methods
 
         /// <summary>
+        /// This method checks whether a particular value type is a number type or 
+        /// better a numeric type.
+        /// </summary>
+        /// <remarks>
+        /// At the moment, the types SByte, Byte, Int16, UInt16, Int32, UInt32, Int64, 
+        /// UInt64, Single, Double and Decimal are considered as numeric types.
+        /// </remarks>
+        /// <typeparam name="TValue">
+        /// The type to be verified.
+        /// </typeparam>
+        /// <param name="value">
+        /// The value to get the type from. The type is determined from 
+        /// <typeparamref name="TValue"/> if <paramref name="value"/> is 
+        /// <c>null</c>.
+        /// </param>
+        /// <returns>
+        /// True if requested type is one of the numeric types and false if not.
+        /// </returns>
+        public static Boolean IsNumber<TValue>(this TValue value)
+        {
+            Type type = value?.GetType() ?? typeof(TValue);
+
+            return type == typeof(SByte) || type == typeof(Byte) ||
+                   type == typeof(Int16) || type == typeof(UInt16) ||
+                   type == typeof(Int32) || type == typeof(UInt32) ||
+                   type == typeof(Int64) || type == typeof(UInt64) ||
+                   type == typeof(Single) || type == typeof(Double) ||
+                   type == typeof(Decimal);
+        }
+
+        /// <summary>
         /// This method checks whether a particular value type is supported by 
         /// this converter.
         /// </summary>

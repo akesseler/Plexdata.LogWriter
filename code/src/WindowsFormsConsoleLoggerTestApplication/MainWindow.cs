@@ -63,6 +63,7 @@ namespace Plexdata.LogWriter.Testing.Helper
                 LogLevel = LogLevel.Trace,
                 LogTime = LogTime.Local,
                 LogType = LogType.Raw,
+                ShowKey = false,
                 ShowTime = false,
                 FullName = false,
                 BufferSize = new Dimension(500, 1000),
@@ -123,7 +124,11 @@ namespace Plexdata.LogWriter.Testing.Helper
 
         private void OnCheckBoxCheckedChanged(Object sender, EventArgs args)
         {
-            if (sender == this.chkShowTime)
+            if (sender == this.chkShowKey)
+            {
+                this.settings.ShowKey = this.chkShowKey.Checked;
+            }
+            else if (sender == this.chkShowTime)
             {
                 this.settings.ShowTime = this.chkShowTime.Checked;
             }
@@ -184,6 +189,9 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.cmbLogTime.DataSource = this.GetEnumValues(this.settings.LogTime);
             this.cmbLogTime.SelectedItem = this.settings.LogTime;
             this.cmbLogTime.SelectedIndexChanged += this.OnComboBoxSelectedIndexChanged;
+
+            this.chkShowKey.Checked = this.settings.ShowKey;
+            this.chkShowKey.CheckedChanged += this.OnCheckBoxCheckedChanged;
 
             this.chkShowTime.Checked = this.settings.ShowTime;
             this.chkShowTime.CheckedChanged += this.OnCheckBoxCheckedChanged;

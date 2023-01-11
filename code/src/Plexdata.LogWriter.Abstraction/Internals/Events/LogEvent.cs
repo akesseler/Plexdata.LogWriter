@@ -121,6 +121,7 @@ namespace Plexdata.LogWriter.Internals.Events
             this.Time = time;
             this.Context = this.GetContext(context);
             this.Scope = this.GetScope(scope);
+            this.Template = String.Empty;
             this.Message = this.GetMessage(message, exception);
             this.Exception = exception;
             this.Details = details;
@@ -155,6 +156,9 @@ namespace Plexdata.LogWriter.Internals.Events
         /// <inheritdoc />
         public String Scope { get; private set; }
 
+        /// <inheritdoc />
+        public String Template { get; private set; }
+        
         /// <inheritdoc />
         public String Message { get; private set; }
 

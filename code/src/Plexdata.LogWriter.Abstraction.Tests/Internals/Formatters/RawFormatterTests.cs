@@ -68,6 +68,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             this.settings.SetupGet(x => x.LogType).Returns(LogType.Raw);
             this.settings.SetupGet(x => x.LogTime).Returns(LogTime.Utc);
             this.settings.SetupGet(x => x.PartSplit).Returns('@');
+            this.settings.SetupGet(x => x.ShowKey).Returns(true);
             this.settings.SetupGet(x => x.ShowTime).Returns(true);
             this.settings.SetupGet(x => x.TimeFormat).Returns("yyyyMMddHHmmss");
             this.settings.SetupGet(x => x.FullName).Returns(false);
@@ -83,6 +84,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [TestCase(LogType.Csv)]
         [TestCase(LogType.Json)]
         [TestCase(LogType.Xml)]
+        [TestCase(LogType.Gelf)]
         public void RawFormatter_WrongLogType_ThrowsNotSupportedException(LogType logType)
         {
             this.settings.SetupGet(x => x.LogType).Returns(logType);
@@ -110,8 +112,24 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
 
         #region Format tests
 
-        [TestCase(false, "MESSAGE@{0}")]
-        [TestCase(true, "20191029170542@MESSAGE@{0}")]
+        [TestCase(false, "20191029170542@MESSAGE@{0}")]
+        [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        public void Format_ShowKeyAsDefined_ResultAsExpected(Boolean showKey, String expected)
+        {
+            String message = "my message";
+
+            this.value.SetupGet(x => x.Message).Returns(message);
+            this.settings.SetupGet(x => x.ShowKey).Returns(showKey);
+
+            this.instance.Format(this.builder, this.value.Object);
+
+            String actual = this.builder.ToString();
+
+            Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
+        }
+
+        [TestCase(false, "12345678-90AB-CDEF-1234-567890ABCDEF@MESSAGE@{0}")]
+        [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
         public void Format_ShowTimeAsDefined_ResultAsExpected(Boolean showTime, String expected)
         {
             String message = "my message";
@@ -126,15 +144,15 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [TestCase(LogLevel.Trace, "20191029170542@TRACE@{0}")]
-        [TestCase(LogLevel.Debug, "20191029170542@DEBUG@{0}")]
-        [TestCase(LogLevel.Verbose, "20191029170542@VERBOSE@{0}")]
-        [TestCase(LogLevel.Message, "20191029170542@MESSAGE@{0}")]
-        [TestCase(LogLevel.Warning, "20191029170542@WARNING@{0}")]
-        [TestCase(LogLevel.Error, "20191029170542@ERROR@{0}")]
-        [TestCase(LogLevel.Fatal, "20191029170542@FATAL@{0}")]
-        [TestCase(LogLevel.Critical, "20191029170542@CRITICAL@{0}")]
-        [TestCase(LogLevel.Disaster, "20191029170542@DISASTER@{0}")]
+        [TestCase(LogLevel.Trace, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@TRACE@{0}")]
+        [TestCase(LogLevel.Debug, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@DEBUG@{0}")]
+        [TestCase(LogLevel.Verbose, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@VERBOSE@{0}")]
+        [TestCase(LogLevel.Message, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(LogLevel.Warning, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@WARNING@{0}")]
+        [TestCase(LogLevel.Error, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@ERROR@{0}")]
+        [TestCase(LogLevel.Fatal, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@FATAL@{0}")]
+        [TestCase(LogLevel.Critical, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@CRITICAL@{0}")]
+        [TestCase(LogLevel.Disaster, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@DISASTER@{0}")]
         public void Format_LogLevelAsDefined_ResultAsExpected(LogLevel logLevel, String expected)
         {
             String message = "my message";
@@ -149,10 +167,10 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [TestCase(null, "20191029170542@MESSAGE@{0}")]
-        [TestCase("", "20191029170542@MESSAGE@{0}")]
-        [TestCase(" ", "20191029170542@MESSAGE@{0}")]
-        [TestCase("my context", "20191029170542@MESSAGE@my context@{0}")]
+        [TestCase(null, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase("", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(" ", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase("my context", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@my context@{0}")]
         public void Format_ContextAsDefined_ResultAsExpected(String context, String expected)
         {
             String message = "my message";
@@ -167,10 +185,10 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [TestCase(null, "20191029170542@MESSAGE@{0}")]
-        [TestCase("", "20191029170542@MESSAGE@{0}")]
-        [TestCase(" ", "20191029170542@MESSAGE@{0}")]
-        [TestCase("my scope", "20191029170542@MESSAGE@my scope@{0}")]
+        [TestCase(null, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase("", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(" ", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase("my scope", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@my scope@{0}")]
         public void Format_ScopeAsDefined_ResultAsExpected(String scope, String expected)
         {
             String message = "my message";
@@ -185,10 +203,10 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [TestCase(null, "20191029170542@MESSAGE@empty")]
-        [TestCase("", "20191029170542@MESSAGE@empty")]
-        [TestCase(" ", "20191029170542@MESSAGE@empty")]
-        [TestCase("my message", "20191029170542@MESSAGE@my message")]
+        [TestCase(null, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@empty")]
+        [TestCase("", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@empty")]
+        [TestCase(" ", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@empty")]
+        [TestCase("my message", "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@my message")]
         public void Format_MessageAsDefined_ResultAsExpected(String message, String expected)
         {
             this.value.SetupGet(x => x.Message).Returns(message);
@@ -200,14 +218,14 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [TestCase(-1, 'a', "20191029170542@MESSAGE@{0}")]
-        [TestCase(0, 'a', "20191029170542@MESSAGE@{0}")]
-        [TestCase(1, 'a', "20191029170542@MESSAGE@{0}@[Label0=Value0]")]
-        [TestCase(2, 'a', "20191029170542@MESSAGE@{0}@[Label0=Value0@Label1=Value1]")]
-        [TestCase(-1, '@', "20191029170542@MESSAGE@{0}")]
-        [TestCase(0, '@', "20191029170542@MESSAGE@{0}")]
-        [TestCase(1, '@', "20191029170542@MESSAGE@{0}@[Label0=V@lue0]")]
-        [TestCase(2, '@', "20191029170542@MESSAGE@{0}@[Label0=V@lue0@Label1=V@lue1]")]
+        [TestCase(-1, 'a', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(0, 'a', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(1, 'a', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}@[Label0=Value0]")]
+        [TestCase(2, 'a', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}@[Label0=Value0@Label1=Value1]")]
+        [TestCase(-1, '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(0, '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(1, '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}@[Label0=V@lue0]")]
+        [TestCase(2, '@', "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}@[Label0=V@lue0@Label1=V@lue1]")]
         public void Format_ValuesAsDefined_ResultAsExpected(Int32 count, Char take, String expected)
         {
             String message = "my message";
@@ -222,8 +240,8 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(String.Format(expected, message)));
         }
 
-        [TestCase(false, "20191029170542@MESSAGE@{0}")]
-        [TestCase(true, "20191029170542@MESSAGE@{0}\r\nSystem.Exception: exception")]
+        [TestCase(false, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}")]
+        [TestCase(true, "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@{0}\r\nSystem.Exception: exception")]
         public void Format_ExceptionAsDefined_ResultAsExpected(Boolean exception, String expected)
         {
             String message = "my message";
@@ -241,7 +259,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
         [Test]
         public void Format_OutputAsDefined_ResultAsExpected()
         {
-            String expected = "20191029170542@MESSAGE@my context@my scope@my message@[Label0=Value0@Label1=Value1]\r\nSystem.Exception: exception";
+            String expected = "12345678-90AB-CDEF-1234-567890ABCDEF@20191029170542@MESSAGE@my context@my scope@my message@[Label0=Value0@Label1=Value1]\r\nSystem.Exception: exception";
 
             this.settings.SetupGet(x => x.ShowTime).Returns(true);
             this.value.SetupGet(x => x.Context).Returns("my context");
@@ -257,12 +275,12 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Formatters
             Assert.That(actual, Is.EqualTo(expected));
         }
 
-        [TestCase("de-DE", ':', "20191029170542:MESSAGE:{0}:[Boolean=true:Double=1234567,89:Decimal=1234567,89:DateTime=29.10.2019 17:05:42:Object=System.Object]")]
-        [TestCase("de-DE", ',', "20191029170542,MESSAGE,{0},[Boolean=true,Double=1234567,89,Decimal=1234567,89,DateTime=29.10.2019 17:05:42,Object=System.Object]")]
-        [TestCase("de-DE", ';', "20191029170542;MESSAGE;{0};[Boolean=true;Double=1234567,89;Decimal=1234567,89;DateTime=29.10.2019 17:05:42;Object=System.Object]")]
-        [TestCase("en-US", ',', "20191029170542,MESSAGE,{0},[Boolean=true,Double=1234567.89,Decimal=1234567.89,DateTime=10/29/2019 5:05:42 PM,Object=System.Object]")]
-        [TestCase("en-US", ';', "20191029170542;MESSAGE;{0};[Boolean=true;Double=1234567.89;Decimal=1234567.89;DateTime=10/29/2019 5:05:42 PM;Object=System.Object]")]
-        [TestCase("en-US", ':', "20191029170542:MESSAGE:{0}:[Boolean=true:Double=1234567.89:Decimal=1234567.89:DateTime=10/29/2019 5:05:42 PM:Object=System.Object]")]
+        [TestCase("de-DE", ':', "12345678-90AB-CDEF-1234-567890ABCDEF:20191029170542:MESSAGE:{0}:[Boolean=true:Double=1234567,89:Decimal=1234567,89:DateTime=29.10.2019 17:05:42:Object=System.Object]")]
+        [TestCase("de-DE", ',', "12345678-90AB-CDEF-1234-567890ABCDEF,20191029170542,MESSAGE,{0},[Boolean=true,Double=1234567,89,Decimal=1234567,89,DateTime=29.10.2019 17:05:42,Object=System.Object]")]
+        [TestCase("de-DE", ';', "12345678-90AB-CDEF-1234-567890ABCDEF;20191029170542;MESSAGE;{0};[Boolean=true;Double=1234567,89;Decimal=1234567,89;DateTime=29.10.2019 17:05:42;Object=System.Object]")]
+        [TestCase("en-US", ',', "12345678-90AB-CDEF-1234-567890ABCDEF,20191029170542,MESSAGE,{0},[Boolean=true,Double=1234567.89,Decimal=1234567.89,DateTime=10/29/2019 5:05:42 PM,Object=System.Object]")]
+        [TestCase("en-US", ';', "12345678-90AB-CDEF-1234-567890ABCDEF;20191029170542;MESSAGE;{0};[Boolean=true;Double=1234567.89;Decimal=1234567.89;DateTime=10/29/2019 5:05:42 PM;Object=System.Object]")]
+        [TestCase("en-US", ':', "12345678-90AB-CDEF-1234-567890ABCDEF:20191029170542:MESSAGE:{0}:[Boolean=true:Double=1234567.89:Decimal=1234567.89:DateTime=10/29/2019 5:05:42 PM:Object=System.Object]")]
         public void Format_CulturesAsDefined_ResultAsExpected(String culture, Char part, String expected)
         {
             String message = "my message";

@@ -25,6 +25,7 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using Plexdata.LogWriter.Internals.Events;
+using Plexdata.LogWriter.Internals.Facades;
 using Plexdata.LogWriter.Internals.Formatters;
 using System;
 
@@ -80,9 +81,40 @@ namespace Plexdata.LogWriter.Internals.Factories
                     return new CsvFormatter(settings);
                 case LogType.Xml:
                     return new XmlFormatter(settings);
+                case LogType.Gelf:
+                    return new GelfFormatter(settings, this.CreateInternal<IResolverFacade>());
                 default:
                     return new RawFormatter(settings);
             }
+        }
+
+        #endregion
+
+        #region Private methods
+
+        /// <summary>
+        /// Creates internal instances for different types of interfaces.
+        /// </summary>
+        /// <remarks>
+        /// This method creates internal instances for different types of interfaces.
+        /// </remarks>
+        /// <typeparam name="TInterface">
+        /// The interface type to create.
+        /// </typeparam>
+        /// <returns>
+        /// The instance of created interface.
+        /// </returns>
+        /// <exception cref="NotSupportedException">
+        /// This exception is thrown if provided value type is not supported.
+        /// </exception>
+        private TInterface CreateInternal<TInterface>()
+        {
+            if (typeof(TInterface) == typeof(IResolverFacade))
+            {
+                return (TInterface)(IResolverFacade)new ResolverFacade();
+            }
+
+            throw new NotSupportedException($"Type of interface '{typeof(TInterface)}' is not supported by this factory.");
         }
 
         #endregion

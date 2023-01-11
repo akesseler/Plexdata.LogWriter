@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.168
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33110.190
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Abstraction", "Plexdata.LogWriter.Abstraction\Plexdata.LogWriter.Abstraction.csproj", "{F3575F5C-DFBA-4720-8989-CF3449149B07}"
 EndProject
@@ -79,6 +79,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Mail", "Plexdata.LogWriter.Mail\Plexdata.LogWriter.Mail.csproj", "{647B3E1B-40F8-4B8C-AF7B-369F6AD80493}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Mail.Tests", "Plexdata.LogWriter.Mail.Tests\Plexdata.LogWriter.Mail.Tests.csproj", "{588837A0-62CD-42FB-B1EF-AAD20A99E962}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Plexdata.LogWriter.Network", "Plexdata.LogWriter.Network\Plexdata.LogWriter.Network.csproj", "{FF61AF1E-E0D3-425F-B5C4-8EC9BA573AC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Plexdata.LogWriter.Network.Tests", "Plexdata.LogWriter.Network.Tests\Plexdata.LogWriter.Network.Tests.csproj", "{28F3E949-5E83-4DD7-AFF6-2F053FB1A00F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -166,6 +170,14 @@ Global
 		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{588837A0-62CD-42FB-B1EF-AAD20A99E962}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FF61AF1E-E0D3-425F-B5C4-8EC9BA573AC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF61AF1E-E0D3-425F-B5C4-8EC9BA573AC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF61AF1E-E0D3-425F-B5C4-8EC9BA573AC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF61AF1E-E0D3-425F-B5C4-8EC9BA573AC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28F3E949-5E83-4DD7-AFF6-2F053FB1A00F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F3E949-5E83-4DD7-AFF6-2F053FB1A00F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F3E949-5E83-4DD7-AFF6-2F053FB1A00F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F3E949-5E83-4DD7-AFF6-2F053FB1A00F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

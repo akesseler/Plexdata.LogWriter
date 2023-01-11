@@ -28,8 +28,8 @@ namespace Plexdata.LogWriter.Definitions
     /// This enumeration defines all currently supported logging types.
     /// </summary>
     /// <remarks>
-    /// For the moment a raw-text logger, a CSV logger, a JSON as well 
-    /// as an XML logger are the supported types.
+    /// For the moment a raw-text logger, a CSV logger, a JSON logger, 
+    /// an XML logger as well as a GELF logger are the supported types.
     /// </remarks>
     public enum LogType
     {
@@ -57,6 +57,12 @@ namespace Plexdata.LogWriter.Definitions
         /// Markup Language format.
         /// </summary>
         Xml,
+
+        /// <summary>
+        /// Use GELF output format. The output is formatted in Graylog 
+        /// Extended Log Format.
+        /// </summary>
+        Gelf,
 
         /// <summary>
         /// Use default output format, which is set to <see cref="Raw"/> 

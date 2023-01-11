@@ -110,6 +110,18 @@ namespace Plexdata.LogWriter.Abstraction
         String Scope { get; }
 
         /// <summary>
+        /// Gets the message template of this logging event.
+        /// </summary>
+        /// <remarks>
+        /// Message templates are not yet supported but might be supported 
+        /// in later versions. Therefore, message templates are in fact RFU!
+        /// </remarks>
+        /// <value>
+        /// The logging event message template.
+        /// </value>
+        String Template { get; }
+
+        /// <summary>
         /// Gets the message of this logging event.
         /// </summary>
         /// <remarks>
