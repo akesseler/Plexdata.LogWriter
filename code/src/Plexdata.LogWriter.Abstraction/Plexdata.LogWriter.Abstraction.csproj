@@ -6,7 +6,7 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
-    <Copyright>Copyright © 2022 - plexdata.de</Copyright>
+    <Copyright>Copyright © 2023 - plexdata.de</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
@@ -15,9 +15,9 @@
 This package provides an implementation of an Empty logger as well, that might be useful as dummy or pre-logging implementation.</Description>
     <PackageTags>logging logger log trace debug raw structured abstraction</PackageTags>
     <PackageReleaseNotes>See project history under https://github.com/akesseler/Plexdata.LogWriter/blob/master/code/src/HISTORY.md</PackageReleaseNotes>
-    <AssemblyVersion>1.0.6.1</AssemblyVersion>
-    <FileVersion>1.0.6.1</FileVersion>
-    <Version>1.0.6.1</Version>
+    <AssemblyVersion>1.0.7.1</AssemblyVersion>
+    <FileVersion>1.0.7.1</FileVersion>
+    <Version>1.0.7.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
