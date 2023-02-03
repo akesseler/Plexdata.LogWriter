@@ -31,7 +31,6 @@ using Plexdata.Utilities.Testing;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
-using System.Threading;
 
 namespace Plexdata.LogWriter.Network.Tests.Internals.Sockets
 {
@@ -71,6 +70,8 @@ namespace Plexdata.LogWriter.Network.Tests.Internals.Sockets
             this.settings.SetupGet(x => x.Host).Returns(() => this.host);
             this.settings.SetupGet(x => x.Port).Returns(() => this.port);
             this.settings.SetupGet(x => x.Timeout).Returns(() => this.timeout);
+            this.settings.SetupGet(x => x.Method).Returns(() => this.method);
+            this.settings.SetupGet(x => x.Content).Returns(() => this.content);
 
             this.factory.Setup(x => x.Create<IClientFacade>(this.target, this.method, this.content, this.timeout)).Returns(this.client.Object);
         }

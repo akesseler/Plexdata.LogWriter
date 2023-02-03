@@ -107,11 +107,9 @@ namespace Plexdata.LogWriter.Internals.Sockets
 
             try
             {
-                // Method "POST" in conjunction with "application/json" is used
-                // for GELF requests, but might be used also for other requests.
                 this.client = this.factory.Create<IClientFacade>(
                     this.BuildRemoteUri(this.settings.Host, this.settings.Port),
-                    "POST", "application/json", this.settings.Timeout);
+                    this.settings.Method, this.settings.Content, this.settings.Timeout);
 
                 return true;
             }

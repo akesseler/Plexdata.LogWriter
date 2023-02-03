@@ -79,6 +79,8 @@ namespace Plexdata.LogWriter.Network.Tests.Settings
             Assert.That(instance.Maximum, Is.EqualTo(8192));
             Assert.That(instance.Termination, Is.False);
             Assert.That(instance.Timeout, Is.EqualTo(100000));
+            Assert.That(instance.Method, Is.EqualTo("POST"));
+            Assert.That(instance.Content, Is.EqualTo("application/json"));
         }
 
         [Test]
@@ -96,6 +98,8 @@ namespace Plexdata.LogWriter.Network.Tests.Settings
             Assert.That(instance.Maximum, Is.EqualTo(8192));
             Assert.That(instance.Termination, Is.False);
             Assert.That(instance.Timeout, Is.EqualTo(100000));
+            Assert.That(instance.Method, Is.EqualTo("POST"));
+            Assert.That(instance.Content, Is.EqualTo("application/json"));
         }
 
         [Test]
@@ -286,6 +290,33 @@ namespace Plexdata.LogWriter.Network.Tests.Settings
             NetworkLoggerSettings instance = new NetworkLoggerSettings(this.configuration.Object);
 
             Assert.That(instance.Timeout, Is.EqualTo(expected));
+        }
+
+        [TestCase(null, "POST")]
+        [TestCase("", "POST")]
+        [TestCase(" ", "POST")]
+        [TestCase("post", "post")]
+        [TestCase("GET", "GET")]
+        public void NetworkLoggerSettings_ConfigurationValid_GetSectionValueForMethodAsExpected(String value, Object expected)
+        {
+            this.section.SetupGet(x => x["Method"]).Returns(value);
+
+            NetworkLoggerSettings instance = new NetworkLoggerSettings(this.configuration.Object);
+
+            Assert.That(instance.Method, Is.EqualTo(expected));
+        }
+
+        [TestCase(null, "application/json")]
+        [TestCase("", "application/json")]
+        [TestCase(" ", "application/json")]
+        [TestCase("something/else", "something/else")]
+        public void NetworkLoggerSettings_ConfigurationValid_GetSectionValueForContentAsExpected(String value, Object expected)
+        {
+            this.section.SetupGet(x => x["Content"]).Returns(value);
+
+            NetworkLoggerSettings instance = new NetworkLoggerSettings(this.configuration.Object);
+
+            Assert.That(instance.Content, Is.EqualTo(expected));
         }
 
         #endregion
@@ -584,6 +615,66 @@ namespace Plexdata.LogWriter.Network.Tests.Settings
             instance.Timeout = 100000;
             instance.PropertyChanged += (sender, args) => { fired = true; };
             instance.Timeout = 100000;
+
+            Assert.That(fired, Is.False);
+        }
+
+        #endregion
+
+        #region Method
+
+        [Test]
+        public void Method_ValueChanged_PropertyChangedFired()
+        {
+            Boolean fired = false;
+            NetworkLoggerSettings instance = new NetworkLoggerSettings();
+
+            instance.Method = "POST";
+            instance.PropertyChanged += (sender, args) => { fired = true; };
+            instance.Method = "GET";
+
+            Assert.That(fired, Is.True);
+        }
+
+        [Test]
+        public void Method_ValueUnchanged_PropertyChangedNotFired()
+        {
+            Boolean fired = false;
+            NetworkLoggerSettings instance = new NetworkLoggerSettings();
+
+            instance.Method = "POST";
+            instance.PropertyChanged += (sender, args) => { fired = true; };
+            instance.Method = "POST";
+
+            Assert.That(fired, Is.False);
+        }
+
+        #endregion
+
+        #region Content
+
+        [Test]
+        public void Content_ValueChanged_PropertyChangedFired()
+        {
+            Boolean fired = false;
+            NetworkLoggerSettings instance = new NetworkLoggerSettings();
+
+            instance.Content = "application/json";
+            instance.PropertyChanged += (sender, args) => { fired = true; };
+            instance.Content = "something/else";
+
+            Assert.That(fired, Is.True);
+        }
+
+        [Test]
+        public void Content_ValueUnchanged_PropertyChangedNotFired()
+        {
+            Boolean fired = false;
+            NetworkLoggerSettings instance = new NetworkLoggerSettings();
+
+            instance.Content = "application/json";
+            instance.PropertyChanged += (sender, args) => { fired = true; };
+            instance.Content = "application/json";
 
             Assert.That(fired, Is.False);
         }

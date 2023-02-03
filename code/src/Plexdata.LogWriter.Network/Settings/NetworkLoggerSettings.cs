@@ -124,10 +124,26 @@ namespace Plexdata.LogWriter.Settings
         /// The default timeout value.
         /// </summary>
         /// <remarks>
-        /// The default timeout value is set to 100000 milliseconds (100 seconds) 
+        /// The default timeout value is set to <c>100000</c> milliseconds (100 seconds) 
         /// and has been taken from official Microsoft documentation.
         /// </remarks>
         private static readonly Int32 DefaultTimeout = 100000;
+
+        /// <summary>
+        /// The default method value.
+        /// </summary>
+        /// <remarks>
+        /// The default method value is set to <c>POST</c>.
+        /// </remarks>
+        private static readonly String DefaultMethod = "POST";
+
+        /// <summary>
+        /// The default content type.
+        /// </summary>
+        /// <remarks>
+        /// The default content type is set to <c>application/json</c>.
+        /// </remarks>
+        private static readonly String DefaultContent = "application/json";
 
         #endregion
 
@@ -223,6 +239,24 @@ namespace Plexdata.LogWriter.Settings
         /// </remarks>
         private Int32 timeout;
 
+        /// <summary>
+        /// This field holds the method value to be used.
+        /// </summary>
+        /// <remarks>
+        /// The value of <see cref="NetworkLoggerSettings.DefaultMethod"/> 
+        /// is used as initial value.
+        /// </remarks>
+        private String method;
+
+        /// <summary>
+        /// This field holds the content value to be used.
+        /// </summary>
+        /// <remarks>
+        /// The value of <see cref="NetworkLoggerSettings.DefaultContent"/> 
+        /// is used as initial value.
+        /// </remarks>
+        private String content;
+
         #endregion
 
         #region Construction
@@ -254,6 +288,8 @@ namespace Plexdata.LogWriter.Settings
             this.Maximum = NetworkLoggerSettings.DefaultMaximum;
             this.Termination = NetworkLoggerSettings.DefaultTermination;
             this.Timeout = NetworkLoggerSettings.DefaultTimeout;
+            this.Method = NetworkLoggerSettings.DefaultMethod;
+            this.Content = NetworkLoggerSettings.DefaultContent;
         }
 
         /// <summary>
@@ -459,6 +495,40 @@ namespace Plexdata.LogWriter.Settings
             }
         }
 
+        /// <inheritdoc />
+        public String Method
+        {
+            get
+            {
+                return this.method;
+            }
+            set
+            {
+                if (this.method != value)
+                {
+                    this.method = value;
+                    base.RaisePropertyChanged(nameof(this.Method));
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public String Content
+        {
+            get
+            {
+                return this.content;
+            }
+            set
+            {
+                if (this.Content != value)
+                {
+                    this.content = value;
+                    base.RaisePropertyChanged(nameof(this.Content));
+                }
+            }
+        }
+
         #endregion
 
         #region Protected Methods
@@ -496,6 +566,8 @@ namespace Plexdata.LogWriter.Settings
             this.Maximum = base.GetValue(section[nameof(this.Maximum)], NetworkLoggerSettings.DefaultMaximum);
             this.Termination = base.GetValue(section[nameof(this.Termination)], NetworkLoggerSettings.DefaultTermination);
             this.Timeout = base.GetValue(section[nameof(this.Timeout)], NetworkLoggerSettings.DefaultTimeout);
+            this.Method = base.GetValue(section[nameof(this.Method)], NetworkLoggerSettings.DefaultMethod);
+            this.Content = base.GetValue(section[nameof(this.Content)], NetworkLoggerSettings.DefaultContent);
         }
 
         #endregion

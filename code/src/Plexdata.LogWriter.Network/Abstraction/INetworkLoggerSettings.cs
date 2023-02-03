@@ -149,7 +149,7 @@ namespace Plexdata.LogWriter.Abstraction
         ///   <td><see cref="Protocol.Udp"/>, <see cref="Protocol.Tcp"/></td>
         ///   <td><see cref="Address.IPv4"/></td><td>DNS&#160;name</td>
         ///   <td>The <em>Host</em> property can contain a DNS host name, such as <c>localhost</c> for example, 
-        ///   and will resolve to an IPv4 address. In this case the remote server must allow access over IPv4.</td>
+        ///   and will be resolved to an IPv4 address. In this case the remote server must allow access over IPv4.</td>
         /// </tr>
         /// <tr>
         ///   <td><see cref="Protocol.Udp"/>, <see cref="Protocol.Tcp"/></td>
@@ -161,7 +161,7 @@ namespace Plexdata.LogWriter.Abstraction
         ///   <td><see cref="Protocol.Udp"/>, <see cref="Protocol.Tcp"/></td>
         ///   <td><see cref="Address.IPv6"/></td><td>DNS&#160;name</td>
         ///   <td>The <em>Host</em> property can contain a DNS host name, such as <c>localhost</c> for example, 
-        ///   and will resolve to an IPv6 address. In this case the remote server must allow access over IPv6.</td>
+        ///   and will be resolved to an IPv6 address. In this case the remote server must allow access over IPv6.</td>
         /// </tr>
         /// <tr>
         ///   <td><see cref="Protocol.Web"/></td><td>Ignored</td><td>URL</td>
@@ -173,7 +173,7 @@ namespace Plexdata.LogWriter.Abstraction
         ///   <see cref="Port"/> is set to zero.</li>
         ///   <li>The port number is taken from property <see cref="Port"/> if no port is included in the URL and 
         ///   property <see cref="Port"/> is not set to zero.</li>
-        ///   <li>The port number is taken from the URL and if property <see cref="Port"/> is not set to zero.</li>
+        ///   <li>The port number is taken from the URL and if property <see cref="Port"/> is set to zero.</li>
         ///   <li>The port number is taken from property <see cref="Port"/> if it is not set to zero and the port 
         ///   number in the URL is different from value of property <see cref="Port"/>.</li>
         ///   </ul>
@@ -194,7 +194,8 @@ namespace Plexdata.LogWriter.Abstraction
         /// Gets or sets the target port.
         /// </summary>
         /// <remarks>
-        /// This property defines the port on which the target computer is listened to.
+        /// This property defines the port on which the target computer is listening 
+        /// for logging requests.
         /// </remarks>
         /// <value>
         /// The target port to be used.
@@ -358,7 +359,7 @@ namespace Plexdata.LogWriter.Abstraction
         /// </para>
         /// <para>
         /// Attention, any client connection is closed automatically if this property is set to 
-        /// <c>false</c> OR a message already ends with a zero termination! Otherwise the client 
+        /// <c>false</c> OR a message does not already end with a zero termination! Otherwise the client 
         /// connection is kept open.
         /// </para>
         /// <para>
@@ -393,6 +394,32 @@ namespace Plexdata.LogWriter.Abstraction
         /// The timeout value in milliseconds to use. The default is 100000 (100 seconds).
         /// </value>
         Int32 Timeout { get; set; }
+
+        /// <summary>
+        /// Gets and set the HTTP request method to be used.
+        /// </summary>
+        /// <remarks>
+        /// This property allows to change the the HTTP request method to be used. For 
+        /// the moment the method value is only used together with WEB requests!
+        /// </remarks>
+        /// <value>
+        /// The HTTP request method to use, e.g. POST, PUT or any other valid WEB request 
+        /// method. The default is POST.
+        /// </value>
+        String Method { get; set; }
+
+        /// <summary>
+        /// Gets and set the HTTP request content type to be used.
+        /// </summary>
+        /// <remarks>
+        /// This property allows to change the the HTTP request content type to be used. 
+        /// For the moment the content value is only used together with WEB requests!
+        /// </remarks>
+        /// <value>
+        /// The HTTP request content type to use, e.g. application/json, application/xml 
+        /// or any other valid WEB request content type. The default is application/json.
+        /// </value>
+        String Content { get; set; }
 
         #endregion
     }

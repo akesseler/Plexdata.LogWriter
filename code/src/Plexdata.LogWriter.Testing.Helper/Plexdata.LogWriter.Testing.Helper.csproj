@@ -73,6 +73,10 @@
       <Project>{726C7B51-8A48-4008-A47D-0B8467B9887F}</Project>
       <Name>Plexdata.LogWriter.Mail</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Plexdata.LogWriter.Network\Plexdata.LogWriter.Network.csproj">
+      <Project>{FF61AF1E-E0D3-425F-B5C4-8EC9BA573AC6}</Project>
+      <Name>Plexdata.LogWriter.Network</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Plexdata.LogWriter.Persistent\Plexdata.LogWriter.Persistent.csproj">
       <Project>{B38DA898-A77E-4988-BEA0-5E69839D1499}</Project>
       <Name>Plexdata.LogWriter.Persistent</Name>
