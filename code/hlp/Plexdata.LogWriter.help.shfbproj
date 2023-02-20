@@ -34,6 +34,8 @@
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Composite\bin\Release\netstandard2.0\Plexdata.LogWriter.Composite.xml" />
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Mail\bin\Release\netstandard2.0\Plexdata.LogWriter.Mail.dll" />
       <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Mail\bin\Release\netstandard2.0\Plexdata.LogWriter.Mail.xml" />
+      <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Network\bin\Release\netstandard2.0\Plexdata.LogWriter.Network.dll" />
+      <DocumentationSource sourceFile="..\src\Plexdata.LogWriter.Network\bin\Release\netstandard2.0\Plexdata.LogWriter.Network.xml" />
     </DocumentationSources>
     <HelpFileFormat>HtmlHelp1</HelpFileFormat>
     <SyntaxFilters>C#</SyntaxFilters>
@@ -44,7 +46,7 @@
     <IndentHtml>False</IndentHtml>
     <BuildAssemblerVerbosity>OnlyWarningsAndErrors</BuildAssemblerVerbosity>
     <HelpTitle>Plexdata Logging Writer</HelpTitle>
-    <HelpFileVersion>1.0.6.1</HelpFileVersion>
+    <HelpFileVersion>1.0.7.1</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
     <RootNamespaceContainer>True</RootNamespaceContainer>
@@ -92,7 +94,7 @@
       <Argument Key="baseSourceCodeUrl" Value="" />
       <Argument Key="requestExampleUrl" Value="" />
     </TransformComponentArguments>
-    <CopyrightText>Copyright &amp;#169%3b 2022 - plexdata.de</CopyrightText>
+    <CopyrightText>Copyright &amp;#169%3b 2023 - plexdata.de</CopyrightText>
     <CopyrightHref>http://www.plexdata.de/</CopyrightHref>
     <NamespaceSummaries>
     </NamespaceSummaries>

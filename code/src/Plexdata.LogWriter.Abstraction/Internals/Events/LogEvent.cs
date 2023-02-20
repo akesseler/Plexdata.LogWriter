@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -121,6 +121,7 @@ namespace Plexdata.LogWriter.Internals.Events
             this.Time = time;
             this.Context = this.GetContext(context);
             this.Scope = this.GetScope(scope);
+            this.Template = String.Empty;
             this.Message = this.GetMessage(message, exception);
             this.Exception = exception;
             this.Details = details;
@@ -155,6 +156,9 @@ namespace Plexdata.LogWriter.Internals.Events
         /// <inheritdoc />
         public String Scope { get; private set; }
 
+        /// <inheritdoc />
+        public String Template { get; private set; }
+        
         /// <inheritdoc />
         public String Message { get; private set; }
 

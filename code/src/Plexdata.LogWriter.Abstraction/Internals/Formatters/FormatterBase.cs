@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -484,12 +484,39 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <returns>
         /// The string representation of converted value.
         /// </returns>
+        /// <see cref="GetConverted(Object, String)"/>
         /// <seealso cref="TypeFormatterExtension.TryFormat{TValue}(TValue, IFormatProvider, out String)"/>
         protected String GetConverted(Object value)
         {
+            return this.GetConverted(value, String.Empty);
+        }
+
+        /// <summary>
+        /// This method converts provided parameter <paramref name="value"/> 
+        /// into its string representation.
+        /// </summary>
+        /// <remarks>
+        /// This method uses the type formatter extension for a value conversion. 
+        /// If the value conversion fails and value is not <c>null</c> then method 
+        /// <see cref="Object.ToString()"/> is used. Otherwise value of <paramref name="standard"/> 
+        /// is returned.
+        /// </remarks>
+        /// <param name="value">
+        /// The value to be converted.
+        /// </param>
+        /// <param name="standard">
+        /// The value to be used as standard result.
+        /// </param>
+        /// <returns>
+        /// The string representation of converted value.
+        /// </returns>
+        /// <see cref="GetConverted(Object)"/>
+        /// <seealso cref="TypeFormatterExtension.TryFormat{TValue}(TValue, IFormatProvider, out String)"/>
+        protected String GetConverted(Object value, String standard)
+        {
             if (!value.TryFormat(this.Settings.Culture, out String result))
             {
-                result = (value ?? String.Empty).ToString();
+                result = (value ?? (standard ?? String.Empty)).ToString();
             }
 
             return result;

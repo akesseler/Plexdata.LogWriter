@@ -1,9 +1,13 @@
 
-**1.0.X.Y**
+**1.0.7.1**
 - Usage of package `Plexdata.Utilities.Testing`.
 - Package updates (NUnit and other).
-- Copyright year changed in all files.
 - Introduction of new logging level `Disaster`.
+- Introduction of logging type `GELF` including a proper formatter.
+- Adding of project `Plexdata.LogWriter.Network`.
+- File `.editorconfig` updated.
+- Copyright year changed in all files.
+- Version number increased.
 
 **1.0.6.1**
 - File `.editorconfig` added.

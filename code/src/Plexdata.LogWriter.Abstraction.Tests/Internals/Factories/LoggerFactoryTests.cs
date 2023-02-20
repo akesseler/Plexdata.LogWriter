@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -83,6 +83,7 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Factories
         [TestCase(LogType.Csv, typeof(CsvFormatter))]
         [TestCase(LogType.Json, typeof(JsonFormatter))]
         [TestCase(LogType.Xml, typeof(XmlFormatter))]
+        [TestCase(LogType.Gelf, typeof(GelfFormatter))]
         public void LoggerFactory_CreateLogEventFormatterForSpecialType_FormatterTypeAsExpected(LogType type, Type expected)
         {
             this.settings.LogType = type;

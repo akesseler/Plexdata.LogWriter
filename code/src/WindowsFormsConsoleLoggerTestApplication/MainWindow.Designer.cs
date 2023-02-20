@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -77,6 +77,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.chkScope = new System.Windows.Forms.CheckBox();
             this.chkContext = new System.Windows.Forms.CheckBox();
             this.chkFullName = new System.Windows.Forms.CheckBox();
+            this.chkShowKey = new System.Windows.Forms.CheckBox();
             this.panSettings.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -85,10 +86,10 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.chkShowTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chkShowTime.AutoSize = true;
-            this.chkShowTime.Location = new System.Drawing.Point(106, 122);
+            this.chkShowTime.Location = new System.Drawing.Point(106, 145);
             this.chkShowTime.Name = "chkShowTime";
             this.chkShowTime.Size = new System.Drawing.Size(79, 17);
-            this.chkShowTime.TabIndex = 8;
+            this.chkShowTime.TabIndex = 9;
             this.chkShowTime.Text = "Show Time";
             this.chkShowTime.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +159,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.lblTest.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblTest.Location = new System.Drawing.Point(250, 0);
             this.lblTest.Name = "lblTest";
-            this.lblTest.Size = new System.Drawing.Size(454, 387);
+            this.lblTest.Size = new System.Drawing.Size(454, 405);
             this.lblTest.TabIndex = 1;
             this.lblTest.Text = "Click here to generate messages.";
             this.lblTest.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -166,6 +167,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             // panSettings
             // 
             this.panSettings.AutoScroll = true;
+            this.panSettings.Controls.Add(this.chkShowKey);
             this.panSettings.Controls.Add(this.cmbCulture);
             this.panSettings.Controls.Add(this.chkValues);
             this.panSettings.Controls.Add(this.chkException);
@@ -192,7 +194,7 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.panSettings.Location = new System.Drawing.Point(0, 0);
             this.panSettings.Name = "panSettings";
             this.panSettings.Padding = new System.Windows.Forms.Padding(0, 0, 10, 0);
-            this.panSettings.Size = new System.Drawing.Size(250, 387);
+            this.panSettings.Size = new System.Drawing.Size(250, 405);
             this.panSettings.TabIndex = 0;
             // 
             // cmbCulture
@@ -209,20 +211,20 @@ namespace Plexdata.LogWriter.Testing.Helper
             // chkValues
             // 
             this.chkValues.AutoSize = true;
-            this.chkValues.Location = new System.Drawing.Point(106, 238);
+            this.chkValues.Location = new System.Drawing.Point(106, 260);
             this.chkValues.Name = "chkValues";
             this.chkValues.Size = new System.Drawing.Size(80, 17);
-            this.chkValues.TabIndex = 13;
+            this.chkValues.TabIndex = 14;
             this.chkValues.Text = "Use Values";
             this.chkValues.UseVisualStyleBackColor = true;
             // 
             // chkException
             // 
             this.chkException.AutoSize = true;
-            this.chkException.Location = new System.Drawing.Point(106, 215);
+            this.chkException.Location = new System.Drawing.Point(106, 237);
             this.chkException.Name = "chkException";
             this.chkException.Size = new System.Drawing.Size(95, 17);
-            this.chkException.TabIndex = 12;
+            this.chkException.TabIndex = 13;
             this.chkException.Text = "Use Exception";
             this.chkException.UseVisualStyleBackColor = true;
             // 
@@ -230,10 +232,10 @@ namespace Plexdata.LogWriter.Testing.Helper
             // 
             this.btnDisplayColors.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDisplayColors.Location = new System.Drawing.Point(106, 342);
+            this.btnDisplayColors.Location = new System.Drawing.Point(106, 364);
             this.btnDisplayColors.Name = "btnDisplayColors";
             this.btnDisplayColors.Size = new System.Drawing.Size(128, 23);
-            this.btnDisplayColors.TabIndex = 21;
+            this.btnDisplayColors.TabIndex = 22;
             this.btnDisplayColors.Text = "Change...";
             this.btnDisplayColors.UseVisualStyleBackColor = true;
             this.btnDisplayColors.Click += new System.EventHandler(this.OnButtonDisplayColorsClick);
@@ -250,29 +252,29 @@ namespace Plexdata.LogWriter.Testing.Helper
             // lblDisplayColors
             // 
             this.lblDisplayColors.AutoSize = true;
-            this.lblDisplayColors.Location = new System.Drawing.Point(10, 347);
+            this.lblDisplayColors.Location = new System.Drawing.Point(10, 369);
             this.lblDisplayColors.Name = "lblDisplayColors";
             this.lblDisplayColors.Size = new System.Drawing.Size(86, 13);
-            this.lblDisplayColors.TabIndex = 20;
+            this.lblDisplayColors.TabIndex = 21;
             this.lblDisplayColors.Text = "Log-Level Colors";
             // 
             // lblDisplayText
             // 
             this.lblDisplayText.AutoSize = true;
-            this.lblDisplayText.Location = new System.Drawing.Point(10, 318);
+            this.lblDisplayText.Location = new System.Drawing.Point(10, 340);
             this.lblDisplayText.Name = "lblDisplayText";
             this.lblDisplayText.Size = new System.Drawing.Size(78, 13);
-            this.lblDisplayText.TabIndex = 18;
+            this.lblDisplayText.TabIndex = 19;
             this.lblDisplayText.Text = "Log Level Text";
             // 
             // btnDisplayText
             // 
             this.btnDisplayText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDisplayText.Location = new System.Drawing.Point(106, 313);
+            this.btnDisplayText.Location = new System.Drawing.Point(106, 335);
             this.btnDisplayText.Name = "btnDisplayText";
             this.btnDisplayText.Size = new System.Drawing.Size(128, 23);
-            this.btnDisplayText.TabIndex = 19;
+            this.btnDisplayText.TabIndex = 20;
             this.btnDisplayText.Text = "Change...";
             this.btnDisplayText.UseVisualStyleBackColor = true;
             this.btnDisplayText.Click += new System.EventHandler(this.OnButtonDisplayTextClick);
@@ -281,36 +283,36 @@ namespace Plexdata.LogWriter.Testing.Helper
             // 
             this.txtPartSplit.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtPartSplit.Location = new System.Drawing.Point(106, 287);
+            this.txtPartSplit.Location = new System.Drawing.Point(106, 309);
             this.txtPartSplit.Name = "txtPartSplit";
             this.txtPartSplit.Size = new System.Drawing.Size(128, 20);
-            this.txtPartSplit.TabIndex = 17;
+            this.txtPartSplit.TabIndex = 18;
             // 
             // lblPartSplit
             // 
             this.lblPartSplit.AutoSize = true;
-            this.lblPartSplit.Location = new System.Drawing.Point(10, 290);
+            this.lblPartSplit.Location = new System.Drawing.Point(10, 312);
             this.lblPartSplit.Name = "lblPartSplit";
             this.lblPartSplit.Size = new System.Drawing.Size(49, 13);
-            this.lblPartSplit.TabIndex = 16;
+            this.lblPartSplit.TabIndex = 17;
             this.lblPartSplit.Text = "Part Split";
             // 
             // txtMessage
             // 
             this.txtMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtMessage.Location = new System.Drawing.Point(106, 261);
+            this.txtMessage.Location = new System.Drawing.Point(106, 283);
             this.txtMessage.Name = "txtMessage";
             this.txtMessage.Size = new System.Drawing.Size(128, 20);
-            this.txtMessage.TabIndex = 15;
+            this.txtMessage.TabIndex = 16;
             // 
             // lblMessage
             // 
             this.lblMessage.AutoSize = true;
-            this.lblMessage.Location = new System.Drawing.Point(11, 264);
+            this.lblMessage.Location = new System.Drawing.Point(10, 290);
             this.lblMessage.Name = "lblMessage";
             this.lblMessage.Size = new System.Drawing.Size(50, 13);
-            this.lblMessage.TabIndex = 14;
+            this.lblMessage.TabIndex = 15;
             this.lblMessage.Text = "Message";
             // 
             // chkScope
@@ -318,10 +320,10 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.chkScope.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chkScope.AutoSize = true;
-            this.chkScope.Location = new System.Drawing.Point(106, 191);
+            this.chkScope.Location = new System.Drawing.Point(106, 214);
             this.chkScope.Name = "chkScope";
             this.chkScope.Size = new System.Drawing.Size(79, 17);
-            this.chkScope.TabIndex = 11;
+            this.chkScope.TabIndex = 12;
             this.chkScope.Text = "Use Scope";
             this.chkScope.UseVisualStyleBackColor = true;
             // 
@@ -330,10 +332,10 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.chkContext.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chkContext.AutoSize = true;
-            this.chkContext.Location = new System.Drawing.Point(106, 168);
+            this.chkContext.Location = new System.Drawing.Point(106, 191);
             this.chkContext.Name = "chkContext";
             this.chkContext.Size = new System.Drawing.Size(84, 17);
-            this.chkContext.TabIndex = 10;
+            this.chkContext.TabIndex = 11;
             this.chkContext.Text = "Use Context";
             this.chkContext.UseVisualStyleBackColor = true;
             // 
@@ -342,18 +344,30 @@ namespace Plexdata.LogWriter.Testing.Helper
             this.chkFullName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.chkFullName.AutoSize = true;
-            this.chkFullName.Location = new System.Drawing.Point(106, 145);
+            this.chkFullName.Location = new System.Drawing.Point(106, 168);
             this.chkFullName.Name = "chkFullName";
             this.chkFullName.Size = new System.Drawing.Size(95, 17);
-            this.chkFullName.TabIndex = 9;
+            this.chkFullName.TabIndex = 10;
             this.chkFullName.Text = "Use Full Name";
             this.chkFullName.UseVisualStyleBackColor = true;
+            // 
+            // chkShowKey
+            // 
+            this.chkShowKey.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkShowKey.AutoSize = true;
+            this.chkShowKey.Location = new System.Drawing.Point(106, 122);
+            this.chkShowKey.Name = "chkShowKey";
+            this.chkShowKey.Size = new System.Drawing.Size(74, 17);
+            this.chkShowKey.TabIndex = 8;
+            this.chkShowKey.Text = "Show Key";
+            this.chkShowKey.UseVisualStyleBackColor = true;
             // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(704, 387);
+            this.ClientSize = new System.Drawing.Size(704, 405);
             this.Controls.Add(this.lblTest);
             this.Controls.Add(this.panSettings);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -390,6 +404,7 @@ namespace Plexdata.LogWriter.Testing.Helper
         private System.Windows.Forms.CheckBox chkException;
         private System.Windows.Forms.ComboBox cmbCulture;
         private System.Windows.Forms.Label lblCulture;
+        private System.Windows.Forms.CheckBox chkShowKey;
     }
 }
 

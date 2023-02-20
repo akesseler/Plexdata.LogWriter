@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -72,6 +72,15 @@ namespace Plexdata.LogWriter.Settings
         private LogTime logTime;
 
         /// <summary>
+        /// This field represents current state of key visibility.
+        /// </summary>
+        /// <remarks>
+        /// The value of this field is managed in the implementation 
+        /// of property <see cref="LoggerSettings.ShowKey"/>.
+        /// </remarks>
+        private Boolean showKey;
+
+        /// <summary>
         /// This field represents current state of time stamp visibility.
         /// </summary>
         /// <remarks>
@@ -119,6 +128,15 @@ namespace Plexdata.LogWriter.Settings
         #endregion
 
         #region Private constants
+
+        /// <summary>
+        /// The default value of showing keys.
+        /// </summary>
+        /// <remarks>
+        /// The default value of showing keys is set to <c>true</c>, 
+        /// which means showing keys is initially enabled.
+        /// </remarks>
+        private static readonly Boolean DefaultShowKey = true;
 
         /// <summary>
         /// The default value of showing timestamps.
@@ -200,6 +218,7 @@ namespace Plexdata.LogWriter.Settings
             this.LogLevel = LogLevel.Default;
             this.LogType = LogType.Default;
             this.LogTime = LogTime.Default;
+            this.ShowKey = LoggerSettings.DefaultShowKey;
             this.ShowTime = LoggerSettings.DefaultShowTime;
             this.TimeFormat = LoggerSettings.DefaultTimeFormat;
             this.PartSplit = LoggerSettings.DefaultPartSplit;
@@ -270,6 +289,23 @@ namespace Plexdata.LogWriter.Settings
                 {
                     this.logTime = value;
                     this.RaisePropertyChanged(nameof(this.LogTime));
+                }
+            }
+        }
+
+        /// <inheritdoc />
+        public Boolean ShowKey
+        {
+            get
+            {
+                return this.showKey;
+            }
+            set
+            {
+                if (this.showKey != value)
+                {
+                    this.showKey = value;
+                    this.RaisePropertyChanged(nameof(this.ShowKey));
                 }
             }
         }
@@ -409,6 +445,7 @@ namespace Plexdata.LogWriter.Settings
             this.LogLevel = this.GetValue(section[nameof(this.LogLevel)], LogLevel.Default);
             this.LogType = this.GetValue(section[nameof(this.LogType)], LogType.Default);
             this.LogTime = this.GetValue(section[nameof(this.LogTime)], LogTime.Default);
+            this.ShowKey = this.GetValue(section[nameof(this.ShowKey)], LoggerSettings.DefaultShowKey);
             this.ShowTime = this.GetValue(section[nameof(this.ShowTime)], LoggerSettings.DefaultShowTime);
             this.TimeFormat = this.GetValue(section[nameof(this.TimeFormat)], LoggerSettings.DefaultTimeFormat);
             this.PartSplit = this.GetValue(section[nameof(this.PartSplit)], LoggerSettings.DefaultPartSplit);

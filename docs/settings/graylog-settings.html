@@ -1,0 +1,314 @@
+﻿
+<h2 id="graylog-logger-settings">Graylog Settings</h2>
+
+<p>
+    The Graylog or better the network logger settings are the settings used together with each of the network logger
+    implementations. These settings are defined in interface <code>INetworkLoggerSettings</code>.
+</p>
+
+<ul class="page-toc">
+    <li><a href="#graylog-host">Host</a></li>
+    <li><a href="#graylog-port">Port</a></li>
+    <li><a href="#graylog-address">Address</a></li>
+    <li><a href="#graylog-protocol">Protocol</a></li>
+    <li><a href="#graylog-encoding">Encoding</a></li>
+    <li><a href="#graylog-compressed">Compressed</a></li>
+    <li><a href="#graylog-threshold">Threshold</a></li>
+    <li><a href="#graylog-maximum">Maximum</a></li>
+    <li><a href="#graylog-termination">Termination</a></li>
+    <li><a href="#graylog-timeout">Timeout</a></li>
+    <li><a href="#graylog-method">Method</a></li>
+    <li><a href="#graylog-content">Content</a></li>
+    <li><a href="#graylog-examples">Examples</a></li>
+</ul>
+
+<h3 id="graylog-host">Host</h3>
+
+<p>
+    This property is the most important property of these settings because it references the target server.
+    However, it is also the property that is most difficult to configure, as its importance and value is
+    highly dependent on other properties. Therefore have a look at the <a href="#graylog-examples">examples</a>
+    below on this page.
+</p>
+
+<p>
+    Furthermore, this property can represent an IP address (IPv4 or IPv6), or a DNS host name entry, or as
+    well a fully qualified URL. Which of these possible interpretations is taken at runtime depends on other
+    properties. For more details see following overview.
+</p>
+
+<table>
+    <tr>
+        <th>Protocol</th>
+        <th>Address</th>
+        <th>Host</th>
+        <th>Remarks</th>
+    </tr>
+    <tr>
+        <td>UDP,&nbsp;TCP</td>
+        <td>IPv4</td>
+        <td>IP&#160;address</td>
+        <td>
+            The <em>Host</em> property can contain an IPv4 address, such as <code>127.0.0.1</code> for example.
+            In this case the remote server must allow access over IPv4.
+        </td>
+    </tr>
+    <tr>
+        <td>UDP,&nbsp;TCP</td>
+        <td>IPv4</td>
+        <td>DNS&#160;name</td>
+        <td>
+            The <em>Host</em> property can contain a DNS host name, such as <code>localhost</code> for example,
+            and will be resolved to an IPv4 address. In this case the remote server must allow access over IPv4.
+        </td>
+    </tr>
+    <tr>
+        <td>UDP,&nbsp;TCP</td>
+        <td>IPv6</td>
+        <td>IP&#160;address</td>
+        <td>
+            The <em>Host</em> property can contain an IPv6 address, such as <code>::1</code> for example. In this
+            case the remote server must allow access over IPv6.
+        </td>
+    </tr>
+    <tr>
+        <td>UDP,&nbsp;TCP</td>
+        <td>IPv6</td>
+        <td>DNS&#160;name</td>
+        <td>
+            The <em>Host</em> property can contain a DNS host name, such as <code>localhost</code> for example,
+            and will be resolved to an IPv6 address. In this case the remote server must allow access over IPv6.
+        </td>
+    </tr>
+    <tr>
+        <td>WEB/HTTP</td>
+        <td>Ignored</td>
+        <td>URL</td>
+        <td>
+            The <em>Host</em> property should (must) contain a fully qualified URL, such as <code>http://localhost/gelf</code>
+            or <code>http://localhost:42031/gelf</code> for example.
+            <ul>
+                <li>
+                    The default port number (port 80 for HTTP and port 443 for HTTPS) is taken if property
+                    <em>Port</em> is set to zero and the URL does not include a port number.
+                </li>
+                <li>
+                    The port number is taken from property <em>Port</em> if no port is included in the URL and
+                    property <em>Port</em> is not set to zero.
+                </li>
+                <li>
+                    The port number is taken from the URL and if property <em>Port</em> is set to zero.
+                </li>
+                <li>
+                    The port number is taken from property <em>Port</em> if it is not set to zero and the port
+                    number in the URL is different from value of property <em>Port</em>.
+                </li>
+            </ul>
+        </td>
+    </tr>
+</table>
+
+<p>
+    The default host name is set to <code>localhost</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-port">Port</h3>
+
+<p>
+    This property defines the port on which the target computer is listening on for logging requests. The used value must
+    be in range of <code>[0...65535]</code>. The default port number is set to <ccod>12201</ccod> and is used if this
+    property is not applied. This default value has been taken from Graylog GELF documentation page. For more information
+    please see <a href="https://go2docs.graylog.org/5-0/getting_in_log_data/gelf.html" target="_blank">https://go2docs.graylog.org/5-0/getting_in_log_data/gelf.html</a>.
+</p>
+
+<h3 id="graylog-address">Address</h3>
+
+<p>
+    This property defines the address type used to establish a communication with the target computer. It can be set
+    to one of the values <code>Unknown</code>, <code>IPv4</code>, <code>IPv6</code>, <code>Default</code>. The default
+    address type is set to <code>IPv4</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-protocol">Protocol</h3>
+
+<p>
+    This property defines the interface type to be used for communication with the target computer. It can be set to
+    one of the values <code>Unknown</code>, <code>Udp</code>, <code>Tcp</code>, <code>Web</code>, <code>Default</code>.
+    The default protocol type is set to <code>Udp</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-encoding">Encoding</h3>
+
+<p>
+    This property allows to change the encoding to be used for a communication between source and target computer.
+    It can be set to any code page name returned by <code>System.Text.Encoding.WebName</code>. The default encoding
+    is set to <code>UTF&ndash;8</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-compressed">Compressed</h3>
+
+<p>
+    This UDP dependent property enables or disables the feature of message compression. Message payloads are
+    compressed using the GZip algorithm when compression is enabled and the length of a given payload exceeds the
+    <a href="#graylog-threshold">Threshold</a> value. The default value is set to <code>true</code> and is used if
+    this property is not applied.
+
+</p>
+
+<h3 id="graylog-threshold">Threshold</h3>
+
+<p>
+    This UDP dependent property allows to change the compression threshold size. Message payloads are zipped using
+    GZip when <a href="#graylog-compressed">Compressed</a> is enabled and the length of a given payload exceeds
+    this threshold. The default value is set to <code>512</code> bytes and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-maximum">Maximum</h3>
+
+<p>
+    This UDP dependent property allows to change the maximum chunk size. According to the specification <em>GELF VIA UDP</em>
+    please note <q><em>Some Graylog components are limited to processing up to 8192 bytes.</em></q> The default
+    value is set to <code>8192</code> bytes and is used if this property is not applied. <em>Recommendation</em>:
+    Never change this value.
+</p>
+
+<h3 id="graylog-termination">Termination</h3>
+
+<p>
+    This TCP dependent property allows to enable or disable the usage of a zero termination for messages that are
+    sent to the remote host. But a zero termination (<code>\0</code>) is only appended if it does not already exist.
+    Any client connection is closed automatically if this property is set to <code>false</code> or a message does
+    not already end with a zero termination. Otherwise the client connection is kept open. The default value is set
+    to <code>false</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-timeout">Timeout</h3>
+
+<p>
+    This WEB dependent property allows to change the timeout value. For the moment the timeout value is only used
+    together with HTTP requests. Each number greater than or equal to zero is allowed as well as <code>Timeout.Infinite</code>
+    (<code>-1</code>). Any other value may completely disable the logger by causing unwanted exceptions. The default
+    value is set to 100,000 milliseconds (100 seconds) and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-method">Method</h3>
+
+<p>
+    This WEB dependent property allows to change the method value. For the moment the method value is only
+    used together with HTTP requests. Almost each valid HTTP verb, such as <code>GET</code>, <code>POST</code>,
+    <code>PUT</code>, etc., is allowed. Other values may completely disable the logger by causing unwanted
+    exceptions. The default value is set to <code>POST</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-content">Content</h3>
+
+<p>
+    This WEB dependent property allows to change the content type. For the moment the content type is only used
+    together with HTTP requests. Almost each valid HTTP content type respectively MIME type is allowed. Other
+    or better unknown values may completely disable the logger by causing unwanted exceptions. The default value
+    is set to <code>application/json</code> and is used if this property is not applied.
+</p>
+
+<h3 id="graylog-examples">Examples</h3>
+
+<p>
+    In this section please find some example configurations depending on <em>Protocol</em>, <em>Address</em>,
+    <em>Host</em> and <em>Port</em>.
+</p>
+
+<h4>UDP Examples</h4>
+
+<p>An example of a UDP/IPv4 configuration with IP address.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-1');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-1"><code>settings.Protocol = Protocol.Udp;
+settings.Address = Address.IPv4;
+settings.Host = "127.0.0.1";
+settings.Port = 42011;</code></pre>
+
+<p>An example of a UDP/IPv4 configuration with DNS name.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-2');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-2"><code>settings.Protocol = Protocol.Udp;
+settings.Address = Address.IPv4;
+settings.Host = "localhost";
+settings.Port = 42011;</code></pre>
+
+<p>An example of a UDP/IPv6 configuration with IP address.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-3');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-3"><code>Protocol = Protocol.Udp;
+Address = Address.IPv6;
+Host = "::1";
+Port = 42012;</code></pre>
+
+<p>An example of a UDP/IPv6 configuration with DNS name.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-4');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-4"><code>settings.Protocol = Protocol.Udp;
+settings.Address = Address.IPv6;
+settings.Host = "localhost";
+settings.Port = 42012;</code></pre>
+
+<h4>TCP Examples</h4>
+
+<p>An example of a TCP/IPv4 configuration with IP address.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-5');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-5"><code>settings.Protocol = Protocol.Tcp;
+settings.Address = Address.IPv4;
+settings.Host = "127.0.0.1";
+settings.Port = 42021;</code></pre>
+
+<p>An example of a TCP/IPv4 configuration with DNS name.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-6');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-6"><code>settings.Protocol = Protocol.Tcp;
+settings.Address = Address.IPv4;
+settings.Host = "localhost";
+settings.Port = 42021;</code></pre>
+
+<p>An example of a TCP/IPv6 configuration with IP address.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-7');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-7"><code>settings.Protocol = Protocol.Tcp;
+settings.Address = Address.IPv6;
+settings.Host = "::1";
+settings.Port = 42022;</code></pre>
+
+<p>An example of a TCP/IPv6 configuration with DNS name.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-8');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-8"><code>settings.Protocol = Protocol.Tcp;
+settings.Address = Address.IPv6;
+settings.Host = "localhost";
+settings.Port = 42022;</code></pre>
+
+<h4>WEB Examples</h4>
+
+<p>An example of a WEB/HTTP configuration with URL and extra port.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-9');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-9"><code>settings.Protocol = Protocol.Web;
+settings.Address = Address.Unknown; // Don't care.
+settings.Host = "http://localhost/gelf"; // Port is taken from property 'Port'.
+settings.Port = 42031; // Replace standard port by this value.</code></pre>
+
+<p>An example of a WEB/HTTP configuration with URL and integrated port.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-10');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-10"><code>settings.Protocol = Protocol.Web;
+settings.Address = Address.Unknown; // Don't care.
+settings.Host = "http://localhost:42031/gelf"; // Port is taken from URL.
+settings.Port = 0; // Determine port from URL.</code></pre>
+
+<p>An example of a WEB/HTTP configuration with URL and standard port.</p>
+
+<div class="copy-code-snippet-text"><a href="#" onclick="copyToClipboard('graylog-logger-config-example-11');return false;">Copy</a></div>
+<pre id="graylog-logger-config-example-11"><code>settings.Protocol = Protocol.Web;
+settings.Address = Address.Unknown; // Don't care.
+settings.Host = "http://localhost/gelf"; // Standard port of HTTP is used.
+settings.Port = 0; // Determine port from URL.</code></pre>
+
+
+<p style="margin-bottom: 2em;">&nbsp;</p>

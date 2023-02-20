@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -178,6 +178,53 @@ namespace Plexdata.LogWriter.Testing.Helper
  *         }
  *     }
  * }
+ */
+
+/* An example of how to use network logger together with GELF.
+ * 
+ * using Plexdata.LogWriter.Abstraction;
+ * using Plexdata.LogWriter.Definitions;
+ * using Plexdata.LogWriter.Logging;
+ * using Plexdata.LogWriter.Settings;
+ * using System;
+ * 
+ * namespace Plexdata.LogWriter.Examples
+ * {
+ *     class Program
+ *     {
+ *         static void Main(String[] args)
+ *         {
+ *             INetworkLoggerSettings settings = new NetworkLoggerSettings()
+ *             {
+ *                 LogLevel = LogLevel.Trace,
+ *                 LogType = LogType.Gelf,
+ *                 Host = "http://localhost/logging/gelf",
+ *                 Port = 42031,
+ *                 Address = Address.Unknown,
+ *                 Protocol = Protocol.Web,
+ *                 ShowKey = false,
+ *                 ShowTime = true,
+ *                 Termination = false,
+ *                 Timeout = 100,
+ *                 Method = "POST",
+ *                 Content = "application/json"
+ *             };
+ * 
+ *             using (INetworkLogger instance = new NetworkLogger(settings))
+ *             {
+ *                 instance.Write(LogLevel.Trace, "This is a Trace logging entry.");
+ *                 instance.Write(LogLevel.Debug, "This is a Debug logging entry.");
+ *                 instance.Write(LogLevel.Verbose, "This is a Verbose logging entry.");
+ *                 instance.Write(LogLevel.Message, "This is a Message logging entry.");
+ *                 instance.Write(LogLevel.Warning, "This is a Warning logging entry.");
+ *                 instance.Write(LogLevel.Error, "This is a Error logging entry.");
+ *                 instance.Write(LogLevel.Fatal, "This is a Fatal logging entry.");
+ *                 instance.Write(LogLevel.Critical, "This is a Critical logging entry.");
+ *                 instance.Write(LogLevel.Disaster, "This is a Disaster logging entry.");
+ *             }
+ *         }
+ *     }
+ * } 
  */
 
 /* An example of how to use stream logger.

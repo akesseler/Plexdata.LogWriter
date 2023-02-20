@@ -8,15 +8,15 @@
     <Description>Plexdata.LogWriter.Console defines all ILogger derived interfaces for console logging of the Plexdata Logging Writer.
 
 This package includes classes that are shared between all available implementations of any of the console logger interfaces.</Description>
-    <Copyright>Copyright © 2022 - plexdata.de</Copyright>
+    <Copyright>Copyright © 2023 - plexdata.de</Copyright>
     <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
     <PackageProjectUrl>https://github.com/akesseler/Plexdata.LogWriter</PackageProjectUrl>
     <PackageIcon>icon.png</PackageIcon>
     <PackageTags>logging logger log trace debug raw structured console</PackageTags>
     <PackageReleaseNotes>See project history under https://github.com/akesseler/Plexdata.LogWriter/blob/master/code/src/HISTORY.md</PackageReleaseNotes>
-    <AssemblyVersion>1.0.6.1</AssemblyVersion>
-    <FileVersion>1.0.6.1</FileVersion>
-    <Version>1.0.6.1</Version>
+    <AssemblyVersion>1.0.7.1</AssemblyVersion>
+    <FileVersion>1.0.7.1</FileVersion>
+    <Version>1.0.7.1</Version>
     <RootNamespace>Plexdata.LogWriter</RootNamespace>
   </PropertyGroup>
 

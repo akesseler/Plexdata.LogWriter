@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -43,6 +43,65 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Extensions
         public void DefaultCulture_ValidateDefaultCulture_ResultIsEnUs()
         {
             Assert.That(((CultureInfo)TypeFormatterExtension.DefaultFormat).Name, Is.EqualTo("en-US"));
+        }
+
+        #endregion
+
+        #region IsNumber
+
+        [Test]
+        public void IsNumber_TypeIsObjectButNull_ResultIsFalse()
+        {
+            Object value = null;
+
+            Assert.That(value.IsNumber(), Is.False);
+        }
+
+        [Test]
+        public void IsNumber_TypeIsObjectButNotNull_ResultIsFalse()
+        {
+            Object value = new Object();
+
+            Assert.That(value.IsNumber(), Is.False);
+        }
+
+        [Test]
+        public void IsNumber_TypeIsObjectAndNotNullAndInt32_ResultIsTrue()
+        {
+            Object value = Int32.MaxValue;
+
+            Assert.That(value.IsNumber(), Is.True);
+        }
+
+        [TestCase(SByte.MinValue)]
+        [TestCase(Byte.MinValue)]
+        [TestCase(Int16.MinValue)]
+        [TestCase(UInt16.MinValue)]
+        [TestCase(Int32.MinValue)]
+        [TestCase(UInt32.MinValue)]
+        [TestCase(Int64.MinValue)]
+        [TestCase(UInt64.MinValue)]
+        [TestCase(Single.MinValue)]
+        [TestCase(Double.MinValue)]
+        public void IsNumber_TypesAsProvided_ResultIsTrue<TValue>(TValue value)
+        {
+            Assert.That(value.IsNumber(), Is.True);
+        }
+
+        [Test]
+        public void IsNumber_TypesIsDecimal_ResultIsTrue()
+        {
+            Decimal value = Decimal.MinValue; // Unfortunately, unable to put Decimal in an attribute.
+
+            Assert.That(value.IsNumber(), Is.True);
+        }
+
+        [Test]
+        public void IsNumber_TypesString_ResultIsFalse()
+        {
+            String value = null;
+
+            Assert.That(value.IsNumber(), Is.False);
         }
 
         #endregion

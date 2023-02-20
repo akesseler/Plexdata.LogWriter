@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -25,7 +25,6 @@
 using Plexdata.LogWriter.Abstraction;
 using Plexdata.LogWriter.Definitions;
 using System;
-using System.Collections.Generic;
 using System.Text;
 
 namespace Plexdata.LogWriter.Internals.Formatters
@@ -73,12 +72,14 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <inheritdoc />
         /// <remarks>
         /// Intentionally, the XML formatter does not skip any of the message parts. 
-        /// This means that an <em>empty</em> string is used if a particular part is not 
-        /// valid.
+        /// This means that an <em>empty</em> string is used if a particular part is 
+        /// not valid.
         /// </remarks>
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown as soon as one the parameters is <c>null</c>.
         /// </exception>
+        /// <seealso cref="ILoggerSettings.ShowKey"/>
+        /// <seealso cref="ILoggerSettings.ShowTime"/>
         public void Format(StringBuilder builder, ILogEvent value)
         {
             if (builder == null)
@@ -196,7 +197,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The key is always added and cannot be disabled.
+        /// The key is always added and cannot be disabled, but might be empty. 
+        /// If the key is empty or not is controlled by value of property 
+        /// <see cref="ILoggerSettings.ShowKey"/>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -214,7 +217,14 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <seealso cref="ToOutput(String, String, Char)"/>
         private void AddKey(StringBuilder builder, String label, Guid key, Char split)
         {
-            builder.Append(this.ToOutput(label, base.GetKey(key), split));
+            String value = String.Empty;
+
+            if (base.Settings.ShowKey)
+            {
+                value = base.GetKey(key);
+            }
+
+            builder.Append(this.ToOutput(label, value, split));
         }
 
         /// <summary>
@@ -222,7 +232,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
-        /// The time stamp is always appended and cannot be disabled.
+        /// The timestamp is always added and cannot be disabled, but might be empty. 
+        /// If the timestamp is empty or not is controlled by value of property 
+        /// <see cref="ILoggerSettings.ShowTime"/>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -240,7 +252,14 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <seealso cref="ToOutput(String, String, Char)"/>
         private void AddTime(StringBuilder builder, String label, DateTime time, Char split)
         {
-            builder.Append(this.ToOutput(label, base.GetTime(time), split));
+            String value = String.Empty;
+
+            if (base.Settings.ShowTime)
+            {
+                value = base.GetTime(time);
+            }
+
+            builder.Append(this.ToOutput(label, value, split));
         }
 
         /// <summary>
@@ -257,7 +276,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="level">
-        /// The logging level to be appended.
+        /// The logging level to be added.
         /// </param>
         /// <param name="split">
         /// The split character is ignored.
@@ -284,7 +303,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="context">
-        /// The context to be appended.
+        /// The context to be added.
         /// </param>
         /// <param name="split">
         /// The split character is ignored.
@@ -311,7 +330,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="scope">
-        /// The scope to be appended.
+        /// The scope to be added.
         /// </param>
         /// <param name="split">
         /// The split character is ignored.
@@ -338,7 +357,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="message">
-        /// The message to be appended.
+        /// The message to be added.
         /// </param>
         /// <param name="split">
         /// The split character is ignored.
@@ -365,7 +384,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="details">
-        /// The details to be appended.
+        /// The details to be added.
         /// </param>
         /// <param name="split">
         /// The split character is ignored.

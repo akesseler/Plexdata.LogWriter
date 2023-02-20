@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,6 +78,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown as soon as one the parameters is <c>null</c>.
         /// </exception>
+        /// <seealso cref="ILoggerSettings.ShowKey"/>
+        /// <seealso cref="ILoggerSettings.ShowTime"/>
         public void Format(StringBuilder builder, ILogEvent value)
         {
             if (builder == null)
@@ -191,7 +193,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The key is always appended and cannot be disabled.
+        /// The key is always added and cannot be disabled, but might be empty. 
+        /// If the key is empty or not is controlled by value of property 
+        /// <see cref="ILoggerSettings.ShowKey"/>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -200,13 +204,20 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The key to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetKey(Guid)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
         private void AddKey(StringBuilder builder, Guid key, Char split)
         {
-            builder.Append(this.ToOutput(base.GetKey(key), split));
+            String value = String.Empty;
+
+            if (base.Settings.ShowKey)
+            {
+                value = base.GetKey(key);
+            }
+
+            builder.Append(this.ToOutput(value, split));
         }
 
         /// <summary>
@@ -215,7 +226,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The time stamp is always appended and cannot be disabled.
+        /// The timestamp is always added and cannot be disabled, but might be empty. 
+        /// If the timestamp is empty or not is controlled by value of property 
+        /// <see cref="ILoggerSettings.ShowTime"/>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -224,13 +237,20 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The time stamp to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetTime(DateTime)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
         private void AddTime(StringBuilder builder, DateTime time, Char split)
         {
-            builder.Append(this.ToOutput(base.GetTime(time), split));
+            String value = String.Empty;
+
+            if (base.Settings.ShowTime)
+            {
+                value = base.GetTime(time);
+            }
+
+            builder.Append(this.ToOutput(value, split));
         }
 
         /// <summary>
@@ -239,16 +259,16 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The logging level is always appended and cannot be disabled.
+        /// The logging level is always added and cannot be disabled.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
         /// </param>
         /// <param name="level">
-        /// The logging level to be appended.
+        /// The logging level to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetLevel(LogLevel)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
@@ -263,16 +283,16 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The context is always appended and cannot be disabled, but might be empty.
+        /// The context is always added and cannot be disabled, but might be empty.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
         /// </param>
         /// <param name="context">
-        /// The context to be appended.
+        /// The context to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetContext(String)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
@@ -287,16 +307,16 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The scope is always appended and cannot be disabled, but might be empty.
+        /// The scope is always added and cannot be disabled, but might be empty.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
         /// </param>
         /// <param name="scope">
-        /// The scope to be appended.
+        /// The scope to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetScope(String)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
@@ -311,16 +331,16 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The message is always appended and cannot be disabled, but might be empty.
+        /// The message is always added and cannot be disabled, but might be empty.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
         /// </param>
         /// <param name="message">
-        /// The message to be appended.
+        /// The message to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetMessage(String)"/>
         /// <seealso cref="ToOutput(String, Char)"/>
@@ -336,7 +356,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// </summary>
         /// <remarks>
         /// <para>
-        /// The details are always appended and cannot be disabled, but might be empty.
+        /// The details are always added and cannot be disabled, but might be empty.
         /// </para>
         /// <para>
         /// If a value list is available, then each of them is put into a string with 
@@ -348,10 +368,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The string builder to be used.
         /// </param>
         /// <param name="details">
-        /// The details to be appended.
+        /// The details to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <seealso cref="ToLabel(String)"/>
         /// <seealso cref="ToValue(String, Char)"/>
@@ -382,7 +402,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The exception is always appended and cannot be disabled, but might be empty.
+        /// The exception is always added and cannot be disabled, but might be empty.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -391,7 +411,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The exception to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be used.
+        /// The split character to be added.
         /// </param>
         /// <seealso cref="FormatterBase.GetException(Exception, String)"/>
         /// <seealso cref="ToOutput(String, Char)"/>

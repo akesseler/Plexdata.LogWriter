@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -108,6 +108,18 @@ namespace Plexdata.LogWriter.Abstraction
         /// The logging event scope.
         /// </value>
         String Scope { get; }
+
+        /// <summary>
+        /// Gets the message template of this logging event.
+        /// </summary>
+        /// <remarks>
+        /// Message templates are not yet supported but might be supported 
+        /// in later versions. Therefore, message templates are in fact RFU!
+        /// </remarks>
+        /// <value>
+        /// The logging event message template.
+        /// </value>
+        String Template { get; }
 
         /// <summary>
         /// Gets the message of this logging event.

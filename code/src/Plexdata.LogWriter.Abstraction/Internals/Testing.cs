@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,3 +26,6 @@ using System.Runtime.CompilerServices;
 
 // Make internal classes visible for testing...
 [assembly: InternalsVisibleTo("Plexdata.LogWriter.Abstraction.Tests")]
+
+// Make internal classes visible to Moq framework...
+[assembly: InternalsVisibleTo("DynamicProxyGenAssembly2")]

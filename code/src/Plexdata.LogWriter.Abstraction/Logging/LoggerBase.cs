@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -57,7 +57,7 @@ namespace Plexdata.LogWriter.Logging
         /// <seealso cref="CreateScope{TScope}(TScope)"/>
         /// <seealso cref="FetchScope(String)"/>
         /// <seealso cref="RemoveScope(LoggingScope)"/>
-        private readonly List<LoggingScope> scopes;
+        private readonly List<LoggingScope> scopes = new List<LoggingScope>();
 
         #endregion
 
@@ -105,7 +105,6 @@ namespace Plexdata.LogWriter.Logging
 
             this.Settings = settings;
             this.Factory = factory ?? throw new ArgumentNullException(nameof(factory));
-            this.scopes = new List<LoggingScope>();
         }
 
         /// <summary>

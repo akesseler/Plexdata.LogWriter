@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -86,6 +86,8 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// <exception cref="ArgumentNullException">
         /// This exception is thrown as soon as one the parameters is <c>null</c>.
         /// </exception>
+        /// <seealso cref="ILoggerSettings.ShowKey"/>
+        /// <seealso cref="ILoggerSettings.ShowTime"/>
         public void Format(StringBuilder builder, ILogEvent value)
         {
             if (builder == null)
@@ -203,7 +205,7 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// This method formats each <paramref name="label"/> and 
         /// <paramref name="value"/> combination and separates them 
         /// by a colon. Finally, the provided <paramref name="split"/> 
-        /// character is appended.
+        /// character is added.
         /// </remarks>
         /// <seealso cref="ToLabel(String)"/>
         /// <seealso cref="ToValue(String, Char)"/>
@@ -222,7 +224,9 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The key is always added and cannot be disabled.
+        /// The key is always added and cannot be disabled, but might be empty. 
+        /// If the key is empty or not is controlled by value of property 
+        /// <see cref="ILoggerSettings.ShowKey"/>.
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -234,13 +238,20 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The key to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetKey(Guid)"/>
         /// <seealso cref="ToOutput(String, String, Char)"/>
         private void AddKey(StringBuilder builder, String label, Guid key, Char split)
         {
-            builder.Append(this.ToOutput(label, base.GetKey(key), split));
+            String value = String.Empty;
+
+            if (base.Settings.ShowKey)
+            {
+                value = base.GetKey(key);
+            }
+
+            builder.Append(this.ToOutput(label, value, split));
         }
 
         /// <summary>
@@ -249,8 +260,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// character.
         /// </summary>
         /// <remarks>
-        /// The time stamp is always added and cannot be disabled. Keep in 
-        /// mind, the time format within the settings is ignored in any case!
+        /// The timestamp is always added and cannot be disabled, but might be empty. 
+        /// If the timestamp is empty or not is controlled by value of property 
+        /// <see cref="ILoggerSettings.ShowTime"/>. Keep in mind, the time format 
+        /// in the settings is ignored in any case!
         /// </remarks>
         /// <param name="builder">
         /// The string builder to be used.
@@ -262,26 +275,33 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The time stamp to be used.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetTime(DateTime)"/>
         /// <seealso cref="ToOutput(String, String, Char)"/>
         private void AddTime(StringBuilder builder, String label, DateTime time, Char split)
         {
-            if (time.Kind == DateTimeKind.Unspecified)
+            if (base.Settings.ShowTime)
             {
-                DateTime.SpecifyKind(time, base.Settings.LogTime == LogTime.Utc ? DateTimeKind.Utc : DateTimeKind.Local);
+                if (time.Kind == DateTimeKind.Unspecified)
+                {
+                    DateTime.SpecifyKind(time, base.Settings.LogTime == LogTime.Utc ? DateTimeKind.Utc : DateTimeKind.Local);
+                }
+
+                String format = base.Settings.TimeFormat;
+
+                // It doesn't make any sense to support a user-defined date/time format in this context. 
+                // Therefore, replace current date/time format by UTC format with time-zone information.
+                base.Settings.TimeFormat = "O"; // => Same as format "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK" 
+
+                builder.Append(this.ToOutput(label, base.GetTime(time), split));
+
+                base.Settings.TimeFormat = format;
             }
-
-            String format = base.Settings.TimeFormat;
-
-            // It doesn't make any sense to support a user-defined date/time format in this context. 
-            // Therefore, replace current date/time format by UTC format with time-zone information.
-            base.Settings.TimeFormat = "O"; // => Same as format "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK" 
-
-            builder.Append(this.ToOutput(label, base.GetTime(time), split));
-
-            base.Settings.TimeFormat = format;
+            else
+            {
+                builder.Append(this.ToOutput(label, String.Empty, split));
+            }
         }
 
         /// <summary>
@@ -299,10 +319,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="level">
-        /// The logging level to be appended.
+        /// The logging level to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetLevel(LogLevel)"/>
         /// <seealso cref="ToOutput(String, String, Char)"/>
@@ -326,10 +346,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="context">
-        /// The context to be appended.
+        /// The context to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetContext(String)"/>
         /// <seealso cref="ToOutput(String, String, Char)"/>
@@ -353,10 +373,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="scope">
-        /// The scope to be appended.
+        /// The scope to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetScope(String)"/>
         /// <seealso cref="ToOutput(String, String, Char)"/>
@@ -380,10 +400,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="message">
-        /// The message to be appended.
+        /// The message to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <see cref="FormatterBase.GetMessage(String)"/>
         /// <seealso cref="ToOutput(String, String, Char)"/>
@@ -414,10 +434,10 @@ namespace Plexdata.LogWriter.Internals.Formatters
         /// The value label to be used.
         /// </param>
         /// <param name="details">
-        /// The details to be appended.
+        /// The details to be added.
         /// </param>
         /// <param name="split">
-        /// The split character to be appended.
+        /// The split character to be added.
         /// </param>
         /// <seealso cref="ToLabel(String)"/>
         /// <seealso cref="ToValue(String, Char)"/>

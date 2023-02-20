@@ -6,10 +6,10 @@
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Authors>plexdata.de</Authors>
     <Company>plexdata.de</Company>
-    <Copyright>Copyright © 2022 - plexdata.de</Copyright>
-    <AssemblyVersion>1.0.6.1</AssemblyVersion>
-    <FileVersion>1.0.6.1</FileVersion>
-    <Version>1.0.6.1</Version>
+    <Copyright>Copyright © 2023 - plexdata.de</Copyright>
+    <AssemblyVersion>1.0.7.1</AssemblyVersion>
+    <FileVersion>1.0.7.1</FileVersion>
+    <Version>1.0.7.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

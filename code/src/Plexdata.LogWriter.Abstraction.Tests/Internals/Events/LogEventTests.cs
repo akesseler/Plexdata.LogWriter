@@ -1,7 +1,7 @@
 ﻿/*
  * MIT License
  * 
- * Copyright (c) 2022 plexdata.de
+ * Copyright (c) 2023 plexdata.de
  * 
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -74,40 +74,44 @@ namespace Plexdata.LogWriter.Abstraction.Tests.Internals.Events
         }
 
         [Test]
-        public void LogEvent_NoMessageNoException_MessageIsEmpty()
+        public void LogEvent_NoMessageNoException_TemplateAndMessageAsExpected()
         {
             LogEvent instance = new LogEvent(Guid.Empty, LogLevel.Default, DateTime.Now, null, null, null, null, null);
 
-            Assert.That(instance.Message, Is.EqualTo(String.Empty));
+            Assert.That(instance.Template, Is.Empty);
+            Assert.That(instance.Message, Is.Empty);
         }
 
         [TestCase(null)]
         [TestCase("")]
         [TestCase("  ")]
-        public void LogEvent_NoMessageButException_MessageIsException(String message)
+        public void LogEvent_NoMessageButException_TemplateAndMessageAsExpected(String message)
         {
             Exception exception = new Exception();
 
             LogEvent instance = new LogEvent(Guid.Empty, LogLevel.Default, DateTime.Now, null, null, message, exception, null);
 
+            Assert.That(instance.Template, Is.Empty);
             Assert.That(instance.Message, Is.EqualTo(exception.Message));
         }
 
         [Test]
-        public void LogEvent_MessageAndException_MessageIsMessage()
+        public void LogEvent_MessageAndException_TemplateAndMessageAsExpected()
         {
             Exception exception = new Exception();
 
             LogEvent instance = new LogEvent(Guid.Empty, LogLevel.Default, DateTime.Now, null, null, "message", exception, null);
 
+            Assert.That(instance.Template, Is.Empty);
             Assert.That(instance.Message, Is.EqualTo("message"));
         }
 
         [Test]
-        public void LogEvent_MessageButNoException_MessageIsMessage()
+        public void LogEvent_MessageButNoException_TemplateAndMessageAsExpected()
         {
             LogEvent instance = new LogEvent(Guid.Empty, LogLevel.Default, DateTime.Now, null, null, "message", null, null);
 
+            Assert.That(instance.Template, Is.Empty);
             Assert.That(instance.Message, Is.EqualTo("message"));
         }
 
